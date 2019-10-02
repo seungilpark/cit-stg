@@ -1,0 +1,25 @@
+{
+  "name": "bcit-stg",
+  "version": "1.0.0",
+  "description": "api for bcit-stg mobile app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seungilpark/cit-stg.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/seungilpark/cit-stg/issues"
+  },
+  "homepage": "https://github.com/seungilpark/cit-stg#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "express": "^4.17.1",
+    "mysql": "^2.17.1"
+  }
+}

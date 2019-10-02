@@ -26,12 +26,21 @@ const getAthlById = (inputId) => {
     })
         
 }
+    // TODO sorting 
+    // TODO searching
 
 /* CREATE */
 // createAthlete
 
+const createAthlete = (userInput) => {
+
+}
+
 /* UPDATE */
 // updateAthlete 
+
+
+
 
 /* REMOVE */
 // removeAthlete

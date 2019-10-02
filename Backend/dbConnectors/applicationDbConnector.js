@@ -1,7 +1,5 @@
 const pool = require("../config/database");
 
-
-
 /* READ */
 const getAll = () => {
     return new Promise((resolve, reject) => {
@@ -40,9 +38,9 @@ const getApplByClubId = (inputId) => {
         `select * 
         from applications as a 
         inner join offers as o
-        on a.fk_offer_id=o.offer_id
+        on a.fk_offer_id = o.offer_id
         inner join clubs as c
-        on c.club_id = o.fk_club_id
+        on o.fk_club_id = c.club_id 
         where c.club_id=${inputId}`;
 
         

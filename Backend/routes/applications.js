@@ -36,7 +36,7 @@ router.get('/', async (req, res) => {
  *      if queryType == club, club id
  * 
  * @output
- *  applications
+ *  applications objects
  */
 router.post('/', async (req, res) => {
     try {

@@ -5,7 +5,7 @@ const pool = require("../config/database");
 /* READ */
 const getAll = () => {
     return new Promise((resolve, reject) => {
-        pool.query("select * from athletes", (err, results, fields) => {
+        pool.query("select * from offers", (err, results, fields) => {
             if (err) reject(err);
             //TODO check if empty
             else resolve(results);
@@ -14,8 +14,8 @@ const getAll = () => {
 }
 
 
-const getAthlById = (inputId) => {
-    let query= `select * from athletes where athl_id=${inputId}`;
+const getOfferById = (inputId) => {
+    let query= `select * from offers where offer_id=${inputId}`;
 
     return new Promise((resolve, reject) => {
         pool.query(query, (err, results, fields) => {        
@@ -28,15 +28,15 @@ const getAthlById = (inputId) => {
 }
 
 /* CREATE */
-// createAthlete
+// createOffer
 
 /* UPDATE */
-// updateAthlete 
+// updateOffer 
 
 /* REMOVE */
-// removeAthlete
+// removeOffer
 
 module.exports = {
     getAll,
-    getAthlById,
+    getOfferById,
 }

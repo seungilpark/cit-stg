@@ -1,14 +1,10 @@
 const mysql = require("mysql");
-//TODOS: replace credentials using config 
-const pool  = mysql.createPool({
-    connectionLimit:100,
-    host:"localhost",
-    user:"root",
-    password:"Password",
-    database:"stg"
-});
+const config = require("./config");
 
 
+const pool  = mysql.createPool(config.DbCredentials);
+
+// checks if connection is available
 pool.getConnection((err, connection) => {
     if (err){
         if (err.code === "PROTOCOL_CONNECTION_LOST"){
@@ -32,5 +28,6 @@ pool.getConnection((err, connection) => {
         }
     }
 })
+
 
 module.exports = pool;

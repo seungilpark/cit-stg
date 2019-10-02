@@ -5,10 +5,10 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
 const applicationRouter = require("./routes/applications");
-// const athletesRouter = require("./routes/athletes");
-// const clubsRouter = require("./routes/clubs");
-// const offersRouter = require("./routes/offers");
-// const profilesRouter = require("./routes/profiles");
+const athletesRouter = require("./routes/athletes");
+const clubsRouter = require("./routes/clubs");
+const offersRouter = require("./routes/offers");
+const profilesRouter = require("./routes/profiles");
 
 
 app.use(bodyParser.json());
@@ -20,11 +20,10 @@ app.get("/api", (req, res) => {
 });
 
 app.use("/api/applications", applicationRouter);
-
-// app.use("/api/athletes", athletesRouter);
-// app.use("/api/clubs", clubsRouter);
-// app.use("/api/offers", offersRouter);
-// app.use("/api/profiles", profilesRouter);
+app.use("/api/athletes", athletesRouter);
+app.use("/api/clubs", clubsRouter);
+app.use("/api/offers", offersRouter);
+app.use("/api/profiles", profilesRouter);
 
 
 app.all('/*', (req, res) => {

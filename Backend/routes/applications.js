@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const mysql = require("mysql");
-const pool = require("../config/database");
 const config = require("../config/config");
 const db = require("../dbConnectors/applicationDbConnector");
 

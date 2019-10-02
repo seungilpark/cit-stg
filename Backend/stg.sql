@@ -123,6 +123,8 @@ CREATE TABLE `club_mgr` (
   `mgr_email` varchar(45) DEFAULT NULL,
   `mgr_phone` varchar(45) DEFAULT NULL,
   `fk_clubs_id` int(11) DEFAULT NULL,
+  `mgr_account` varchar(45) DEFAULT NULL,
+  `mgr_password` varchar(45) NOT NULL,
   PRIMARY KEY (`mgr_id`),
   KEY `fk_clubs_id_idx` (`fk_clubs_id`),
   CONSTRAINT `fk_clubs_id` FOREIGN KEY (`fk_clubs_id`) REFERENCES `clubs` (`club_id`)
@@ -135,7 +137,7 @@ CREATE TABLE `club_mgr` (
 
 LOCK TABLES `club_mgr` WRITE;
 /*!40000 ALTER TABLE `club_mgr` DISABLE KEYS */;
-INSERT INTO `club_mgr` VALUES (1,'Jason','Huang','test@test.com','238-232-1232',1);
+INSERT INTO `club_mgr` VALUES (1,'Jason','Huang','test@test.com','238-232-1232',1,NULL,'');
 /*!40000 ALTER TABLE `club_mgr` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -282,4 +284,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-02 15:07:10
+-- Dump completed on 2019-10-02 15:34:51

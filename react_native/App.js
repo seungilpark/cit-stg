@@ -5,6 +5,8 @@ import { createAppContainer } from "react-navigation";
 import FirstPage from "./Components/FirstPage";
 import SignIn from "./Components/SignIn";
 import SignUp from "./Components/SignUp";
+import AthTest from "./Components/AthTest";
+import ClubTest from "./Components/ClubTest";
 
 
 const RootStack = createStackNavigator(
@@ -17,6 +19,12 @@ const RootStack = createStackNavigator(
     },
     SignUp: {
       screen: SignUp,
+    },
+    AthTest: {
+      screen: AthTest,
+    },
+    ClubTest: {
+      screen: ClubTest,
     }
   },
   {

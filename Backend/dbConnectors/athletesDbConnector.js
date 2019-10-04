@@ -4,7 +4,7 @@ const mysql = require("mysql");
 /* READ */
 const getAll = () => {
   return new Promise((resolve, reject) => {
-    pool.query("select * from athletes", (err, results, fields) => {
+    pool.query("select athl_fname, athl_lname, athl_gender,athl_dob,athl_height,athl_weight,athl_email,athl_phone from athletes", (err, results, fields) => {
       if (err) reject(err);
       //TODO check if empty
       else resolve(results);
@@ -16,8 +16,7 @@ const getAll = () => {
 */
 const getAthlByLocation = searchTerm => {
   return new Promise((resolve, reject) => {
-    let query =
-      "select * from athletes where athl_addr LIKE " +
+    let query ="select athl_fname, athl_lname, athl_gender,athl_dob,athl_height,athl_weight,athl_email,athl_phone from athletes where athl_addr LIKE " +
       pool.escape("%" + searchTerm + "%");
     pool.query(query, (err, results, fields) => {
       if (err) reject(err);
@@ -30,7 +29,7 @@ const getAthlByLocation = searchTerm => {
 const getAthlByName = searchTerm => {
   return new Promise((resolve, reject) => {
     let query =
-      "select * from athletes where athl_fname LIKE " +
+    "select athl_fname, athl_lname, athl_gender,athl_dob,athl_height,athl_weight,athl_email,athl_phone from athletes where athl_fname LIKE " +
       pool.escape("%" + searchTerm + "%") +
       "or athl_fname LIKE " +
       pool.escape("%" + searchTerm + "%");
@@ -45,7 +44,7 @@ const getAthlByName = searchTerm => {
 const getAthlBySportsName = sportsName => {
   return new Promise((resolve, reject) => {
     let query =
-      `select * from sports as s 
+      `select a.athl_fname, a.athl_lname, s.sports_name, p.profile_photo, p.profile_video from sports as s 
         inner join profiles as p 
         on s.sports_id = p.fk_sports_id 
         inner join athletes as a
@@ -61,7 +60,7 @@ const getAthlBySportsName = sportsName => {
 };
 
 const getAthlById = inputId => {
-  let query = `select * from athletes where athl_id=` + pool.escape(inputId);
+  let query = `select athl_fname, athl_lname, athl_gender,athl_dob,athl_height,athl_weight,athl_email,athl_phone from athletes where athl_id=` + pool.escape(inputId);
 
   return new Promise((resolve, reject) => {
     pool.query(query, (err, results, fields) => {

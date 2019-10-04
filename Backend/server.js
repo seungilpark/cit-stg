@@ -9,6 +9,7 @@ const athletesRouter = require("./routes/athletes");
 const clubsRouter = require("./routes/clubs");
 const offersRouter = require("./routes/offers");
 const profilesRouter = require("./routes/profiles");
+const sportsRouter = require("./routes/sports");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -23,6 +24,7 @@ app.use("/api/athletes", athletesRouter);
 app.use("/api/clubs", clubsRouter);
 app.use("/api/offers", offersRouter);
 app.use("/api/profiles", profilesRouter);
+app.use("/api/sports", sportsRouter);
 
 app.all("/*", (req, res) => {
   res.redirect("/api");

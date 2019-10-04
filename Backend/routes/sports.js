@@ -1,18 +1,14 @@
 // handlers for application related request
 //  works with profiles table 
-
-/**
- * 
- */
 const express = require('express');
 const router = express.Router();
 const config = require("../config/config");
-const db = require("../dbConnectors/profilesDbConnector");
+const db = require("../dbConnectors/sportsDbConnector");
 
 
 
 /**
- * return all profiles  
+ * return all athletes  
  */
 router.get('/', async (req, res) => {
     try {
@@ -25,10 +21,10 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get("/:profileId", async (req, res) => {
+router.get("/:sportsId", async (req, res) => {
     try {
-        const profileId = req.params.profileId;
-        let row = await db.getProfileById(profileId);
+        const sportsId = req.params.sportsId;
+        let row = await db.getProfileById(sportsId);
         res.json(row);
     }
     catch {

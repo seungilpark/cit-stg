@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
 router.get("/:sportsId", async (req, res) => {
     try {
         const sportsId = req.params.sportsId;
-        let row = await db.getProfileById(sportsId);
+        let row = await db.getSportsById(sportsId);
         res.json(row);
     }
     catch {

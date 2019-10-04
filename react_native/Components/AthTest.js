@@ -12,13 +12,13 @@ export default class AthTest extends React.Component {
         this.getData = this.getData.bind(this);
     }
 
-    convert(arr){
-      var result = {};
-      for (var i = 0; i < arr.length; i++) {
-        result[arr[i].key] = arr[i].value;
-      }
-      return result;
-    }
+    // convert(arr){
+    //   var result = {};
+    //   for (var i = 0; i < arr.length; i++) {
+    //     result[arr[i].key] = arr[i].value;
+    //   }
+    //   return result;
+    // }
 
     getData() {
     return fetch('http://192.168.0.106:8080/api/athletes')
@@ -37,14 +37,19 @@ export default class AthTest extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Text></Text>
+        <Text></Text>
+        <Text></Text>
+        <Text></Text>
         <Text>All Athletes Data</Text>
         <Text>{this.state.dbResponse}</Text>
         <Button title="Get Data" onPress={this.getData} />
         <FlatList 
         data={this.state.data} 
+        keyExtractor={(item,index) => index.toString()}
         renderItem={({item}) => 
 
-          <View style={{margin: 10, padding: 10}}>
+          <View style={{backgroundColor: "#e4eef2", margin: 10, padding: 10}}>
             <Text>{item.athl_id} {item.athl_fname} {item.athl_lname} {item.athl_gender} {item.athl_dob}</Text>
             <Text>{item.athl_addr} {item.athl_height} {item.athl_weight} {item.athl_email} {item.athl_phone}</Text>
           </View>

@@ -6,7 +6,7 @@ const db = require("../dbConnectors/offersDbConnector");
 
 
 /**
- * return all athletes  
+ * return all offers  
  */
 router.get('/', async (req, res) => {
     try {

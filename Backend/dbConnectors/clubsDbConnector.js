@@ -23,9 +23,10 @@ const getClubById = (inputId) => {
             //TODO check if empty
             else resolve(results);
         });
-    })
+    });
         
-}
+};
+
 
 /* CREATE */
 // createClub
@@ -35,8 +36,22 @@ const getClubById = (inputId) => {
 
 /* REMOVE */
 // removeClub
+const deleteClubById = (inputId) => {
+    let query = `SET FOREIGN_KEY_CHECKS=0; delete from clubs where club_id=${inputId};SET FOREIGN_KEY_CHECKS=1`;
+    console.log(query);
+    return new Promise((resolve, reject) => {
+        pool.query(query, (err, results, fields) => {        
+            if (err) reject(err);
+            //TODO check if empty
+            else resolve(results);
+        });
+    });
+        
+};
+
 
 module.exports = {
     getAll,
     getClubById,
+    deleteClubById,
 }

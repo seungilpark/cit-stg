@@ -32,11 +32,11 @@ router.get("/:offerId", async (req, res) => {
 })
 
 
-router.post("/create/:clubId", async (req, res) => {
+router.post("/create", async (req, res) => {
     try {
         let validation =joi.validate(req.body,SCHEMAS.OFFERS_SCHEMA).error 
         if (validation) throw new Error(validation);
-        let result = await dbHelper.insertInto("clubs", req.body);
+        let result = await dbHelper.insertInto("offers", req.body);
         res.json(result);
     }
     catch(err) {

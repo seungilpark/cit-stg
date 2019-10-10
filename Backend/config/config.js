@@ -6,7 +6,7 @@ const config = {
         host:"localhost",
         user:"root",
         password:"Password",
-        database:"cit-stg"
+        database:"stg"
     }
 }
 

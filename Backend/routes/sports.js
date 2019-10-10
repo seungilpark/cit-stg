@@ -33,6 +33,8 @@ router.get("/:sportsId", async (req, res) => {
 router.post("/create", async (req, res) => {
     try {
         console.log(req.body);
+        let validation =joi.validate(req.body,SCHEMAS.SPORTS_SCHEMA).error 
+        if (validation) throw new Error(validation);
         let result = await dbHelper.insertInto("sports", req.body);
         res.json(result);
     }

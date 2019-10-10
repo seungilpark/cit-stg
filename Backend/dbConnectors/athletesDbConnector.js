@@ -116,8 +116,25 @@ const createAthlete = userObj => {
 
 /* REMOVE */
 // removeAthlete
-
+const deleteAthleteById = (inputId) => {
+    let query = `SET FOREIGN_KEY_CHECKS=0; delete from athletes where athl_id=${inputId};SET FOREIGN_KEY_CHECKS=1`;
+    console.log(query);
+    return new Promise((resolve, reject) => {
+        pool.query(query, (err, results, fields) => {        
+            if (err) reject(err);
+            //TODO check if empty
+            else resolve(results);
+        });
+    });
+        
+};
 module.exports = {
+<<<<<<< HEAD
+    getAll,
+    getAthlById,
+    deleteAthleteById,
+}
+=======
   getAll,
   getAthlById,
   createAthlete,
@@ -125,3 +142,4 @@ module.exports = {
   getAthlByName,
   getAthlBySportsName
 };
+>>>>>>> 1f5514e43f6306b5603f364e510986de55746f8c

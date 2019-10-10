@@ -95,4 +95,29 @@ router.post("/register", async (req, res) => {
 
 
 
+/**
+ * deletes athlete by id
+ */
+router.post('/delete/:id', async (req, res) => {
+    try {
+        console.log(req.params.id);
+        //console.log("IN DELETE FUNCTION");
+        let athl_id = req.params.id;
+        console.log(athl_id)
+
+        let deleted_athlete = await db.deleteAthleteById(athl_id)
+        .then(() => 'Row Deleted');
+        
+        res.json({"Message":"Deleted Row"});
+    }
+    catch {
+        //console.log("inside delete")
+        res.json({"Error":"True"});
+    }
+})
+
+
+
+
+
 module.exports = router;

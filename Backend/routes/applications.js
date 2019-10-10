@@ -45,6 +45,16 @@ router.get('/club/:club_id', async (req, res) => {
     }
 });
 
-
+router.post("/create", async (req, res) => {
+    try {
+        let validation =joi.validate(req.body,SCHEMAS.APPLICATIONS_SCHEMA).error 
+        if (validation) throw new Error(validation);
+        let result = await dbHelper.insertInto("appliciations", req.body);
+        res.json(result);
+    }
+    catch(err) {
+        res.json(`{"Error": "True", "Message": ${err}, "Timestamp": ${dbHelper.now()}`);
+    }
+})
 
 module.exports = router;

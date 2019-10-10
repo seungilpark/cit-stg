@@ -1,7 +1,5 @@
 const pool = require("../config/database");
 
-
-
 /* READ */
 const getAll = () => {
     return new Promise((resolve, reject) => {
@@ -27,12 +25,25 @@ const getClubById = (inputId) => {
         
 };
 
+// const getClubById = inputId => {
+//   let query = `select * from clubs where club_id =` + pool.escape(inputId);
+//   console.log(query);
+//   return new Promise((resolve, reject) => {
+//     pool.query(query, (err, results, fields) => {
+//       if (err) reject(err);
+//       //TODO check if empty
+//       else resolve(results);
+//     });
+//   });
+// };
+
 
 /* CREATE */
 // createClub
 
+
 /* UPDATE */
-// updateClub 
+// updateClub
 
 /* REMOVE */
 // removeClub
@@ -54,4 +65,5 @@ module.exports = {
     getAll,
     getClubById,
     deleteClubById,
-}
+};
+

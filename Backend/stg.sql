@@ -26,12 +26,6 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 -- GTID state at the beginning of the backup 
 --
 
-SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ 'ab2ebdad-315b-11e9-bc38-00090faa0001:1-132,
-d9115d37-8e34-11e8-85b6-408d5c8c05a0:1-384741,
-f209783e-0622-11e9-9d78-080027d85095:1-22,
-f209783e-0622-11e9-9d78-090027d85095:1-22,
-fbe089f8-5107-11e9-b1d7-080027594b38:1-2';
-
 --
 -- Table structure for table `applications`
 --

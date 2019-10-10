@@ -4,7 +4,7 @@ const mysql = require("mysql");
 /* READ */
 const getAll = () => {
   return new Promise((resolve, reject) => {
-    pool.query("select athl_fname, athl_lname, athl_gender,athl_dob,athl_height,athl_weight,athl_email,athl_phone from athletes", (err, results, fields) => {
+    pool.query("select athl_fname, athl_lname, athl_gender,athl_dob,athl_height,athl_weight,athl_email,athl_phone, athl_addr, city, country from athletes", (err, results, fields) => {
       if (err) reject(err);
       //TODO check if empty
       else resolve(results);
@@ -16,7 +16,7 @@ const getAll = () => {
 */
 const getAthlByLocation = searchTerm => {
   return new Promise((resolve, reject) => {
-    let query ="select athl_fname, athl_lname, athl_gender,athl_dob,athl_height,athl_weight,athl_email,athl_phone from athletes where athl_addr LIKE " +
+    let query ="select athl_fname, athl_lname, athl_gender,athl_dob,athl_height,athl_weight,athl_email,athl_phone, athl_addr, city, country from athletes where athl_addr LIKE " +
       pool.escape("%" + searchTerm + "%");
     pool.query(query, (err, results, fields) => {
       if (err) reject(err);
@@ -29,7 +29,7 @@ const getAthlByLocation = searchTerm => {
 const getAthlByName = searchTerm => {
   return new Promise((resolve, reject) => {
     let query =
-    "select athl_fname, athl_lname, athl_gender,athl_dob,athl_height,athl_weight,athl_email,athl_phone from athletes where athl_fname LIKE " +
+    "select athl_fname, athl_lname, athl_gender,athl_dob,athl_height,athl_weight,athl_email,athl_phone, athl_addr, city, country from athletes where athl_fname LIKE " +
       pool.escape("%" + searchTerm + "%") +
       "or athl_fname LIKE " +
       pool.escape("%" + searchTerm + "%");
@@ -60,7 +60,7 @@ const getAthlBySportsName = sportsName => {
 };
 
 const getAthlById = inputId => {
-  let query = `select athl_fname, athl_lname, athl_gender,athl_dob,athl_height,athl_weight,athl_email,athl_phone from athletes where athl_id=` + pool.escape(inputId);
+  let query = `select athl_fname, athl_lname, athl_gender,athl_dob,athl_height,athl_weight,athl_email,athl_phone, athl_addr, city, country from athletes where athl_id=` + pool.escape(inputId);
 
   return new Promise((resolve, reject) => {
     pool.query(query, (err, results, fields) => {
@@ -76,9 +76,6 @@ const getAthlById = inputId => {
 /* CREATE */
 // createAthlete
 const createAthlete = userObj => {
-  /* TODO validation */
-  /* TODO password encryption */
-
   let query = `insert into athletes
             (
                 athl_fname,  
@@ -89,10 +86,19 @@ const createAthlete = userObj => {
                 athl_weight,
                 athl_email,
                 athl_phone,
+                athl_addr,
+                city,
+                country,
                 account,
                 password
-            ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+            ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
+            //form query with the correct number of ?s based on the input ojbect (using string manipulation)
+            // (we assume that the input object consists of all the necessary fields of the table and also the values)
+            //format the query with the actual values
+            //run the query
+            // validate
+            // return the result or output error
   let values = Object.values(userObj);
   console.log(userObj);
   query = mysql.format(query, values);

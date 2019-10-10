@@ -1,14 +1,10 @@
-// handlers for application related request
-//  works with profiles table 
-
-/**
- * 
- */
 const express = require('express');
 const router = express.Router();
 const config = require("../config/config");
 const db = require("../dbConnectors/profilesDbConnector");
-
+const dbHelper = require("../dbConnectors/DbHelper");
+const joi = require("joi");
+const SCHEMAS = require("../models/SCHEMAS");
 
 
 /**
@@ -17,11 +13,10 @@ const db = require("../dbConnectors/profilesDbConnector");
 router.get('/', async (req, res) => {
     try {
         let results = await db.getAll();
-        res.send(results);
+        res.json(results);
     }
     catch(err) {
-        console.log(err);
-        res.code(400).send(err);
+        res.json(`{"Error": "True", "Message": ${err}, "Timestamp": ${dbHelper.now()}`);
     }
 });
 
@@ -31,8 +26,8 @@ router.get("/:profileId", async (req, res) => {
         let row = await db.getProfileById(profileId);
         res.json(row);
     }
-    catch {
-        res.json({"Error":"True"});
+    catch(err) {
+        res.json(`{"Error": "True", "Message": ${err}, "Timestamp": ${dbHelper.now()}`);
     }
 })
 

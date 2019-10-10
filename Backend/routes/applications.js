@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const config = require("../config/config");
 const db = require("../dbConnectors/applicationDbConnector");
-
-
+const dbHelper = require("../dbConnectors/DbHelper");
+const joi = require("joi");
+const SCHEMAS = require("../models/SCHEMAS");
 // 
 const rootPath = config.RootPath; 
 
@@ -14,47 +15,33 @@ const rootPath = config.RootPath;
 router.get('/', async (req, res) => {
     try {
         let results = await db.getAll();
-        res.send(results);
+        res.json(results);
     }
     catch(err) {
-        console.log(err);
-        res.code(400).send(err);
+        res.json(`{"Error": "True", "Message": ${err}, "Timestamp": ${dbHelper.now()}`);
     }
 });
 
-/**
- * returns applications by athlete' id or club_id
- *  used for athletes who would want to see all the application he has applied
- *  used for club managers who would want to see all the applications their clubs have received
- * 
- * @input 
- *  req.body.queryType (athlete | club)
- *  req.body.id is
- *      if queryType == athlete, athl_id
- *      if queryType == club, club id
- * 
- * @output
- *  applications objects
- */
-router.post('/', async (req, res) => {
+router.get('/athlete/:athl_id', async (req, res) => {
     try {
-        let inputId = req.body.id;
-        let queryType = req.body.queryType;
-        let rows;
-        
-        if (queryType == "athlete"){
-            rows = await db.getApplByAthlId(inputId);
-        }
-        else if (queryType == "club"){
-            rows = await db.getApplByClubId(inputId);
-        } else {
-            rows = null;
-        }
+
+        let rows = await db.getApplByAthlId(req.params.athl_id);
+            // rows = await db.getApplByClubId(inputId);
         res.json(rows);
     }
     catch(err) {
-        console.log(err);
-        res.code(400).send(err);
+        res.json(`{"Error": "True", "Message": ${err}, "Timestamp": ${dbHelper.now()}`);
+    }
+});
+
+router.get('/club/:club_id', async (req, res) => {
+    try {
+        // let rows = await db.getApplByAthlId(inputId);
+        let rows = await db.getApplByClubId(req.params.club_id);
+        res.json(rows);
+    }
+    catch(err) {
+        res.json(`{"Error": "True", "Message": ${err}, "Timestamp": ${dbHelper.now()}`);
     }
 });
 

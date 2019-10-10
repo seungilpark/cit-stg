@@ -1,13 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const config = require("../config/config");
-const db = require("../dbConnectors/sportsDbConnector");
+const db = require("../dbConnectors/clubMgrDbConnector");
 const dbHelper = require("../dbConnectors/DbHelper");
 const joi = require("joi");
 const SCHEMAS = require("../models/SCHEMAS");
 
 /**
- * return all athletes  
+ * return all clubs  
  */
 router.get('/', async (req, res) => {
     try {
@@ -19,10 +18,11 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get("/:sportsId", async (req, res) => {
+
+router.get('/:mgrId', async (req, res) => {
     try {
-        const sportsId = req.params.sportsId;
-        let row = await db.getSportsById(sportsId);
+        let mgrId = req.params.mgrId;
+        let row = await db.getManagerById(mgrId);
         res.json(row);
     }
     catch(err) {
@@ -30,16 +30,19 @@ router.get("/:sportsId", async (req, res) => {
     }
 })
 
+
+/* POST */
+
 router.post("/create", async (req, res) => {
     try {
-        console.log(req.body);
-        let result = await dbHelper.insertInto("sports", req.body);
+        let validation =joi.validate(req.body,SCHEMAS.CLUB_MANAGERS_SCHEMA).error 
+        if (validation) throw new Error(validation);
+        let result = await dbHelper.insertInto("club_mgr", req.body);
         res.json(result);
     }
     catch(err) {
         res.json(`{"Error": "True", "Message": ${err}, "Timestamp": ${dbHelper.now()}`);
     }
 })
-
 
 module.exports = router;

@@ -43,7 +43,20 @@ const getClubById = (inputId) => {
 
 
 /* UPDATE */
-// updateClub
+const updateClubById = (inputBody, inputId) => {
+    let query = `update clubs set club_name='${inputBody.club_name}', club_size='${inputBody.club_size}', club_status='${inputBody.club_status}', 
+    club_url='${inputBody.club_url}', club_contact='${inputBody.club_contact}', street_name='${inputBody.street_name}', 
+    city='${inputBody.city}', country='${inputBody.country}' where club_id=${inputId}`;
+    console.log(query);
+    return new Promise((resolve, reject) => {
+        pool.query(query, (err, results, fields) => {        
+            if (err) reject(err);
+            //TODO check if empty
+            else resolve(results);
+        });
+    });
+        
+};
 
 /* REMOVE */
 // removeClub
@@ -65,5 +78,6 @@ module.exports = {
     getAll,
     getClubById,
     deleteClubById,
+    updateClubById,
 };
 

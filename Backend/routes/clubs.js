@@ -19,19 +19,40 @@ router.get('/', async (req, res) => {
 });
 
 
-router.get('/:id', async (req, res) => {
-    try {
+// router.get('/:id', async (req, res) => {
+//     try {
 
+//         let club_id = req.params.id;
+//         let row = await db.getClubById(club_id);
+//         res.json(row);
+//         //console.log("TESTING GET CALL")
+//     }
+//     catch {
+//         //console.log("inside get")
+//         res.json({"Error":"True"});
+//     }
+// });
+
+router.post('/update/:id/', async (req, res) => {
+    try {
+        console.log(req.body.club_name);
+        //console.log("IN DELETE FUNCTION");
         let club_id = req.params.id;
-        let row = await db.getClubById(club_id);
-        res.json(row);
-        //console.log("TESTING GET CALL")
+        let club_body = req.body
+        
+        //console.log(club_id)
+
+        let update_club = await db.updateClubById(club_body, club_id)
+        .then(() => 'Row updated');
+        
+        res.json({"Message":"Updated Row"});
     }
     catch {
-        //console.log("inside get")
+        console.log("inside delete")
         res.json({"Error":"True"});
     }
-})
+});
+
 
 router.post('/delete/:id', async (req, res) => {
     try {
@@ -49,7 +70,7 @@ router.post('/delete/:id', async (req, res) => {
         console.log("inside delete")
         res.json({"Error":"True"});
     }
-})
+});
 
 
 /* POST */

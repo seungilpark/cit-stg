@@ -111,8 +111,30 @@ const createAthlete = userObj => {
   });
 };
 
-/* UPDATE */
-// updateAthlete
+/* UPDATE problem with date will fix in future*/
+const updateAthleteById = (inputBody, inputId) => {
+  let query = `SET FOREIGN_KEY_CHECKS=0; update athletes set 
+  athl_fname='${inputBody.athl_fname}',  
+  athl_lname='${inputBody.athl_lname}', 
+  athl_gender='${inputBody.athl_gender}',
+  athl_height=${inputBody.athl_height},
+  athl_weight=${inputBody.athl_weight},
+  athl_email='${inputBody.athl_email}',
+  athl_phone='${inputBody.athl_phone}',
+  athl_addr='${inputBody.athl_addr}',
+  city='${inputBody.city}',
+  country='${inputBody.country}'
+  where athl_id=${inputId}; SET FOREIGN_KEY_CHECKS=1`;
+  console.log(query);
+  return new Promise((resolve, reject) => {
+      pool.query(query, (err, results, fields) => {        
+          if (err) reject(err);
+          //TODO check if empty
+          else resolve(results);
+      });
+  });
+      
+};
 
 /* REMOVE */
 // removeAthlete
@@ -129,17 +151,12 @@ const deleteAthleteById = (inputId) => {
         
 };
 module.exports = {
-<<<<<<< HEAD
-    getAll,
-    getAthlById,
-    deleteAthleteById,
-}
-=======
   getAll,
   getAthlById,
   createAthlete,
   getAthlByLocation,
   getAthlByName,
-  getAthlBySportsName
+  getAthlBySportsName,
+  deleteAthleteById,
+  updateAthleteById,
 };
->>>>>>> 1f5514e43f6306b5603f364e510986de55746f8c

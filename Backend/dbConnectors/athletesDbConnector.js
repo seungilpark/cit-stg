@@ -117,6 +117,7 @@ const updateAthleteById = (inputBody, inputId) => {
   athl_fname='${inputBody.athl_fname}',  
   athl_lname='${inputBody.athl_lname}', 
   athl_gender='${inputBody.athl_gender}',
+  athl_dob='${new Date(inputBody.athl_dob).getFullYear()}-${new Date(inputBody.athl_dob).getMonth() < 10? "0"+new Date(inputBody.athl_dob).getMonth():new Date(inputBody.athl_dob).getMonth()}-${new Date(inputBody.athl_dob).getDate()}',
   athl_height=${inputBody.athl_height},
   athl_weight=${inputBody.athl_weight},
   athl_email='${inputBody.athl_email}',

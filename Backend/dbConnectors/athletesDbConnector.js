@@ -123,17 +123,12 @@ const deleteAthleteById = (inputId) => {
         
 };
 module.exports = {
-<<<<<<< HEAD
     getAll,
     getAthlById,
+    createAthlete,
+    getAthlByLocation,
+    getAthlByName,
+    getAthlBySportsName,
     deleteAthleteById,
-}
-=======
-  getAll,
-  getAthlById,
-  createAthlete,
-  getAthlByLocation,
-  getAthlByName,
-  getAthlBySportsName
 };
->>>>>>> 1f5514e43f6306b5603f364e510986de55746f8c
+

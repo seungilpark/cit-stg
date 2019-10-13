@@ -151,13 +151,14 @@ const deleteAthleteById = (inputId) => {
     });
         
 };
+
 module.exports = {
-  getAll,
-  getAthlById,
-  createAthlete,
-  getAthlByLocation,
-  getAthlByName,
-  getAthlBySportsName,
-  deleteAthleteById,
-  updateAthleteById,
+    getAll,
+    getAthlById,
+    createAthlete,
+    getAthlByLocation,
+    getAthlByName,
+    getAthlBySportsName,
+    deleteAthleteById,
+    updateAthleteById,
 };

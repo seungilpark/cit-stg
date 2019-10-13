@@ -1,4 +1,4 @@
-
+﻿
 -- MySQL dump 10.13  Distrib 8.0.17, for Win64 (x86_64)
 --
 -- Host: localhost    Database: stg
@@ -25,7 +25,10 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 --
 -- GTID state at the beginning of the backup 
 --
+<<<<<<< HEAD
+=======
 
+>>>>>>> a1d786215fdea3c75085f3b145d26f36431f90db
 --
 -- Table structure for table `applications`
 --

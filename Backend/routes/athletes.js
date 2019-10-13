@@ -56,7 +56,7 @@ router.get("/name/:searchTerm", async (req, res) => {
     catch(err) {
         res.json(`{"Error": "True", "Message": ${err}, "Timestamp": ${dbHelper.now()}`);
     }
-})
+});
 
 router.get("/sports/:sports", async (req, res) => {
     try {
@@ -67,7 +67,7 @@ router.get("/sports/:sports", async (req, res) => {
     catch(err) {
         res.json(`{"Error": "True", "Message": ${err}, "Timestamp": ${dbHelper.now()}`);
     }
-})
+});
 
 
 /* POST */
@@ -117,7 +117,7 @@ router.post('/update/:id/', async (req, res) => {
 /**
  * deletes athlete by id
  */
-router.post('/delete/:id/', async (req, res) => {
+router.post("/delete/:id", async (req, res) => {
     try {
         console.log(req.params.id);
         //console.log("IN DELETE FUNCTION");

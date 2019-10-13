@@ -3,6 +3,8 @@ const router = express.Router();
 const config = require("../config/config");
 const db = require("../dbConnectors/athletesDbConnector");
 const dbHelper = require("../dbConnectors/DbHelper");
+const joi = require("joi");
+const SCHEMAS = require("../models/SCHEMAS");
 
 
 /**
@@ -11,11 +13,10 @@ const dbHelper = require("../dbConnectors/DbHelper");
 router.get('/', async (req, res) => {
     try {
         let results = await db.getAll();
-        res.send(results);
+        res.json(results);
     }
     catch(err) {
-        console.log(err);
-        res.code(400).send(err);
+        res.json(`{"Error": "True", "Message": ${err}, "Timestamp": ${dbHelper.now()}`);
     }
 });
 
@@ -27,10 +28,10 @@ router.get('/:id', async (req, res) => {
     try {
         let athl_id = req.params.id;
         const row = await db.getAthlById(athl_id);
-            res.json(row);
+        res.json(row);
     }
     catch(err) {
-        res.json(`{"Error":"True", "Message":${err}}`);
+        res.json(`{"Error": "True", "Message": ${err}, "Timestamp": ${dbHelper.now()}`);
     }
 });
 
@@ -38,21 +39,22 @@ router.get('/location/:searchTerm', async (req, res) => {
     try {
         let searchTerm = req.params.searchTerm;
         const row = await db.getAthlByLocation(searchTerm);
-            res.json(row);
+        res.json(row);
     }
     catch(err) {
-        res.json(`{"Error":"True", "Message":${err}}`);
+        res.json(`{"Error": "True", "Message": ${err}, "Timestamp": ${dbHelper.now()}`);
     }
+
 });
 
 router.get("/name/:searchTerm", async (req, res) => {
     try {
         let searchTerm = req.params.searchTerm;
         const row = await db.getAthlByName(searchTerm);
-            res.json(row);
+        res.json(row);
     }
     catch(err) {
-        res.json(`{"Error":"True", "Message":${err}}`);
+        res.json(`{"Error": "True", "Message": ${err}, "Timestamp": ${dbHelper.now()}`);
     }
 });
 
@@ -60,10 +62,10 @@ router.get("/sports/:sports", async (req, res) => {
     try {
         let sportsName = req.params.sports;
         const result = await db.getAthlBySportsName(sportsName);
-        res.json(result);        
+        res.json(result);
     }
-    catch (err) {
-        res.json(err);
+    catch(err) {
+        res.json(`{"Error": "True", "Message": ${err}, "Timestamp": ${dbHelper.now()}`);
     }
 });
 
@@ -73,13 +75,21 @@ router.post("/register", async (req, res) => {
     try {
         /* TODO validate User */
         // console.log(req.body);
+        // should first validate account/password
+        // check if account already exsits
+        // check if the password is correct
         console.log(req.body);
-        let result = await db.createAthlete(req.body);
+        // let result = await db.createAthlete(req.body);
+
+        let validation =joi.validate(req.body,SCHEMAS.ATHLETES_SCHEMA).error; 
+        if (validation) throw new Error(validation);
+        let result = await dbHelper.insertInto("athletes", req.body);
         res.json(result);
-        // res.json(`{"Error":"False", "Content":${result}}`)
+
     }
     catch(err) {
-        res.json(`{"Error":"True", "Message":${err}}`);
+        res.json(`{"Error": "True", "Message": ${err}, "Timestamp": ${dbHelper.now()}`);
+
     }
 });
 

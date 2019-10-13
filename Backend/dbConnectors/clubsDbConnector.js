@@ -1,7 +1,5 @@
 const pool = require("../config/database");
 
-
-
 /* READ */
 const getAll = () => {
     return new Promise((resolve, reject) => {
@@ -27,6 +25,7 @@ const getClubById = (inputId) => {
         
 };
 
+<<<<<<< HEAD
 const getClubsByName = (name) => {
     let query = `select * from clubs where club_name= '${name}' `;
 
@@ -53,13 +52,27 @@ const getClubsByLocation = (searchTerm) => {
     });
 };
 
+=======
+// const getClubById = inputId => {
+//   let query = `select * from clubs where club_id =` + pool.escape(inputId);
+//   console.log(query);
+//   return new Promise((resolve, reject) => {
+//     pool.query(query, (err, results, fields) => {
+//       if (err) reject(err);
+//       //TODO check if empty
+//       else resolve(results);
+//     });
+//   });
+// };
+>>>>>>> a1d786215fdea3c75085f3b145d26f36431f90db
 
 
 /* CREATE */
 // createClub
 
+
 /* UPDATE */
-// updateClub 
+// updateClub
 
 /* REMOVE */
 // removeClub
@@ -80,7 +93,13 @@ const deleteClubById = (inputId) => {
 module.exports = {
     getAll,
     getClubById,
+<<<<<<< HEAD
     getClubsByName,
     getClubsByLocation,
     deleteClubById
 }
+=======
+    deleteClubById,
+};
+
+>>>>>>> a1d786215fdea3c75085f3b145d26f36431f90db

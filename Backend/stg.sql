@@ -25,6 +25,10 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 --
 -- GTID state at the beginning of the backup 
 --
+<<<<<<< HEAD
+=======
+
+>>>>>>> a1d786215fdea3c75085f3b145d26f36431f90db
 --
 -- Table structure for table `applications`
 --

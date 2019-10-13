@@ -23,15 +23,12 @@ app.get("/api", (req, res) => {
 
 app.use("/api/applications", applicationRouter);
 app.use("/api/athletes", athletesRouter);
-app.use("/api/athletes/delete", athletesRouter);
+app.use("/api/athletes/update", athletesRouter);
+ app.use("/api/athletes/delete", athletesRouter);
 app.use("/api/clubs", clubsRouter);
 app.use("/api/clubs/delete", clubsRouter);
-<<<<<<< HEAD
-=======
-
+app.use("/api/clubs/update", clubsRouter);
 app.use("/api/clubMgrs", clubMgrRouter);
-
->>>>>>> a1d786215fdea3c75085f3b145d26f36431f90db
 app.use("/api/offers", offersRouter);
 app.use("/api/profiles", profilesRouter);
 app.use("/api/sports", sportsRouter);

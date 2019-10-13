@@ -93,6 +93,25 @@ router.post("/register", async (req, res) => {
     }
 });
 
+router.post('/update/:id/', async (req, res) => {
+    try {
+        console.log(req.body.athl_dob);
+        //console.log("IN DELETE FUNCTION");
+        let athlete_id = req.params.id;
+        let athlete_body = req.body
+        
+        //console.log(club_id)
+
+        let update_Athlete = await db.updateAthleteById(athlete_body, athlete_id)
+        .then(() => 'Row updated');
+        
+        res.json({"Message":"Updated Row"});
+    }
+    catch (err){
+        console.log(err)
+        res.json({"Error":"True"});
+    }
+});
 
 
 /**

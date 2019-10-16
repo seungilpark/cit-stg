@@ -19,6 +19,9 @@ router.get('/', async (req, res) => {
     }
 });
 
+/**
+ * Returns sport by ID specified
+ */
 router.get("/:sportsId", async (req, res) => {
     try {
         const sportsId = req.params.sportsId;
@@ -41,7 +44,25 @@ router.post("/create", async (req, res) => {
     catch(err) {
         res.json(`{"Error": "True", "Message": ${err}, "Timestamp": ${dbHelper.now()}`);
     }
-})
+});
+
+/**
+ * Returns information about the sport by name
+ */
+router.get("/name/:sportName", async (req, res) => {
+    try {
+        //console.log("Inside get by sportname")
+        const sportName = req.params.sportName;
+        //console.log(sportName);
+        let fetched_sport = await db.getSportsByName(sportName)
+        
+        res.json(fetched_sport);
+    }
+    catch {
+        console.log("Inside get by sports name error");
+        res.json({"Error":"True"});
+    }
+});
 
 
 module.exports = router;

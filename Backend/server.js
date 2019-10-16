@@ -21,18 +21,14 @@ app.get("/api", (req, res) => {
   res.sendFile(path.join(__dirname+"/routes/manual.html"));
 });
 
-
-
-// app.delete('/api/clubs/delete', clubsRouter);
-
 app.use("/api/applications", applicationRouter);
 app.use("/api/athletes", athletesRouter);
-app.use("/api/athletes/delete", athletesRouter);
+app.use("/api/athletes/update", athletesRouter);
+ app.use("/api/athletes/delete", athletesRouter);
 app.use("/api/clubs", clubsRouter);
 app.use("/api/clubs/delete", clubsRouter);
-
+app.use("/api/clubs/update", clubsRouter);
 app.use("/api/clubMgrs", clubMgrRouter);
-
 app.use("/api/offers", offersRouter);
 app.use("/api/profiles", profilesRouter);
 app.use("/api/sports", sportsRouter);

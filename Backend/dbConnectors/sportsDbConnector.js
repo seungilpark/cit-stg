@@ -27,6 +27,18 @@ const getSportsById = (inputId) => {
         
 }
 
+const getSportsByName = (sport) => {
+    return new Promise((resolve, reject) => {
+        let query = "select sports_id, sports_name, sports_type from sports where sports_name LIKE " +
+          pool.escape("%" + sport + "%");
+        pool.query(query, (err, results, fields) => {        
+            if (err) reject(err);
+            //TODO check if empty
+            else resolve(results);
+        });
+    })
+}
+
 /* CREATE */
 // createSports
 
@@ -39,4 +51,5 @@ const getSportsById = (inputId) => {
 module.exports = {
     getAll,
     getSportsById,
+    getSportsByName
 }

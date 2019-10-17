@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
+// import { ScrollView } from 'react-native-gesture-handler';
 
 
 export default class SignUp extends React.Component {
@@ -36,26 +37,26 @@ Submit(){
     checkPd = this.verPd();
     console.log(checkPd);
     if(checkPd == true){
-      fetch('http://ec2-54-190-129-112.us-west-2.compute.amazonaws.com:8080/api', {
+      fetch('http://192.168.0.106:8080/api/athletes/register', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          fname: this.state.fname,
-          lname: this.state.lname,
-          gender: this.state.gender,
-          dob: this.state.dob,
-          addr: this.state.addr,
-          height: this.state.height,
-          weight: this.state.weight,
-          email: this.state.email,
-          phone: this.state.phone,
-          account: this.state.account,
-          password: this.state.password,
-          city: this.state.city,
-          country: this.state.country
+          athl_fname: this.state.fname,
+          athl_lname: this.state.lname,
+          athl_gender: this.state.gender,
+          athl_dob: this.state.dob,
+          // addr: this.state.addr,
+          athl_height: this.state.height,
+          athl_weight: this.state.weight,
+          athl_email: this.state.email,
+          athl_phone: this.state.phone,
+          athl_account: this.state.account,
+          athl_password: this.state.password,
+          // city: this.state.city,
+          // country: this.state.country
         }),
       });
       console.log("User Created.")

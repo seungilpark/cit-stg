@@ -7,7 +7,8 @@ import SignIn from "./Components/SignIn";
 import SignUp from "./Components/SignUp";
 import AthTest from "./Components/AthTest";
 import ClubTest from "./Components/ClubTest";
-
+import Profile from "./Components/Profile";
+import ClubsCards from "./Components/ClubsCards"
 
 const RootStack = createStackNavigator(
   {
@@ -25,6 +26,12 @@ const RootStack = createStackNavigator(
     },
     ClubTest: {
       screen: ClubTest,
+    },
+    Profile:{
+      screen:Profile,
+    },
+    ClubsCards:{
+      screen:ClubsCards,
     }
   },
   {

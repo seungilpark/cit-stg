@@ -30,9 +30,7 @@ const RootStack = createStackNavigator(
     Profile:{
       screen:Profile,
     },
-    ClubsCards:{
-      screen:ClubsCards,
-    }
+
   },
   {
     initialRouteName: "FirstPage",

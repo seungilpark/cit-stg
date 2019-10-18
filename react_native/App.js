@@ -8,7 +8,8 @@ import SignUp from "./Components/SignUp";
 import AthTest from "./Components/AthTest";
 import ClubTest from "./Components/ClubTest";
 import AthlClubList from "./Components/AthlClubList";
-
+import Profile from "./Components/Profile";
+import ClubsCards from "./Components/ClubsCards"
 
 const RootStack = createStackNavigator(
   {
@@ -29,12 +30,14 @@ const RootStack = createStackNavigator(
     },
     AthlClubList: {
       screen: AthlClubList,
-      headermode: "float",
-      
+    },
+    Profile:{
+      screen:Profile,
     },
   },
   {
     initialRouteName: "FirstPage",
+    headermode: "none",
   }
 );
 

@@ -140,13 +140,14 @@ checkEmpty(){
         />
         <TextInput
           style={styles.textBox}
-          placeholder="Gender          onChangeText={(gender) => this.setState({gender})}
+          placeholder="Gender"          
+          onChangeText={(gender) => this.setState({gender})}
           value={this.state.gender}
         />
         
         <TextInput
           style={styles.textBox}
-          placeholder="Date of birth: yyyy-mm-dd"
+          placeholder="Date of Birth: yyyy/mm/dd"
           onChangeText={(dob) => this.setState({dob})}
           value={this.state.dob}
         />
@@ -191,6 +192,7 @@ checkEmpty(){
           placeholder="Email: youremail@email.com"
           onChangeText={(email) => this.setState({email})}
           value={this.state.email}
+        />
 
         <TextInput
           style={styles.textBox}

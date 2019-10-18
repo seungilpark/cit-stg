@@ -64,6 +64,7 @@ const getClubsByLocation = (searchTerm) => {
 // };
 
 
+
 /* CREATE */
 // createClub
 
@@ -108,3 +109,4 @@ module.exports = {
     deleteClubById,
     updateClubById,
 };
+

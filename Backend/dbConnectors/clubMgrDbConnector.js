@@ -32,8 +32,19 @@ const getManagerById = inputId => {
 
 /* REMOVE */
 // removeManager
-
+const verifyManager = (acc, pw) => {
+  let query = `SELECT mgr_id, mgr_fname, mgr_lname, fk_clubs_id FROM club_mgr WHERE mgr_account=${pool.escape(acc)} AND mgr_password=${pool.escape(pw)}`;
+  return new Promise((resolve, reject) => {
+    pool.query(query, (err, results, fields) => {        
+        if (err) reject(err);
+        else {
+         resolve(results);
+        }
+    });
+});
+}
 module.exports = {
   getAll,
-  getManagerById
+  getManagerById,
+  verifyManager
 };

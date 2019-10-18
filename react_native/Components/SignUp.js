@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 
 
@@ -90,94 +90,103 @@ checkEmpty(){
   render() {
     return (
       <View style={styles.container}>
+        <KeyboardAvoidingView
+      style={styles.container}
+      behavior="padding"
+    >
+        <ScrollView>
         <Text>Sign Up Page</Text>
         <Text>{this.state.alert}</Text>
         <TextInput
-          // style={{height: 40}}
+          style={styles.textBox}
           placeholder="First Name"
           onChangeText={(fname) => this.setState({fname})}
           value={this.state.fname}
         />
 
         <TextInput
-          style={{height: 40}}
+          style={styles.textBox}
           placeholder="Last Name"
           onChangeText={(lname) => this.setState({lname})}
           value={this.state.lname}
         />
         <TextInput
-          style={{height: 40}}
+          style={styles.textBox}
           placeholder="Gender"
           onChangeText={(gender) => this.setState({gender})}
           value={this.state.gender}
         />
+        
         <TextInput
-          style={{height: 40}}
-          placeholder="Date of birth"
+          style={styles.textBox}
+          placeholder="Date of birth: yyyy-mm-dd"
           onChangeText={(dob) => this.setState({dob})}
           value={this.state.dob}
         />
         <TextInput
-          style={{height: 40}}
+          style={styles.textBox}
           placeholder="Address"
           onChangeText={(addr) => this.setState({addr})}
           value={this.state.addr}
         />
         <TextInput
-          style={{height: 40}}
+          style={styles.textBox}
           placeholder="City"
           onChangeText={(city) => this.setState({city})}
           value={this.state.city}
         />
         <TextInput
-          style={{height: 40}}
+          style={styles.textBox}
           placeholder="country"
           onChangeText={(country) => this.setState({country})}
           value={this.state.country}
         />
         <TextInput
-          style={{height: 40}}
+          style={styles.textBox}
           placeholder="Height"
           onChangeText={(height) => this.setState({height})}
           value={this.state.height}
         />
         <TextInput
-          style={{height: 40}}
+          style={styles.textBox}
           placeholder="Weight"
           onChangeText={(weight) => this.setState({weight})}
           value={this.state.weight}
         />
         <TextInput
-          style={{height: 40}}
-          placeholder="Email"
+          style={styles.textBox}
+          placeholder="Email: youremail@email.com"
           onChangeText={(email) => this.setState({email})}
           value={this.state.email}
         />
         <TextInput
-          style={{height: 40}}
-          placeholder="Phone Number"
+          style={styles.textBox}
+          placeholder="Phone Number: 000-000-0000"
           onChangeText={(phone) => this.setState({phone})}
           value={this.state.phone}
         />
         <TextInput
-          style={{height: 40}}
+          style={styles.textBox}
           placeholder="Account Name"
           onChangeText={(account) => this.setState({account})}
           value={this.state.account}
         />
         <TextInput
-          style={{height: 40}}
+          style={styles.textBox}
           placeholder="Enter your password"
           onChangeText={(password) => this.setState({password})}
           value={this.state.password}
         />
         <TextInput
-          style={{height: 40}}
+          style={styles.textBox}
           placeholder="Enter your password again"
           onChangeText={(password1) => this.setState({password1})}
           value={this.state.password1}
         />
         <Button title = 'Submit' onPress={onPress=this.Submit}/>
+        
+        </ScrollView>
+        </KeyboardAvoidingView>
       </View>
     );
   }
@@ -190,4 +199,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  textBox: {
+    height: 40,
+    width: 250,
+    borderColor: 'gray',
+    borderWidth: 1,
+    margin: 2
+    },
+    scrollView: {
+      backgroundColor: 'pink',
+      marginHorizontal: 20,
+    },
 });

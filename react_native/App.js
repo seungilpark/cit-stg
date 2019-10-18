@@ -7,6 +7,8 @@ import SignIn from "./Components/SignIn";
 import SignUp from "./Components/SignUp";
 import AthTest from "./Components/AthTest";
 import ClubTest from "./Components/ClubTest";
+import ProfilePageTest from "./Components/ProfilePageTest";
+
 
 
 const RootStack = createStackNavigator(
@@ -25,6 +27,9 @@ const RootStack = createStackNavigator(
     },
     ClubTest: {
       screen: ClubTest,
+    },
+    ProfilePageTest: {
+      screen: ProfilePageTest
     }
   },
   {

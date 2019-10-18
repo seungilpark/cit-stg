@@ -21,7 +21,7 @@ export default class AthTest extends React.Component {
     // }
 
     getData() {
-    return fetch('http://ec2-54-190-129-112.us-west-2.compute.amazonaws.com:8080/api/athletes')
+    return fetch('http://localhost:8080/api/athletes')
       .then((response) => response.json())
       .then((responseJson) => {
         // console.log(typeof responseJson);

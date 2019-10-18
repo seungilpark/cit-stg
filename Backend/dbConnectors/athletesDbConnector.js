@@ -152,6 +152,22 @@ const deleteAthleteById = (inputId) => {
         
 };
 
+
+/* For verifying athletes */
+const verifyAthlete = (acc, pw) => {
+  let query = `SELECT athl_id, athl_fname, athl_lname FROM athletes WHERE account=? AND password=?`;
+  query = mysql.format(query,[acc,pw]);
+  return new Promise((resolve, reject) => {
+    pool.query(query, (err, results, fields) => {        
+        if (err) reject(err);
+        //TODO check if empty
+        else {
+         resolve(results);
+        }
+    });
+});
+}
+
 module.exports = {
     getAll,
     getAthlById,
@@ -161,4 +177,5 @@ module.exports = {
     getAthlBySportsName,
     deleteAthleteById,
     updateAthleteById,
+    verifyAthlete
 };

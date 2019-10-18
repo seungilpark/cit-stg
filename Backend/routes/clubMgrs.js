@@ -45,4 +45,18 @@ router.post("/create", async (req, res) => {
     }
 })
 
+router.post("/signin", async (req, res) => {
+    try {
+            console.log("IN /signin")
+        let result = await db.verifyManager(req.body.account, req.body.password);
+        if (result.length > 0) res.status(203).json(result); 
+        else res.status(403).json({message:"cannot verify the user"});
+    }
+    catch(err) {
+        res.json(err);
+    }
+})
+
+
+
 module.exports = router;

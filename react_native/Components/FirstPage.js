@@ -36,6 +36,10 @@ export default class FirstPage extends React.Component {
         }}/>
 
         <Button 
+        title = 'Profile Page Test'
+        onPress={() => {
+            this.props.navigation.navigate('ProfilePageTest');
+        }}/>
         title = 'Athlete Club List'
         onPress={() => {
             this.props.navigation.navigate('AthlClubList');
@@ -46,7 +50,6 @@ export default class FirstPage extends React.Component {
         onPress={() => {
             this.props.navigation.navigate('Profile');
         }}/>
-
       </View>
     );
   }

@@ -18,6 +18,9 @@ router.get('/', async (req, res) => {
     }
 });
 
+/**
+ * Returns a club by id
+ */
 
 // router.get('/:id', async (req, res) => {
 //     try {
@@ -36,7 +39,6 @@ router.get('/', async (req, res) => {
 router.post('/update/:id/', async (req, res) => {
     try {
         console.log(req.body.club_name);
-        //console.log("IN DELETE FUNCTION");
         let club_id = req.params.id;
         let club_body = req.body
         
@@ -53,11 +55,45 @@ router.post('/update/:id/', async (req, res) => {
     }
 });
 
+/**
+ * Returns a list of clubs in a specified location either by city or country
+ */
+router.get('/location/:location', async (req, res) => {
+    try {
+        let loc = req.params.location;
+        let fetched_rows =  await db.getClubsByLocation(loc)
+        
+        res.json(fetched_rows);
+        //console.log("Inside get club by location");
+    }
+    catch {
+        //console.log("Inside get club by location error");
+        res.json({"Error":"True"});
+    }
+});
 
-router.post('/delete/:id', async (req, res) => {
+/**
+ * Returns club with the name specified
+ */
+router.get('/name/:name', async (req, res) => {
+    try {
+        let club_name = req.params.name;
+
+        let club = await db.getClubsByName(club_name)
+        
+        res.json(club)
+    }
+    catch {
+        res.json({"Error":"True"});
+    }
+})
+
+/**
+ * Deletes club by id
+ */
+router.post("/delete/:id", async (req, res) => {
     try {
         //console.log(req.params.id);
-        //console.log("IN DELETE FUNCTION");
         let club_id = req.params.id;
         //console.log(club_id)
 
@@ -67,7 +103,7 @@ router.post('/delete/:id', async (req, res) => {
         res.json({"Message":"Deleted Row"});
     }
     catch {
-        console.log("inside delete")
+        //console.log("inside delete")
         res.json({"Error":"True"});
     }
 });

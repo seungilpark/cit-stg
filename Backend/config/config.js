@@ -6,7 +6,8 @@ const config = {
         host:"localhost",
         user:"root",
         password:"Password",
-        database:"stg"
+        database:"stg",
+        multipleStatements: true
     }
 }
 

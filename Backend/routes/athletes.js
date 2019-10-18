@@ -139,6 +139,7 @@ router.post("/signin", async (req, res) => {
     try {
 
         let result = await db.verifyAthlete(req.body.account, req.body.password);
+		console.log('good');
         if (result.length > 0 ) res.status(203).json(result); 
         else res.status(403).json({message:"cannot verify the user"});
     }

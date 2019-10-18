@@ -22,6 +22,7 @@
 SET @MYSQLDUMP_TEMP_LOG_BIN = @@SESSION.SQL_LOG_BIN;
 SET @@SESSION.SQL_LOG_BIN= 0;
 
+<<<<<<< HEAD
 --
 -- GTID state at the beginning of the backup 
 --
@@ -36,6 +37,8 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 --
 -- Table structure for table `applications`
 --
+=======
+>>>>>>> upstream/master
 
 DROP TABLE IF EXISTS `applications`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;

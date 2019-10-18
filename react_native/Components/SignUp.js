@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TextInput, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView, Picker } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 // import { ScrollView } from 'react-native-gesture-handler';
 
@@ -9,6 +9,7 @@ export default class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+        role: 'ath',
         fname: '',
         lname: '',
         gender: '',
@@ -36,7 +37,7 @@ Submit(){
   if(checkEmpty != false){
     checkPd = this.verPd();
     console.log(checkPd);
-    if(checkPd == true){
+    if(checkPd == true && this.state.role === 'ath'){
       fetch('http://192.168.0.106:8080/api/athletes/register', {
         method: 'POST',
         headers: {
@@ -48,18 +49,43 @@ Submit(){
           athl_lname: this.state.lname,
           athl_gender: this.state.gender,
           athl_dob: this.state.dob,
-          // addr: this.state.addr,
+          athl_addr: this.state.addr,
           athl_height: this.state.height,
           athl_weight: this.state.weight,
           athl_email: this.state.email,
           athl_phone: this.state.phone,
-          athl_account: this.state.account,
-          athl_password: this.state.password,
+          account: this.state.account,
+          password: this.state.password,
+          city: this.state.city,
+          country: this.state.country
+        }),
+      });
+      console.log("Athlete Created.")
+    }
+    else if(checkPd == true && this.state.role === 'mgr'){
+      fetch('http://192.168.0.106:8080/api/clubMgrs/create', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          mgr_fname: this.state.fname,
+          mgr_lname: this.state.lname,
+          // athl_gender: this.state.gender,
+          // athl_dob: this.state.dob,
+          // addr: this.state.addr,
+          // athl_height: this.state.height,
+          // athl_weight: this.state.weight,
+          mgr_email: this.state.email,
+          mgr_phone: this.state.phone,
+          mgr_account: this.state.account,
+          mgr_password: this.state.password,
           // city: this.state.city,
           // country: this.state.country
         }),
       });
-      console.log("User Created.")
+      console.log("Manager Created.")
     }else{
       this.setState({
         alert: "Please confirm your password."
@@ -93,91 +119,104 @@ checkEmpty(){
       <View style={styles.container}>
         <Text>Sign Up Page</Text>
         <Text>{this.state.alert}</Text>
+
         <TextInput
-          // style={{height: 40}}
+          style={{height: 30}}
           placeholder="First Name"
           onChangeText={(fname) => this.setState({fname})}
           value={this.state.fname}
         />
 
         <TextInput
-          style={{height: 40}}
+          style={{height: 30}}
           placeholder="Last Name"
           onChangeText={(lname) => this.setState({lname})}
           value={this.state.lname}
         />
         <TextInput
-          style={{height: 40}}
+          style={{height: 30}}
           placeholder="Gender"
           onChangeText={(gender) => this.setState({gender})}
           value={this.state.gender}
         />
         <TextInput
-          style={{height: 40}}
+          style={{height: 30}}
           placeholder="Date of birth"
           onChangeText={(dob) => this.setState({dob})}
           value={this.state.dob}
         />
         <TextInput
-          style={{height: 40}}
+          style={{height: 30}}
           placeholder="Address"
           onChangeText={(addr) => this.setState({addr})}
           value={this.state.addr}
         />
         <TextInput
-          style={{height: 40}}
+          style={{height: 30}}
           placeholder="City"
           onChangeText={(city) => this.setState({city})}
           value={this.state.city}
         />
         <TextInput
-          style={{height: 40}}
+          style={{height: 30}}
           placeholder="country"
           onChangeText={(country) => this.setState({country})}
           value={this.state.country}
         />
         <TextInput
-          style={{height: 40}}
+          style={{height: 30}}
           placeholder="Height"
           onChangeText={(height) => this.setState({height})}
           value={this.state.height}
         />
         <TextInput
-          style={{height: 40}}
+          style={{height: 30}}
           placeholder="Weight"
           onChangeText={(weight) => this.setState({weight})}
           value={this.state.weight}
         />
         <TextInput
-          style={{height: 40}}
+          style={{height: 30}}
           placeholder="Email"
           onChangeText={(email) => this.setState({email})}
           value={this.state.email}
         />
         <TextInput
-          style={{height: 40}}
+          style={{height: 30}}
           placeholder="Phone Number"
           onChangeText={(phone) => this.setState({phone})}
           value={this.state.phone}
         />
         <TextInput
-          style={{height: 40}}
+          style={{height: 30}}
           placeholder="Account Name"
           onChangeText={(account) => this.setState({account})}
           value={this.state.account}
         />
         <TextInput
-          style={{height: 40}}
+          style={{height: 30}}
           placeholder="Enter your password"
           onChangeText={(password) => this.setState({password})}
           value={this.state.password}
         />
         <TextInput
-          style={{height: 40}}
+          style={{height: 30}}
           placeholder="Enter your password again"
           onChangeText={(password1) => this.setState({password1})}
           value={this.state.password1}
         />
+
+        <Picker
+          selectedValue={this.state.role}
+          style={{height: 30, width: 300}}
+          onValueChange={(itemValue, itemIndex) =>
+            this.setState({role: itemValue})
+          }>
+          <Picker.Item label="Athlete" value="ath" />
+          <Picker.Item label="Club Manager" value="mgr" />
+          
+        </Picker>
+
         <Button title = 'Submit' onPress={onPress=this.Submit}/>
       </View>
     );

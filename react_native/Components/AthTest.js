@@ -21,11 +21,7 @@ export default class AthTest extends React.Component {
     // }
 
     getData() {
-<<<<<<< HEAD
-    return fetch('http://142.232.56.70:8080/api/athletes')
-=======
     return fetch('http://192.168.0.106:8080/api/athletes')
->>>>>>> 0ea41d34d10a17073c799c40e94ff22cb0923754
       .then((response) => response.json())
       .then((responseJson) => {
         // console.log(typeof responseJson);

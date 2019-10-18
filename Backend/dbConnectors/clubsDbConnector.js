@@ -25,7 +25,6 @@ const getClubById = (inputId) => {
         
 };
 
-<<<<<<< HEAD
 const getClubsByName = (name) => {
     let query = `select * from clubs where club_name= '${name}' `;
 
@@ -52,7 +51,6 @@ const getClubsByLocation = (searchTerm) => {
     });
 };
 
-=======
 // const getClubById = inputId => {
 //   let query = `select * from clubs where club_id =` + pool.escape(inputId);
 //   console.log(query);
@@ -64,7 +62,6 @@ const getClubsByLocation = (searchTerm) => {
 //     });
 //   });
 // };
->>>>>>> a1d786215fdea3c75085f3b145d26f36431f90db
 
 
 /* CREATE */
@@ -106,14 +103,8 @@ const deleteClubById = (inputId) => {
 module.exports = {
     getAll,
     getClubById,
-<<<<<<< HEAD
     getClubsByName,
     getClubsByLocation,
-    deleteClubById
-}
-=======
     deleteClubById,
     updateClubById,
 };
-
->>>>>>> a1d786215fdea3c75085f3b145d26f36431f90db

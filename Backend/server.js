@@ -17,7 +17,8 @@ app.use(cookieParser());
 
 //routes
 app.get("/api", (req, res) => {
-  res.send("manual should go here");
+  res.sendFile(path.join(__dirname+"/routes/manual.html"));
+
 });
 app.use("/api/applications", applicationRouter);
 app.use("/api/athletes", athletesRouter);

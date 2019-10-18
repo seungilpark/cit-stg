@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
 
 router.get('/:clubId', async (req, res) => {
     try {
-        let clubId = req.params.id;
+        let clubId = req.params.clubId;
         let row = await db.getClubById(clubId);
         res.json(row);
     }

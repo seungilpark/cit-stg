@@ -38,7 +38,7 @@ Submit(){
     checkPd = this.verPd();
     console.log(checkPd);
     if(checkPd == true && this.state.role === 'ath'){
-      fetch('http://192.168.0.106:8080/api/athletes/register', {
+      fetch('http://ec2-18-236-121-4.us-west-2.compute.amazonaws.com:8080/api/athletes/register', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -63,7 +63,7 @@ Submit(){
       console.log("Athlete Created.")
     }
     else if(checkPd == true && this.state.role === 'mgr'){
-      fetch('http://192.168.0.106:8080/api/clubMgrs/create', {
+      fetch('http://ec2-18-236-121-4.us-west-2.compute.amazonaws.com:8080/api/clubMgrs/create', {
         method: 'POST',
         headers: {
           Accept: 'application/json',

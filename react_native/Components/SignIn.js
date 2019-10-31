@@ -48,9 +48,9 @@ export default class SignIn extends React.Component {
         })
     };
     if(this.state.role === 'ath'){
-      return fetch('http://192.168.0.106:8080/api/athletes/signin', data);
+      return fetch('http://ec2-18-236-121-4.us-west-2.compute.amazonaws.com:8080/api/athletes/signin', data);
     }else{
-      return fetch('http://192.168.0.106:8080/api/clubMgrs/signin', data);
+      return fetch('http://ec2-18-236-121-4.us-west-2.compute.amazonaws.com:8080/api/clubMgrs/signin', data);
     }
   }
 
@@ -67,15 +67,15 @@ export default class SignIn extends React.Component {
           status: 'forbidden'
         })
       }
+      if(this.state.status == 'loggedIn'){
+        this.props.navigation.navigate('AthTest');
+      }else{
+        alert('Wrong Username or Password');
+      }
       // console.log(result);
   });
-
-    if(this.state.status == 'loggedIn'){
-      this.props.navigation.navigate('AthTest');
-    }else{
-      alert('Wrong Username or Password');
-    }
   }
+    
 
   render() {
     return (

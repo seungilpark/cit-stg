@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Alert, TouchableOpacity, Text, View, Button, ScrollView, SafeAreaView, Image } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { Icon } from 'react-native-vector-icons/FontAwesome'
+import { getCurrentFrame } from 'expo/build/AR';
 
 
 export default class SignIn extends React.Component {
@@ -39,6 +40,13 @@ export default class SignIn extends React.Component {
         <Text style={{marginTop: 12, textAlign: 'center', color: '#ffffff'}}>
           Defender - Right-Back
         </Text>
+        <View style={styles.button}>
+          <Button color='#ff5c5c'
+          title = 'Liked Clubs'
+          onPress={() => {
+          this.props.navigation.navigate('AthlClubList');
+        }}/>
+        </View>
         <Text style={{marginTop: 35, marginLeft: 35, color: '#7C7C95'}}>
           Email
         </Text>
@@ -58,35 +66,35 @@ export default class SignIn extends React.Component {
           +1 (604) 111 1111
         </Text>
         <TouchableOpacity onPress = {this.onPressButton1}>
-                <View style = {{backgroundColor: 'white', alignItems: 'Left', 
+                <View style = {{backgroundColor: 'white', alignItems: 'flex-start', 
                                 justifyContent: 'center', height:80, width:300, marginTop: 40, marginLeft: 35, borderColor: '#F6F6F9', borderTopWidth: 2, borderTopStyle: 'solid' }}
                        >
                     <Text style = {{color: '#7C7C95'}}>Personal Details                                                 ></Text>
                 </View>
         </TouchableOpacity>
         <TouchableOpacity onPress = {this.onPressButton2}>
-                <View style = {{backgroundColor: 'white', alignItems: 'Left', 
+                <View style = {{backgroundColor: 'white', alignItems: 'flex-start', 
                                 justifyContent: 'center', height:80, width:300, marginLeft: 35, borderColor: '#F6F6F9', borderTopWidth: 2, borderTopStyle: 'solid' }}
                        >
                     <Text style = {{color: '#7C7C95'}}>Medical Details                                                  ></Text>
                 </View>
         </TouchableOpacity>
         <TouchableOpacity onPress = {this.onPressButton3}>
-                <View style = {{backgroundColor: 'white', alignItems: 'Left', 
+                <View style = {{backgroundColor: 'white', alignItems: 'flex-start', 
                                 justifyContent: 'center', height:80, width:300, marginLeft: 35, borderColor: '#F6F6F9', borderTopWidth: 2, borderTopStyle: 'solid' }}
                        >
                     <Text style = {{color: '#7C7C95'}}>Statistics                                                            ></Text>
                 </View>
         </TouchableOpacity>
         <TouchableOpacity onPress = {this.onPressButton4}>
-                <View style = {{backgroundColor: 'white', alignItems: 'Left', 
+                <View style = {{backgroundColor: 'white', alignItems: 'flex-start', 
                                 justifyContent: 'center', height:80, width:300, marginLeft: 35, borderColor: '#F6F6F9', borderTopWidth: 2, borderTopStyle: 'solid' }}
                        >
                     <Text style = {{color: '#7C7C95'}}>Settings                                                              ></Text>
                 </View>
         </TouchableOpacity>
         <TouchableOpacity onPress = {this.onPressButton5}>
-                <View style = {{backgroundColor: 'white', alignItems: 'Left', 
+                <View style = {{backgroundColor: 'white', alignItems: 'flex-start', 
                                 justifyContent: 'center', height:80, width:300, marginLeft: 35, borderColor: '#F6F6F9', borderTopWidth: 2, borderTopStyle: 'solid' }}
                        >
                     <Text style = {{color: '#2DC5F6'}}>Sign Out</Text>
@@ -105,8 +113,8 @@ const styles = StyleSheet.create({
   topimage: {
     flex: 1,
     position: 'absolute',
-    alignItems: 'center',
-    justifyContent: 'top',
+    alignItems: 'stretch',
+    justifyContent: 'center',
     marginLeft: 'auto', 
     marginRight: 'auto', 
     width: 380, 
@@ -119,7 +127,7 @@ const styles = StyleSheet.create({
     marginLeft: 'auto', 
     marginRight: 'auto', 
     width: 150, 
-    height: 150
+    height: 150,
   },
   boxtext : {
     textAlign: 'center',
@@ -133,5 +141,16 @@ const styles = StyleSheet.create({
   infoUnder: {
     marginLeft: 35, 
     color: '#6B6B6B',
+  },
+  button: {
+    flex:1,
+    flexDirection: 'row-reverse',
+    top: 10,
+    right: 32,
+    borderRadius: 50,
+    // shadowOffset:{  width: 0,  height: 12,  },
+    // shadowColor: 'black',
+    // shadowOpacity: 1.0,
+    // shadowRadius: 11,
   }
 });

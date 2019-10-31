@@ -7,7 +7,6 @@ const getAll = () => {
     return new Promise((resolve, reject) => {
         pool.query("select * from profiles", (err, results, fields) => {
             if (err) reject(err);
-            //TODO check if empty
             else resolve(results);
         })
     })
@@ -20,11 +19,20 @@ const getProfileById = (inputId) => {
     return new Promise((resolve, reject) => {
         pool.query(query, (err, results, fields) => {        
             if (err) reject(err);
-            //TODO check if empty
+            else resolve(results);
+        });
+    })       
+}
+
+const getProfileByAthlId = (athlId) => {
+    let query= `select * from profiles where fk_athl_id=${athlId}`;
+
+    return new Promise((resolve, reject) => {
+        pool.query(query, (err, results, fields) => {        
+            if (err) reject(err);
             else resolve(results);
         });
     })
-        
 }
 
 /* CREATE */
@@ -39,4 +47,5 @@ const getProfileById = (inputId) => {
 module.exports = {
     getAll,
     getProfileById,
+    getProfileByAthlId
 }

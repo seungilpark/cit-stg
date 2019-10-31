@@ -24,7 +24,6 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 --
 -- Table structure for table `applications`
 --
-
 DROP TABLE IF EXISTS `applications`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
@@ -62,15 +61,16 @@ DROP TABLE IF EXISTS `athl_like`;
 CREATE TABLE `athl_like` (
   `athl_like_id` int(11) NOT NULL AUTO_INCREMENT,
   `fk_athl_id` int(11) NOT NULL,
-  `fk_club_id` int(11) NOT NULL,
+  `fk_offer_id` int(11) NOT NULL,
   `date` datetime DEFAULT NULL,
   `isLiked` tinyint(4) NOT NULL,
   PRIMARY KEY (`athl_like_id`),
   KEY `fk_athl_id_idx` (`fk_athl_id`),
-  KEY `fk_club_id_idx` (`fk_club_id`),
+  KEY `fk_athl_like_offer_id_idx` (`fk_offer_id`),
   CONSTRAINT `fk_athl_like_athl_id` FOREIGN KEY (`fk_athl_id`) REFERENCES `athletes` (`athl_id`),
-  CONSTRAINT `fk_athl_like_club_id` FOREIGN KEY (`fk_club_id`) REFERENCES `clubs` (`club_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `fk_athl_like_offer_id` FOREIGN KEY (`fk_offer_id`) REFERENCES `offers` (`offer_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -79,7 +79,7 @@ CREATE TABLE `athl_like` (
 
 LOCK TABLES `athl_like` WRITE;
 /*!40000 ALTER TABLE `athl_like` DISABLE KEYS */;
-INSERT INTO `athl_like` VALUES (1,1,1,'2019-10-18 10:00:00',1),(2,1,2,'2019-10-18 07:00:00',1),(3,3,1,'2019-10-18 07:00:00',0),(4,3,2,'2019-10-18 07:00:00',1);
+INSERT INTO `athl_like` VALUES (1,1,1,'2019-10-18 10:00:00',1),(2,1,2,'2019-10-18 07:00:00',1),(3,3,1,'2019-10-18 07:00:00',0),(4,3,2,'2019-10-18 07:00:00',1),(5,4,15,'2019-10-18 07:00:00',1),(6,4,16,'2019-10-18 07:00:00',0),(7,5,6,'2019-10-18 07:00:00',1),(8,5,7,'2019-10-18 07:00:00',0),(9,6,10,'2019-10-18 07:00:00',0),(10,6,20,'2019-10-18 07:00:00',1);
 /*!40000 ALTER TABLE `athl_like` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -265,7 +265,7 @@ CREATE TABLE `offers` (
   PRIMARY KEY (`offer_id`),
   KEY `fk_clubs_id_idx` (`fk_club_id`),
   CONSTRAINT `fk_club_id` FOREIGN KEY (`fk_club_id`) REFERENCES `clubs` (`club_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -274,7 +274,7 @@ CREATE TABLE `offers` (
 
 LOCK TABLES `offers` WRITE;
 /*!40000 ALTER TABLE `offers` DISABLE KEYS */;
-INSERT INTO `offers` VALUES (1,'GK','1000000','Goal Keeper for 6 years','test','test','6',1,'Goal Keeper Contract');
+INSERT INTO `offers` VALUES (1,'GK','1000000','Goal Keeper for 6 years','test','A','6',1,'Goal Keeper Contract'),(2,'RF','800000','Right Fullback for 3 years','test','B','6',2,'Right Fullback Contract'),(3,'LF','700000','Left Fullback for 2 years','test','C','6',3,'Left Fullback Contract'),(4,'DM','600000','Defending Midfielder for 4 years','test','B','6',4,'Defending Midfielder Contract'),(5,'RM','650000','Right Midfielder for 3 years','test','C','6',5,'Right Midfielder Contract'),(6,'RW','550000','Right Winger for 4 years','test','C','6',6,'Right Winger Contract'),(7,'RW','500000','Right Winger for 3 years','test','C','6',6,'Right Winger Contract'),(8,'CM','560000','Central Midfielder for 3 years','test','B','6',7,'Central Midfielder Contract'),(9,'BM','750000','Box-to-Box Midfielder for 6 years','test','B','6',7,'Box-to-Box Midfielder Contract'),(10,'SK','680000','Striker for 6 years','test','B','6',8,'Striker Contract'),(11,'AM','660000','Attacking Midfielder for 5 years','test','A','6',9,'Attacking Midfielder Contract'),(12,'AP','590000','Attacking Playmaker for 3 years','test','C','6',9,'Attacking Midfielder Contract'),(13,'LM','780000','Left Midfielder for 8 years','test','A','6',4,'Left Midfielder Contract'),(14,'LW','670000','Left Wingers for 7 years','test','A','6',5,'Left Wingers Contract'),(15,'GK','770000','Goalkeeper for 6 years','test','A','6',3,'Goalkeeper Contract'),(16,'GK','670000','Goalkeeper for 6 years','test','A','6',2,'Goalkeeper Contract'),(17,'DM','700000','Defending  Midfielder for 7 years','test','A','6',1,'Defending  Midfielder Contract'),(18,'CB','680000','Center Back for 6 years','test','A','6',2,'Center Back Contract'),(19,'HM','760000','Holding Midfielder for 7 years','test','A','6',4,'Holding Midfielder Contract'),(20,'SK','780000','Striker for 8 years','test','A','6',5,'Striker Contract');
 /*!40000 ALTER TABLE `offers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -311,7 +311,7 @@ CREATE TABLE `profiles` (
 
 LOCK TABLES `profiles` WRITE;
 /*!40000 ALTER TABLE `profiles` DISABLE KEYS */;
-INSERT INTO `profiles` VALUES (1,'GK','Samuel L. Jackson','test','test','weNeedTable','test','Hello World',1,1,NULL);
+INSERT INTO `profiles` VALUES (1,'GK','Samuel L. Jackson','test','test','Normal','test','Hello World A',1,1,'Active'),(2,'RF','Pep Guardiola','test','test','Normal','test','Hello World B',1,2,'Active'),(3,'LF','Massimiliano Allegri','test','test','Normal','test','Hello World C',1,3,'Active'),(4,'CB','Zinedine Zidane','test','test','Normal','test','Hello World D',1,4,'Active'),(5,'DM','Antonio Conte','test','test','Normal','test','Hello World E',1,5,'Active'),(6,'RM','Diego Simeone','test','test','Normal','test','Hello World F',1,6,'Active'),(7,'RW','Julen Lopetegui','test','test','Normal','test','Hello World G',1,7,'Active'),(8,'CM','Unai Emery','test','test','Normal','test','Hello World H',1,8,'Active'),(9,'BM','Fernando Santos','test','test','Normal','test','Hello World I',1,9,'Active'),(10,'SK','Didier Deschamps','test','test','Normal','test','Hello World J',1,10,'Active'),(11,'AM','Arsène Wenger','test','test','Normal','test','Hello World K',1,11,'Active'),(12,'AP','Roberto Martinez','test','test','Normal','test','Hello World K',1,12,'Active'),(13,'LM','Jupp Heynckes','test','test','Normal','test','Hello World K',1,13,'Active'),(14,'LW','Leonardo Jardim','test','test','Normal','test','Hello World K',1,14,'Active');
 /*!40000 ALTER TABLE `profiles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -358,4 +358,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-18 19:26:38
+-- Dump completed on 2019-10-30 18:11:31

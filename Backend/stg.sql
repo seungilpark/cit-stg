@@ -21,6 +21,7 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 -- GTID state at the beginning of the backup 
 --
 
+
 --
 -- Table structure for table `applications`
 --
@@ -62,15 +63,15 @@ DROP TABLE IF EXISTS `athl_like`;
 CREATE TABLE `athl_like` (
   `athl_like_id` int(11) NOT NULL AUTO_INCREMENT,
   `fk_athl_id` int(11) NOT NULL,
-  `fk_club_id` int(11) NOT NULL,
+  `fk_offer_id` int(11) NOT NULL,
   `date` datetime DEFAULT NULL,
   `isLiked` tinyint(4) NOT NULL,
   PRIMARY KEY (`athl_like_id`),
   KEY `fk_athl_id_idx` (`fk_athl_id`),
-  KEY `fk_club_id_idx` (`fk_club_id`),
+  KEY `fk_athl_like_offer_id_idx` (`fk_offer_id`),
   CONSTRAINT `fk_athl_like_athl_id` FOREIGN KEY (`fk_athl_id`) REFERENCES `athletes` (`athl_id`),
-  CONSTRAINT `fk_athl_like_club_id` FOREIGN KEY (`fk_club_id`) REFERENCES `clubs` (`club_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `fk_athl_like_offer_id` FOREIGN KEY (`fk_offer_id`) REFERENCES `offers` (`offer_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -79,7 +80,7 @@ CREATE TABLE `athl_like` (
 
 LOCK TABLES `athl_like` WRITE;
 /*!40000 ALTER TABLE `athl_like` DISABLE KEYS */;
-INSERT INTO `athl_like` VALUES (1,1,1,'2019-10-18 10:00:00',1),(2,1,2,'2019-10-18 07:00:00',1),(3,3,1,'2019-10-18 07:00:00',0),(4,3,2,'2019-10-18 07:00:00',1);
+INSERT INTO `athl_like` VALUES (1,1,1,'2019-10-18 10:00:00',1),(2,1,2,'2019-10-18 07:00:00',1),(3,3,1,'2019-10-18 07:00:00',0),(4,3,2,'2019-10-18 07:00:00',1),(5,4,15,'2019-10-18 07:00:00',1),(6,4,16,'2019-10-18 07:00:00',0),(7,5,6,'2019-10-18 07:00:00',1),(8,5,7,'2019-10-18 07:00:00',0),(9,6,10,'2019-10-18 07:00:00',0),(10,6,20,'2019-10-18 07:00:00',1);
 /*!40000 ALTER TABLE `athl_like` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -358,4 +359,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-30 17:10:01
+-- Dump completed on 2019-10-30 18:11:31

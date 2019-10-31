@@ -11,6 +11,7 @@ import ProfilePageTest from "./Components/ProfilePageTest";
 import AthlClubList from "./Components/AthlClubList";
 import Profile from "./Components/Profile";
 import ClubsCards from "./Components/ClubsCards"
+import Card from "./Components/Card"
 
 const RootStack = createStackNavigator(
   {
@@ -38,6 +39,9 @@ const RootStack = createStackNavigator(
     Profile:{
       screen:Profile,
     },
+    Card: {
+      screen: Card,
+    }
   },
   {
     initialRouteName: "FirstPage",

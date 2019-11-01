@@ -10,8 +10,6 @@ import ClubTest from "./Components/ClubTest";
 import ProfilePageTest from "./Components/ProfilePageTest";
 import AthlClubList from "./Components/AthlClubList";
 import Profile from "./Components/Profile";
-
-import ClubsCards from "./Components/ClubsCards";
 import AccountType from './Components/AccountType';
 import PersonalInfo from './Components/PersonalInfo';
 import LocationInfo from './Components/LocationInfo';

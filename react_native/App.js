@@ -11,13 +11,13 @@ import ProfilePageTest from "./Components/ProfilePageTest";
 import AthlClubList from "./Components/AthlClubList";
 import Profile from "./Components/Profile";
 
-import ClubsCards from "./Components/ClubsCards";
+// import ClubsCards from "./Components/ClubsCards";
 import AccountType from './Components/AccountType';
 import PersonalInfo from './Components/PersonalInfo';
 import LocationInfo from './Components/LocationInfo';
 import AccountInfo from './Components/AccountInfo';
 
-import ClubsCards from "./Components/ClubsCards"
+// import ClubsCards from "./Components/ClubsCards"
 import Card from "./Components/Card"
 
 const RootStack = createStackNavigator(

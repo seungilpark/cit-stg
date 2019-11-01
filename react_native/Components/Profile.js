@@ -205,7 +205,7 @@ export default class Profile extends React.Component {
               margin: 5,
               borderRadius: 7,
             }} onPress={() => this.onPressEvent()}>
-            <Text style={{ color: "white", fontFamily: "sans-serif-thin", fontSize: 15 }}>Cancel</Text>
+            <Text style={{ color: "white",fontSize: 15 }}>Cancel</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -219,7 +219,7 @@ export default class Profile extends React.Component {
               borderRadius: 7
             }}
           >
-            <Text style={{ color: "white", fontFamily: "sans-serif-thin", fontSize: 15}}>Submit</Text>
+            <Text style={{ color: "white",  fontSize: 15}}>Submit</Text>
           </TouchableOpacity>
         </View>
       </View>

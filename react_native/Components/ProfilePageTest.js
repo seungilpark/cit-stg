@@ -18,10 +18,33 @@ export default class SignIn extends React.Component {
   onPressButton4() {
     Alert.alert('Send to Settings')
   }
-  onPressButton5() {
-    Alert.alert('Signed Out!')
+  static navigationOptions = ({ navigation  }) => {
+    let title = "Profile";
+    return { title,
+      headerTitleStyle:{
+        color : 'black', 
+        display: 'flex',
+        flex: 0.8,
+        justifyContent: 'center',
+        textAlign: 'center',
+        fontSize: 25
+      } }
+};
+  onPressEvent(){
+    Alert.alert(
+      'Sign Out ',
+      'Are you sure you want to sign out?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'OK', onPress: () => this.props.navigation.navigate('FirstPage')},
+      ],
+      {cancelable: false},
+    );
   }
-
 
   render() {
     return (
@@ -41,7 +64,7 @@ export default class SignIn extends React.Component {
           Defender - Right-Back
         </Text>
         <View style={styles.button}>
-          <Button color='#ff5c5c'
+          <Button color='#2DC5F6'
           title = 'Liked Clubs'
           onPress={() => {
           this.props.navigation.navigate('AthlClubList');
@@ -69,7 +92,7 @@ export default class SignIn extends React.Component {
                 <View style = {{backgroundColor: 'white', alignItems: 'flex-start', 
                                 justifyContent: 'center', height:80, width:300, marginTop: 40, marginLeft: 35, borderColor: '#F6F6F9', borderTopWidth: 2, borderTopStyle: 'solid' }}
                        >
-                    <Text style = {{color: '#7C7C95'}}>Personal Details                                                 ></Text>
+                    <Text style = {{color: '#7C7C95'}}>Personal Details                                                ></Text>
                 </View>
         </TouchableOpacity>
         <TouchableOpacity onPress = {this.onPressButton2}>
@@ -93,17 +116,16 @@ export default class SignIn extends React.Component {
                     <Text style = {{color: '#7C7C95'}}>Settings                                                              ></Text>
                 </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress = {this.onPressButton5}>
-                <View style = {{backgroundColor: 'white', alignItems: 'flex-start', 
-                                justifyContent: 'center', height:80, width:300, marginLeft: 35, borderColor: '#F6F6F9', borderTopWidth: 2, borderTopStyle: 'solid' }}
-                       >
-                    <Text style = {{color: '#2DC5F6'}}>Sign Out</Text>
+        <TouchableOpacity>
+                <View style={styles.button2}>
+                  <Button color='#2DC5F6' flexDirection='row-reverse' title='Sign Out' onPress={() => this.onPressEvent()}/>
                 </View>
         </TouchableOpacity>
        </ScrollView>
     );
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -117,7 +139,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginLeft: 'auto', 
     marginRight: 'auto', 
-    width: 380, 
+    width: "100%", 
     height: 250
   },
   playerphoto: {
@@ -147,10 +169,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row-reverse',
     top: 10,
     right: 32,
-    borderRadius: 50,
+    borderRadius: 50
     // shadowOffset:{  width: 0,  height: 12,  },
     // shadowColor: 'black',
     // shadowOpacity: 1.0,
     // shadowRadius: 11,
+  },
+  button2: {
+    flex:1,
+    flexDirection: 'row-reverse',
+    bottom: 10,
+    right: 32,
+    borderRadius: 50
   }
 });

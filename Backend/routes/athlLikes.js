@@ -21,6 +21,7 @@ router.get('/likes/:id', async (req, res) => {
         let input_id = req.params.id;
         const rows = await db.getLikesByAthleteId(input_id);
         res.json(rows)
+        console.log(input_id)
     }
     catch(err) {
         res.json((`{"Error": "True", "Message": ${err}, "Timestamp": ${dbHelper.now()}`));

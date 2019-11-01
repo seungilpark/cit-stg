@@ -10,7 +10,11 @@ import ClubTest from "./Components/ClubTest";
 import ProfilePageTest from "./Components/ProfilePageTest";
 import AthlClubList from "./Components/AthlClubList";
 import Profile from "./Components/Profile";
-import ClubsCards from "./Components/ClubsCards"
+import ClubsCards from "./Components/ClubsCards";
+import AccountType from './Components/AccountType';
+import PersonalInfo from './Components/PersonalInfo';
+import LocationInfo from './Components/LocationInfo';
+import AccountInfo from './Components/AccountInfo';
 
 const RootStack = createStackNavigator(
   {
@@ -20,8 +24,17 @@ const RootStack = createStackNavigator(
     SignIn: {
       screen: SignIn,
     },
-    SignUp: {
-      screen: SignUp,
+    AccountType: {
+      screen: AccountType,
+    },
+    PersonalInfo: {
+      screen: PersonalInfo,
+    },
+    LocationInfo: {
+      screen: LocationInfo,
+    },
+    AccountInfo: {
+      screen: AccountInfo,
     },
     AthTest: {
       screen: AthTest,

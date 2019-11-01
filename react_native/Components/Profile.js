@@ -1,6 +1,7 @@
 /* Profile Component */
 import React from "react";
 import {
+  Alert,
   StyleSheet,
   TextInput,
   Text,
@@ -65,11 +66,40 @@ export default class Profile extends React.Component {
     })
   }
 
+  static navigationOptions = ({ navigation  }) => {
+    let title = "Create Profile";
+    return { 
+        title, 
+        headerTitleStyle:{
+          color : 'black', 
+          display: 'flex',
+          flex: 0.8,
+          justifyContent: 'center',
+          textAlign: 'center',
+        } }
+  };
+
+  onPressEvent(){
+    Alert.alert(
+      'Cancel ',
+      'Are you sure you want to cancel?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'OK', onPress: () => this.props.navigation.navigate('FirstPage')},
+      ],
+      {cancelable: false},
+    );
+  }
+
   render() {
     console.log(this.state);
     return (
       <View style={styles.container}>
-        <Text style={styles.header}>Create Profile</Text>
+        {/* <Text style={styles.header}>Create Profile</Text> */}
         <View style={styles.athlContainer}>
           <View style={styles.labelAndValue}>
             <Text style={{ width: "15%" }}>Name: </Text>
@@ -167,26 +197,29 @@ export default class Profile extends React.Component {
         <View style={styles.buttonBox}>
           <TouchableOpacity
             style={{
-              textAlign: "center",
+              alignItems: "center",
+              justifyContent: "center",
               width: "30%",
               backgroundColor: "red",
               padding: 10,
-              margin: 5
-            }}
-          >
-            <Text style={{ color: "white" }}>Cancel</Text>
+              margin: 5,
+              borderRadius: 7,
+            }} onPress={() => this.onPressEvent()}>
+            <Text style={{ color: "white",fontSize: 15 }}>Cancel</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={{
-              textAlign: "center",
+              alignItems: "center",
+              justifyContent: "center",
               width: "30%",
               backgroundColor: "green",
               padding: 10,
-              margin: 5
+              margin: 5,
+              borderRadius: 7
             }}
           >
-            <Text style={{ color: "white" }}>Submit</Text>
+            <Text style={{ color: "white",  fontSize: 15}}>Submit</Text>
           </TouchableOpacity>
         </View>
       </View>

@@ -51,6 +51,12 @@ export default class FirstPage extends React.Component {
         onPress={() => {
             this.props.navigation.navigate('Profile');
         }}/>
+
+        <Button 
+        title = 'Cards'
+        onPress={() => {
+            this.props.navigation.navigate('Card');
+        }}/>      
       </View>
     );
   }

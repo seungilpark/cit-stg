@@ -48,9 +48,9 @@ export default class SignIn extends React.Component {
         })
     };
     if(this.state.role === 'ath'){
-      return fetch('http://172.20.10.3:8080/api/athletes/signin', data);
+      return fetch('http://ec2-18-236-121-4.us-west-2.compute.amazonaws.com:8080/api/athletes/signin', data);
     }else{
-      return fetch('http://172.20.10.3:8080/api/clubMgrs/signin', data);
+      return fetch('http://ec2-18-236-121-4.us-west-2.compute.amazonaws.com:8080/api/clubMgrs/signin', data);
     }
   }
 

@@ -60,7 +60,7 @@ const getAthlBySportsName = sportsName => {
 };
 
 const getAthlById = inputId => {
-  let query = `select athl_fname, athl_lname, athl_gender,athl_dob,athl_height,athl_weight,athl_email,athl_phone, athl_addr, city, country from athletes where athl_id=` + pool.escape(inputId);
+  let query = `select athl_id, athl_fname, athl_lname, athl_gender,athl_dob,athl_height,athl_weight,athl_email,athl_phone, athl_addr, city, country from athletes where athl_id=` + pool.escape(inputId);
 
   return new Promise((resolve, reject) => {
     pool.query(query, (err, results, fields) => {

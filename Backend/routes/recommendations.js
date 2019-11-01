@@ -15,14 +15,18 @@ const ERROR_MSG = "Error";
 router.get('/offers/:athl_id', async (req, res) => {
     try {
         let athlId = req.params.athl_id;
-        let athl = await athlRepo.getAthlById(athlId);
-        let { country } = athl;
-        let prof = await profRepo.getProfileByAthlId(athlId);
-        let {fk_sports_id, position} = prof;
-        let dislikes = await likesRepo.getDisOffers(athlId);
-        dislikes = dislikes.map(el => el.fk_club_id);
-        let recList = await recRepo.generateClubsList(fk_sports_id, position, country, dislikes);
-        
+        let athl =  athlRepo.getAthlById(athlId);
+        let prof =  profRepo.getProfileByAthlId(athlId);
+        let dislikes =  likesRepo.getDisOffers(athlId);
+        // let { country } = await athl[0];
+        // let {fk_sports_id, position} = prof[0];
+        // console.log("GG", await athl[0], await  prof[0], await dislikes);
+        let athlResult = await athl;
+        let profResult  = await prof;
+        let dislikesResult = await dislikes;
+        dislikes = dislikesResult.map(el => el.fk_club_id);
+
+        let recList = await recRepo.generateClubsList(profResult[0].fk_sports_id, profResult[0].position, athlResult[0].country, dislikes);
         res.json(recList);
     }
     catch(err) {

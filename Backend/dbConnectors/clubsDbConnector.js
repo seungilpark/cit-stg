@@ -94,5 +94,6 @@ module.exports = {
     getClubById,
     getClubsByName,
     getClubsByLocation,
-    deleteClubById
+    deleteClubById,
+    updateClubById
 }

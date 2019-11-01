@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Swiper from 'react-native-deck-swiper'
 import { Button, StyleSheet, Text, View } from 'react-native'
+import { Platform } from 'react-native'
+
 
 // demo purposes only
 function * range (start, end) {
@@ -76,6 +78,7 @@ export default class Card extends Component {
           ref={swiper => {
             this.swiper = swiper
           }}
+          useViewOverflow={Platform.OS === 'ios'}
           onSwiped={() => this.onSwiped('general')}
           onSwipedLeft={() => this.onSwiped('left')}
           onSwipedRight={() => this.onSwiped('right')}

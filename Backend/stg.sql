@@ -24,7 +24,6 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 --
 -- Table structure for table `applications`
 --
-
 DROP TABLE IF EXISTS `applications`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
@@ -71,6 +70,7 @@ CREATE TABLE `athl_like` (
   CONSTRAINT `fk_athl_like_athl_id` FOREIGN KEY (`fk_athl_id`) REFERENCES `athletes` (`athl_id`),
   CONSTRAINT `fk_athl_like_offer_id` FOREIGN KEY (`fk_offer_id`) REFERENCES `offers` (`offer_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

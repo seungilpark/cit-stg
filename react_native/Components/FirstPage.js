@@ -20,7 +20,7 @@ export default class FirstPage extends React.Component {
         <Button 
         title = 'Sign Up'
         onPress={() => {
-            this.props.navigation.navigate('SignUp');
+            this.props.navigation.navigate('AccountType');
         }}/>
 
         <Button 
@@ -40,12 +40,11 @@ export default class FirstPage extends React.Component {
         onPress={() => {
             this.props.navigation.navigate('ProfilePageTest');
         }}/>
-
-        {/* <Button
+        <Button
         title = 'Athlete Club List'
         onPress={() => {
             this.props.navigation.navigate('AthlClubList');
-        }}/> */}
+        }}/>
  
         <Button 
         title = 'Profile'

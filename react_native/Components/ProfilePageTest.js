@@ -135,8 +135,6 @@ const styles = StyleSheet.create({
   topimage: {
     flex: 1,
     position: 'absolute',
-    alignItems: 'stretch',
-    justifyContent: 'center',
     marginLeft: 'auto', 
     marginRight: 'auto', 
     width: "100%", 

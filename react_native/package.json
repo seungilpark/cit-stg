@@ -27,10 +27,5 @@
   "devDependencies": {
     "babel-preset-expo": "^7.0.0"
   },
-  "private": true,
-  "name": "react_native",
-  "version": "1.0.0",
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "private": true
 }

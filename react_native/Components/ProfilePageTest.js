@@ -64,7 +64,7 @@ export default class SignIn extends React.Component {
           Defender - Right-Back
         </Text>
         <View style={styles.button}>
-          <Button color='#2DC5F6'
+          <Button
           title = 'Liked Clubs'
           onPress={() => {
           this.props.navigation.navigate('AthlClubList');
@@ -118,7 +118,7 @@ export default class SignIn extends React.Component {
         </TouchableOpacity>
         <TouchableOpacity>
                 <View style={styles.button2}>
-                  <Button color='#2DC5F6' flexDirection='row-reverse' title='Sign Out' onPress={() => this.onPressEvent()}/>
+                  <Button flexDirection='row-reverse' title='Sign Out' onPress={() => this.onPressEvent()}/>
                 </View>
         </TouchableOpacity>
        </ScrollView>

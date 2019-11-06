@@ -18,9 +18,6 @@ router.get('/offers/:athl_id', async (req, res) => {
         let athl =  athlRepo.getAthlById(athlId);
         let prof =  profRepo.getProfileByAthlId(athlId);
         let dislikes =  likesRepo.getDisOffers(athlId);
-        // let { country } = await athl[0];
-        // let {fk_sports_id, position} = prof[0];
-        // console.log("GG", await athl[0], await  prof[0], await dislikes);
         let athlResult = await athl;
         let profResult  = await prof;
         let dislikesResult = await dislikes;

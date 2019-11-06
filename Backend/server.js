@@ -11,6 +11,8 @@ const offersRouter = require("./routes/offers");
 const profilesRouter = require("./routes/profiles");
 const sportsRouter = require("./routes/sports");
 const clubMgrRouter = require("./routes/clubMgrs");
+const athlLikesRouter = require("./routes/athlLikes");
+const clubLikesRouter = require("./routes/clubLikes");
 const recommendationsRouters = require("./routes/recommendations");
 const path = require("path");
 app.use(bodyParser.json());
@@ -25,6 +27,9 @@ app.get("/api", (req, res) => {
 app.use("/api/applications", applicationRouter);
 app.use("/api/athletes", athletesRouter);
 app.use("/api/athletes", athletesLikesRouter);
+app.use("/api/athlLikes", athlLikesRouter);
+app.use("/api/clubLikes", clubLikesRouter);
+
 app.use("/api/clubs", clubsRouter);
 app.use("/api/clubMgrs", clubMgrRouter);
 app.use("/api/offers", offersRouter);

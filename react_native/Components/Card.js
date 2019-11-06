@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Swiper from 'react-native-deck-swiper'
 import { Button, StyleSheet, Text, View } from 'react-native'
+import { Platform } from 'react-native'
+
 
 // demo purposes only
 function * range (start, end) {
@@ -23,7 +25,7 @@ export default class Card extends Component {
   }
 
   getData() {
-    return fetch('http://18.236.121.4:8080/api/athletes')
+    return fetch('http://54.191.100.200:8080/api/athletes')
       .then((response) => response.json())
       .then((responseJson) => {
         // console.log(typeof responseJson);
@@ -76,6 +78,7 @@ export default class Card extends Component {
           ref={swiper => {
             this.swiper = swiper
           }}
+          useViewOverflow={Platform.OS === 'ios'}
           onSwiped={() => this.onSwiped('general')}
           onSwipedLeft={() => this.onSwiped('left')}
           onSwipedRight={() => this.onSwiped('right')}

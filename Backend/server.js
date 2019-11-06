@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const applicationRouter = require("./routes/applications");
 const athletesRouter = require("./routes/athletes");
+const athletesLikesRouter = require("./routes/athlLikes")
 const clubsRouter = require("./routes/clubs");
 const offersRouter = require("./routes/offers");
 const profilesRouter = require("./routes/profiles");
@@ -18,6 +19,7 @@ app.use(cookieParser());
 
 app.use("/api/applications", applicationRouter);
 app.use("/api/athletes", athletesRouter);
+app.use("/api/athletes", athletesLikesRouter);
 app.use("/api/clubs", clubsRouter);
 app.use("/api/clubMgrs", clubMgrRouter);
 app.use("/api/offers", offersRouter);

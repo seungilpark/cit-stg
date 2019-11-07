@@ -31,7 +31,7 @@ router.get('/dislikes/:id', async (req, res) => {
         res.json((`{"Error": "True", "Message": ${err}, "Timestamp": ${dbHelper.now()}`));
     }
 })
-
+/* /api/athlLikes/like */
 router.post('/like', async (req, res) => {
     try {
         let athl_id = req.body.athl_id;

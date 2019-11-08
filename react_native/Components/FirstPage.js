@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     pic: {
+        opacity: 0.35,
         flex: 1,
         position: "absolute",
         width: "100%",
@@ -138,7 +139,7 @@ const styles = StyleSheet.create({
         color: "blue"
     },
     button: {
-        opacity: 0.7,
+        opacity: 0.8,
         backgroundColor: "#DDDDDD",
         width: "38%",
         padding: 14,

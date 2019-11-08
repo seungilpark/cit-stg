@@ -10,6 +10,8 @@ import ClubTest from "./Components/ClubTest";
 import ProfilePageTest from "./Components/ProfilePageTest";
 import AthlClubList from "./Components/AthlClubList";
 import Profile from "./Components/Profile";
+import ClubMgrProfile from "./Components/ClubMgrProfile";
+import PersonalDetailsPage from "./Components/PersonalDetailsPage";
 
 // import ClubsCards from "./Components/ClubsCards";
 import AccountType from './Components/AccountType';
@@ -49,11 +51,17 @@ const RootStack = createStackNavigator(
     ProfilePageTest: {
       screen: ProfilePageTest
     },
+    PersonalDetailsPage: {
+      screen: PersonalDetailsPage
+    },
     AthlClubList: {
       screen: AthlClubList,
     },
     Profile:{
-      screen:Profile,
+      screen: Profile,
+    },
+    ClubMgrProfile: {
+      screen: ClubMgrProfile,
     },
     Card: {
       screen: Card,

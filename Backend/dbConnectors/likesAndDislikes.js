@@ -148,6 +148,10 @@ const insertManyClubDislikes = (club_id, athl_id_arr) =>
     })
 }
 
+// const getMatches = (club_id, athl_id) {
+//     let query = ""
+// }
+
 
 module.exports = {
     getAthlDislikes,

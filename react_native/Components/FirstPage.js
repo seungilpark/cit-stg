@@ -53,6 +53,12 @@ export default class FirstPage extends React.Component {
         }}/>
 
         <Button 
+        title = 'Club Manager Profile'
+        onPress={() => {
+            this.props.navigation.navigate('ClubMgrProfile');
+        }}/>
+
+        <Button 
         title = 'Cards'
         onPress={() => {
             this.props.navigation.navigate('Card');

@@ -26,6 +26,8 @@ export default class MainApp extends React.Component {
         return (
             <View style={styles.container}>
                 <Text style={styles.text}>STG Mobile</Text>
+                <Image  style={{width: 200, height: 200, alignItems: "center"}}
+                        source={{uri: 'https://media.licdn.com/dms/image/C560BAQERIB73rBABlA/company-logo_200_200/0?e=2159024400&v=beta&t=eP6su3GtN1InfQ3QHuGxe1Cjeh_u2gBTJ4I5mjrqJAw'}}/>
 
                 <TouchableHighlight
                         style={styles.button}
@@ -44,10 +46,6 @@ export default class MainApp extends React.Component {
                         <Text style={styles.btnText}> Sign Up </Text>
                     </TouchableHighlight>
 
-                
-                
-                
-                
             </View>
         )
     }

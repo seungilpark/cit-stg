@@ -16,6 +16,7 @@ import AccountType from './Components/AccountType';
 import PersonalInfo from './Components/PersonalInfo';
 import LocationInfo from './Components/LocationInfo';
 import AccountInfo from './Components/AccountInfo';
+import MainApp from './Components/main_app'
 
 // import ClubsCards from "./Components/ClubsCards"
 import Card from "./Components/Card"
@@ -45,6 +46,9 @@ const RootStack = createStackNavigator(
     },
     ClubTest: {
       screen: ClubTest,
+    },
+    MainApp: {
+      screen: MainApp
     },
     ProfilePageTest: {
       screen: ProfilePageTest,

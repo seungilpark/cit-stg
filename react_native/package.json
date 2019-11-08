@@ -22,12 +22,8 @@
     "react-native-view-overflow": "0.0.4",
     "react-native-web": "^0.11.7",
     "react-navigation": "^4.0.10",
-<<<<<<< HEAD
-    "react-navigation-stack": "^1.10.3"
-=======
     "react-navigation-stack": "^1.9.3",
     "react-navigation-transitions": "^1.0.12"
->>>>>>> 08de4da4a4534343866695ed63a5c6999f9084dc
   },
   "devDependencies": {
     "babel-preset-expo": "^7.1.0"

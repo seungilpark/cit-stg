@@ -45,59 +45,53 @@ export default class SignUp extends React.Component {
             checkPd = this.verPd();
             console.log(checkPd);
             if (checkPd == true && this.state.role === "ath") {
-                fetch(
-                    "http://54.191.100.200:8080/api/athletes/register",
-                    {
-                        method: "POST",
-                        headers: {
-                            Accept: "application/json",
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({
-                            athl_fname: this.state.fname,
-                            athl_lname: this.state.lname,
-                            athl_gender: this.state.gender,
-                            athl_dob: this.state.dob,
-                            athl_addr: this.state.addr,
-                            athl_height: this.state.height,
-                            athl_weight: this.state.weight,
-                            athl_email: this.state.email,
-                            athl_phone: this.state.phone,
-                            account: this.state.account,
-                            password: this.state.password,
-                            city: this.state.city,
-                            country: this.state.country
-                        })
-                    }
-                );
+                fetch("http://54.191.100.200:8080/api/athletes/register", {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        athl_fname: this.state.fname,
+                        athl_lname: this.state.lname,
+                        athl_gender: this.state.gender,
+                        athl_dob: this.state.dob,
+                        athl_addr: this.state.addr,
+                        athl_height: this.state.height,
+                        athl_weight: this.state.weight,
+                        athl_email: this.state.email,
+                        athl_phone: this.state.phone,
+                        account: this.state.account,
+                        password: this.state.password,
+                        city: this.state.city,
+                        country: this.state.country
+                    })
+                });
                 console.log("Athlete Created.");
                 this.props.navigation.navigate("FirstPage");
             } else if (checkPd == true && this.state.role === "mgr") {
-                fetch(
-                    "http://54.191.100.200:8080/api/clubMgrs/create",
-                    {
-                        method: "POST",
-                        headers: {
-                            Accept: "application/json",
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({
-                            mgr_fname: this.state.fname,
-                            mgr_lname: this.state.lname,
-                            // athl_gender: this.state.gender,
-                            // athl_dob: this.state.dob,
-                            // addr: this.state.addr,
-                            // athl_height: this.state.height,
-                            // athl_weight: this.state.weight,
-                            mgr_email: this.state.email,
-                            mgr_phone: this.state.phone,
-                            mgr_account: this.state.account,
-                            mgr_password: this.state.password
-                            // city: this.state.city,
-                            // country: this.state.country
-                        })
-                    }
-                );
+                fetch("http://54.191.100.200:8080/api/clubMgrs/create", {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        mgr_fname: this.state.fname,
+                        mgr_lname: this.state.lname,
+                        // athl_gender: this.state.gender,
+                        // athl_dob: this.state.dob,
+                        // addr: this.state.addr,
+                        // athl_height: this.state.height,
+                        // athl_weight: this.state.weight,
+                        mgr_email: this.state.email,
+                        mgr_phone: this.state.phone,
+                        mgr_account: this.state.account,
+                        mgr_password: this.state.password
+                        // city: this.state.city,
+                        // country: this.state.country
+                    })
+                });
                 console.log("Manager Created.");
                 this.props.navigation.navigate("FirstPage");
             } else {
@@ -108,85 +102,85 @@ export default class SignUp extends React.Component {
         }
     }
 
-// Submit(){
-//   checkEmpty = this.checkEmpty();
-//   console.log(checkEmpty);
-//   if(checkEmpty != false){
-//     checkPd = this.verPd();
-//     console.log(checkPd);
-//     if(checkPd == true && this.state.role === 'ath'){
-//       fetch('http://54.191.100.200:8080/api/athletes/register', {
-//         method: 'POST',
-//         headers: {
-//           Accept: 'application/json',
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({
-//           athl_fname: this.state.fname,
-//           athl_lname: this.state.lname,
-//           athl_gender: this.state.gender,
-//           athl_dob: this.state.dob,
-//           athl_addr: this.state.addr,
-//           athl_height: this.state.height,
-//           athl_weight: this.state.weight,
-//           athl_email: this.state.email,
-//           athl_phone: this.state.phone,
-//           account: this.state.account,
-//           password: this.state.password,
-//           city: this.state.city,
-//           country: this.state.country
-//         }),
-//       });
-//       console.log("Athlete Created.")
-//     }
-//     else if(checkPd == true && this.state.role === 'mgr'){
-//       fetch('http://54.191.100.200:8080/api/clubMgrs/create', {
-//         method: 'POST',
-//         headers: {
-//           Accept: 'application/json',
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({
-//           mgr_fname: this.state.fname,
-//           mgr_lname: this.state.lname,
-//           // athl_gender: this.state.gender,
-//           // athl_dob: this.state.dob,
-//           // addr: this.state.addr,
-//           // athl_height: this.state.height,
-//           // athl_weight: this.state.weight,
-//           mgr_email: this.state.email,
-//           mgr_phone: this.state.phone,
-//           mgr_account: this.state.account,
-//           mgr_password: this.state.password,
-//           // city: this.state.city,
-//           // country: this.state.country
-//         }),
-//       });
-//       console.log("Manager Created.")
-//     }else{
-//       this.setState({
-//         alert: "Please confirm your password."
-//       })
-//     }
-// }
+    // Submit(){
+    //   checkEmpty = this.checkEmpty();
+    //   console.log(checkEmpty);
+    //   if(checkEmpty != false){
+    //     checkPd = this.verPd();
+    //     console.log(checkPd);
+    //     if(checkPd == true && this.state.role === 'ath'){
+    //       fetch('http://54.191.100.200:8080/api/athletes/register', {
+    //         method: 'POST',
+    //         headers: {
+    //           Accept: 'application/json',
+    //           'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify({
+    //           athl_fname: this.state.fname,
+    //           athl_lname: this.state.lname,
+    //           athl_gender: this.state.gender,
+    //           athl_dob: this.state.dob,
+    //           athl_addr: this.state.addr,
+    //           athl_height: this.state.height,
+    //           athl_weight: this.state.weight,
+    //           athl_email: this.state.email,
+    //           athl_phone: this.state.phone,
+    //           account: this.state.account,
+    //           password: this.state.password,
+    //           city: this.state.city,
+    //           country: this.state.country
+    //         }),
+    //       });
+    //       console.log("Athlete Created.")
+    //     }
+    //     else if(checkPd == true && this.state.role === 'mgr'){
+    //       fetch('http://54.191.100.200:8080/api/clubMgrs/create', {
+    //         method: 'POST',
+    //         headers: {
+    //           Accept: 'application/json',
+    //           'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify({
+    //           mgr_fname: this.state.fname,
+    //           mgr_lname: this.state.lname,
+    //           // athl_gender: this.state.gender,
+    //           // athl_dob: this.state.dob,
+    //           // addr: this.state.addr,
+    //           // athl_height: this.state.height,
+    //           // athl_weight: this.state.weight,
+    //           mgr_email: this.state.email,
+    //           mgr_phone: this.state.phone,
+    //           mgr_account: this.state.account,
+    //           mgr_password: this.state.password,
+    //           // city: this.state.city,
+    //           // country: this.state.country
+    //         }),
+    //       });
+    //       console.log("Manager Created.")
+    //     }else{
+    //       this.setState({
+    //         alert: "Please confirm your password."
+    //       })
+    //     }
+    // }
 
-//     verPd() {
-//         if (this.state.password == this.state.password1) {
-//             return true;
-//         } else {
-//             return false;
-//         }
-//     }
+    //     verPd() {
+    //         if (this.state.password == this.state.password1) {
+    //             return true;
+    //         } else {
+    //             return false;
+    //         }
+    //     }
 
-//     checkEmpty() {
-//         var i;
-//         for (i = 0; i < this.state.length; i++) {
-//             if (this.state[i] == "") {
-//                 this.setState({ alert: "Missing field(s)" });
-//                 return false;
-//             }
-//         }
-//     }
+    //     checkEmpty() {
+    //         var i;
+    //         for (i = 0; i < this.state.length; i++) {
+    //             if (this.state[i] == "") {
+    //                 this.setState({ alert: "Missing field(s)" });
+    //                 return false;
+    //             }
+    //         }
+    //     }
 
     render() {
         return (

@@ -17,69 +17,6 @@ export default class FirstPage extends React.Component {
             <View style={styles.container}>
                 <Text style={styles.pageText}>This is the first page</Text>
 
-<<<<<<< HEAD
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>This is the first page</Text>
-        {/* <Text>{JSON.stringify(this.state.dbResponse)}</Text> */}
-
-        <Button
-        title = 'Sign In'
-        onPress={() => {
-            this.props.navigation.navigate('SignIn');
-        }}/>
-
-        <Button 
-        title = 'Sign Up'
-        onPress={() => {
-            this.props.navigation.navigate('AccountType');
-        }}/>
-
-        <Button 
-        title = 'Athlete Data Test'
-        onPress={() => {
-            this.props.navigation.navigate('AthTest');
-        }}/>
-
-        <Button 
-        title = 'Club Data Test'
-        onPress={() => {
-            this.props.navigation.navigate('ClubTest');
-        }}/>
-
-        <Button 
-        title = 'Profile Page Test'
-        onPress={() => {
-            this.props.navigation.navigate('ProfilePageTest');
-        }}/>
-        <Button
-        title = 'Athlete Club List'
-        onPress={() => {
-            this.props.navigation.navigate('AthlClubList');
-        }}/>
- 
-        <Button 
-        title = 'Profile'
-        onPress={() => {
-            this.props.navigation.navigate('Profile');
-        }}/>
-
-        <Button 
-        title = 'Club Manager Profile'
-        onPress={() => {
-            this.props.navigation.navigate('ClubMgrProfile');
-        }}/>
-
-        <Button 
-        title = 'Cards'
-        onPress={() => {
-            this.props.navigation.navigate('Card');
-        }}/>      
-      </View>
-    );
-  }
-=======
                 <ImageBackground
                     // source={require("../assets/fristPage.jpg")}
                     style={styles.backgroundImage}
@@ -164,7 +101,6 @@ export default class FirstPage extends React.Component {
             </View>
         );
     }
->>>>>>> f1a7924ed7e8d940716eb7cda94fbf45b8748816
 }
 
 const styles = StyleSheet.create({

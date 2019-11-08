@@ -115,16 +115,16 @@ export default class AthlClubList extends React.Component {
                                 renderItem={({item}) =>
                                     
                                     <TouchableOpacity onPress={() => this.flipCard()}>
-                                        <Card >
+                                        <Card containerStyle={styles.cardStyle}>
                                             <Animated.Image source={require('../assets/manu.jpg')} style={[styles.flipCard, frontAnimatedStyle]}>
                                             </Animated.Image>
                                             <Animated.View  style={[styles.flipCard, styles.flipCardBack, backAnimatedStyle]}>
                                             <Text>{this.state.dbResponse}</Text>
                                             
-                                                    <Text style = {{color: "white"}}>Club Name: {item.club_name}</Text>
-                                                    <Text style = {{color: "white"}}>Location: {item.country}</Text>
-                                                    <Text style = {{color: "white"}}>Position: {item.offer_position}</Text>
-                                                    <Text style = {{color: "white"}}>Salary: {item.offer_amount}</Text>
+                                                    <Text style = {styles.TextStyle}>Club Name: {item.club_name}</Text>
+                                                    <Text style = {styles.TextStyle}>Location: {item.country}</Text>
+                                                    <Text style = {styles.TextStyle}>Position: {item.offer_position}</Text>
+                                                    <Text style = {styles.TextStyle}>Salary: {item.offer_amount}</Text>
                                                     </Animated.View>
                                         </Card>
                                     </TouchableOpacity>
@@ -144,15 +144,16 @@ export default class AthlClubList extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
- 
+        flex:1,
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding:10
+        padding:10,
+        backgroundColor: "#3AD289"
         
-      },
+        },
 
-      flipCard: {
+        flipCard: {
         top: 0,
         display: "flex",
         paddingTop: 10,
@@ -164,26 +165,38 @@ const styles = StyleSheet.create({
         height: 200,
         backgroundColor: "blue",
         backfaceVisibility: "hidden"
-      },
+        },
 
-      flipCardBack: {
-        backgroundColor: "black",
+        flipCardBack: {
+        backgroundColor: "#2D5D51",
         position: "absolute",
         top: 0
-      },
-   
-      imageViewStyle: {
-   
+        },
+
+        imageViewStyle: {
+
         width: 240,
         height: 300,
-        borderRadius:6
-       
-      },
-      
-      TextStyle:{
-          color:'#fff',
-          textAlign:'center',
-          padding: 5,
-          fontSize: 18
-      },
+        borderRadius:6,
+        backgroundColor: "#3AD289"
+        
+        },
+        
+        TextStyle:{
+            color:'#fff',
+            textAlign:'center',
+            padding: 5,
+            fontSize: 18
+        },
+
+        cardStyle: {
+            backgroundColor: "#3AD289",
+            shadowColor: "#000000",
+            shadowOffset:{  width: 0,  height: 12,  },
+            shadowColor: 'black',
+            shadowOpacity: 1.0,
+            shadowRadius: 11,
+            borderRadius: 6
+            
+        }
 });

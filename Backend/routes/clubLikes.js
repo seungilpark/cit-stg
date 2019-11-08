@@ -10,9 +10,9 @@ const dbHelper = require("../dbConnectors/DbHelper");
  */
 router.get('/likes/:id', async (req, res) => {
     try {
-        let athl_id = req.params.id;
-        console.log(athl_id)
-        const rows = await db.getAthlLikes(athl_id);
+        let club_id = req.params.id;
+        console.log(club_id)
+        const rows = await db.getClubLikes(club_id);
         res.json(rows)
     }
     catch(err) {
@@ -22,21 +22,21 @@ router.get('/likes/:id', async (req, res) => {
 
 router.get('/dislikes/:id', async (req, res) => {
     try {
-        let athl_id = req.params.id;
-        console.log(athl_id)
-        const rows = await db.getAthlDislikes(athl_id);
+        let club_id = req.params.id;
+        console.log(club_id)
+        const rows = await db.getClubDislikes(club_id);
         res.json(rows)
     }
     catch(err) {
         res.json((`{"Error": "True", "Message": ${err}, "Timestamp": ${dbHelper.now()}`));
     }
 })
-/* /api/athlLikes/like */
+
 router.post('/like', async (req, res) => {
     try {
+        let club_id = req.body.club_id;
         let athl_id = req.body.athl_id;
-        let offer_id = req.body.offer_id;
-        const result = await db.insertAthlLikes(athl_id, offer_id);
+        const result = await db.insertClubLikes(club_id, athl_id);
         res.json(result);
     }
     catch(err) {
@@ -46,9 +46,9 @@ router.post('/like', async (req, res) => {
 
 router.post('/likes', async (req, res) => {
     try {
-        let athl_id = req.body.athl_id;
-        let offer_id_arr = req.body.offer_id_arr;
-        const result = await db.insertManyAthlLikes(athl_id, offer_id_arr);
+        let club_id = req.body.club_id;
+        let athl_id_arr = req.body.athl_id_arr;
+        const result = await db.insertManyClubLikes(club_id, athl_id_arr);
         res.json(result);
     }
     catch(err) {
@@ -58,9 +58,9 @@ router.post('/likes', async (req, res) => {
 
 router.post('/dislike', async (req, res) => {
     try {
+        let club_id = req.body.club_id;
         let athl_id = req.body.athl_id;
-        let offer_id = req.body.offer_id;
-        const result = await db.insertAthlDislikes(athl_id, offer_id);
+        const result = await db.insertClubDislikes(club_id, athl_id);
         res.json(result);
     }
     catch(err) {
@@ -70,21 +70,15 @@ router.post('/dislike', async (req, res) => {
 
 router.post('/dislikes', async (req, res) => {
     try {
-        let athl_id = req.body.athl_id;
-        let offer_id_arr = req.body.offer_id_arr;
-        const result = await db.insertManyAthlDislikes(athl_id, offer_id_arr);
+        let club_id = req.body.club_id;
+        let athl_id_arr = req.body.athl_id_arr;
+        const result = await db.insertManyClubDislikes(club_id, athl_id_arr);
         res.json(result);
     }
     catch(err) {
         res.json(err);
     }
 })
-
-
-
-
-
-
 
 
 module.exports = router;

@@ -3,22 +3,50 @@
 //  for athletes it will be a list of clubs/offers matching their information such as location, sports, position, money etc.
 const pool = require("../config/database");
 const mysql = require("mysql");
+
 /*
- * Params
- * {
+ * generate a list of offers based on an athlete's sports, position, country, and disliked offers
+ * TODO: this should also look at user's liked offers and generate accordingly
+ *          maybe ML models
  * country:str
  * sports:str
  * position:str
- * dislikes: offer_id[]
- * }
+ * oid_arr: offer_id[]
  */
-const generateClubsList = (sports_id, position, country, dislikes) => {
-
+const generateRecommendedOffersList = (sports_id, position, country) => {
     country = country.trim();
     position = position.trim();
-  let query = dislikes.length ? "select c.club_id, c.club_name,  c.club_url, c.club_contact, c.country, o.offer_id, o.offer_position, o.offer_amount, o.offer_desc, o.offer_photo, o.offer_types, o.offer_length, o.offer_title, s.sports_name from clubs as c inner join sports as s on c.fk_sports_id = s.sports_id inner join offers as o on c.club_id = o.fk_club_id where c.country=? and o.offer_position =? and s.sports_id =? and o.offer_id not in ?? order by o.offer_amount limit 5"
-    : "select c.club_id, c.club_name,  c.club_url, c.club_contact, c.country, o.offer_id, o.offer_position, o.offer_amount, o.offer_desc, o.offer_photo, o.offer_types, o.offer_length, o.offer_title, s.sports_name from clubs as c inner join sports as s on c.fk_sports_id = s.sports_id inner join offers as o on c.club_id = o.fk_club_id where c.country=? and o.offer_position =? and s.sports_id =? order by o.offer_amount limit 5";
-  query = mysql.format(query, [country, position, sports_id, dislikes]);
+    console.log(country, position, sports_id)
+    let query = "select c.club_id, c.club_name,  c.club_url, c.club_contact, c.country, o.offer_id, o.offer_position, o.offer_amount, o.offer_desc, o.offer_photo, o.offer_types, o.offer_length, o.offer_title, s.sports_name from clubs as c inner join sports as s on c.fk_sports_id = s.sports_id inner join offers as o on c.club_id = o.fk_club_id where c.country=? and o.offer_position =? and s.sports_id =?"
+    query = mysql.format(query, [country, position, sports_id]);
+      console.log(query);
+    return new Promise((resolve, reject) => {
+      pool.query(query, (err, results, fields) => {
+        if (err) reject(err);
+        else resolve(results);
+      });
+    });
+};
+
+const getMatchedByAthlId = athl_id => {
+  let query = `select a.athl_id, c.club_id, c.club_name, c.country, o.offer_amount, o.offer_desc, o.offer_photo, o.offer_position, o.offer_title
+    from athletes as a
+    inner join athl_like as al
+    on a.athl_id = al.fk_athl_id
+    inner join offers as o
+    on al.fk_offer_id = o.offer_id
+    inner join clubs as c
+    on o.fk_club_id = c.club_id
+    where al.isLiked = 1 
+    and al.fk_athl_id = ?
+    and c.club_id in (select c.club_id
+    from athletes as a
+    inner join club_like as cl
+    on cl.fk_athl_id=a.athl_id
+    inner join clubs as c
+    on cl.fk_club_id=c.club_id
+    where cl.isLiked=1 and cl.fk_athl_id = ?);`;
+  query = mysql.format(query, [athl_id, athl_id]);
   return new Promise((resolve, reject) => {
     pool.query(query, (err, results, fields) => {
       if (err) reject(err);
@@ -28,5 +56,6 @@ const generateClubsList = (sports_id, position, country, dislikes) => {
 };
 
 module.exports = {
-  generateClubsList
+  generateRecommendedOffersList,
+  getMatchedByAthlId
 };

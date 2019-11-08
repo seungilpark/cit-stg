@@ -10,23 +10,20 @@ const likesRepo = require("../dbConnectors/likesAndDislikes");
 const ERROR_MSG = "Error";
 
 /**
- * return 10 recommendations of offers  
+ * return recommended offers by athl_id  
  */
 router.get('/offers/:athl_id', async (req, res) => {
     try {
         let athlId = req.params.athl_id;
         let athl =  athlRepo.getAthlById(athlId);
         let prof =  profRepo.getProfileByAthlId(athlId);
-        let dislikes =  likesRepo.getDisOffers(athlId);
-        // let { country } = await athl[0];
-        // let {fk_sports_id, position} = prof[0];
-        // console.log("GG", await athl[0], await  prof[0], await dislikes);
+        let oid_arr =  likesRepo.getAllOfferByAthlId(athlId);
         let athlResult = await athl;
         let profResult  = await prof;
-        let dislikesResult = await dislikes;
-        dislikes = dislikesResult.map(el => el.fk_club_id);
-
-        let recList = await recRepo.generateClubsList(profResult[0].fk_sports_id, profResult[0].position, athlResult[0].country, dislikes);
+        let oid_arr_result = await oid_arr;
+        oid_arr_result = oid_arr_result.map(el => el.fk_offer_id);
+        let recList = await recRepo.generateRecommendedOffersList(profResult[0].fk_sports_id, profResult[0].position, athlResult[0].country);
+        recList = recList.filter(el => (![oid_arr_result].includes(el.offer_id)));
         res.json(recList);
     }
     catch(err) {

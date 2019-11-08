@@ -8,6 +8,11 @@
 </head>
 <body>
     <div>
+        <h3>Recommentations</h3>
+        <ul>
+            <li>/api/recommendations/offers/:athl_id // returns recommended offers for an athlete by athl_id</li>
+        </ul>
+        
         <h3>Athletes</h3>
         <ul>
             <li>/api/athletes</li>
@@ -17,6 +22,31 @@
             <li>/api/athletes/sports/:sportsName</li>
             <li><strong>POST:</strong>/api/athletes/register</li>
             <li><strong>POST:</strong>/api/athletes/signin</li>
+        </ul>
+
+        <h3>athlLikes</h3>
+        <ul>
+            <li>/api/athlLikes/likes/:athl_id</li>
+            <li>/api/athlLikes/dislikes/:athl_id</li>
+            <li><strong>POST</strong>/api/athlLikes/like # body{athl_id, offer_id}</li>
+            <li><strong>POST</strong>/api/athlLikes/dislike # body{athl_id, offer_id}</li>
+            <li><strong>POST</strong>/api/athlLikes/likes # body{athl_id, offer_id_arr}</li>
+            <li><strong>POST</strong>/api/athlLikes/dislikes # body{athl_id, offer_id_arr}</li>
+        </ul>
+        <h3>clubLikes</h3>
+        <ul>
+                <li>/api/clubLikes/likes/:club_id</li>
+                <li>/api/clubLikes/dislikes/:club_id</li>
+                <li><strong>POST</strong>/api/clubLikes/like # body{athl_id, club_id}</li>
+                <li><strong>POST</strong>/api/clubLikes/dislike # body{athl_id, club_id}</li>
+                <li><strong>POST</strong>/api/clubLikes/likes # body{athl_id, club_id_arr}</li>
+                <li><strong>POST</strong>/api/clubLikes/dislikes # body{club_id, athl_id_arr}</li>
+        </ul>
+        <h3>/api/matched</h3>
+        <ul>
+            <li>/api/matched</li>
+            <li>/api/matched/clubId/:clubid</li>
+            <li>/api/matched/athlId/:athlId</li>
         </ul>
         <h3>applications</h3>
         <ul>

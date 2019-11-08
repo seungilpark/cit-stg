@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Alert, TouchableOpacity, Text, View, Button, ScrollView, SafeAreaView, Image } from 'react-native';
-import { NavigationEvents } from 'react-navigation';
+import { NavigationEvents, StackNavigator } from 'react-navigation';
 import { Icon } from 'react-native-vector-icons/FontAwesome'
 import { getCurrentFrame } from 'expo/build/AR';
 
@@ -18,18 +18,6 @@ export default class SignIn extends React.Component {
   onPressButton4() {
     Alert.alert('Send to Settings')
   }
-  static navigationOptions = ({ navigation  }) => {
-    let title = "Profile";
-    return { title,
-      headerTitleStyle:{
-        color : 'black', 
-        display: 'flex',
-        flex: 0.8,
-        justifyContent: 'center',
-        textAlign: 'center',
-        fontSize: 25
-      } }
-};
   onPressEvent(){
     Alert.alert(
       'Sign Out ',
@@ -63,13 +51,13 @@ export default class SignIn extends React.Component {
         <Text style={{marginTop: 12, textAlign: 'center', color: '#ffffff'}}>
           Defender - Right-Back
         </Text>
-        <View style={styles.button}>
+        {/* <View style={styles.button}>
           <Button
           title = 'Liked Clubs'
           onPress={() => {
           this.props.navigation.navigate('AthlClubList');
         }}/>
-        </View>
+        </View> */}
         <Text style={{marginTop: 35, marginLeft: 35, color: '#7C7C95'}}>
           Email
         </Text>

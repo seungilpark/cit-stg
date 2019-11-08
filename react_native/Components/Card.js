@@ -1,37 +1,63 @@
 import React, { Component } from 'react'
 import Swiper from 'react-native-deck-swiper'
-import { Button, StyleSheet, Text, View } from 'react-native'
-import { Platform } from 'react-native'
+import { Button, StyleSheet, Text, View, Image, Linking, Alert, Platform, TouchableOpacity } from 'react-native'
 
 
 // demo purposes only
-function * range (start, end) {
-  for (let i = start; i <= end; i++) {
-    yield i
-  }
-}
+// function * range (start, end) {
+//   for (let i = start; i <= end; i++) {
+//     yield i
+//   }
+// }
 
 export default class Card extends Component {
   constructor (props) {
+    
     super(props)
     this.state = {
-        data: [],
-      cards: [...range(1, 50)],
+        athl_id : 1,
+        cards: [],
+      // cards: [...range(1, 50)],
       swipedAllCards: false,
       swipeDirection: '',
     //   cardIndex: 0
     }
     this.getData = this.getData.bind(this);
+    this.callNumber = this.callNumber.bind(this);
   }
 
+  // https://stackoverflow.com/questions/51545064/how-to-make-phone-call-in-react-native
+  callNumber = phone => {
+    console.log('callNumber ----> ', phone);
+    let phoneNumber = phone;
+    if (Platform.OS !== 'android') {
+    phoneNumber = `telprompt:${phone}`;
+    }
+    else  {
+    phoneNumber = `tel:${phone}`;
+    }
+    Linking.canOpenURL(phoneNumber)
+    .then(supported => {
+    if (!supported) {
+        Alert.alert('Phone number is not available');
+      } else {
+        return Linking.openURL(phoneNumber);
+    }
+    })
+    .catch(err => console.log(err));
+    };
+
   getData() {
-    return fetch('http://54.191.100.200:8080/api/athletes')
+    return fetch('http://54.191.100.200:8080/api/recommendations/offers/' + this.state.athl_id)
       .then((response) => response.json())
       .then((responseJson) => {
         // console.log(typeof responseJson);
         // Object.entries(responseJson)
-        new_arr = responseJson.map(el => [ el.athl_fname, el.athl_lname, el.athl_gender, el.athl_email, el.athl_phone, el.athl_addr, el.country])
-        this.setState({data : new_arr});
+
+        // not using offer_types, offer_length, fk_club_id
+        new_arr = responseJson
+        // console.log(new_arr);
+        this.setState({cards : new_arr});
       })
       .catch((error) => {
         console.error(error);
@@ -44,21 +70,79 @@ export default class Card extends Component {
   }
 
 
-  renderCard = (fname, lname, gender, email, phone, addr, country, index) => {
-    return (
-      <View  style={styles.card}>
-        <Text style={styles.text}>{fname} {lname}</Text>
-        <Text style={styles.text}>{gender}</Text>
-        <Text style={styles.text}>{email}   {phone}</Text>
-        <Text style={styles.text}>{addr}   {country}</Text>
+  renderCard = (card) => {
+    // console.log(this.state.cards);
+    if (card === undefined){
 
-        
-      </View>
-    )
+    }else{
+      return (
+        <View  style={styles.card}>
+          <Image
+            style={{width: 270, height: 270, resizeMode: 'contain', backgroundColor: 'transparent'}}
+            source={{uri: 'https://i.pinimg.com/564x/02/43/ee/0243ee0e6e658df20f3393a30e2d6747.jpg'}}
+          />
+          <Text></Text>
+
+          <Text style={{textAlign: 'center', fontSize: 30,backgroundColor: 'transparent'}}>{card.offer_amount}</Text>
+          <Text></Text>
+          <Text></Text>
+          <Text style={styles.text}>From: {card.club_name}</Text>
+
+          {/* Linking.openURL(`tel:${phoneNumber}`) */}
+          <TouchableOpacity onPress = {this.callNumber}>
+            <Text style={styles.text}>{card.club_contact}</Text>
+          </TouchableOpacity>
+          
+          <Text style={{color: 'blue', textAlign: 'center', fontSize: 20, backgroundColor: 'transparent'}}
+            onPress={() => Linking.openURL(card.club_url)}>
+            {card.club_url}
+          </Text>
+          
+          <Text style={styles.text}>{card.offer_desc}</Text>
+          <Text style={styles.text}>Title: {card.offer_title}</Text>
+          
+        </View>
+      )
+    }
+    
+    // console.log(card);
   };
 
-  onSwiped = (type) => {
-    console.log(`on swiped ${type}`)
+  onSwiped = (event, direction) => {
+    if(direction === "left"){
+      fetch(
+        "http://54.191.100.200:8080/api/athlLikes/dislike/",
+        {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              athl_id: this.state.athl_id,
+              offer_id: this.state.cards[event].offer_id
+            })
+        },
+        console.log(body)
+      );
+      
+    }else{
+      fetch(
+        "http://54.191.100.200:8080/api/athlLikes/like/",
+        {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              athl_id: this.state.athl_id,
+              offer_id: this.state.cards[event].offer_id
+            })
+        },
+        console.log('success')
+      );
+    }
   }
 
   onSwipedAllCards = () => {
@@ -67,9 +151,9 @@ export default class Card extends Component {
     })
   };
 
-  swipeLeft = () => {
-    this.swiper.swipeLeft()
-  };
+  // swipeLeft = () => {
+  //   this.swiper.swipeLeft()
+  // };
 
   render () {
     return (
@@ -77,38 +161,43 @@ export default class Card extends Component {
         <Swiper
           ref={swiper => {
             this.swiper = swiper
+
+            
           }}
+          backgroundColor={'#3ad289'}
+          infinite = {false}
           useViewOverflow={Platform.OS === 'ios'}
-          onSwiped={() => this.onSwiped('general')}
-          onSwipedLeft={() => this.onSwiped('left')}
-          onSwipedRight={() => this.onSwiped('right')}
-          onSwipedTop={() => this.onSwiped('top')}
-          onSwipedBottom={() => this.onSwiped('bottom')}
-          onTapCard={this.swipeLeft}
-          cards={this.state.data}
-        //   cardIndex={this.state.cardIndex}
+          // onSwiped={() => this.onSwiped('general')}
+          // onPress={(event)=>this._selectedItem(item.text)}
+          onSwipedLeft={(event) => this.onSwiped(event, "left")}
+          onSwipedRight={(event) => this.onSwiped(event, "right")}
+          // onSwipedTop={() => this.onSwiped('top')}
+          // onSwipedBottom={() => this.onSwiped('bottom')}
+          // onTapCard={this.swipeLeft}
+          cards={this.state.cards}
+          // cardIndex={this.state.cardIndex}
           cardVerticalMargin={80}
           renderCard={this.renderCard}
           onSwipedAll={this.onSwipedAllCards}
           stackSize={3}
           stackSeparation={15}
           overlayLabels={{
-            bottom: {
-              title: 'BLEAH',
-              style: {
-                label: {
-                  backgroundColor: 'black',
-                  borderColor: 'black',
-                  color: 'white',
-                  borderWidth: 1
-                },
-                wrapper: {
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }
-              }
-            },
+            // bottom: {
+            //   title: 'BLEAH',
+            //   style: {
+            //     label: {
+            //       backgroundColor: 'black',
+            //       borderColor: 'black',
+            //       color: 'white',
+            //       borderWidth: 1
+            //     },
+            //     wrapper: {
+            //       flexDirection: 'column',
+            //       alignItems: 'center',
+            //       justifyContent: 'center'
+            //     }
+            //   }
+            // },
             left: {
               title: 'NOPE',
               style: {
@@ -131,8 +220,8 @@ export default class Card extends Component {
               title: 'LIKE',
               style: {
                 label: {
-                  backgroundColor: 'red',
-                  borderColor: 'red',
+                  backgroundColor: '#FA4E3B',
+                  borderColor: '#FA4E3B',
                   color: 'white',
                   borderWidth: 1
                 },
@@ -145,22 +234,22 @@ export default class Card extends Component {
                 }
               }
             },
-            top: {
-              title: 'SUPER LIKE',
-              style: {
-                label: {
-                  backgroundColor: 'purple',
-                  borderColor: 'purple',
-                  color: 'white',
-                  borderWidth: 1
-                },
-                wrapper: {
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }
-              }
-            }
+            // top: {
+            //   title: 'SUPER LIKE',
+            //   style: {
+            //     label: {
+            //       backgroundColor: 'purple',
+            //       borderColor: 'purple',
+            //       color: 'white',
+            //       borderWidth: 1
+            //     },
+            //     wrapper: {
+            //       flexDirection: 'column',
+            //       alignItems: 'center',
+            //       justifyContent: 'center'
+            //     }
+            //   }
+            // }
           }}
           animateOverlayLabelsOpacity
           animateCardOpacity
@@ -176,7 +265,7 @@ export default class Card extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fcba03'
+    backgroundColor: '#FFD0E9'
   },
   card: {
     flex: 1,
@@ -184,11 +273,12 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#E8E8E8',
     justifyContent: 'center',
-    backgroundColor: 'white'
+    alignItems: 'center',
+    backgroundColor: 'white',
   },
   text: {
     textAlign: 'center',
-    fontSize: 30,
+    fontSize: 20,
     backgroundColor: 'transparent'
   },
   done: {

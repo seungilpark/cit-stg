@@ -3,6 +3,27 @@ const mysql = require("mysql");
 
 
 /* READ */
+/* get all likes + dislikes by athl */
+const getAllOfferByAthlId = (athl_id) => {
+    return new Promise((resolve, reject) => {
+        let query = `select fk_offer_id from athl_like where fk_athl_id=${athl_id}`
+        pool.query(query, (err, results, fields) => {
+            if (err) reject(err);
+            else resolve(results);
+        })
+    })
+}
+
+const getAllAthlByClubId = (club_id) => {
+    return new Promise((resolve, reject) => {
+        let query = `select fk_athl_id from club_like where fk_club_id=${club_id}`
+        pool.query(query, (err, results, fields) => {
+            if (err) reject(err);
+            else resolve(results);
+        })
+    })
+}
+
 const getAthlDislikes = (athl_id) => {
     return new Promise((resolve, reject) => {
         let query = `select fk_offer_id from athl_like where fk_athl_id=${athl_id} and isLiked=0`
@@ -154,6 +175,8 @@ const insertManyClubDislikes = (club_id, athl_id_arr) =>
 
 
 module.exports = {
+    getAllAthlByClubId,
+    getAllOfferByAthlId,
     getAthlDislikes,
     getAthlLikes,
     insertAthlLikes,

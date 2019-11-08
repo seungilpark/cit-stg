@@ -11,6 +11,7 @@ export default class AthlClubList extends React.Component {
             matchedList:[],
             loading: true
         };
+        this.flipCard = this.flipCard.bind(this);
     }    
 
     componentWillMount(){
@@ -39,6 +40,7 @@ export default class AthlClubList extends React.Component {
             console.log(clubList,"Get list 1111111111111111");
             //console.log(clubList.results, "Get List 2")
             this.setState({matchedList : clubList, loading: false});
+            // console.log(this.matchedList);
             //console.log(matchedList)  
         } catch(error) {
             console.log("Error fetching data", error);
@@ -70,7 +72,7 @@ export default class AthlClubList extends React.Component {
             } }
     };
 
-    flipCard() {
+    flipCard(item) {
         console.log('FLIP CARD')
         if(this.value >= 90){
             Animated.spring(this.animatedValue, {
@@ -114,7 +116,7 @@ export default class AthlClubList extends React.Component {
                                 
                                 renderItem={({item}) =>
                                     
-                                    <TouchableOpacity onPress={() => this.flipCard()}>
+                                    <TouchableOpacity  onPress={(item) => this.flipCard(item)}>
                                         <Card containerStyle={styles.cardStyle}>
                                             <Animated.Image source={require('../assets/manu.jpg')} style={[styles.flipCard, frontAnimatedStyle]}>
                                             </Animated.Image>

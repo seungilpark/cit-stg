@@ -94,7 +94,7 @@ export default class Card extends Component {
           </TouchableOpacity>
           
           <Text style={{color: 'blue', textAlign: 'center', fontSize: 20, backgroundColor: 'transparent'}}
-            onPress={() => Linking.openURL(card.club_url)}>
+            onPress={() => Linking.openURL('http://www.google.com/' + card.club_url)}>
             {card.club_url}
           </Text>
           
@@ -123,7 +123,7 @@ export default class Card extends Component {
               offer_id: this.state.cards[event].offer_id
             })
         },
-        console.log(body)
+        // console.log(body)
       );
       
     }else{

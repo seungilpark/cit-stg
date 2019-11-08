@@ -10,8 +10,8 @@ import ClubTest from "./Components/ClubTest";
 import ProfilePageTest from "./Components/ProfilePageTest";
 import AthlClubList from "./Components/AthlClubList";
 import Profile from "./Components/Profile";
-import ClubMgrProfile from "./Components/ClubMgrProfile";
-import PersonalDetailsPage from "./Components/PersonalDetailsPage";
+// import ClubMgrProfile from "./Components/ClubMgrProfile";
+// import PersonalDetailsPage from "./Components/PersonalDetailsPage";
 
 import ClubsCards from "./Components/ClubsCards";
 import AccountType from './Components/AccountType';
@@ -84,9 +84,9 @@ const RootStack = createStackNavigator(
       
       })
     },
-    PersonalDetailsPage: {
-      screen: PersonalDetailsPage
-    },
+    // PersonalDetailsPage: {
+    //   screen: PersonalDetailsPage
+    // },
     AthlClubList: {
       screen: AthlClubList,
       navigationOptions: ({ navigation }) => ({
@@ -122,9 +122,9 @@ const RootStack = createStackNavigator(
     Profile:{
       screen: Profile,
     },
-    ClubMgrProfile: {
-      screen: ClubMgrProfile,
-    },
+    // ClubMgrProfile: {
+    //   screen: ClubMgrProfile,
+    // },
     Card: {
       screen: Card,
       navigationOptions: ({ navigation }) => ({

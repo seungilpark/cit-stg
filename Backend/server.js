@@ -14,6 +14,8 @@ const clubMgrRouter = require("./routes/clubMgrs");
 const athlLikesRouter = require("./routes/athlLikes");
 const clubLikesRouter = require("./routes/clubLikes");
 const recommendationsRouters = require("./routes/recommendations");
+const matchedRouter = require("./routes/matched");
+
 const path = require("path");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -31,7 +33,7 @@ app.use("/api/offers", offersRouter);
 app.use("/api/profiles", profilesRouter);
 app.use("/api/sports", sportsRouter);
 app.use("/api/recommendations", recommendationsRouters)
-
+app.use("/api/matched", matchedRouter)
 
 
 app.all("/*", (req, res) => {

@@ -97,6 +97,14 @@ export default class FirstPage extends React.Component {
                     >
                         <Text style={styles.btnText}>Cards </Text>
                     </TouchableHighlight>
+                    <TouchableHighlight
+                        style={styles.button}
+                        onPress={() => {
+                            this.props.navigation.navigate("MainApp");
+                        }}
+                    >
+                        <Text style={styles.btnText}>Main App </Text>
+                    </TouchableHighlight>
                 </ImageBackground>
             </View>
         );

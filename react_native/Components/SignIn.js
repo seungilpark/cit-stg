@@ -91,10 +91,10 @@ export default class SignIn extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Image
+                {/* <Image
                     source={require("../assets/signIn.jpg")}
                     style={styles.pic}
-                />
+                /> */}
                 <Text style={styles.pageText}>Sign In Page</Text>
                 <Text style={styles.pageText}>User Name</Text>
                 <TextInput
@@ -118,17 +118,17 @@ export default class SignIn extends React.Component {
                         this.setState({ role: itemValue })
                     }
                 >
-                    <Picker.Item label="Athlete" value="ath" color="#e6ba1a" />
+                    <Picker.Item label="Athlete" value="ath" color="white" />
                     <Picker.Item
                         label="Club Manager"
                         value="mgr"
-                        color="#ffbf00"
+                        color="white"
                     />
                 </Picker>
 
                 <Button
                     title="Submit"
-                    color="#ffbf00"
+                    color="white"
                     onPress={(onPress = this.Validation)}
                 />
             </View>
@@ -139,7 +139,7 @@ export default class SignIn extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#fff",
+        backgroundColor: "#3AD289",
         alignItems: "center",
         justifyContent: "center"
     },
@@ -151,10 +151,10 @@ const styles = StyleSheet.create({
         resizeMode: "stretch"
     },
     pageText: {
-        position: "relative",
-        bottom: "25%",
-        backgroundColor: "#ffbf00",
-        color: "black",
+        // position: "relative",
+        // bottom: "25%",
+        // backgroundColor: "#ffbf00",
+        color: "white",
         width: "35%",
         fontSize: 18,
         padding: 4,
@@ -162,14 +162,14 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
     placeHolderText: {
-        position: "relative",
-        bottom: "25%",
-        backgroundColor: "black",
+        // position: "relative",
+        // bottom: "25%",
+        backgroundColor: "white",
         height: "4%",
-        width: "35%",
+        width: "50%",
         fontSize: 18,
         fontWeight: "bold",
         opacity: 1,
-        color: "#63fffa"
+        color: "black"
     }
 });

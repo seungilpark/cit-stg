@@ -80,7 +80,7 @@ export default class SignIn extends React.Component {
                 });
             }
             if (this.state.status == "loggedIn") {
-                this.props.navigation.navigate("AthTest");
+                this.props.navigation.navigate("Card");
             } else {
                 alert("Wrong Username or Password");
             }

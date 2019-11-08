@@ -163,7 +163,7 @@ checkEmpty(){
           value={this.state.password1}
         />
 
-        <Button title = 'Submit' onPress={onPress=this.Submit}/>
+        <Button title = 'Submit' onPress={() => this.props.navigation.navigate("Card")}/>
         
         </ScrollView>
         </KeyboardAvoidingView>

@@ -2,6 +2,7 @@ import React from 'react';
 import { ActivityIndicator,Animated, StyleSheet, Text, View, Button, FlatList, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { Card } from 'react-native-elements'
+import CardFlip from 'react-native-card-flip';
 
 export default class AthlClubList extends React.Component {
     constructor(props) {
@@ -11,25 +12,25 @@ export default class AthlClubList extends React.Component {
             matchedList:[],
             loading: true
         };
-        this.flipCard = this.flipCard.bind(this);
+        // this.flipCard = this.flipCard.bind(this);
     }    
 
-    componentWillMount(){
-        this.animatedValue = new Animated.Value(0);
-        this.animatedValue.addListener(({ value }) => {
-            this.value = value;
-        })
+    // componentWillMount(){
+    //     this.animatedValue = new Animated.Value(0);
+    //     this.animatedValue.addListener(({ value }) => {
+    //         this.value = value;
+    //     })
         
-        this.frontInterpolate = this.animatedValue.interpolate({
-            inputRange: [0, 180],
-            outputRange: ['0deg', '180deg']
-        })
+    //     this.frontInterpolate = this.animatedValue.interpolate({
+    //         inputRange: [0, 180],
+    //         outputRange: ['0deg', '180deg']
+    //     })
 
-        this.backInterpolate = this.animatedValue.interpolate({
-            inputRange: [0, 180],
-            outputRange: ['180deg', '360deg']
-        })
-      }
+    //     this.backInterpolate = this.animatedValue.interpolate({
+    //         inputRange: [0, 180],
+    //         outputRange: ['180deg', '360deg']
+    //     })
+    //   }
 
       async componentDidMount(){
         try {
@@ -42,7 +43,8 @@ export default class AthlClubList extends React.Component {
             this.setState({matchedList : clubList, loading: false});
             // console.log(this.matchedList);
             //console.log(matchedList)  
-        } catch(error) {
+            
+      } catch(error) {
             console.log("Error fetching data", error);
         };
       }
@@ -59,50 +61,50 @@ export default class AthlClubList extends React.Component {
         
 
 
-    static navigationOptions = ({ navigation  }) => {
-        let title = "Liked Clubs";
-        return { 
-            title, 
-            headerTitleStyle:{
-              color : 'black', 
-              display: 'flex',
-              flex: 0.8,
-              justifyContent: 'center',
-              textAlign: 'center',
-            } }
-    };
+    // static navigationOptions = ({ navigation  }) => {
+    //     let title = "Liked Clubs";
+    //     return { 
+    //         title, 
+    //         headerTitleStyle:{
+    //           color : 'black', 
+    //           display: 'flex',
+    //           flex: 0.8,
+    //           justifyContent: 'center',
+    //           textAlign: 'center',
+    //         } }
+    // };
 
-    flipCard(item) {
-        console.log('FLIP CARD')
-        if(this.value >= 90){
-            Animated.spring(this.animatedValue, {
-                toValue:0,
-                friction: 8,
-                tension: 10
-            }).start();
-        }else {
-            Animated.spring(this.animatedValue, {
-                toValue:180,
-                friction: 8,
-                tension: 10
-            }).start();
-        }
+    // flipCard(item) {
+    //     console.log('FLIP CARD')
+    //     if(this.value >= 90){
+    //         Animated.spring(this.animatedValue, {
+    //             toValue:0,
+    //             friction: 8,
+    //             tension: 10
+    //         }).start();
+    //     }else {
+    //         Animated.spring(this.animatedValue, {
+    //             toValue:180,
+    //             friction: 8,
+    //             tension: 10
+    //         }).start();
+    //     }
         
-    }
+    // }
 
 
     render() {
-        const frontAnimatedStyle = {
-            transform: [
-                {rotateY: this.frontInterpolate}
-            ]
-        }
+        // const frontAnimatedStyle = {
+        //     transform: [
+        //         {rotateY: this.frontInterpolate}
+        //     ]
+        // }
         
-        const backAnimatedStyle = {
-            transform: [
-                {rotateY: this.backInterpolate}
-            ]
-        }
+        // const backAnimatedStyle = {
+        //     transform: [
+        //         {rotateY: this.backInterpolate}
+        //     ]
+        // }
             
         const {matchedList, loading} = this.state;
         console.log(matchedList,"2222222222222222222222222222");
@@ -114,26 +116,33 @@ export default class AthlClubList extends React.Component {
                                 data={matchedList}
                                 
                                 
-                                renderItem={({item}) =>
-                                    
-                                    <TouchableOpacity  onPress={(item) => this.flipCard(item)}>
-                                        <Card containerStyle={styles.cardStyle}>
-                                            <Animated.Image source={require('../assets/manu.jpg')} style={[styles.flipCard, frontAnimatedStyle]}>
-                                            </Animated.Image>
-                                            <Animated.View  style={[styles.flipCard, styles.flipCardBack, backAnimatedStyle]}>
-                                            <Text>{this.state.dbResponse}</Text>
+                                renderItem={({}) =>
+                                    <View>
+                                        <CardFlip style={styles.cardStyle} ref={(card) => this.card = card} >
+                                            <TouchableOpacity style={styles.flipCard} onPress={() => this.card.flip()} ><Text>AB</Text></TouchableOpacity>
+                                            <TouchableOpacity style={styles.flipCardBack} onPress={() => this.card.flip()} ><Text>CD</Text></TouchableOpacity>
+                                        </CardFlip>
+                                    </View>
+                            
+                                    // <TouchableOpacity  onPress={(item) => this.flipCard(item)}>
+                                    //     <Card containerStyle={styles.cardStyle}>
+                                    //         <Animated.Image source={require('../assets/manu.jpg')} style={[styles.flipCard, frontAnimatedStyle]}>
+                                    //         </Animated.Image>
+                                    //         <Animated.View  style={[styles.flipCard, styles.flipCardBack, backAnimatedStyle]}>
+                                    //         <Text>{this.state.dbResponse}</Text>
                                             
-                                                    <Text style = {styles.TextStyle}>Club Name: {item.club_name}</Text>
-                                                    <Text style = {styles.TextStyle}>Location: {item.country}</Text>
-                                                    <Text style = {styles.TextStyle}>Position: {item.offer_position}</Text>
-                                                    <Text style = {styles.TextStyle}>Salary: {item.offer_amount}</Text>
-                                                    </Animated.View>
-                                        </Card>
-                                    </TouchableOpacity>
+                                    //                 <Text style = {styles.TextStyle}>Club Name: {item.club_name}</Text>
+                                    //                 <Text style = {styles.TextStyle}>Location: {item.country}</Text>
+                                    //                 <Text style = {styles.TextStyle}>Position: {item.offer_position}</Text>
+                                    //                 <Text style = {styles.TextStyle}>Salary: {item.offer_amount}</Text>
+                                    //                 </Animated.View>
+                                    //     </Card>
+                                    // </TouchableOpacity>
                                      
                                     }
                                     keyExtractor={(item, index) => index.toString()}
-                                    /></View>
+                            />
+                        </View>
                        )
         } else {
             return <ActivityIndicator />

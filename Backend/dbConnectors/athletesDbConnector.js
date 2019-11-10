@@ -70,6 +70,18 @@ const getAthlById = inputId => {
     });
   });
 };
+
+
+const getAthlByAccount = acc => {
+  let query = `select * from athletes where account = ?`;
+  query = mysql.format(query, acc);
+  return new Promise((resolve, reject) => {
+    pool.query(query, (err, result, fields) => {
+      if (err) reject(err);
+      else resolve(result);
+    })
+  })
+}
 // TODO sorting
 // TODO searching
 
@@ -168,6 +180,21 @@ const verifyAthlete = (acc, pw) => {
 });
 }
 
+const validateAccount = (acc) => {
+  let query = `select * from athletes where account=?`;
+  query = mysql.format(query, acc);
+  return new Promise((resolve, reject) => {
+    pool.query(query, (err, results, fields) => {
+      if (err) reject(err);
+      if (results.length) resolve(false);
+      else resolve(true);
+    })
+  })
+}
+
+
+
+
 module.exports = {
     getAll,
     getAthlById,
@@ -177,5 +204,7 @@ module.exports = {
     getAthlBySportsName,
     deleteAthleteById,
     updateAthleteById,
-    verifyAthlete
+    verifyAthlete,
+    validateAccount,
+    getAthlByAccount
 };

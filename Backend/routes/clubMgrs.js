@@ -31,31 +31,6 @@ router.get('/:mgrId', async (req, res) => {
 })
 
 
-/* POST */
-
-router.post("/create", async (req, res) => {
-    try {
-        let validation =joi.validate(req.body,SCHEMAS.CLUB_MANAGERS_SCHEMA).error 
-        if (validation) throw new Error(validation);
-        let result = await dbHelper.insertInto("club_mgr", req.body);
-        res.json(result);
-    }
-    catch(err) {
-        res.json(`{"Error": "True", "Message": ${err}, "Timestamp": ${dbHelper.now()}`);
-    }
-})
-
-router.post("/signin", async (req, res) => {
-    try {
-            console.log("IN /signin")
-        let result = await db.verifyManager(req.body.account, req.body.password);
-        if (result.length > 0) res.status(203).json(result); 
-        else res.status(403).json({message:"cannot verify the user"});
-    }
-    catch(err) {
-        res.json(err);
-    }
-})
 
 
 

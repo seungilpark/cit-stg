@@ -1,4 +1,5 @@
 const pool = require("../config/database");
+const mysql = require("mysql");
 
 /* READ */
 const getAll = () => {
@@ -51,23 +52,6 @@ const getClubsByLocation = (searchTerm) => {
     });
 };
 
-// const getClubById = inputId => {
-//   let query = `select * from clubs where club_id =` + pool.escape(inputId);
-//   console.log(query);
-//   return new Promise((resolve, reject) => {
-//     pool.query(query, (err, results, fields) => {
-//       if (err) reject(err);
-//       //TODO check if empty
-//       else resolve(results);
-//     });
-//   });
-// };
-
-
-
-/* CREATE */
-// createClub
-
 
 /* UPDATE */
 const updateClubById = (inputBody, inputId) => {
@@ -101,6 +85,20 @@ const deleteClubById = (inputId) => {
 };
 
 
+const getClubAndMgrByClubId = (club_id) => {
+    let query = "select * from clubs as c inner join club_mgr as cm on c.club_id = cm.fk_clubs_id where c.club_id = ?";
+    query = mysql.format(query, [club_id]);
+    console.log(query);
+
+    return new Promise((resolve, reject) => {
+        pool.query(query, (err, results, fields) => {
+            if (err) reject(err);
+            else resolve(results);
+        })
+    })
+}
+
+
 module.exports = {
     getAll,
     getClubById,
@@ -108,5 +106,6 @@ module.exports = {
     getClubsByLocation,
     deleteClubById,
     updateClubById,
+    getClubAndMgrByClubId
 };
 

@@ -27,6 +27,23 @@ const generateRecommendedOffersList = (sports_id, position, country) => {
       });
     });
 };
+/* 
+* TODO Get recommended athletes
+* sports id: int
+* positionlist: position str[]
+* country: str 
+*/
+const generateRecommendedAthletesList = (country) => {
+    /* ? seems like changes to str while ?? subsittute values  */
+    let query = "select * from athletes as a inner join profiles as p on a.athl_id=p.fk_athl_id where a.country=?"
+    query = mysql.format(query, country);
+    return new Promise((resolve, reject) => {
+      pool.query(query, (err, results, fields) => {
+        if (err) reject(err);
+        else resolve(results);
+      });
+    });
+};
 
 const getMatchedByAthlId = athl_id => {
   let query = `select a.athl_id, c.club_id, c.club_name, c.country, o.offer_amount, o.offer_desc, o.offer_photo, o.offer_position, o.offer_title
@@ -54,8 +71,38 @@ const getMatchedByAthlId = athl_id => {
     });
   });
 };
+/* TODO: get matched athletes by clubs id */
+const getMatchedByClubId = club_id => {
+  let query = `select distinct a.*, p.*
+  from athletes as a 
+  inner join profiles as p
+  on p.fk_athl_id=a.athl_id
+  inner join club_like as cl
+  on a.athl_id=cl.fk_athl_id
+  inner join clubs as c
+  on c.club_id=fk_club_id
+  where c.club_id=?
+  and a.athl_id in (select athl_id 
+  from athletes as a 
+  inner join athl_like as al
+  on a.athl_id = al.fk_athl_id
+  inner join offers as o
+  on al.fk_offer_id=o.offer_id
+  inner join clubs as c
+  on o.fk_club_id=c.club_id
+  where c.club_id=?);`;
+  query = mysql.format(query, [club_id, club_id]);
+  return new Promise((resolve, reject) => {
+    pool.query(query, (err, results, fields) => {
+      if (err) reject(err);
+      else resolve(results);
+    });
+  });
+};
 
 module.exports = {
   generateRecommendedOffersList,
-  getMatchedByAthlId
+  generateRecommendedAthletesList,
+  getMatchedByAthlId,
+  getMatchedByClubId
 };

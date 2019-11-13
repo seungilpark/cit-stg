@@ -17,7 +17,7 @@ import ClubTest from "./Components/ClubTest";
 import ProfilePageTest from "./Components/ProfilePageTest";
 import AthlClubList from "./Components/AthlClubList";
 import Profile from "./Components/Profile";
-// import ClubMgrProfile from "./Components/ClubMgrProfile";
+import ClubMgrProfile from "./Components/ClubMgrProfile";
 // import PersonalDetailsPage from "./Components/PersonalDetailsPage";
 
 import ClubsCards from "./Components/ClubsCards";
@@ -60,8 +60,12 @@ const RootStack = createStackNavigator(
         MainApp: {
             screen: MainApp
         },
+        ClubMgrProfile: {
+            screen: ClubMgrProfile
+        },
         AthleteProfile: {
             screen: AthleteProfile,
+
 
             navigationOptions: ({ navigation }) => ({
                 gesturesEnabled: false,

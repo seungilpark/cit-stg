@@ -113,6 +113,14 @@ export default class FirstPage extends React.Component {
                     >
                         <Text style={styles.btnText}>Athlete Profile </Text>
                     </TouchableHighlight>
+                    <TouchableHighlight
+                        style={styles.button}
+                        onPress={() => {
+                            this.props.navigation.navigate("ClubMgrProfile");
+                        }}
+                    >
+                        <Text style={styles.btnText}>Club Manager Profile </Text>
+                    </TouchableHighlight>
                 </ImageBackground>
             </View>
         );
@@ -121,7 +129,6 @@ export default class FirstPage extends React.Component {
 
 const styles = StyleSheet.create({
     backgroundImage: {
-        flex: 1,
         width: "100%",
         height: "100%",
         resizeMode: "contain",

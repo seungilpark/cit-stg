@@ -209,6 +209,8 @@ const styles = StyleSheet.create({
         backgroundColor:'#3AD289',
     },
     playerphoto: {
+        borderWidth: 5,
+        borderColor:"black",
         borderRadius: 150/2,
         width: 150,
         height: 150,
@@ -219,6 +221,7 @@ const styles = StyleSheet.create({
     },
 
     cardStyle1: {
+        backgroundColor: "#E2F0E4",
         borderRadius: 9,
         marginTop: 75,
         width: 400,
@@ -234,6 +237,7 @@ const styles = StyleSheet.create({
         
     },
     cardStyle2: {
+        backgroundColor: "#E2F0E4",
         borderRadius: 9,
         marginTop: 20,
         width: 400,
@@ -247,6 +251,7 @@ const styles = StyleSheet.create({
 
     },
     cardStyle3: {
+        backgroundColor: "#E2F0E4",
         borderRadius: 9,
         marginTop: 20,
         width: 400,

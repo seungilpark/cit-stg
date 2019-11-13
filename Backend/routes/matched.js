@@ -21,7 +21,7 @@ router.get('/athlete/:athl_id', async (req, res) => {
  */
 router.get('/club/:club_id', async (req, res) => {
     try {
-        // let results = await recRepo.getMatchedByAthlId(req.params.athl_id);
+        let results = await recRepo.getMatchedByClubId(req.params.club_id);
         res.json(results);
     }
     catch(err) {

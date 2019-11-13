@@ -1,11 +1,11 @@
 const pool = require("../config/database");
+const mysql = require("mysql");
 
 /* READ */
 const getAll = () => {
   return new Promise((resolve, reject) => {
     pool.query("select * from club_mgr", (err, results, fields) => {
       if (err) reject(err);
-      //TODO check if empty
       else resolve(results);
     });
   });
@@ -17,21 +17,25 @@ const getManagerById = inputId => {
   return new Promise((resolve, reject) => {
     pool.query(query, (err, results, fields) => {
       if (err) reject(err);
-      //TODO check if empty
       else resolve(results);
     });
   });
 };
 
-/* CREATE */
-// createManager
+/* signin/up */
 
+const validateAccount = (acc) => {
+  let query = `select * from club_mgr where mgr_account=?`;
+  query = mysql.format(query, acc);
+  return new Promise((resolve, reject) => {
+    pool.query(query, (err, results, fields) => {
+      if (err) reject(err);
+      if (results.length) resolve(false);
+      else resolve(true);
+    })
+  })
+}
 
-/* UPDATE */
-// updateManager
-
-/* REMOVE */
-// removeManager
 const verifyManager = (acc, pw) => {
   let query = `SELECT mgr_id, mgr_fname, mgr_lname, fk_clubs_id FROM club_mgr WHERE mgr_account=${pool.escape(acc)} AND mgr_password=${pool.escape(pw)}`;
   return new Promise((resolve, reject) => {
@@ -46,5 +50,6 @@ const verifyManager = (acc, pw) => {
 module.exports = {
   getAll,
   getManagerById,
-  verifyManager
+  verifyManager,
+  validateAccount
 };

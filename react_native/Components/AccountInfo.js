@@ -38,7 +38,7 @@ Submit(){
     checkPd = this.verPd();
     console.log(checkPd);
     if(checkPd == true && this.state.role === 'ath'){
-      fetch('http://192.168.0.106:8080/api/athletes/register', {
+      fetch('http://192.168.1.83:8080/api/athletes/register', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -63,7 +63,7 @@ Submit(){
       console.log("Athlete Created.")
     }
     else if(checkPd == true && this.state.role === 'mgr'){
-      fetch('http://172.20.10.3:8080/api/clubMgrs/create', {
+      fetch('http://54.191.100.200:8080/api/clubMgrs/create', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -163,7 +163,7 @@ checkEmpty(){
           value={this.state.password1}
         />
 
-        <Button title = 'Submit' onPress={onPress=this.Submit}/>
+        <Button title = 'Submit' onPress={() => this.props.navigation.navigate("Card")}/>
         
         </ScrollView>
         </KeyboardAvoidingView>

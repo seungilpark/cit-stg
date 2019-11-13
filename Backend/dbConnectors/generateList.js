@@ -13,7 +13,7 @@ const mysql = require("mysql");
  * position:str
  * oid_arr: offer_id[]
  */
-const generateRecommendedOffersList = (sports_id, position, country) => {
+const getClubRecommendation = (sports_id, position, country) => {
     country = country.trim();
     position = position.trim();
     console.log(country, position, sports_id)
@@ -33,10 +33,10 @@ const generateRecommendedOffersList = (sports_id, position, country) => {
 * positionlist: position str[]
 * country: str 
 */
-const generateRecommendedAthletesList = (country) => {
+const getAthlRecommendation = (club_id) => {
     /* ? seems like changes to str while ?? subsittute values  */
-    let query = "select * from athletes as a inner join profiles as p on a.athl_id=p.fk_athl_id where a.country=?"
-    query = mysql.format(query, country);
+    let query = "select * from athletes as a inner join profiles as p on a.athl_id=p.fk_athl_id where a.country=(select country from clubs where club_id=?)"
+    query = mysql.format(query, club_id);
     return new Promise((resolve, reject) => {
       pool.query(query, (err, results, fields) => {
         if (err) reject(err);
@@ -101,8 +101,8 @@ const getMatchedByClubId = club_id => {
 };
 
 module.exports = {
-  generateRecommendedOffersList,
-  generateRecommendedAthletesList,
+  getClubRecommendation,
+  getAthlRecommendation,
   getMatchedByAthlId,
   getMatchedByClubId
 };

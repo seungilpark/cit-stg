@@ -10,9 +10,16 @@
     <div>
         <h3>Recommentations</h3>
         <ul>
-            <li>/api/recommendations/offers/:athl_id // returns recommended offers for an athlete by athl_id</li>
+            <li>/api/recommendations/athlete/:athl_id // returns recommended offers for an athlete by athl_id</li>
+            <li>/api/recommendations/club/:club_id // returns recommended athletes for a club by club_id</li>
         </ul>
         
+        <h3>/api/matched</h3>
+        <ul>
+            <li>/api/matched</li>
+            <li>/api/matched/club/:clubid</li>
+            <li>/api/matched/athlete/:athlId</li>
+        </ul>
         <h3>Athletes</h3>
         <ul>
             <li>/api/athletes</li>
@@ -41,12 +48,6 @@
                 <li><strong>POST</strong>/api/clubLikes/dislike # body{athl_id, club_id}</li>
                 <li><strong>POST</strong>/api/clubLikes/likes # body{athl_id, club_id_arr}</li>
                 <li><strong>POST</strong>/api/clubLikes/dislikes # body{club_id, athl_id_arr}</li>
-        </ul>
-        <h3>/api/matched</h3>
-        <ul>
-            <li>/api/matched</li>
-            <li>/api/matched/clubId/:clubid</li>
-            <li>/api/matched/athlId/:athlId</li>
         </ul>
         <h3>applications</h3>
         <ul>

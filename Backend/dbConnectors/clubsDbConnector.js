@@ -22,8 +22,7 @@ const getClubById = (inputId) => {
             //TODO check if empty
             else resolve(results);
         });
-    });
-        
+    }); 
 };
 
 const getClubsByName = (name) => {

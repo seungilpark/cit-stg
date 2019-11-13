@@ -37,7 +37,7 @@ router.get('/club/:club_id', async (req, res) => {
         let athl_id_arr = await likesRepo.getAllAthlByClubId(club_id)
         let recList = await recRepo.getAthlRecommendation(club_id);
         console.log(recList)
-        // recList = recList.filter(el => !([athl_id_arr].includes(el.athl_id)));
+        recList = recList.filter(el => !([athl_id_arr].includes(el.athl_id)));
         res.json(recList);
     }
     catch(err) {

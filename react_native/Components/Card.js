@@ -79,7 +79,7 @@ export default class Card extends Component {
         <View  style={styles.card}>
           <Image
             style={{width: 270, height: 270, resizeMode: 'contain', backgroundColor: 'transparent'}}
-            source={{uri: 'https://i.pinimg.com/564x/02/43/ee/0243ee0e6e658df20f3393a30e2d6747.jpg'}}
+            source={card.url}
           />
           <Text></Text>
 

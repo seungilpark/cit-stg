@@ -6,7 +6,8 @@ import {
     Button,
     TextInput,
     Picker,
-    Image
+    Image,
+    TouchableOpacity
 } from "react-native";
 import { NavigationEvents } from "react-navigation";
 
@@ -95,7 +96,7 @@ export default class SignIn extends React.Component {
                     source={require("../assets/signIn.jpg")}
                     style={styles.pic}
                 /> */}
-                <Text style={styles.pageText}>Sign In Page</Text>
+                <Text style={styles.headText}>Sign In</Text>
                 <Text style={styles.pageText}>User Name</Text>
                 <TextInput
                     style={styles.placeHolderText}
@@ -126,11 +127,18 @@ export default class SignIn extends React.Component {
                     />
                 </Picker>
 
-                <Button
+                {/* <Button
                     title="Submit"
                     color="white"
                     onPress={(onPress = this.Validation)}
-                />
+                /> */}
+
+                <TouchableOpacity onPress={this.Validation}>
+                    <Text style={styles.button}>Submit</Text>
+                </TouchableOpacity>
+                {/* <TouchableOpacity onPress={this.handlPress}>
+                    <Text style={styles.button}>Click Me!</Text>
+                </TouchableOpacity> */}
             </View>
         );
     }
@@ -151,8 +159,7 @@ const styles = StyleSheet.create({
         resizeMode: "stretch"
     },
     pageText: {
-        // position: "relative",
-        // bottom: "25%",
+        bottom: "25%",
         // backgroundColor: "#ffbf00",
         color: "white",
         width: "35%",
@@ -161,15 +168,36 @@ const styles = StyleSheet.create({
         margin: 4,
         fontWeight: "bold"
     },
+    headText: {
+        bottom: "25%",
+        color: "white",
+        width: "35%",
+        fontSize: 40,
+        padding: 4,
+        margin: 4,
+        fontWeight: "bold"
+    },
     placeHolderText: {
-        // position: "relative",
-        // bottom: "25%",
+        bottom: "25%",
         backgroundColor: "white",
         height: "4%",
         width: "50%",
         fontSize: 18,
         fontWeight: "bold",
         opacity: 1,
-        color: "black"
+        color: "black",
+        alignItems: "center"
+    },
+    button: {
+        backgroundColor: "#7C7C95",
+        borderColor: "white",
+        borderWidth: 1,
+        borderRadius: 12,
+        color: "white",
+        fontSize: 16,
+        fontWeight: "bold",
+        overflow: "hidden",
+        padding: 12,
+        textAlign: "center"
     }
 });

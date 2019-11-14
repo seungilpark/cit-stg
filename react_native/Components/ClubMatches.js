@@ -14,59 +14,28 @@ export default class AthlClubList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            matchedList:[{
-                "athl_id": 1,
-                "club_id": 1,
-                "club_name": "Liverpool",
-                "country": "England",
-                "offer_amount": "1000000",
-                "offer_desc": "Goal Keeper for 6 years",
-                "offer_photo": "test",
-                "offer_position": "GK",
-                "offer_title": "Goal Keeper Contract",
-              },
-              {
-                "athl_id": 1,
-                "club_id": 2,
-                "club_name": "Manchester",
-                "country": "England",
-                "offer_amount": "1000000",
-                "offer_desc": "Goal Keeper for 6 years",
-                "offer_photo": "test",
-                "offer_position": "GK",
-                "offer_title": "Goal Keeper Contract",
-              },
-              {
-                "athl_id": 1,
-                "club_id": 3,
-                "club_name": "Arsenal",
-                "country": "England",
-                "offer_amount": "1000000",
-                "offer_desc": "Goal Keeper for 6 years",
-                "offer_photo": "test",
-                "offer_position": "GK",
-                "offer_title": "Goal Keeper Contract",
-              }],
+            matchedList:[],
             loading: true
         };
     }
 
-    // async componentDidMount(){
-    //     try {
-    //         var athl_id = 1;
-    //         const getList = await fetch('http://54.191.100.200:8080/api/matched/athlete/1');
+    async componentDidMount(){
+        try {
+            var athl_id = 1;
+            const getList = await fetch('http://54.191.100.200:8080/api/clubLikes/likes/1');
+            const clubMatches = await getList.json()
 
-    //         const clubList = await getList.json()
-    //         console.log(clubList,"Get list 1111111111111111");
-    //         //console.log(clubList.results, "Get List 2")
-    //         this.setState({matchedList : clubList, loading: false});
-    //         // console.log(this.matchedList);
-    //         //console.log(matchedList)  
+            for( item in clubMatches)
+            console.log(clubMatches,"Get list 1111111111111111");
+            //console.log(clubList.results, "Get List 2")
+            this.setState({matchedList : clubList, loading: false});
+            // console.log(this.matchedList);
+            //console.log(matchedList)  
             
-    //   } catch(error) {
-    //         console.log("Error fetching data", error);
-    //     };
-    //   }
+      } catch(error) {
+            console.log("Error fetching data", error);
+        };
+      }
 
     render(){
     const { matchedList } = this.state;

@@ -7,7 +7,7 @@ const CLUB_IMAGES_DICT = {
     "TorontoFC":"toronto.png",
     "Montreal Impact":"montreal.jpg",
     "Ottawa Fury":"ottawa.png",
-    "Manchester City":"mancity",
+    "Manchester City":"mancity.jpg",
     "Real Madrid":"realmadrid.png"
 }
 
@@ -17,12 +17,12 @@ const CLUB_IMAGES_DICT = {
  * @output: [] club {} + url: 
  * url:path from component folder
  */
-const clubImagePicker = (clubArr) => {
+function clubImagePicker(clubArr){
     return clubArr.map(club => Object.assign({}, club, {"url": `../assets/${CLUB_IMAGES_DICT[club.club_name]}`}));
 }
 
 
-const athlImagePicker = (athlArr) => {
+function athlImagePicker(athlArr){
     return athlArr.map((athl, index) => {
         let gender = athl.athl_gender == "Male" ? "" : "f";
         return Object.assign({}, athl, {"url":`../assets/athl/${gender}${index % 19 + 1}.jpg`})

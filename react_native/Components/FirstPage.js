@@ -119,7 +119,9 @@ export default class FirstPage extends React.Component {
                             this.props.navigation.navigate("ClubMgrProfile");
                         }}
                     >
-                        <Text style={styles.btnText}>Club Manager Profile </Text>
+                        <Text style={styles.btnText}>
+                            Club Manager Profile{" "}
+                        </Text>
                     </TouchableHighlight>
                 </ImageBackground>
             </View>
@@ -164,7 +166,7 @@ const styles = StyleSheet.create({
     button: {
         opacity: 0.8,
         backgroundColor: "#DDDDDD",
-        width: "38%",
+        width: "42%",
         padding: 14,
         alignItems: "center",
         justifyContent: "center",

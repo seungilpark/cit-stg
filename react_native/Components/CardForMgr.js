@@ -81,7 +81,7 @@ export default class CardForMgr extends Component {
         <View  style={styles.card}>
           <Image
             style={{width: 270, height: 270, resizeMode: 'contain', backgroundColor: 'transparent'}}
-            source={require("../assets/athl/f1.jpg")}
+            source={card.url}
           />
           <Text></Text>
 

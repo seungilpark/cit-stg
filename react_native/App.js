@@ -26,6 +26,7 @@ import PersonalInfo from "./Components/PersonalInfo";
 import LocationInfo from "./Components/LocationInfo";
 import AccountInfo from "./Components/AccountInfo";
 import MainApp from "./Components/main_app";
+import ClubForMgr from "./Components/CardForMgr"
 
 // import ClubsCards from "./Components/ClubsCards"
 import Card from "./Components/Card";
@@ -63,6 +64,10 @@ const RootStack = createStackNavigator(
         ClubMgrProfile: {
             screen: ClubMgrProfile
         },
+        ClubForMgr: {
+            screen: ClubForMgr
+        },
+        
         AthleteProfile: {
             screen: AthleteProfile,
 

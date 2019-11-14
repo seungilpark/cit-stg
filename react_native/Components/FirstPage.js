@@ -15,8 +15,6 @@ export default class FirstPage extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.pageText}>This is the first page</Text>
-
                 <ImageBackground
                     // source={require("../assets/fristPage.jpg")}
                     style={styles.backgroundImage}
@@ -121,6 +119,16 @@ export default class FirstPage extends React.Component {
                     >
                         <Text style={styles.btnText}>Club Manager Profile </Text>
                     </TouchableHighlight>
+
+                    <TouchableHighlight
+                        style={styles.button}
+                        onPress={() => {
+                            this.props.navigation.navigate("ClubForMgr");
+                        }}
+                    >
+                        <Text style={styles.btnText}>Cards for Club Manager</Text>
+                    </TouchableHighlight>
+
                 </ImageBackground>
             </View>
         );

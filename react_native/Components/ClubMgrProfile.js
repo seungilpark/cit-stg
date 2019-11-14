@@ -1,100 +1,97 @@
 import React from "react";
 import {
-    StyleSheet,
-    Alert,
-    TouchableOpacity,
-    Text,
-    View,
-    Button,
-    ScrollView,
-    Image,
-    ImageBackground
+  StyleSheet,
+  Alert,
+  TouchableOpacity,
+  Text,
+  View,
+  Button,
+  ScrollView,
+  Image,
+  ImageBackground
 } from "react-native";
 import { NavigationEvents, StackNavigator } from "react-navigation";
-import { Card } from 'react-native-elements';
+import { Card } from "react-native-elements";
 import { symbol } from "prop-types";
 
 export default class AthleteProfile extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            mgr_id: "",
-            data: [],
-            data2: [],
+  constructor(props) {
+    super(props);
+    this.state = {
+      mgr_id: "",
+      data: [],
+      data2: [],
 
-            mgr_email: "",
-            mgr_phone: "",
-            profile_photo_url: ""
-        };
-    }
+      mgr_email: "",
+      mgr_phone: "",
+      profile_photo_url: ""
+    };
+  }
 
-    componentDidMount() {
-        fetch("http://54.191.100.200:8080/api/clubmgrs/" + this.state.mgr_id)
-            .then(response => response.json())
-            .then(responseJson => {
-                this.setState({ data: responseJson });
-            })
-            .catch(error => {
-                console.error(error);
-            });
-        fetch("http://54.191.100.200:8080/api/profiles" + this.state.mgr_id)
-            .then(response => response.json())
-            .then(responseJson => {
-                this.setState({ data2: responseJson });
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    }
+  componentDidMount() {
+    fetch("http://54.191.100.200:8080/api/clubmgrs/" + this.state.mgr_id)
+      .then(response => response.json())
+      .then(responseJson => {
+        this.setState({ data: responseJson });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+    fetch("http://54.191.100.200:8080/api/profiles" + this.state.mgr_id)
+      .then(response => response.json())
+      .then(responseJson => {
+        this.setState({ data2: responseJson });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
 
-    onPressEvent() {
-        Alert.alert(
-            "Sign Out ",
-            "Are you sure you want to sign out?",
-            [
-                {
-                    text: "Cancel",
-                    onPress: () => console.log("Cancel Pressed"),
-                    style: "cancel"
-                },
-                {
-                    text: "OK",
-                    onPress: () => this.props.navigation.navigate("FirstPage")
-                }
-            ],
-            { cancelable: false }
-        );
-    }
+  onPressEvent() {
+    Alert.alert(
+      "Sign Out ",
+      "Are you sure you want to sign out?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        {
+          text: "OK",
+          onPress: () => this.props.navigation.navigate("FirstPage")
+        }
+      ],
+      { cancelable: false }
+    );
+  }
 
-    onPressEvent1() {
-        Alert.alert(
-            "Edit",
-            "Editing Contact Information",
-            [
-                {
-                    text: "OK",
-                    onPress: () => console.log("Okay Pressed")
-                }
-            ],
-            { cancelable: false }
-        )
-    }
+  onPressEvent1() {
+    Alert.alert(
+      "Edit",
+      "Editing Contact Information",
+      [
+        {
+          text: "OK",
+          onPress: () => console.log("Okay Pressed")
+        }
+      ],
+      { cancelable: false }
+    );
+  }
 
-    onPressEvent2() {
-        Alert.alert(
-            "Edit",
-            "Editing Personal Information",
-            [
-                {
-                    text: "OK",
-                    onPress: () => console.log("Okay Pressed")
-                }
-            ],
-            { cancelable: false }
-        )
-    }
+  onPressEvent2() {
+    Alert.alert(
+      "Edit",
+      "Editing Personal Information",
+      [
+        {
+          text: "OK",
+          onPress: () => console.log("Okay Pressed")
+        }
+    ])}
 
-    render() {
+    render(){
         if (this.state.data.length == 0 || this.state.data2.length == 0) {
             return <View></View>;
         }

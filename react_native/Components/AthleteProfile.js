@@ -21,7 +21,7 @@ export default class AthleteProfile extends React.Component {
 
             athl_email: "",
             athl_phone: "",
-            profile_photo_url: ""
+            profile_photo_url: "test"
         };
     }
 
@@ -88,7 +88,7 @@ export default class AthleteProfile extends React.Component {
                     source={{
                         uri:
                             this.state.profile_photo_url !== ""
-                                ? "https://therefreshedhome.com/wp-content/uploads/2017/09/garage-full-of-stuff.jpg"
+                                ? "http://shaqodoon.org/wp-content/uploads/blanl-image-shaqodoon.png"
                                 : this.state.data2[0].profile_photo
                     }}
                 />
@@ -211,7 +211,7 @@ export default class AthleteProfile extends React.Component {
                         <Text style={{ color: "#7C7C95" }}>Settings ></Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                {/* <TouchableOpacity>
                     <View style={styles.button2}>
                         <Button
                             flexDirection="row-reverse"
@@ -219,6 +219,10 @@ export default class AthleteProfile extends React.Component {
                             onPress={() => this.onPressEvent()}
                         />
                     </View>
+                </TouchableOpacity> */}
+
+                <TouchableOpacity onPress={() => this.onPressEvent()}>
+                    <Text style={styles.button}>Sign Out</Text>
                 </TouchableOpacity>
             </ScrollView>
         );
@@ -271,11 +275,23 @@ const styles = StyleSheet.create({
         // shadowOpacity: 1.0,
         // shadowRadius: 11,
     },
-    button2: {
-        flex: 1,
-        flexDirection: "row-reverse",
-        bottom: 10,
-        right: 32,
-        borderRadius: 50
+    // button2: {
+    //     flex: 1,
+    //     flexDirection: "row-reverse",
+    //     bottom: 10,
+    //     right: 32,
+    //     borderRadius: 50
+    // },
+    button: {
+        backgroundColor: "#2DC5F6",
+        borderColor: "white",
+        borderWidth: 1,
+        borderRadius: 12,
+        color: "#7C7C95",
+        fontSize: 16,
+        fontWeight: "bold",
+        overflow: "hidden",
+        padding: 12,
+        textAlign: "center"
     }
 });

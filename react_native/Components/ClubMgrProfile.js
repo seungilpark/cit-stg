@@ -106,10 +106,10 @@ export default class AthleteProfile extends React.Component {
         );
         return (
             <ScrollView style={styles.container}>
-                <ImageBackground
-                    source={require("../assets/backgroundImageProfiles.jpg")}
+                {/* <ImageBackground
+                    source={require("../assets/backgroundImageProfiles2.png")}
                     style={styles.backgroundImage}
-                >
+                > */}
                     <View>
                         <Card containerStyle={styles.playerphotoCard}>
                         {/* <Image
@@ -180,7 +180,7 @@ export default class AthleteProfile extends React.Component {
                             />
                     </TouchableOpacity>
                 </View>
-                </ImageBackground>
+                {/* </ImageBackground> */}
             </ScrollView>      
         )
     }
@@ -202,10 +202,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
         alignSelf: "center",
         shadowOffset:{  width: 0,  height: 12,  },
-        shadowColor: '#3AD289',
+        shadowColor: 'black',
         shadowOpacity: 1.0,
         shadowRadius: 11,
-        elevation: 5,
+        elevation: 3,
         backgroundColor:'#3AD289',
     },
     playerphoto: {
@@ -230,10 +230,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center',
         shadowOffset:{  width: 0,  height: 12,  },
-        shadowColor: '#3AD289',
+        shadowColor: 'black',
         shadowOpacity: 1.0,
         shadowRadius: 11,
-        elevation: 5,
+        elevation: 3,
         
     },
     cardStyle2: {
@@ -244,10 +244,10 @@ const styles = StyleSheet.create({
         height: 150,
         alignSelf: 'center',
         shadowOffset:{  width: 0,  height: 12,  },
-        shadowColor: '#3AD289',
+        shadowColor: 'black',
         shadowOpacity: 1.0,
         shadowRadius: 11,
-        elevation: 5,
+        elevation: 3,
 
     },
     cardStyle3: {
@@ -258,10 +258,10 @@ const styles = StyleSheet.create({
         height: 250,
         alignSelf: 'center',
         shadowOffset:{  width: 0,  height: 12,  },
-        shadowColor: '#3AD289',
+        shadowColor: 'black',
         shadowOpacity: 1.0,
         shadowRadius: 11,
-        elevation: 5,
+        elevation: 3,
         marginBottom: 20,
     },
     editIconStyle : {

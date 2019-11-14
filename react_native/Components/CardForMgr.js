@@ -25,6 +25,7 @@ export default class CardForMgr extends Component {
     this.getData = this.getData.bind(this);
     this.callNumber = this.callNumber.bind(this);
     this.displayImage = this.displayImage.bind(this);
+    this.onSwiped = this.onSwiped.bind(this);
   }
 
   // https://stackoverflow.com/questions/51545064/how-to-make-phone-call-in-react-native
@@ -71,6 +72,43 @@ export default class CardForMgr extends Component {
       })
   }
 
+  onSwiped = (event, direction) => {
+    if(direction === "left"){
+      fetch(
+        "http://54.191.100.200:8080/api/clubLikes/dislike/",
+        {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              athl_id: this.state.cards[event].athl_id,
+              club_id: this.state.club_id
+            })
+        },
+        // console.log(body)
+      );
+      
+    }else{
+      fetch(
+        "http://54.191.100.200:8080/api/clubLikes/like/",
+        {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              athl_id: this.state.cards[event].athl_id,
+              club_id: this.state.club_id
+            })
+        },
+        console.log('success')
+      );
+    }
+  }
+
 
   renderCard = (card) => {
     if (card === undefined){
@@ -107,10 +145,6 @@ export default class CardForMgr extends Component {
     // console.log(card);
   };
 
-  onSwiped = (index) => {
-    console.log("Manager swiped")
-  }
-
   onSwipedAllCards = () => {
     this.setState({
       swipedAllCards: true
@@ -131,8 +165,8 @@ export default class CardForMgr extends Component {
           }}
           backgroundColor={'#3ad289'}
           useViewOverflow={Platform.OS === 'ios'}
-          onSwipedLeft={(event) => this.onSwiped()}
-          onSwipedRight={(event) => this.onSwiped()}
+          onSwipedLeft={(event) => this.onSwiped(event, "left")}
+          onSwipedRight={(event) => this.onSwiped(event, "right")}
           cards={this.state.cards}
           cardVerticalMargin={80}
           renderCard={this.renderCard}

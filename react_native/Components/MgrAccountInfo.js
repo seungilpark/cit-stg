@@ -131,14 +131,8 @@ Submit(){
           mgr_password: this.state.password,
           
         }),
-      }).then(response => response.json())
-        .then((responseJson) => {
-            const id = responseJson.club_id
-        });
-        console.log(id)
-      this.props.navigation.navigate("CardForMgr", {
-          id: id
       })
+      this.props.navigation.navigate("ClubForMgr")
       console.log("Manager Created.")
     }else{
       this.setState({

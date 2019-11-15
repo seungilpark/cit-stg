@@ -19,6 +19,9 @@ import PersonalInfo from './Components/PersonalInfo';
 import LocationInfo from './Components/LocationInfo';
 import AccountInfo from './Components/AccountInfo';
 import MainApp from './Components/main_app'
+import MgrInfo from './Components/MgrInfo'
+import ClubInfo from './Components/ClubInfo'
+import MgrAccountInfo from './Components/MgrAccountInfo'
 
 // import ClubsCards from "./Components/ClubsCards"
 import Card from "./Components/Card"
@@ -37,11 +40,20 @@ const RootStack = createStackNavigator(
     PersonalInfo: {
       screen: PersonalInfo,
     },
+    MgrInfo: {
+      screen: MgrInfo
+    },
     LocationInfo: {
       screen: LocationInfo,
     },
+    ClubInfo: {
+      screen: ClubInfo
+    },
     AccountInfo: {
       screen: AccountInfo,
+    },
+    MgrAccountInfo: {
+      screen: MgrAccountInfo
     },
     AthTest: {
       screen: AthTest,

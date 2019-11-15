@@ -39,7 +39,27 @@ export default class AthlClubList extends React.Component {
             const clubList = await getList.json()
             console.log(clubList,"Get list 1111111111111111");
             //console.log(clubList.results, "Get List 2")
-            this.setState({matchedList : clubList, loading: false});
+            this.setState({matchedList: [{
+                "athl_id": 1,
+                "club_id": 1,
+                "club_name": "Liverpool",
+                "country": "England",
+                "offer_amount": "1000000",
+                "offer_desc": "Goal Keeper for 6 years",
+                "offer_photo": "test",
+                "offer_position": "GK",
+                "offer_title": "Goal Keeper Contract",
+              },{
+                "athl_id": 2,
+                "club_id": 2,
+                "club_name": "Whitecaps",
+                "country": "Canada",
+                "offer_amount": "10000",
+                "offer_desc": "Defender for 5 years",
+                "offer_photo": "test",
+                "offer_position": "RD",
+                "offer_title": "Defender Contract",
+              }], loading: false});
             // console.log(this.matchedList);
             //console.log(matchedList)  
         } catch(error) {
@@ -73,7 +93,7 @@ export default class AthlClubList extends React.Component {
     };
 
     flipCard(item) {
-        console.log('FLIP CARD')
+        console.log('FLIP CARD', item)
         if(this.value >= 90){
             Animated.spring(this.animatedValue, {
                 toValue:0,
@@ -116,7 +136,7 @@ export default class AthlClubList extends React.Component {
                                 
                                 renderItem={({item}) =>
                                     
-                                    <TouchableOpacity  onPress={(item) => this.flipCard(item)}>
+                                    <TouchableOpacity  onPress={(item) => this.flipCard({item})}>
                                         <Card containerStyle={styles.cardStyle}>
                                             <Animated.Image source={require('../assets/manu.jpg')} style={[styles.flipCard, frontAnimatedStyle]}>
                                             </Animated.Image>
@@ -132,7 +152,7 @@ export default class AthlClubList extends React.Component {
                                     </TouchableOpacity>
                                      
                                     }
-                                    keyExtractor={(item, index) => index.toString()}
+                                    keyExtractor={item => item.club_name}
                                     /></View>
                        )
         } else {
@@ -200,5 +220,6 @@ const styles = StyleSheet.create({
             shadowRadius: 11,
             borderRadius: 6
             
-        }
+        },
+        
 });

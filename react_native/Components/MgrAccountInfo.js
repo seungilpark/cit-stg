@@ -4,24 +4,26 @@ import { NavigationEvents } from 'react-navigation';
 // import { ScrollView } from 'react-native-gesture-handler';
 
 
-export default class AccountInfo extends React.Component {
+export default class MgrAccountInfo extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
         role: '',
-        fname: '',
-        lname: '',
-        gender: '',
-        dob: '',
-        height: '',
-        weight: '',
-        addr: '',
-        email: '',
-        phone: '',
+        club_name: '',
+        club_size: 'Medium',
+        club_status: '',
+        club_url: '',
+        club_contact: '',
+        street_name: '',
         city: '',
         country: '',
-        account: '',
+        mgr_fname: '',
+        mgr_lname: '',
+        mgr_email: '',
+        mgr_phone: '',
+        fk_sports_id: 1,
+        mgr_account: '',
         password: '',
         password1: ''
         
@@ -34,37 +36,41 @@ export default class AccountInfo extends React.Component {
 
 RegisterVar(){
 
-  const { navigation } = this.props
-  const role = navigation.getParam('role','ath')
-  const fname = navigation.getParam('fname', 'none')
-  const lname = navigation.getParam('lname', 'none')
-  const gender = navigation.getParam('gender', 'none')
-  const dob = navigation.getParam('dob', 'none')
-  const height = navigation.getParam('height', 'none')
-  const weight = navigation.getParam('weight', 'none')
-  const addr = navigation.getParam('addr', 'none')
-  const email = navigation.getParam('email', 'none')
-  const phone = navigation.getParam('phone', 'none')
-  const city = navigation.getParam('city', 'none')
-  const country = navigation.getParam('country', 'none')
+    const { navigation } = this.props
+    const role = navigation.getParam('role','none')
+    const mgr_fname = navigation.getParam('mgr_fname', 'none')
+    const mgr_lname = navigation.getParam('mgr_lname', 'none')
+    const mgr_email = navigation.getParam('mgr_email', 'none')
+    const mgr_phone = navigation.getParam('mgr_phone', 'none')
+    const club_name = navigation.getParam('club_name', 'none')
+    const club_size = navigation.getParam('club_size', 'none')
+    const club_status = navigation.getParam('club_status', 'none')
+    const club_url = navigation.getParam('club_url', 'none')
+    const club_contact = navigation.getParam('club_contact', 'none')
+    const street_name = navigation.getParam('street_name', 'none')
+    const city = navigation.getParam('city', 'none')
+    const country = navigation.getParam('country', 'none')
+
 
   this.setState({
     role: role,
-    fname: fname,
-    lname: lname,
-    gender: gender,
-    dob: dob,
-    height: height,
-    weight: weight,
-    addr: addr,
-    email: email,
-    phone: phone,
+    mgr_fname: mgr_fname,
+    mgr_lname: mgr_lname,
+    mgr_email: mgr_email,
+    mgr_phone: mgr_phone,
+    club_name: club_name,
+    club_size: club_size,
+    club_status: club_status,
+    club_url: club_url,
+    club_contact: club_contact,
+    street_name: street_name,
     city: city,
     country: country
   })
 }
 
 Submit(){
+    console.log(this.state)
   
   checkEmpty = this.checkEmpty();
   console.log(checkEmpty);
@@ -100,28 +106,33 @@ Submit(){
       console.log("Athlete Created.")
     }
     else if(checkPd == true && this.state.role === 'mgr'){
-      fetch('http://54.191.100.200:8080/api/clubMgrs/create', {
+      fetch('http://54.191.100.200:8080/api/clubs/signup', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          mgr_fname: this.state.fname,
-          mgr_lname: this.state.lname,
-          // athl_gender: this.state.gender,
-          // athl_dob: this.state.dob,
-          // addr: this.state.addr,
-          // athl_height: this.state.height,
-          // athl_weight: this.state.weight,
-          mgr_email: this.state.email,
-          mgr_phone: this.state.phone,
-          mgr_account: this.state.account,
+          
+          club_name: this.state.club_name,
+          club_size: this.state.club_size,
+          club_status: this.state.club_status,
+          club_url: this.state.club_url,
+          club_contact: this.state.club_contact,
+          fk_sports_id: this.state.fk_sports_id,
+          street_name: this.state.street_name,
+          city: this.state.city,
+          country: this.state.country,
+          mgr_fname: this.state.mgr_fname,
+          mgr_lname: this.state.mgr_lname,
+          mgr_email: this.state.mgr_email,
+          mgr_phone: this.state.mgr_phone,
+          mgr_account: this.state.mgr_account,
           mgr_password: this.state.password,
-          // city: this.state.city,
-          // country: this.state.country
+          
         }),
       });
+      this.props.navigation.navigate("Card")
       console.log("Manager Created.")
     }else{
       this.setState({
@@ -173,8 +184,8 @@ checkEmpty(){
         <TextInput
           style={styles.textBox}
           placeholder="Account Name"
-          onChangeText={(account) => this.setState({account})}
-          value={this.state.account}
+          onChangeText={(mgr_account) => this.setState({mgr_account})}
+          value={this.state.mgr_account}
         />
         <TextInput
           style={styles.textBox}

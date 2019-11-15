@@ -22,12 +22,17 @@ import ClubMatches from "./Components/ClubMatches"
 // import PersonalDetailsPage from "./Components/PersonalDetailsPage";
 
 import ClubsCards from "./Components/ClubsCards";
-import AccountType from "./Components/AccountType";
-import PersonalInfo from "./Components/PersonalInfo";
-import LocationInfo from "./Components/LocationInfo";
-import AccountInfo from "./Components/AccountInfo";
-import MainApp from "./Components/main_app";
+
+import AccountType from './Components/AccountType';
+import PersonalInfo from './Components/PersonalInfo';
+import LocationInfo from './Components/LocationInfo';
+import AccountInfo from './Components/AccountInfo';
+import MainApp from './Components/main_app'
+import MgrInfo from './Components/MgrInfo'
+import ClubInfo from './Components/ClubInfo'
+import MgrAccountInfo from './Components/MgrAccountInfo'
 import ClubForMgr from "./Components/CardForMgr"
+
 
 // import ClubsCards from "./Components/ClubsCards"
 import Card from "./Components/Card";
@@ -47,11 +52,20 @@ const RootStack = createStackNavigator(
         PersonalInfo: {
             screen: PersonalInfo
         },
+        MgrInfo: {
+            screen: MgrInfo
+        },
         LocationInfo: {
-            screen: LocationInfo
+            screen: LocationInfo,
+        },
+        ClubInfo: {
+            screen: ClubInfo
         },
         AccountInfo: {
-            screen: AccountInfo
+            screen: AccountInfo,
+        },
+        MgrAccountInfo: {
+            screen: MgrAccountInfo
         },
         AthTest: {
             screen: AthTest
@@ -486,6 +500,7 @@ const RootStack = createStackNavigator(
     {
         initialRouteName: "FirstPage",
         headermode: "none"
+
     }
 );
 

@@ -22,6 +22,7 @@ const getClubRecommendation = (sports_id, position, country) => {
       console.log(query);
     return new Promise((resolve, reject) => {
       pool.query(query, (err, results, fields) => {
+        console.log(results);
         if (err) reject(err);
         else resolve(results);
       });

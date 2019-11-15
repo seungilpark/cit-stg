@@ -187,7 +187,10 @@ router.post("/signin", async (req, res) => {
     let validateAccount = await db.validateAccount(req.body.account);
     if (validateAccount){
         let result = await db.verifyAthlete(req.body.account, req.body.password);
-        if (result.length > 0) res.status(200).json(result);
+        if (result.length > 0){
+          let athl_id = await db.getAthlIdByAccount(req.body.account);
+          res.status(200).json(athl_id);
+        } 
         else res.status(400).json({ message: "Wrong Password" });
     } else {
         res.status(400).json({ message: `No User Found` });

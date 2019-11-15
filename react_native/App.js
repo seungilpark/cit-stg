@@ -41,31 +41,59 @@ import AthleteProfile from "./Components/AthleteProfile";
 const RootStack = createStackNavigator(
     {
         FirstPage: {
-            screen: FirstPage
+            screen: FirstPage,
+            navigationOptions: {
+                header: null,
+                }
         },
         SignIn: {
-            screen: SignIn
+            screen: SignIn,
+            navigationOptions: {
+                header: null,
+                }
+            
         },
         AccountType: {
-            screen: AccountType
+            screen: AccountType,
+            navigationOptions: {
+                header: null,
+                }
         },
         PersonalInfo: {
-            screen: PersonalInfo
+            screen: PersonalInfo,
+            navigationOptions: {
+                header: null,
+                }
         },
         MgrInfo: {
-            screen: MgrInfo
+            screen: MgrInfo,
+            navigationOptions: {
+                header: null,
+                }
         },
         LocationInfo: {
             screen: LocationInfo,
+            navigationOptions: {
+                header: null,
+                }
         },
         ClubInfo: {
-            screen: ClubInfo
+            screen: ClubInfo,
+            navigationOptions: {
+                header: null,
+                }
         },
         AccountInfo: {
             screen: AccountInfo,
+            navigationOptions: {
+                header: null,
+                }
         },
         MgrAccountInfo: {
-            screen: MgrAccountInfo
+            screen: MgrAccountInfo,
+            navigationOptions: {
+                header: null,
+                }
         },
         AthTest: {
             screen: AthTest
@@ -74,7 +102,10 @@ const RootStack = createStackNavigator(
             screen: ClubTest
         },
         MainApp: {
-            screen: MainApp
+            screen: MainApp,
+            navigationOptions: {
+                header: null,
+                }
         },
         ClubMgrProfile: {
             screen: ClubMgrProfile
@@ -286,7 +317,7 @@ const RootStack = createStackNavigator(
                 headerRight: (
                     <TouchableOpacity
                         onPress={() => {
-                            navigation.navigate("ClubMgrProfile");
+                            navigation.navigate("AthleteProfile");
                         }}
                     >
                         <View>
@@ -499,7 +530,12 @@ const RootStack = createStackNavigator(
     
     {
         initialRouteName: "FirstPage",
-        headermode: "none"
+        headermode: "none",
+        transitionConfig: () => ({
+            transitionSpec: {
+              duration: 0,  // Set the animation duration time as 0 !!
+            },
+          }),
 
     }
 );

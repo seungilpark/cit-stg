@@ -86,7 +86,7 @@ const deleteClubById = (inputId) => {
 
 const getClubAndMgrByClubId = (club_id) => {
     let query = "select * from clubs as c inner join club_mgr as cm on c.club_id = cm.fk_clubs_id where c.club_id = ?";
-    query = mysql.format(query, [club_id]);
+    query = mysql.format(query, club_id);
     console.log(query);
 
     return new Promise((resolve, reject) => {
@@ -97,6 +97,49 @@ const getClubAndMgrByClubId = (club_id) => {
     })
 }
 
+const verifyClub = (acc, pw) => {
+    console.log("when there is no error message....")
+    let query = `SELECT * FROM club_mgr WHERE mgr_account=? AND mgr_password=?`;
+    query = mysql.format(query,[acc,pw]);
+    console.log(query);
+    return new Promise((resolve, reject) => {
+      pool.query(query, (err, results, fields) => {        
+          if (err) reject(err);
+          //TODO check if empty
+          else {
+              console.log("inside verifyClub()", results);
+           resolve(results);
+          }
+      });
+  });
+  }
+  
+  const validateClub = (acc) => {
+    let query = `select * from club_mgr where mgr_account=?`;
+    query = mysql.format(query, acc);
+    return new Promise((resolve, reject) => {
+      pool.query(query, (err, results, fields) => {
+        if (err) reject(err);
+        else {
+            if (results.length) resolve(true);
+            else resolve(false);
+        }
+      })
+    })
+  }
+
+  const getClubIdByAccount = (acc) => {
+    let query = `select c.club_id from club_mgr as cm inner join clubs as c on c.club_id=cm.fk_clubs_id where cm.mgr_account=?`;
+    query = mysql.format(query, [acc]);
+    console.log(query);
+    return new Promise((resolve, reject) => {
+      pool.query(query, (err, results, fields) => {
+        if (err) reject(err);
+        else resolve(results)
+      })
+    })
+  }
+
 
 module.exports = {
     getAll,
@@ -105,6 +148,9 @@ module.exports = {
     getClubsByLocation,
     deleteClubById,
     updateClubById,
-    getClubAndMgrByClubId
+    getClubAndMgrByClubId,
+    verifyClub,
+    validateClub,
+    getClubIdByAccount
 };
 

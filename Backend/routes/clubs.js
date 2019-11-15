@@ -161,9 +161,9 @@ router.post("/signup", async (req, res) => {
         let mgrInsertResult = await dbHelper.insertInto("club_mgr", mgrObj);
         //check if insert succeeded 
         if (mgrInsertResult.length < 1) throw new Error("mgr insert fail");
-        
+        const newClub = await db.getClubAndMgrByClubId(newClubId)
         //return club + clubmgr info
-        res.status(200).json(await db.getClubAndMgrByClubId(newClubId));
+        res.status(200).json(newClub);
 
 
     } else {
@@ -180,9 +180,14 @@ router.post("/signup", async (req, res) => {
 
 router.post("/signin", async (req, res) => {
   try {
-    let result = await db.verifyManager(req.body.account, req.body.password);
-    if (result.length > 0) res.status(203).json(result);
-    else res.status(403).json({ message: "cannot verify the user" });
+    let validateAccount = await db.validateClub(req.body.mgr_account);
+    if (validateAccount) {
+      let result = await db.verifyClub(req.body.mgr_account, req.body.mgr_password);
+      if (result.length > 0) {
+        let club_id = await db.getClubIdByAccount(req.body.mgr_account)
+        res.status(200).json(club_id);
+      } else res.status(400).json({message:"invalid password"});
+    } else res.status(400).json({ message: "cannot verify the user" });
   } catch (err) {
     res.json(err);
   }

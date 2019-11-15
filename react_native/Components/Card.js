@@ -48,7 +48,7 @@ export default class Card extends Component {
     };
 
   getData() {
-    return fetch('http://54.191.100.200:8080/api/recommendations/offers/' + this.state.athl_id)
+    return fetch('http://54.191.100.200:8080/api/recommendations/athlete/' + this.state.athl_id)
       .then((response) => response.json())
       .then((responseJson) => {
         // console.log(typeof responseJson);
@@ -79,7 +79,7 @@ export default class Card extends Component {
         <View  style={styles.card}>
           <Image
             style={{width: 270, height: 270, resizeMode: 'contain', backgroundColor: 'transparent'}}
-            source={{uri: 'https://i.pinimg.com/564x/02/43/ee/0243ee0e6e658df20f3393a30e2d6747.jpg'}}
+            source={card.url}
           />
           <Text></Text>
 

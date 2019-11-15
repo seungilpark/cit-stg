@@ -1,45 +1,20 @@
 import React from 'react';
-import { ActivityIndicator,Animated, StyleSheet, Text, View, Button, FlatList, Image, ScrollView, TouchableOpacity } from 'react-native';
-import { NavigationEvents } from 'react-navigation';
-import { Card } from 'react-native-elements'
+import {
+  TouchableOpacity,
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  ActivityIndicator
+} from 'react-native';
+
+import CardFlip from 'react-native-card-flip';
 
 export default class AthlClubList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            athl:{},
-            matchedList:[],
-            loading: true
-        };
-        this.flipCard = this.flipCard.bind(this);
-    }    
-
-    componentWillMount(){
-        this.animatedValue = new Animated.Value(0);
-        this.animatedValue.addListener(({ value }) => {
-            this.value = value;
-        })
-        
-        this.frontInterpolate = this.animatedValue.interpolate({
-            inputRange: [0, 180],
-            outputRange: ['0deg', '180deg']
-        })
-
-        this.backInterpolate = this.animatedValue.interpolate({
-            inputRange: [0, 180],
-            outputRange: ['180deg', '360deg']
-        })
-      }
-
-      async componentDidMount(){
-        try {
-            var athl_id = 1;
-            const getList = await fetch('http://54.191.100.200:8080/api/matched/athlete/1');
-
-            const clubList = await getList.json()
-            console.log(clubList,"Get list 1111111111111111");
-            //console.log(clubList.results, "Get List 2")
-            this.setState({matchedList: [{
+            matchedList:[{
                 "athl_id": 1,
                 "club_id": 1,
                 "club_name": "Liverpool",
@@ -49,177 +24,125 @@ export default class AthlClubList extends React.Component {
                 "offer_photo": "test",
                 "offer_position": "GK",
                 "offer_title": "Goal Keeper Contract",
-              },{
-                "athl_id": 2,
+              },
+              {
+                "athl_id": 1,
                 "club_id": 2,
-                "club_name": "Whitecaps",
-                "country": "Canada",
-                "offer_amount": "10000",
-                "offer_desc": "Defender for 5 years",
+                "club_name": "Manchester",
+                "country": "England",
+                "offer_amount": "1000000",
+                "offer_desc": "Goal Keeper for 6 years",
                 "offer_photo": "test",
-                "offer_position": "RD",
-                "offer_title": "Defender Contract",
-              }], loading: false});
-            // console.log(this.matchedList);
-            //console.log(matchedList)  
-        } catch(error) {
-            console.log("Error fetching data", error);
+                "offer_position": "GK",
+                "offer_title": "Goal Keeper Contract",
+              },
+              {
+                "athl_id": 1,
+                "club_id": 3,
+                "club_name": "Arsenal",
+                "country": "England",
+                "offer_amount": "1000000",
+                "offer_desc": "Goal Keeper for 6 years",
+                "offer_photo": "test",
+                "offer_position": "GK",
+                "offer_title": "Goal Keeper Contract",
+              }],
+            loading: true
         };
-      }
-    
-        
-        // fetch('http://142.232.55.120:8080/api/clubs')
-        // .then((response) => response.text())
-        // .then((responseJson) => {
-        //     this.setState({clubData : responseJson})
-        // })
-        // .catch((error) => {
-        //     console.error(error);
-        // })
-        
 
-
-    static navigationOptions = ({ navigation  }) => {
-        let title = "Liked Clubs";
-        return { 
-            title, 
-            headerTitleStyle:{
-              color : 'black', 
-              display: 'flex',
-              flex: 0.8,
-              justifyContent: 'center',
-              textAlign: 'center',
-            } }
-    };
-
-    flipCard(item) {
-        console.log('FLIP CARD', item)
-        if(this.value >= 90){
-            Animated.spring(this.animatedValue, {
-                toValue:0,
-                friction: 8,
-                tension: 10
-            }).start();
-        }else {
-            Animated.spring(this.animatedValue, {
-                toValue:180,
-                friction: 8,
-                tension: 10
-            }).start();
-        }
-        
     }
 
+    // async componentDidMount(){
+    //     try {
+    //         var athl_id = 1;
+    //         const getList = await fetch('http://54.191.100.200:8080/api/matched/athlete/1');
 
-    render() {
-        const frontAnimatedStyle = {
-            transform: [
-                {rotateY: this.frontInterpolate}
-            ]
-        }
-        
-        const backAnimatedStyle = {
-            transform: [
-                {rotateY: this.backInterpolate}
-            ]
-        }
+    //         const clubList = await getList.json()
+    //         console.log(clubList,"Get list 1111111111111111");
+    //         //console.log(clubList.results, "Get List 2")
+    //         this.setState({matchedList : clubList, loading: false});
+    //         // console.log(this.matchedList);
+    //         //console.log(matchedList)  
             
-        const {matchedList, loading} = this.state;
-        console.log(matchedList,"2222222222222222222222222222");
 
-        if(!loading) {
-            return (
-                    <View style = {styles.container}>
-                        <FlatList 
-                                data={matchedList}
-                                
-                                
-                                renderItem={({item}) =>
-                                    
-                                    <TouchableOpacity  onPress={(item) => this.flipCard({item})}>
-                                        <Card containerStyle={styles.cardStyle}>
-                                            <Animated.Image source={require('../assets/manu.jpg')} style={[styles.flipCard, frontAnimatedStyle]}>
-                                            </Animated.Image>
-                                            <Animated.View  style={[styles.flipCard, styles.flipCardBack, backAnimatedStyle]}>
-                                            <Text>{this.state.dbResponse}</Text>
-                                            
-                                                    <Text style = {styles.TextStyle}>Club Name: {item.club_name}</Text>
-                                                    <Text style = {styles.TextStyle}>Location: {item.country}</Text>
-                                                    <Text style = {styles.TextStyle}>Position: {item.offer_position}</Text>
-                                                    <Text style = {styles.TextStyle}>Salary: {item.offer_amount}</Text>
-                                                    </Animated.View>
-                                        </Card>
-                                    </TouchableOpacity>
-                                     
-                                    }
-                                    keyExtractor={item => item.club_name}
-                                    /></View>
-                       )
-        } else {
-            return <ActivityIndicator />
-        }
+    //   } catch(error) {
+    //         console.log("Error fetching data", error);
+    //     };
+    //   }
 
-    }
+    render(){
+    const { matchedList } = this.state;
+    console.log(matchedList, "in render")
+    return matchedList.map((item, id) => {
+          return (
+              <CardFlip style={ styles.cardContainer } ref={ (card) => this['card' + id] = card } >
+                <TouchableOpacity key={item} style={ styles.card } onPress={() => this['card' + id].flip()} ><Image source ={require('../assets/manu.jpg')} style={styles.imageViewStyle}></Image></TouchableOpacity>
+                <TouchableOpacity key={item} style={ styles.card } onPress={() => this['card' + id].flip()} >
+                  <Text style = {styles.TextStyle}>Club Name: {item.club_name}</Text>
+                  <Text style = {styles.TextStyle}>Location: {item.country}</Text>
+                  <Text style = {styles.TextStyle}>Position: {item.offer_position}</Text>
+                  <Text style = {styles.TextStyle}>Salary: {item.offer_amount}</Text>
+                </TouchableOpacity>
+              </CardFlip>
+          )
+        })
+    };
 }
 
-
-
 const styles = StyleSheet.create({
-    container: {
-        flex:1,
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        padding:10,
-        backgroundColor: "#3AD289"
-        
-        },
 
-        flipCard: {
-        top: 0,
-        display: "flex",
-        paddingTop: 10,
-        paddingBottom:20,
-        paddingLeft:20,
-        paddingRight:20,
-        borderRadius:10,
-        width: 350,
-        height: 200,
-        backgroundColor: "blue",
-        backfaceVisibility: "hidden"
-        },
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  cardContainer: {
+    width: "94%",
+    height: 200,
+    flex: 1,
+    left: 10,
+    flexDirection : 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10
 
-        flipCardBack: {
-        backgroundColor: "#2D5D51",
-        position: "absolute",
-        top: 0
-        },
+  },
+  card: {
+    width: "100%",
+    height: 220,
+    top: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection:'column',
+    backgroundColor: "#E2F0E4",
+    borderRadius: 5,
+    shadowColor: 'rgba(0,0,0,0.5)',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.5,
+    elevation: 5
+  },
 
-        imageViewStyle: {
+  imageViewStyle: {
 
-        width: 240,
-        height: 300,
-        borderRadius:6,
-        backgroundColor: "#3AD289"
-        
-        },
-        
-        TextStyle:{
-            color:'#fff',
-            textAlign:'center',
-            padding: 5,
-            fontSize: 18
-        },
+    width: '96%',
+    height: 200,
+    borderRadius:6,
+    backgroundColor: "#3AD289"
+    
+    },
 
-        cardStyle: {
-            backgroundColor: "#3AD289",
-            shadowColor: "#000000",
-            shadowOffset:{  width: 0,  height: 12,  },
-            shadowColor: 'black',
-            shadowOpacity: 1.0,
-            shadowRadius: 11,
-            borderRadius: 6
-            
-        },
-        
+    TextStyle:{
+      color:'black',
+      textAlign:'center',
+      padding: 5,
+      fontSize: 18,
+      fontWeight: "bold"
+  },
+
 });

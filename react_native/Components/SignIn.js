@@ -10,7 +10,6 @@ import {
     TouchableHighlight
 } from "react-native";
 import { NavigationEvents } from "react-navigation";
-
 export default class SignIn extends React.Component {
     constructor(props) {
         super(props);
@@ -88,6 +87,24 @@ export default class SignIn extends React.Component {
             // console.log(result);
         });
     }
+    // onPressEvent() {
+    //     Alert.alert(
+    //         "Sign Out ",
+    //         "Are you sure you want to sign out?",
+    //         [
+    //             {
+    //                 text: "Cancel",
+    //                 onPress: () => console.log("Cancel Pressed"),
+    //                 style: "cancel"
+    //             },
+    //             {
+    //                 text: "OK",
+    //                 onPress: () => this.props.navigation.navigate("MainApp")
+    //             }
+    //         ],
+    //         { cancelable: false }
+    //     );
+    // }
 
     render() {
         return (
@@ -96,6 +113,13 @@ export default class SignIn extends React.Component {
                     source={require("../assets/signIn.jpg")}
                     style={styles.pic}
                 /> */}
+                <TouchableHighlight
+                    style={styles.BackButton}
+                    onPress={() => this.props.navigation.navigate("MainApp")}
+                >
+                    <Text style={styles.BackBtnText}>Menu</Text>
+                </TouchableHighlight>
+
                 <Text style={styles.pageText}>LOGIN</Text>
                 <TextInput
                     style={styles.placeHolderText}
@@ -127,11 +151,11 @@ export default class SignIn extends React.Component {
                 </Picker>
 
                 <TouchableHighlight
-                        style={styles.button}
-                        onPress={(onPress = this.Validation)}
-                    >
-                        <Text style={styles.btnText}> Submit </Text>
-                    </TouchableHighlight>
+                    style={styles.button}
+                    onPress={(onPress = this.Validation)}
+                >
+                    <Text style={styles.btnText}> Submit </Text>
+                </TouchableHighlight>
             </View>
         );
     }
@@ -154,7 +178,7 @@ const styles = StyleSheet.create({
     btnText: {
         fontSize: 24,
         opacity: 1,
-        color: "#fff",
+        color: "#fff"
     },
     pageText: {
         // position: "relative",
@@ -164,7 +188,7 @@ const styles = StyleSheet.create({
         color: "#3AD289",
         fontSize: 32,
         padding: 4,
-        margin: 4,
+        margin: 4
     },
     button: {
         opacity: 0.7,
@@ -176,6 +200,22 @@ const styles = StyleSheet.create({
         marginTop: 80,
         marginBottom: 28,
         borderRadius: 2
+    },
+    BackButton: {
+        opacity: 0.7,
+        backgroundColor: "#3AD289",
+        width: "16%",
+        // height: "6%",
+        padding: 14,
+        alignItems: "center",
+        bottom: "18%",
+        right: "40%",
+        borderRadius: 2
+    },
+    BackBtnText: {
+        fontSize: 14,
+        opacity: 1,
+        color: "#fff"
     },
     placeHolderText: {
         // position: "relative",

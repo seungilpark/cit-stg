@@ -49,6 +49,7 @@ export default class AthlClubList extends React.Component {
               }],
             loading: true
         };
+
     }
 
     // async componentDidMount(){
@@ -63,6 +64,7 @@ export default class AthlClubList extends React.Component {
     //         // console.log(this.matchedList);
     //         //console.log(matchedList)  
             
+
     //   } catch(error) {
     //         console.log("Error fetching data", error);
     //     };
@@ -88,6 +90,7 @@ export default class AthlClubList extends React.Component {
 }
 
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
     flexDirection: 'column',
@@ -141,4 +144,5 @@ const styles = StyleSheet.create({
       fontSize: 18,
       fontWeight: "bold"
   },
+
 });

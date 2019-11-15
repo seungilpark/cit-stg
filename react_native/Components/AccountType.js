@@ -12,8 +12,21 @@ export default class AccountType extends React.Component {
         role: 'ath'
         
     };
+    this.checkType = this.checkType.bind(this);
 
 }
+
+checkType() {
+  
+  if(this.state.role == "ath"){
+    this.props.navigation.navigate('PersonalInfo', {role: this.state.role});
+
+  }else if (this.state.role == "mgr"){
+    this.props.navigation.navigate('MgrInfo', {role: this.state.role});
+  }
+}
+
+
 
   render() {
     return (
@@ -39,9 +52,8 @@ export default class AccountType extends React.Component {
 
         <Button 
         title = 'Personal Info'
-        onPress={() => {
-            this.props.navigation.navigate('PersonalInfo', {role: this.state.role});
-        }}/>
+        onPress={this.checkType}
+        />
         
         </ScrollView>
         </KeyboardAvoidingView>

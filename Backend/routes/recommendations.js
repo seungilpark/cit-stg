@@ -23,10 +23,10 @@ router.get('/athlete/:athl_id', async (req, res) => {
         let oid_arr_result = await oid_arr;
         oid_arr_result = oid_arr_result.map(el => el.fk_offer_id);
         let recList = await recRepo.getClubRecommendation(profResult[0].fk_sports_id, profResult[0].position, athlResult[0].country);
-        console.log(recList.length)
+        console.log(recList)
         console.log(oid_arr_result)
         recList = recList.filter(el => {
-            console.log(el.offer_id==el.offer_id)
+            //console.log(el.offer_id==el.offer_id)
             return !(oid_arr_result.includes(el.offer_id))
         });
         console.log(recList.length)

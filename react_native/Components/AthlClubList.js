@@ -104,7 +104,8 @@ const styles = StyleSheet.create({
     flexDirection : 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10
+    padding: 10,
+    marginBottom: 100,
 
   },
   card: {
@@ -122,7 +123,6 @@ const styles = StyleSheet.create({
       height: 1,
     },
     shadowOpacity: 0.5,
-    elevation: 5
   },
 
   imageViewStyle: {
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     width: '96%',
     height: 200,
     borderRadius:6,
-    backgroundColor: "#3AD289"
+    backgroundColor: "#3AD289",
     
     },
 

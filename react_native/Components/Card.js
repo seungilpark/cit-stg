@@ -63,7 +63,7 @@ export default class Card extends Component {
 
   getData() {
     // this.registerVar();
-    console.log(this.state.athl_id);
+    console.log("inside of getData()", this.state.athl_id);
     return fetch('http://54.191.100.200:8080/api/recommendations/athlete/' + this.state.athl_id)
       .then((response) => response.json())
       .then((responseJson) => {
@@ -72,7 +72,7 @@ export default class Card extends Component {
 
         // not using offer_types, offer_length, fk_club_id
         new_arr = responseJson
-        // console.log(new_arr);
+        console.log("ResponseJson ==", responseJson);
         this.setState({cards : clubImagePicker(new_arr)});
       })
       .catch((error) => {

@@ -17,21 +17,23 @@ export default class SignUp extends React.Component {
         super(props);
         this.state = {
             role: "ath",
-            fname: "",
-            lname: "",
-            gender: "",
-            dob: "",
-            addr: "",
-            height: "",
-            weight: "",
-            email: "",
-            phone: "",
+            fname: "testUser",
+            lname: "testUser",
+            gender: "M",
+            dob: "1988-08-08",
+            addr: "testAddr",
+            height: 190,
+            weight: 80,
+            email: "abcd@abcd",
+            phone: "123-1234-1234",
             account: "",
             password: "",
             password1: "",
-            city: "",
-            country: "",
+            city: "testCity",
+            country: "Canada",
+            position:"GK",
             alert: ""
+
         };
         this.Submit = this.Submit.bind(this);
         this.verPd = this.verPd.bind(this);

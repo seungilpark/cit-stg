@@ -23,7 +23,8 @@ export default class AccountInfo extends React.Component {
         country: '',
         account: '',
         password: '',
-        password1: ''
+        password1: '',
+        position:"GK"
         
     };
     this.Submit = this.Submit.bind(this);
@@ -73,7 +74,7 @@ Submit(){
     console.log(checkPd);
     addVar = this.RegisterVar();
     if(checkPd == true && this.state.role === 'ath'){
-      
+
       fetch('http://54.191.100.200:8080/api/athletes/register', {
         method: 'POST',
         headers: {
@@ -93,7 +94,8 @@ Submit(){
           city: this.state.city,
           country: this.state.country,
           account: this.state.account,
-          password: this.state.password
+          password: this.state.password,
+          position:this.state.position
         }),
       }).then(response => response.json())
       .then((responseJson) => {
@@ -197,6 +199,28 @@ checkEmpty(){
           onChangeText={(password1) => this.setState({password1})}
           value={this.state.password1}
         />
+        <Picker
+              selectedValue={this.state.position}
+              style={{ height: 30, width: 300 }}
+              onValueChange={(p, itemIndex) =>
+                this.setState({ position: p })
+              }
+            >
+              <Picker.Item label="GK" value="GK" />
+              <Picker.Item label="RF" value="RF" />
+              <Picker.Item label="LF" value="LF" />
+              <Picker.Item label="CB" value="CB" />
+              <Picker.Item label="DM" value="DM" />
+              <Picker.Item label="RW" value="RW" />
+              <Picker.Item label="RM" value="RM" />
+              <Picker.Item label="CM" value="CM" />
+              <Picker.Item label="BM" value="BM" />
+              <Picker.Item label="SK" value="SK" />
+              <Picker.Item label="AP" value="AP" />
+              <Picker.Item label="LW" value="LW" />
+              <Picker.Item label="LM" value="LM" />
+              <Picker.Item label="AM" value="AM" />
+            </Picker>
 
         <Button title = 'Submit' onPress={() => this.Submit()}/>
         

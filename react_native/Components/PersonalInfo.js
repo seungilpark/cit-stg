@@ -13,12 +13,12 @@ export default class PersonalInfo extends React.Component {
     super(props);
     this.state = {
         role: '',
-        fname: '',
-        lname: '',
-        gender: '',
-        dob: '',
-        height: '',
-        weight: ''
+        fname: 'testUser',
+        lname: 'testUser',
+        gender: 'M',
+        dob: '1988-08-08',
+        height: "188",
+        weight: "80"
     };
     this.Submit = this.Submit.bind(this);
     this.verPd = this.verPd.bind(this);

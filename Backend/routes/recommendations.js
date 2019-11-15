@@ -30,7 +30,7 @@ router.get('/athlete/:athl_id', async (req, res) => {
 
         if (!(POSITION_LIST.includes(profResult[0].position.trim())) 
         || !(COUNTRY_LIST.includes(athlResult[0].country.trim()))) {
-            // console.log("in side recommendation/athl/ without position or country")
+            console.log("in side recommendation/athl/ without position or country")
             let recList = await offerRepo.getAllOffersWithClub();
             console.log(recList.length)
             res.json(recList);

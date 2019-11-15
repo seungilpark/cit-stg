@@ -74,6 +74,7 @@ Submit(){
     console.log(checkPd);
     addVar = this.RegisterVar();
     if(checkPd == true && this.state.role === 'ath'){
+      console.log("in Submit() for athl", this.state);
 
       fetch('http://54.191.100.200:8080/api/athletes/register', {
         method: 'POST',

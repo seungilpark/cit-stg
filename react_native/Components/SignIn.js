@@ -70,7 +70,7 @@ export default class SignIn extends React.Component {
     Validation() {
         this.Submit().then(response => {
             console.log(response.status);
-            if (response.status === 203) {
+            if (response.status === 200) {
                 console.log("logged in");
                 this.setState({
                     status: "loggedIn"

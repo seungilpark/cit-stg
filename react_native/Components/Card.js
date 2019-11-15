@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Swiper from 'react-native-deck-swiper'
 import { Button, StyleSheet, Text, View, Image, Linking, Alert, Platform, TouchableOpacity } from 'react-native'
-
+import {clubImagePicker} from "../utils/imagePicker"
 
 // demo purposes only
 // function * range (start, end) {
@@ -15,7 +15,9 @@ export default class Card extends Component {
     
     super(props)
     this.state = {
-        athl_id : 1,
+
+        athl_id: this.props.navigation.getParam("athl_id"),
+
         cards: [],
       // cards: [...range(1, 50)],
       swipedAllCards: false,
@@ -24,6 +26,18 @@ export default class Card extends Component {
     }
     this.getData = this.getData.bind(this);
     this.callNumber = this.callNumber.bind(this);
+    this.registerVar = this.registerVar.bind(this);
+  }
+
+  registerVar() {
+    const { navigation } = this.props
+    const new_id = navigation.getParam('athl_id','none')
+    console.log(new_id);
+
+    this.setState({
+      athl_id: new_id
+    })
+    console.log('id set to ' + this.state.athl_id);
   }
 
   // https://stackoverflow.com/questions/51545064/how-to-make-phone-call-in-react-native
@@ -48,6 +62,8 @@ export default class Card extends Component {
     };
 
   getData() {
+    // this.registerVar();
+    console.log(this.state.athl_id);
     return fetch('http://54.191.100.200:8080/api/recommendations/athlete/' + this.state.athl_id)
       .then((response) => response.json())
       .then((responseJson) => {
@@ -57,7 +73,7 @@ export default class Card extends Component {
         // not using offer_types, offer_length, fk_club_id
         new_arr = responseJson
         // console.log(new_arr);
-        this.setState({cards : new_arr});
+        this.setState({cards : clubImagePicker(new_arr)});
       })
       .catch((error) => {
         console.error(error);
@@ -65,6 +81,7 @@ export default class Card extends Component {
   }
 
   componentDidMount(){
+      // this.registerVar();
       this.getData();
       console.log('data loaded');
   }
@@ -156,6 +173,7 @@ export default class Card extends Component {
   // };
 
   render () {
+    // this.registerVar();
     return (
       <View style={styles.container}>
         <Swiper

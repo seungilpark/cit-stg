@@ -5,10 +5,8 @@ const config = require("../config/config");
 const athlRepo = require("../dbConnectors/athletesDbConnector");
 const recRepo = require("../dbConnectors/generateList");
 const profRepo = require("../dbConnectors/profilesDbConnector");
-const dbHelper = require("../dbConnectors/DbHelper");
 const likesRepo = require("../dbConnectors/likesAndDislikes");
-const ERROR_MSG = "Error";
-
+const offerRepo = require("../dbConnectors/offersDbConnector");
 /**
  * return recommended offers by athl_id  
  */
@@ -22,15 +20,26 @@ router.get('/athlete/:athl_id', async (req, res) => {
         let profResult  = await prof;
         let oid_arr_result = await oid_arr;
         oid_arr_result = oid_arr_result.map(el => el.fk_offer_id);
-        let recList = await recRepo.getClubRecommendation(profResult[0].fk_sports_id, profResult[0].position, athlResult[0].country);
-        console.log(recList.length)
-        console.log(oid_arr_result)
-        recList = recList.filter(el => {
-            console.log(el.offer_id==el.offer_id)
-            return !(oid_arr_result.includes(el.offer_id))
-        });
-        console.log(recList.length)
-        res.json(recList);
+
+        if (!(["GK","RF","LF","CB","DM","RW","RM","CM","BM","SK","AM","AP","LM","LW"].includes(profResult[0].position.trim())) 
+        || !(["Canada", "France", "England","Spain"].includes(athlResult[0].country.trim()))) {
+            console.log("in side recommendation/athl/ without position or country")
+            let recList = await offerRepo.getAllOffersWithClub();
+            console.log(recList)
+            res.json(recList);
+        } else {
+            let recList = await recRepo.getClubRecommendation(profResult[0].fk_sports_id, profResult[0].position, athlResult[0].country);
+            console.log(recList.length)
+            recList = recList.filter(el => {
+                // console.log(el.offer_id==el.offer_id)
+                return !(oid_arr_result.includes(el.offer_id))
+            });
+            console.log("in side recommendation/athl/",recList)
+            console.log(recList.length)
+            res.json(recList);
+        }
+        // console.log(recList.length)
+        // console.log(oid_arr_result)
     }
     catch(err) {
         res.json(err);

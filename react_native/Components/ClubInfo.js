@@ -69,17 +69,12 @@ checkEmpty(){
           value={this.state.club_name}
         />
 
-
-        <Picker
-          selectedValue={this.state.club_size}
-          style={styles.pickerBox}
-          onValueChange={(itemValue, itemIndex) =>
-            this.setState({club_size: itemValue})
-          }>
-          <Picker.Item label="Small" value="Small" />
-          <Picker.Item label="Medium" value="Medium" />
-          <Picker.Item label="Large" value="Large" />
-        </Picker>
+        <TextInput
+          style={styles.textBox}
+          placeholder="Club Size"
+          onChangeText={(club_size) => this.setState({club_size})}
+          value={this.state.club_size}
+        />
 
         <TextInput
           style={styles.textBox}

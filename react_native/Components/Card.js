@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Swiper from 'react-native-deck-swiper'
 import { Button, StyleSheet, Text, View, Image, Linking, Alert, Platform, TouchableOpacity } from 'react-native'
-
+import {clubImagePicker} from "../utils/imagePicker"
 
 // demo purposes only
 // function * range (start, end) {
@@ -15,7 +15,7 @@ export default class Card extends Component {
     
     super(props)
     this.state = {
-        athl_id : 1,
+        athl_id : 3,
         cards: [],
       // cards: [...range(1, 50)],
       swipedAllCards: false,
@@ -57,7 +57,7 @@ export default class Card extends Component {
         // not using offer_types, offer_length, fk_club_id
         new_arr = responseJson
         // console.log(new_arr);
-        this.setState({cards : new_arr});
+        this.setState({cards : clubImagePicker(new_arr)});
       })
       .catch((error) => {
         console.error(error);

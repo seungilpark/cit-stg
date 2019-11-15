@@ -7,6 +7,8 @@ const recRepo = require("../dbConnectors/generateList");
 const profRepo = require("../dbConnectors/profilesDbConnector");
 const likesRepo = require("../dbConnectors/likesAndDislikes");
 const offerRepo = require("../dbConnectors/offersDbConnector");
+const POSITION_LIST = ["GK","RF","LF","CB","DM","RW","RM","CM","BM","SK","AM","AP","LM","LW"]
+const COUNTRY_LIST = ["Canada", "France", "England","Spain"];
 /**
  * return recommended offers by athl_id  
  */
@@ -17,15 +19,20 @@ router.get('/athlete/:athl_id', async (req, res) => {
         let prof =  profRepo.getProfileByAthlId(athlId);
         let oid_arr =  likesRepo.getAllOfferByAthlId(athlId);
         let athlResult = await athl;
+        // console.log("athlResult", athlResult)
+        if (!athlResult.length) throw new Error(`no user id ${athlId}`)
         let profResult  = await prof;
+        // console.log("profResult", profResult)
+        if (!profResult.length) throw new Error(`no profile with fk_athl_id ${athlId}`)
         let oid_arr_result = await oid_arr;
         oid_arr_result = oid_arr_result.map(el => el.fk_offer_id);
+        // console.log("position, country", profResult[0].position.trim(), athlResult[0].country.trim())
 
-        if (!(["GK","RF","LF","CB","DM","RW","RM","CM","BM","SK","AM","AP","LM","LW"].includes(profResult[0].position.trim())) 
-        || !(["Canada", "France", "England","Spain"].includes(athlResult[0].country.trim()))) {
-            console.log("in side recommendation/athl/ without position or country")
+        if (!(POSITION_LIST.includes(profResult[0].position.trim())) 
+        || !(COUNTRY_LIST.includes(athlResult[0].country.trim()))) {
+            // console.log("in side recommendation/athl/ without position or country")
             let recList = await offerRepo.getAllOffersWithClub();
-            console.log(recList)
+            console.log(recList.length)
             res.json(recList);
         } else {
             let recList = await recRepo.getClubRecommendation(profResult[0].fk_sports_id, profResult[0].position, athlResult[0].country);
@@ -34,7 +41,7 @@ router.get('/athlete/:athl_id', async (req, res) => {
                 // console.log(el.offer_id==el.offer_id)
                 return !(oid_arr_result.includes(el.offer_id))
             });
-            console.log("in side recommendation/athl/",recList)
+            // console.log("in side recommendation/athl/",recList)
             console.log(recList.length)
             res.json(recList);
         }

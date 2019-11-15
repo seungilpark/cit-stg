@@ -7,7 +7,8 @@ import {
   TextInput,
   ScrollView,
   KeyboardAvoidingView,
-  Picker
+  Picker,
+  TouchableHighlight
 } from "react-native";
 import { NavigationEvents } from "react-navigation";
 // import { ScrollView } from 'react-native-gesture-handler';
@@ -45,18 +46,18 @@ export default class SignUp extends React.Component {
       <View style={styles.container}>
         <KeyboardAvoidingView style={styles.container} behavior="padding">
           <ScrollView>
-            <Text>Sign Up Page</Text>
+            <Text  style={styles.pageText}>LOCATION INFO</Text>
             <Text>{this.state.alert}</Text>
 
             <TextInput
-              style={styles.textBox}
+              style={styles.placeHolderText}
               placeholder="Address"
               onChangeText={addr => this.setState({ addr })}
               value={this.state.addr}
             />
 
             <TextInput
-              style={styles.textBox}
+              style={styles.placeHolderText}
               placeholder="City"
               onChangeText={city => this.setState({ city })}
               value={this.state.city}
@@ -69,6 +70,20 @@ export default class SignUp extends React.Component {
           value={this.state.country}
         /> */}
 
+            <TextInput
+              style={styles.placeHolderText}
+              placeholder="Email: youremail@email.com"
+              onChangeText={email => this.setState({ email })}
+              value={this.state.email}
+            />
+
+            <TextInput
+              style={styles.placeHolderText}
+              placeholder="Phone Number: 000-000-0000"
+              onChangeText={phone => this.setState({ phone })}
+              value={this.state.phone}
+            />
+            <Text>Choose a Country:</Text>
             <Picker
               selectedValue={this.state.country}
               style={{ height: 30, width: 300 }}
@@ -82,39 +97,27 @@ export default class SignUp extends React.Component {
               <Picker.Item label="France" value="France" />
             </Picker>
 
-            <TextInput
-              style={styles.textBox}
-              placeholder="Email: youremail@email.com"
-              onChangeText={email => this.setState({ email })}
-              value={this.state.email}
-            />
-
-            <TextInput
-              style={styles.textBox}
-              placeholder="Phone Number: 000-000-0000"
-              onChangeText={phone => this.setState({ phone })}
-              value={this.state.phone}
-            />
-
-            <Button
-              title="Account Info"
-              onPress={() => {
-                this.props.navigation.navigate("AccountInfo", {
-                  role: role,
-                  fname: fname,
-                  lname: lname,
-                  gender: gender,
-                  dob: dob,
-                  height: height,
-                  weight: weight,
-                  addr: this.state.addr,
-                  email: this.state.email,
-                  phone: this.state.phone,
-                  city: this.state.city,
-                  country: this.state.country
-                });
-              }}
-            />
+              <TouchableHighlight
+                        style={styles.button}
+                        onPress={() => {
+                          this.props.navigation.navigate("AccountInfo", {
+                            role: role,
+                            fname: fname,
+                            lname: lname,
+                            gender: gender,
+                            dob: dob,
+                            height: height,
+                            weight: weight,
+                            addr: this.state.addr,
+                            email: this.state.email,
+                            phone: this.state.phone,
+                            city: this.state.city,
+                            country: this.state.country
+                          });
+                      }}
+                    >
+                        <Text style={styles.btnText}> ACCOUNT INFO </Text>
+                </TouchableHighlight>    
           </ScrollView>
         </KeyboardAvoidingView>
       </View>
@@ -139,5 +142,46 @@ const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: "pink",
     marginHorizontal: 20
-  }
+  },
+  placeHolderText: {
+    // position: "relative",
+    // bottom: "25%",
+    backgroundColor: "white",
+    alignContent: "center",
+    height: "4%",
+    width: 300,
+    fontSize: 18,
+    borderBottomWidth: 1,
+    marginBottom: 20,
+    borderColor: "#C4C4C4",
+    opacity: 1,
+    color: "black"
+  },
+  button: {
+    opacity: 0.7,
+    backgroundColor: "#3AD289",
+    width: "90%",
+    padding: 14,
+    top: "10%",
+    marginTop: 80,
+    marginBottom: 28,
+    borderRadius: 2
+  },
+  pageText: {
+    // position: "relative",
+    // bottom: "25%",
+    // backgroundColor: "#ffbf00",
+    marginBottom: 90,
+    color: "#3AD289",
+    fontSize: 32,
+    alignItems: "center",
+    padding: 4,
+    marginTop: 10,
+  },
+  btnText: {
+    fontSize: 24,
+    opacity: 1,
+    color: "#fff",
+  },
+
 });

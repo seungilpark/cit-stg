@@ -95,9 +95,18 @@ Submit(){
           account: this.state.account,
           password: this.state.password
         }),
-      });
-      this.props.navigation.navigate("Card")
-      console.log("Athlete Created.")
+      }).then(response => response.json())
+      .then((responseJson) => {
+        console.log("Athlete Created.")
+        console.log(responseJson)
+        console.log(responseJson.status)
+          const id = responseJson[0].athl_id;
+          console.log(id)
+          this.props.navigation.navigate("Card", {
+              athl_id: id
+          });
+        });
+      
     }
     else if(checkPd == true && this.state.role === 'mgr'){
       fetch('http://54.191.100.200:8080/api/clubMgrs/create', {

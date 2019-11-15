@@ -9,6 +9,7 @@ import {
     TouchableHighlight
 } from "react-native";
 import { NavigationEvents } from "react-navigation";
+import { Font } from 'expo';
 
 
 
@@ -17,33 +18,39 @@ import { NavigationEvents } from "react-navigation";
 export default class MainApp extends React.Component {
 
     constructor() {
-        super();
-        this.state = {
 
-        }
+        super();
     }
     render() {
         return (
+                
+
             <View style={styles.container}>
-                <Text style={styles.text}>STG Mobile</Text>
-                <Image  style={{width: 200, height: 200, alignItems: "center"}}
-                        source={{uri: 'https://media.licdn.com/dms/image/C560BAQERIB73rBABlA/company-logo_200_200/0?e=2159024400&v=beta&t=eP6su3GtN1InfQ3QHuGxe1Cjeh_u2gBTJ4I5mjrqJAw'}}/>
+
+    <Text style={styles.welText}>Welcome!</Text>
+    <Text>
+        <Text style={styles.welunderText}>Hi! I’m </Text>
+        <Text style={{ fontWeight: "bold", color: "#3AD289" }}>SAM</Text>
+        <Text style={styles.welunderText}>, your Smart Athlete</Text>
+    </Text>
+    <Text style={styles.welunderText}>Manager, and I’m here to help you</Text>
+    <Text style={styles.welunderText}>get started!</Text>
 
                 <TouchableHighlight
-                        style={styles.button}
-                        onPress={() => {
-                            this.props.navigation.navigate("SignIn");
-                        }}
-                    >
-                        <Text style={styles.btnText}> Sign In </Text>
-                    </TouchableHighlight>
-                    <TouchableHighlight
                         style={styles.button}
                         onPress={() => {
                             this.props.navigation.navigate("AccountType");
                         }}
                     >
-                        <Text style={styles.btnText}> Sign Up </Text>
+                        <Text style={styles.btnText}> SIGN UP </Text>
+                    </TouchableHighlight>
+                    <TouchableHighlight
+                        style={styles.button2}
+                        onPress={() => {
+                            this.props.navigation.navigate("SignIn");
+                        }}
+                    >
+                        <Text style={styles.btnText2}> LOGIN </Text>
                     </TouchableHighlight>
 
             </View>
@@ -56,7 +63,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
-        justifyContent: 'center',
       },
 
     text: {
@@ -65,19 +71,52 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontWeight: "bold"
     },
-    btnText: {
+    welText: {
+        textAlign: 'center', 
+        justifyContent: 'center', 
+        marginTop: "35%",
+        fontSize: 32,
+        color: "#3AD289",
+    },
+    welunderText: {
+        textAlign: 'center', 
+        justifyContent: 'center',
         fontSize: 14,
-        fontWeight: "bold",
+        color: "#C4C4C4",
+    },
+
+
+    btnText: {
+        fontSize: 24,
         opacity: 1,
-        color: "blue"
+        color: "#fff",
+    },
+    btnText2: {
+        fontSize: 24,
+        opacity: 1,
+        color: "#3AD289",
     },
     button: {
         opacity: 0.7,
-        backgroundColor: "#DDDDDD",
-        width: "38%",
+        backgroundColor: "#3AD289",
+        width: "57%",
         padding: 14,
         alignItems: "center",
-        justifyContent: "center",
-        top: "14%"
+        top: "10%",
+        marginTop: 80,
+        marginBottom: 28,
+        borderRadius: 2
+    },
+    button2: {
+        opacity: 0.7,
+        backgroundColor: "#fff",
+        borderWidth: 1,
+        borderColor:"#3AD289",
+        width: "57%",
+        padding: 14,
+        alignItems: "center",
+        top: "14%",
+        marginBottom: 38,
+        borderRadius: 2
     }
 });

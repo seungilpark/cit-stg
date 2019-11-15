@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TextInput, ScrollView, KeyboardAvoidingView, Picker } from 'react-native';
+import { StyleSheet,TouchableHighlight, Text, View, Button, TextInput, ScrollView, KeyboardAvoidingView, Picker } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 // import { ScrollView } from 'react-native-gesture-handler';
 
@@ -59,39 +59,37 @@ checkEmpty(){
       behavior="padding"
     >
         <ScrollView>
-        <Text>Sign Up Page</Text>
+        <Text  style={styles.pageText}>CLUB INFO</Text>
         <Text>{this.state.alert}</Text>
 
         <TextInput
-          style={styles.textBox}
+          style={styles.placeHolderText}
           placeholder="Club Name"
           onChangeText={(club_name) => this.setState({club_name})}
           value={this.state.club_name}
         />
-
         <TextInput
-          style={styles.textBox}
+          style={styles.placeHolderText}
           placeholder="Club Size"
           onChangeText={(club_size) => this.setState({club_size})}
           value={this.state.club_size}
         />
-
         <TextInput
-          style={styles.textBox}
+          style={styles.placeHolderText}
           placeholder="Club Status"          
           onChangeText={(club_status) => this.setState({club_status})}
           value={this.state.club_status}
         />
 
         <TextInput
-          style={styles.textBox}
+          style={styles.placeHolderText}
           placeholder="Club URL"          
           onChangeText={(club_url) => this.setState({club_url})}
           value={this.state.club_url}
         />
 
         <TextInput
-          style={styles.textBox}
+          style={styles.placeHolderText}
           placeholder="Contact"
           onChangeText={(club_contact) => this.setState({club_contact})}
           value={this.state.club_contact}
@@ -99,45 +97,46 @@ checkEmpty(){
         
         
         <TextInput
-          style={styles.textBox}
+          style={styles.placeHolderText}
           placeholder="Street name"
           onChangeText={(street_name) => this.setState({street_name})}
           value={this.state.street_name}
         />
 
         <TextInput
-          style={styles.textBox}
+          style={styles.placeHolderText}
           placeholder="City"
           onChangeText={(city) => this.setState({city})}
           value={this.state.city}
         />  
 
         <TextInput
-          style={styles.textBox}
+          style={styles.placeHolderText}
           placeholder="Country"
           onChangeText={(country) => this.setState({country})}
           value={this.state.country}
-        />            
-        
-          
-       <Button 
-        title = 'Account Info'
-        onPress={() => {
-            this.props.navigation.navigate('MgrAccountInfo', {
-                role: role,
-                mgr_fname: mgr_fname,
-                mgr_lname: mgr_lname,
-                mgr_email: mgr_email,
-                mgr_phone: mgr_phone,
-                club_name: this.state.club_name,
-                club_size: this.state.club_size,
-                club_status: this.state.club_status,
-                club_url: this.state.club_url,
-                club_contact: this.state.club_contact,
-                street_name: this.state.street_name,
-                city: this.state.city,
-                country: this.state.country});
-        }}/>
+        />
+        <TouchableHighlight
+                        style={styles.button}
+                        onPress={() => {
+                          this.props.navigation.navigate('MgrAccountInfo', {
+                            role: role,
+                            mgr_fname: mgr_fname,
+                            mgr_lname: mgr_lname,
+                            mgr_email: mgr_email,
+                            mgr_phone: mgr_phone,
+                            club_name: this.state.club_name,
+                            club_size: this.state.club_size,
+                            club_status: this.state.club_status,
+                            club_url: this.state.club_url,
+                            club_contact: this.state.club_contact,
+                            street_name: this.state.street_name,
+                            city: this.state.city,
+                            country: this.state.country});
+                      }}
+                    >
+                        <Text style={styles.btnText}> ACCOUNT INFO </Text>
+                </TouchableHighlight>
         
         </ScrollView>
         </KeyboardAvoidingView>
@@ -161,14 +160,52 @@ const styles = StyleSheet.create({
     margin: 2
     },
     pickerBox: {
-        height: 40,
+        height: 10,
         width: 250,
-        borderColor: 'black',
-        borderWidth: 3,
-        margin: 2
+        margin: -5
         },
     scrollView: {
       backgroundColor: 'pink',
       marginHorizontal: 20,
+    },
+    placeHolderText: {
+      // position: "relative",
+      // bottom: "25%",
+      backgroundColor: "white",
+      alignContent: "center",
+      height: "4%",
+      width: 300,
+      fontSize: 18,
+      borderBottomWidth: 1,
+      marginBottom: 20,
+      borderColor: "#C4C4C4",
+      opacity: 1,
+      color: "black"
+    },
+    button: {
+      opacity: 0.7,
+      backgroundColor: "#3AD289",
+      width: "90%",
+      padding: 14,
+      top: "10%",
+      marginTop: 20,
+      marginBottom: 28,
+      borderRadius: 2
+    },
+    pageText: {
+      // position: "relative",
+      // bottom: "25%",
+      // backgroundColor: "#ffbf00",
+      marginBottom: 90,
+      color: "#3AD289",
+      fontSize: 32,
+      alignItems: "center",
+      padding: 4,
+      marginTop: 10,
+    },
+    btnText: {
+      fontSize: 24,
+      opacity: 1,
+      color: "#fff",
     },
 });

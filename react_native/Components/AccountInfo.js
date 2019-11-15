@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TextInput, ScrollView, KeyboardAvoidingView, Picker } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView, KeyboardAvoidingView, Picker, TouchableHighlight } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 // import { ScrollView } from 'react-native-gesture-handler';
 
@@ -177,28 +177,29 @@ checkEmpty(){
       behavior="padding"
     >
         <ScrollView>
-        <Text>Sign Up Page</Text>
+        <Text  style={styles.pageText}>ACCOUNT INFO</Text>
         <Text>{this.state.alert}</Text>     
             
          
         <TextInput
-          style={styles.textBox}
+          style={styles.placeHolderText}
           placeholder="Account Name"
           onChangeText={(account) => this.setState({account})}
           value={this.state.account}
         />
         <TextInput
-          style={styles.textBox}
+          style={styles.placeHolderText}
           placeholder="Enter your password"
           onChangeText={(password) => this.setState({password})}
           value={this.state.password}
         />
         <TextInput
-          style={styles.textBox}
+          style={styles.placeHolderText}
           placeholder="Enter your password again"
           onChangeText={(password1) => this.setState({password1})}
           value={this.state.password1}
         />
+        <Text>Choose a Position:</Text>
         <Picker
               selectedValue={this.state.position}
               style={{ height: 30, width: 300 }}
@@ -222,7 +223,12 @@ checkEmpty(){
               <Picker.Item label="AM" value="AM" />
             </Picker>
 
-        <Button title = 'Submit' onPress={() => this.Submit()}/>
+        <TouchableHighlight
+                        style={styles.button}
+                        onPress={() => this.Submit()}
+                    >
+                        <Text style={styles.btnText}> SUBMIT </Text>
+                </TouchableHighlight>    
         
         </ScrollView>
         </KeyboardAvoidingView>
@@ -248,5 +254,45 @@ const styles = StyleSheet.create({
     scrollView: {
       backgroundColor: 'pink',
       marginHorizontal: 20,
+    },
+    placeHolderText: {
+      // position: "relative",
+      // bottom: "25%",
+      backgroundColor: "white",
+      alignContent: "center",
+      height: "4%",
+      width: 300,
+      fontSize: 18,
+      borderBottomWidth: 1,
+      marginBottom: 20,
+      borderColor: "#C4C4C4",
+      opacity: 1,
+      color: "black"
+    },
+    button: {
+      opacity: 0.7,
+      backgroundColor: "#3AD289",
+      width: "90%",
+      padding: 14,
+      top: "10%",
+      marginTop: 80,
+      marginBottom: 28,
+      borderRadius: 2
+    },
+    pageText: {
+      // position: "relative",
+      // bottom: "25%",
+      // backgroundColor: "#ffbf00",
+      marginBottom: 90,
+      color: "#3AD289",
+      fontSize: 32,
+      alignItems: "center",
+      padding: 4,
+      marginTop: 10,
+    },
+    btnText: {
+      fontSize: 24,
+      opacity: 1,
+      color: "#fff",
     },
 });

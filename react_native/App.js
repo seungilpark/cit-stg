@@ -19,7 +19,7 @@ import AthlClubList from "./Components/AthlClubList";
 import Profile from "./Components/Profile";
 import ClubMgrProfile from "./Components/ClubMgrProfile";
 import ClubMatches from "./Components/ClubMatches"
-// import PersonalDetailsPage from "./Components/PersonalDetailsPage";
+import PersonalDetailsPage from "./Components/PersonalDetailsPage";
 
 import ClubsCards from "./Components/ClubsCards";
 
@@ -288,9 +288,9 @@ const RootStack = createStackNavigator(
                 )
             })
         },
-        // PersonalDetailsPage: {
-        //   screen: PersonalDetailsPage
-        // },
+        PersonalDetailsPage: {
+          screen: PersonalDetailsPage
+        },
         AthlClubList: {
             screen: AthlClubList,
             navigationOptions: ({ navigation }) => ({
@@ -433,7 +433,7 @@ const RootStack = createStackNavigator(
                 headerRight: (
                     <TouchableOpacity
                         onPress={() => {
-                            navigation.navigate("AthleteProfile");
+                            navigation.navigate("AthleteProfile", {});
                         }}
                     >
                         <View>

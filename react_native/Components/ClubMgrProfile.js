@@ -80,16 +80,15 @@ export default class AthleteProfile extends React.Component {
     );
   }
 
-  onPressEvent2() {
-    Alert.alert(
-      "Edit",
-      "Editing Personal Information",
-      [
-        {
-          text: "OK",
-          onPress: () => console.log("Okay Pressed")
-        }
-    ])}
+  // onPressEvent2() {
+  //   Alert.alert(
+  //     "Edit",
+  //     "Editing Personal Information",
+  //     [
+  //       {
+  //         onPress: () => this.props.navigation("PersonalDetailsPage")
+  //       }
+  //   ])}
 
     render(){
         if (this.state.data.length == 0 || this.state.data2.length == 0) {
@@ -153,8 +152,14 @@ export default class AthleteProfile extends React.Component {
                         <Card containerStyle={styles.cardStyle3}>
                             <View style={styles.row}>
                                 <Text style= {{fontSize: 15, fontWeight: "bold", bottom: 5}}>Personal Information</Text>
-                                <TouchableOpacity onPress={() => this.onPressEvent2()}>
-                                    <Image style={styles.editIconStyle} source={require("../assets/editIcon.png")}/>
+                                <TouchableOpacity onPress={() =>  this.props.navigation.navigate("PersonalDetailsPage", {
+                                mgr_id : this.state.data[0].mgr_id,
+                                mgr_fname : this.state.data[0].mgr_fname,
+                                mgr_lname : this.state.data[0].mgr_lname,
+                                mgr_account : this.state.data[0].mgr_account,
+                                mgr_password : this.state.data[0].mgr_password,
+                                })}>
+                                <Image style={styles.editIconStyle} source={require("../assets/editIcon.png")}/>
                                 </TouchableOpacity>
                             </View>
                             <View>
@@ -165,7 +170,7 @@ export default class AthleteProfile extends React.Component {
                                 <Text style={{fontSize: 12, fontWeight: "bold", paddingTop: 10}}>Account Name</Text>
                                 <Text style={{fontSize: 12, color: "grey"}}>{this.state.data[0].mgr_account}</Text>
                                 <Text style={{fontSize: 12, fontWeight: "bold", paddingTop: 10}}>Password</Text>
-                                <Text style={{fontSize: 12, color: "grey"}}>********</Text>
+                                <Text style={{fontSize: 12, color: "grey"}}>{this.state.data[0].mgr_password}</Text>
                             </View>
                         </Card>
                 </View>

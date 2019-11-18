@@ -22,6 +22,19 @@ const getManagerById = inputId => {
   });
 };
 
+const updateClubMgrById = (inputBody, inputId) => {
+  let query = `SET FOREIGN_KEY_CHECKS=0; update club_mgr set mgr_fname='${inputBody.mgr_fname}', mgr_lname='${inputBody.mgr_lname}', mgr_account='${inputBody.mgr_account}', mgr_password='${inputBody.mgr_password}' where mgr_id=${inputId}; SET FOREIGN_KEY_CHECKS=1`;
+  console.log(query);
+  return new Promise((resolve, reject) => {
+      pool.query(query, (err, results, fields) => {        
+          if (err) reject(err);
+          //TODO check if empty
+          else resolve(results);
+      });
+  });
+      
+};
+
 /* signin/up */
 
 const validateAccount = (acc) => {
@@ -51,5 +64,6 @@ module.exports = {
   getAll,
   getManagerById,
   verifyManager,
-  validateAccount
+  validateAccount,
+  updateClubMgrById
 };

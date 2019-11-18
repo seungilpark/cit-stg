@@ -5,54 +5,101 @@ import {
   View,
   Text,
   Image,
-  ActivityIndicator
+  ActivityIndicator,
+  ImagePickerIOS,
+  Alert
 } from 'react-native';
 
 import CardFlip from 'react-native-card-flip';
+import {athlImagePicker} from "../utils/imagePicker";
+import { Bubbles, DoubleBounce, Bars, Pulse } from 'react-native-loader';
 
 export default class AthlClubList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             matchedList:[],
-            loading: true
+            loading: true,
+            showMe: true
         };
+        this.RegisterVar = this.RegisterVar.bind(this);
     }
-
+    RegisterVar(){
+      const { navigation } = this.props
+      const athl_id = navigation.getParam('mgr_id', 'none')
+    }
     async componentDidMount(){
         try {
             var athl_id = 1;
-            const getList = await fetch('http://54.191.100.200:8080/api/clubLikes/likes/1');
+            const getList = await fetch('http://54.191.100.200:8080/api/matched/club/' + athl_id);
             const clubMatches = await getList.json()
-
-            for( item in clubMatches)
+            
             console.log(clubMatches,"Get list 1111111111111111");
             //console.log(clubList.results, "Get List 2")
-            this.setState({matchedList : clubList, loading: false});
-            // console.log(this.matchedList);
-            //console.log(matchedList)  
+            this.setState({matchedList : clubMatches, loading: false});
             
+            // console.log(this.matchedList);
+            //console.log(matchedList)
       } catch(error) {
             console.log("Error fetching data", error);
         };
       }
 
+    componentWillMount() {
+      setTimeout(() => {
+        this.setState({
+          showMe: false,
+        });
+      }, 3000);
+    }
+    
+    onTimeOutEvent(){
+      Alert.alert(
+        'Error ',
+        'Failed To Get Data From The API',
+        [
+          {
+          },
+          {text: 'OK', onPress: () => this.props.navigation.navigate('ClubMgrProfile')},
+        ],
+        {cancelable: false},
+      );
+    }
+
     render(){
-    const { matchedList } = this.state;
+    const { matchedList, loading} = this.state;
     console.log(matchedList, "in render")
-    return matchedList.map((item, id) => {
-          return (
-              <CardFlip style={ styles.cardContainer } ref={ (card) => this['card' + id] = card } >
-                <TouchableOpacity key={item} style={ styles.card } onPress={() => this['card' + id].flip()} ><Image source ={require('../assets/manu.jpg')} style={styles.imageViewStyle}></Image></TouchableOpacity>
-                <TouchableOpacity key={item} style={ styles.card } onPress={() => this['card' + id].flip()} >
-                  <Text style = {styles.TextStyle}>Club Name: {item.club_name}</Text>
-                  <Text style = {styles.TextStyle}>Location: {item.country}</Text>
-                  <Text style = {styles.TextStyle}>Position: {item.offer_position}</Text>
-                  <Text style = {styles.TextStyle}>Salary: {item.offer_amount}</Text>
-                </TouchableOpacity>
-              </CardFlip>
-          )
-        })
+    if(!loading){
+      return matchedList.map((item, id) => {
+            return (
+                <CardFlip style={ styles.cardContainer } ref={ (card) => this['card' + id] = card } >
+                  <TouchableOpacity key={item} style={ styles.card } onPress={() => this['card' + id].flip()} >
+                    <Image source ={athlImagePicker(matchedList)[id].url} style={styles.playerphotoCard}></Image>
+            <Text style = {styles.TextStyle}>{item.athl_fname} {item.athl_lname}</Text>  
+                  </TouchableOpacity>
+                  <TouchableOpacity key={item} style={ styles.card } onPress={() => this['card' + id].flip()} >
+                    <Text style = {styles.TextStyle}>Date of Birth: {item.athl_dob}</Text>
+                    <Text style = {styles.TextStyle}>Gender: {item.athl_gender}</Text>
+                    <Text style = {styles.TextStyle}>Position: {item.position}</Text>
+                    <Text style = {styles.TextStyle}>Country: {item.country}</Text>
+                  </TouchableOpacity>
+                </CardFlip>
+            )
+          })
+    }else {
+      return(
+      <View style={{flex: 1, justifyContent: "center", alignItems: "center", alignSelf: "center"}}>
+        {
+          this.state.showMe ?
+          <Bubbles size={10} color="#3AD289"/>
+          :
+          <View style={this.onTimeOutEvent()}>
+            
+          </View>
+        }
+        
+      </View>
+      )}
     };
 }
 
@@ -76,6 +123,22 @@ const styles = StyleSheet.create({
     padding: 10
 
   },
+  playerphotoCard: {
+    borderRadius: 175/2,
+    borderWidth: 3,
+    borderColor: "white",
+    width: 175,
+    height: 175,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    shadowOffset:{  width: 0,  height: 12,  },
+    shadowColor: 'black',
+    shadowOpacity: 1.0,
+    shadowRadius: 11,
+    elevation: 3,
+    backgroundColor:'#3AD289'
+  },
   card: {
     width: "100%",
     height: 220,
@@ -83,7 +146,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection:'column',
-    backgroundColor: "#E2F0E4",
+    backgroundColor: "black",
     borderRadius: 5,
     shadowColor: 'rgba(0,0,0,0.5)',
     shadowOffset: {
@@ -94,20 +157,21 @@ const styles = StyleSheet.create({
     elevation: 5
   },
 
-  imageViewStyle: {
+  // imageViewStyle: {
 
-    width: '96%',
-    height: 200,
-    borderRadius:6,
-    backgroundColor: "#3AD289"
+  //   width: '100%',
+  //   height: '100%',
+  //   borderRadius:6,
+  //   backgroundColor: "#3AD289"
     
-    },
+  //   },
 
     TextStyle:{
-      color:'black',
+      color:'white',
       textAlign:'center',
       padding: 5,
       fontSize: 18,
       fontWeight: "bold"
   },
+  
 });

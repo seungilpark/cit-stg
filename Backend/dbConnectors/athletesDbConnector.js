@@ -82,6 +82,18 @@ const getAthlByAccount = acc => {
     })
   })
 }
+
+const getAthlIdByAccount = acc => {
+  let query = `select athl_id from athletes where account = ?`;
+  query = mysql.format(query, acc);
+  return new Promise((resolve, reject) => {
+    pool.query(query, (err, result, fields) => {
+      if (err) reject(err);
+      else resolve(result);
+    })
+  })
+}
+
 // TODO sorting
 // TODO searching
 
@@ -198,6 +210,7 @@ const validateAccount = (acc) => {
 module.exports = {
     getAll,
     getAthlById,
+    getAthlIdByAccount,
     createAthlete,
     getAthlByLocation,
     getAthlByName,

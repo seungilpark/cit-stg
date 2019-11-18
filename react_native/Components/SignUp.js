@@ -31,9 +31,8 @@ export default class SignUp extends React.Component {
             password1: "",
             city: "testCity",
             country: "Canada",
-            position:"GK",
+            position: "GK",
             alert: ""
-
         };
         this.Submit = this.Submit.bind(this);
         this.verPd = this.verPd.bind(this);

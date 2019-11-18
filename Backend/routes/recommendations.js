@@ -43,10 +43,14 @@ router.get('/athlete/:athl_id', async (req, res) => {
             });
             // console.log("in side recommendation/athl/",recList)
             console.log(recList.length)
-            res.json(recList);
+            
+            if (!recList.length) {
+                recList = await offerRepo.getAllOffersWithClub();
+                console.log(recList.length);
+            }
+            
+            res.json(recList)
         }
-        // console.log(recList.length)
-        // console.log(oid_arr_result)
     }
     catch(err) {
         res.json(err);

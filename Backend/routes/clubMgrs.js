@@ -39,13 +39,17 @@ router.post("/update/:id/", async (req, res) => {
       let mgr_lname = req.body.mgr_lname;
       let mgr_account = req.body.mgr_account;
       let mgr_password = req.body.mgr_password;
+      let mgr_email = req.body.mgr_email;
+      let mgr_phone = req.body.mgr_phone;
 
-        console.log(mgr_body)
+      console.log(mgr_body)
       console.log(mgr_id)
       console.log(mgr_fname)
       console.log(mgr_lname)
       console.log(mgr_account)
       console.log(mgr_password)
+      console.log(mgr_email)
+      console.log(mgr_phone)
       console.log('Status: ' + res.statusCode );
   
       let update_mgr = await db
@@ -53,9 +57,9 @@ router.post("/update/:id/", async (req, res) => {
         .then(() => "Row updated");
   
       res.json({ Message: "Updated Row" });
-      if(res.statusCode == 200){
-        res.send("Club Manager Updated.")
-      }
+      // if(res.statusCode == 200){
+      //   res.send("Club Manager Updated.")
+      // }
     } catch (err) {
       console.log(err);
       res.json({ Error: "True" });

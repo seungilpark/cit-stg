@@ -5,16 +5,13 @@ import {
     TouchableOpacity,
     Text,
     View,
-    Button,
     ScrollView,
     Image,
-    ImageBackground,
     TouchableHighlight
 } from "react-native";
 import { AppLoading, Font } from "expo";
 import { NavigationEvents, StackNavigator } from "react-navigation";
 import { Card } from "react-native-elements";
-import { symbol } from "prop-types";
 
 export default class AthleteProfile extends React.Component {
     constructor(props) {
@@ -31,7 +28,8 @@ export default class AthleteProfile extends React.Component {
     }
 
     componentDidMount() {
-        fetch("http://54.191.100.200:8080/api/athletes/" + this.state.athl_id)
+        athl_id = 1
+        fetch("http://54.191.100.200:8080/api/athletes/1")
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({ data: responseJson });
@@ -39,7 +37,7 @@ export default class AthleteProfile extends React.Component {
             .catch(error => {
                 console.error(error);
             });
-        fetch("http://54.191.100.200:8080/api/profiles/" + this.state.athl_id)
+        fetch("http://54.191.100.200:8080/api/profiles/1")
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({ data2: responseJson });
@@ -68,33 +66,33 @@ export default class AthleteProfile extends React.Component {
         );
     }
 
-    onPressEvent1() {
-        Alert.alert(
-            "Edit",
-            "Editing Contact Information",
-            [
-                {
-                    text: "OK",
-                    onPress: () => console.log("Okay Pressed")
-                }
-            ],
-            { cancelable: false }
-        );
-    }
+    // onPressEvent1() {
+    //     Alert.alert(
+    //         "Edit",
+    //         "Editing Contact Information",
+    //         [
+    //             {
+    //                 text: "OK",
+    //                 onPress: () => console.log("Okay Pressed")
+    //             }
+    //         ],
+    //         { cancelable: false }
+    //     );
+    // }
 
-    onPressEvent2() {
-        Alert.alert(
-            "Edit",
-            "Editing Personal Information",
-            [
-                {
-                    text: "OK",
-                    onPress: () => console.log("Okay Pressed")
-                }
-            ],
-            { cancelable: false }
-        );
-    }
+    // onPressEvent2() {
+    //     Alert.alert(
+    //         "Edit",
+    //         "Editing Personal Information",
+    //         [
+    //             {
+    //                 text: "OK",
+    //                 onPress: () => this.navigation.navigate("AthletePersonalInfoEdit")
+    //             }
+    //         ],
+    //         { cancelable: false }
+    //     );
+    // }
 
     render() {
         if (this.state.data.length == 0 || this.state.data2.length == 0) {
@@ -131,170 +129,37 @@ export default class AthleteProfile extends React.Component {
                         />
                     </Card>
                     <Card containerStyle={styles.cardStyle1}>
-                        <View style={{ marginTop: 70 }}>
-                            <Text
-                                style={{
-                                    fontSize: 15,
-                                    fontWeight: "bold",
-                                    textAlign: "center",
-                                    color: "#3AD289"
-                                }}
-                            >
-                                Welcome
-                            </Text>
-                            <Text
-                                style={{
-                                    textAlign: "center",
-                                    color: "black",
-                                    fontSize: 25,
-                                    fontWeight: "bold"
-                                }}
-                            >
-                                {this.state.data[0].athl_fname}{" "}
-                                {this.state.data[0].athl_lname}
-                            </Text>
-                        </View>
+                        <View style={{ marginTop: 70 }}><Text style={{fontSize: 15, fontWeight: "bold", textAlign: "center", color: "#3AD289"}}>Welcome</Text><Text style={{textAlign: "center", color: "black", fontSize: 25, fontWeight: "bold"}}>{this.state.data[0].athl_fname}{" "}{this.state.data[0].athl_lname}</Text></View>
                     </Card>
                 </View>
                 <View>
                     <Card containerStyle={styles.cardStyle2}>
-                        <View style={styles.row}>
-                            <Text
-                                style={{
-                                    fontSize: 15,
-                                    fontWeight: "bold",
-                                    bottom: 5
-                                }}
-                            >
-                                Contact Information
-                            </Text>
-                            <TouchableOpacity
-                                onPress={() => this.onPressEvent1()}
-                            >
-                                <Image
-                                    style={styles.editIconStyle}
-                                    source={require("../assets/editIcon.png")}
-                                />
-                            </TouchableOpacity>
-                        </View>
-                        <View>
-                            <Text
-                                style={{
-                                    fontSize: 12,
-                                    fontWeight: "bold",
-                                    paddingTop: 5
-                                }}
-                            >
-                                Email
-                            </Text>
-                            <Text style={{ fontSize: 12, color: "grey" }}>
-                                {this.state.data[0].athl_email}
-                            </Text>
-                            <Text
-                                style={{
-                                    fontSize: 12,
-                                    fontWeight: "bold",
-                                    paddingTop: 5
-                                }}
-                            >
-                                Phone Number
-                            </Text>
-                            <Text style={{ fontSize: 12, color: "grey" }}>
-                                {this.state.data[0].athl_phone}
-                            </Text>
-                        </View>
+                        <View style={styles.row}><Text style={{fontSize: 15, fontWeight: "bold", bottom: 5}}>Contact Information</Text><TouchableOpacity onPress={() => this.props.navigation.navigate("AthleteContactDetails", {athl_id : this.state.data[0].athl_id, athl_email: this.state.data[0].athl_email, athl_phone: this.state.data[0].athl_phone})}>
+                        <Image style={styles.editIconStyle} source={require("../assets/editIcon.png")}/></TouchableOpacity></View>
+                        <View><Text style={{fontSize: 12,fontWeight: "bold",paddingTop: 5}}>Email</Text><Text style={{ fontSize: 12, color: "grey" }}>{this.state.data[0].athl_email}</Text><Text style={{fontSize: 12,fontWeight: "bold",paddingTop: 5}}>Phone Number</Text><Text style={{ fontSize: 12, color: "grey" }}>{this.state.data[0].athl_phone}</Text></View>
                     </Card>
                 </View>
                 <View>
                     <Card containerStyle={styles.cardStyle3}>
-                        <View style={styles.row}>
-                            <Text
-                                style={{
-                                    fontSize: 15,
-                                    fontWeight: "bold",
-                                    bottom: 5
-                                }}
-                            >
-                                Personal Information
-                            </Text>
+                        <View style={styles.row}><Text style={{fontSize: 15,fontWeight: "bold",bottom: 5}}>Personal Information</Text>
                             <TouchableOpacity
-                                onPress={() => this.onPressEvent2()}
-                            >
+                                onPress={() => this.props.navigation.navigate("AthletePersonalInfoEdit", {
+                                        athl_id : this.state.data[0].athl_id,
+                                        athl_fname: this.state.data[0].athl_fname,
+                                        athl_lname: this.state.data[0].athl_lname,
+                                        account: this.state.data[0].account,
+                                        password: this.state.data[0].password
+                                        })}>
                                 <Image
                                     style={styles.editIconStyle}
                                     source={require("../assets/editIcon.png")}
                                 />
                             </TouchableOpacity>
                         </View>
-                        <View>
-                            <Text
-                                style={{
-                                    fontSize: 12,
-                                    fontWeight: "bold",
-                                    paddingTop: 10
-                                }}
-                            >
-                                First Name
-                            </Text>
-                            <Text style={{ fontSize: 12, color: "grey" }}>
-                                {this.state.data[0].athl_fname}
-                            </Text>
-                            <Text
-                                style={{
-                                    fontSize: 12,
-                                    fontWeight: "bold",
-                                    paddingTop: 10
-                                }}
-                            >
-                                Last Name
-                            </Text>
-                            <Text style={{ fontSize: 12, color: "grey" }}>
-                                {this.state.data[0].athl_lname}
-                            </Text>
-                            <Text
-                                style={{
-                                    fontSize: 12,
-                                    fontWeight: "bold",
-                                    paddingTop: 10
-                                }}
-                            >
-                                Account Name
-                            </Text>
-                            <Text style={{ fontSize: 12, color: "grey" }}>
-                                {this.state.data[0].athl_account}
-                            </Text>
-                            <Text
-                                style={{
-                                    fontSize: 12,
-                                    fontWeight: "bold",
-                                    paddingTop: 10
-                                }}
-                            >
-                                Password
-                            </Text>
-                            <Text style={{ fontSize: 12, color: "grey" }}>
-                                ********
-                            </Text>
-                        </View>
+                        <View><Text style={{fontSize: 12, fontWeight: "bold", paddingTop: 10}}>First Name</Text><Text style={{ fontSize: 12, color: "grey" }}>{this.state.data[0].athl_fname}</Text><Text style={{fontSize: 12, fontWeight: "bold", paddingTop: 10}}>Last Name</Text><Text style={{ fontSize: 12, color: "grey" }}>{this.state.data[0].athl_lname}</Text><Text style={{ fontSize: 12, fontWeight: "bold", paddingTop: 10}}>Account Name</Text><Text style={{ fontSize: 12, color: "grey" }}>{this.state.data[0].account}</Text><Text style={{fontSize: 12, fontWeight: "bold", paddingTop: 10}}>Password</Text><Text style={{ fontSize: 12, color: "grey" }}>{this.state.data[0].password}</Text></View>
                     </Card>
                 </View>
-                {/* <View style={styles.buttonRow}>
-                    <TouchableOpacity>
-                        <Text
-                            style={styles.signOutButton}
-                            onPress={() => this.onPressEvent()}
-                        >
-                            SIGN OUT
-                        </Text>
-                    </TouchableOpacity>
-                </View> */}
-
-                <TouchableHighlight
-                    style={styles.signOutButton}
-                    onPress={() => this.onPressEvent()}
-                >
-                    <Text style={styles.btnText}> Sign Out </Text>
-                </TouchableHighlight>
+                <TouchableHighlight style={styles.signOutButton} onPress={() => this.onPressEvent()}><Text style={styles.btnText}>Sign Out</Text></TouchableHighlight>
             </ScrollView>
         );
     }
@@ -416,19 +281,4 @@ const styles = StyleSheet.create({
         resizeMode: "contain",
         alignItems: "center"
     }
-    // BackButton: {
-    //     opacity: 0.7,
-    //     backgroundColor: "#3AD289",
-    //     width: "16%",
-    //     height: "4%",
-    //     alignItems: "center",
-    //     // top: "2%",
-    //     // right: "2%",
-    //     borderRadius: 2
-    // },
-    // BackBtnText: {
-    //     fontSize: 20,
-    //     opacity: 1,
-    //     color: "#fff"
-    // }
 });

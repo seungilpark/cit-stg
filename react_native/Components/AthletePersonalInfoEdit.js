@@ -27,13 +27,13 @@ export default class PersonalDetailsPage extends React.Component {
 
     onSubmit() {
         console.log(this.state.athl_id)
-            fetch('http://54.191.100.200:8080/api/athlete/update/1', {
+            fetch('http://54.191.100.200:8080/api/athletes/update/1', {
             method: 'POST',
             headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             },
-            body: JSON.stringify({athl_fname: this.state.athl_fname,athl_lname: this.state.athl_lname,athl_account: this.state.athl_account,athl_password: this.state.athl_password}),
+            body: JSON.stringify({athl_fname: this.state.athl_fname,athl_lname: this.state.athl_lname,athl_account: this.state.account,athl_password: this.state.password}),
             })
             .then((response) => response.json())
             .then((responseJson) => {

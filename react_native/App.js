@@ -19,20 +19,19 @@ import AthlClubList from "./Components/AthlClubList";
 import Profile from "./Components/Profile";
 import ClubMgrProfile from "./Components/ClubMgrProfile";
 import ClubMatches from "./Components/ClubMatches"
-// import PersonalDetailsPage from "./Components/PersonalDetailsPage";
+import PersonalDetailsPage from "./Components/PersonalDetailsPage";
 
 import ClubsCards from "./Components/ClubsCards";
 
-import AccountType from './Components/AccountType';
-import PersonalInfo from './Components/PersonalInfo';
-import LocationInfo from './Components/LocationInfo';
-import AccountInfo from './Components/AccountInfo';
-import MainApp from './Components/main_app'
-import MgrInfo from './Components/MgrInfo'
-import ClubInfo from './Components/ClubInfo'
-import MgrAccountInfo from './Components/MgrAccountInfo'
-import ClubForMgr from "./Components/CardForMgr"
-
+import AccountType from "./Components/AccountType";
+import PersonalInfo from "./Components/PersonalInfo";
+import LocationInfo from "./Components/LocationInfo";
+import AccountInfo from "./Components/AccountInfo";
+import MainApp from "./Components/main_app";
+import MgrInfo from "./Components/MgrInfo";
+import ClubInfo from "./Components/ClubInfo";
+import MgrAccountInfo from "./Components/MgrAccountInfo";
+import ClubForMgr from "./Components/CardForMgr";
 
 // import ClubsCards from "./Components/ClubsCards"
 import Card from "./Components/Card";
@@ -43,57 +42,56 @@ const RootStack = createStackNavigator(
         FirstPage: {
             screen: FirstPage,
             navigationOptions: {
-                header: null,
-                }
+                header: null
+            }
         },
         SignIn: {
             screen: SignIn,
             navigationOptions: {
-                header: null,
-                }
-            
+                header: null
+            }
         },
         AccountType: {
             screen: AccountType,
             navigationOptions: {
-                header: null,
-                }
+                header: null
+            }
         },
         PersonalInfo: {
             screen: PersonalInfo,
             navigationOptions: {
-                header: null,
-                }
+                header: null
+            }
         },
         MgrInfo: {
             screen: MgrInfo,
             navigationOptions: {
-                header: null,
-                }
+                header: null
+            }
         },
         LocationInfo: {
             screen: LocationInfo,
             navigationOptions: {
-                header: null,
-                }
+                header: null
+            }
         },
         ClubInfo: {
             screen: ClubInfo,
             navigationOptions: {
-                header: null,
-                }
+                header: null
+            }
         },
         AccountInfo: {
             screen: AccountInfo,
             navigationOptions: {
-                header: null,
-                }
+                header: null
+            }
         },
         MgrAccountInfo: {
             screen: MgrAccountInfo,
             navigationOptions: {
-                header: null,
-                }
+                header: null
+            }
         },
         AthTest: {
             screen: AthTest
@@ -104,8 +102,8 @@ const RootStack = createStackNavigator(
         MainApp: {
             screen: MainApp,
             navigationOptions: {
-                header: null,
-                }
+                header: null
+            }
         },
         ClubMgrProfile: {
             screen: ClubMgrProfile
@@ -116,7 +114,7 @@ const RootStack = createStackNavigator(
         ClubForMgr: {
             screen: ClubForMgr
         },
-        
+
         AthleteProfile: {
             screen: AthleteProfile,
             navigationOptions: ({ navigation }) => ({
@@ -247,7 +245,7 @@ const RootStack = createStackNavigator(
                                     justifyContent: "center",
                                     height: 40,
                                     width: 40,
-                                    resizeMode: "contain",
+                                    resizeMode: "contain"
                                 }}
                                 source={require("./Icons/heart_inactive.png")}
                             />
@@ -288,9 +286,9 @@ const RootStack = createStackNavigator(
                 )
             })
         },
-        // PersonalDetailsPage: {
-        //   screen: PersonalDetailsPage
-        // },
+        PersonalDetailsPage: {
+          screen: PersonalDetailsPage
+        },
         AthlClubList: {
             screen: AthlClubList,
             navigationOptions: ({ navigation }) => ({
@@ -433,7 +431,7 @@ const RootStack = createStackNavigator(
                 headerRight: (
                     <TouchableOpacity
                         onPress={() => {
-                            navigation.navigate("AthleteProfile");
+                            navigation.navigate("AthleteProfile", {});
                         }}
                     >
                         <View>
@@ -469,77 +467,75 @@ const RootStack = createStackNavigator(
             })
         },
 
-    ClubForMgr : {
-        screen: ClubForMgr,
-        navigationOptions: ({ navigation }) => ({
-            gesturesEnabled: false,
-            headerTitle: (
-                <TouchableOpacity>
-                    <View>
-                        <Image
-                            style={{
-                                justifyContent: "center",
-                                height: 40,
-                                width: 40,
-                                resizeMode: "contain"
-                            }}
-                            source={require("./Icons/heart_active.png")}
-                        />
-                    </View>
-                </TouchableOpacity>
-            ),
-            headerRight: (
-                <TouchableOpacity
-                    onPress={() => {
-                        navigation.navigate("ClubMgrProfile");
-                    }}
-                >
-                    <View>
-                        <Image
-                            style={{
-                                justifyContent: "center",
-                                height: 30,
-                                width: 30
-                            }}
-                            source={require("./Icons/profile_inactive.png")}
-                        />
-                    </View>
-                </TouchableOpacity>
-            ),
-            headerLeft: (
-                <TouchableOpacity
-                    onPress={() => {
-                        navigation.navigate("ClubMatches");
-                    }}
-                >
-                    <View>
-                        <Image
-                            style={{
-                                justifyContent: "center",
-                                height: 30,
-                                width: 30
-                            }}
-                            source={require("./Icons/list_inactive.png")}
-                        />
-                    </View>
-                </TouchableOpacity>
-            )
-        })
-    }
-},
-    
+        ClubForMgr: {
+            screen: ClubForMgr,
+            navigationOptions: ({ navigation }) => ({
+                gesturesEnabled: false,
+                headerTitle: (
+                    <TouchableOpacity>
+                        <View>
+                            <Image
+                                style={{
+                                    justifyContent: "center",
+                                    height: 40,
+                                    width: 40,
+                                    resizeMode: "contain"
+                                }}
+                                source={require("./Icons/heart_active.png")}
+                            />
+                        </View>
+                    </TouchableOpacity>
+                ),
+                headerRight: (
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.navigate("ClubMgrProfile");
+                        }}
+                    >
+                        <View>
+                            <Image
+                                style={{
+                                    justifyContent: "center",
+                                    height: 30,
+                                    width: 30
+                                }}
+                                source={require("./Icons/profile_inactive.png")}
+                            />
+                        </View>
+                    </TouchableOpacity>
+                ),
+                headerLeft: (
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.navigate("ClubMatches");
+                        }}
+                    >
+                        <View>
+                            <Image
+                                style={{
+                                    justifyContent: "center",
+                                    height: 30,
+                                    width: 30
+                                }}
+                                source={require("./Icons/list_inactive.png")}
+                            />
+                        </View>
+                    </TouchableOpacity>
+                )
+            })
+        }
+    },
+
     {
         initialRouteName: "FirstPage",
         headermode: "none",
         transitionConfig: () => ({
             transitionSpec: {
-              duration: 0,  // Set the animation duration time as 0 !!
-            },
-          }),
-
+                duration: 0 // Set the animation duration time as 0 !!
+            }
+        })
     }
 );
-
 
 const AppContainer = createAppContainer(RootStack);
 

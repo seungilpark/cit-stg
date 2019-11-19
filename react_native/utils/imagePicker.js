@@ -8,7 +8,8 @@ var CLUB_IMAGES_DICT = {
     "Montreal Impact":require("../assets/montreal.jpg"),
     "Ottawa Fury":require("../assets/ottawa.png"),
     "Manchester City":require("../assets/mancity.jpg"),
-    "Real Madrid":require("../assets/realmadrid.png")
+    "Real Madrid":require("../assets/realmadrid.png"),
+    "Arsenal":require("../assets/arsenal.jpg")
 }
 
 

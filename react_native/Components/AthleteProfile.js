@@ -8,11 +8,12 @@ import {
     Button,
     ScrollView,
     Image,
-    ImageBackground
+    ImageBackground,
+    TouchableHighlight
 } from "react-native";
 import { AppLoading, Font } from "expo";
 import { NavigationEvents, StackNavigator } from "react-navigation";
-import { Card } from 'react-native-elements';
+import { Card } from "react-native-elements";
 import { symbol } from "prop-types";
 
 export default class AthleteProfile extends React.Component {
@@ -60,7 +61,7 @@ export default class AthleteProfile extends React.Component {
                 },
                 {
                     text: "OK",
-                    onPress: () => this.props.navigation.navigate("FirstPage")
+                    onPress: () => this.props.navigation.navigate("MainApp")
                 }
             ],
             { cancelable: false }
@@ -78,7 +79,7 @@ export default class AthleteProfile extends React.Component {
                 }
             ],
             { cancelable: false }
-        )
+        );
     }
 
     onPressEvent2() {
@@ -92,7 +93,7 @@ export default class AthleteProfile extends React.Component {
                 }
             ],
             { cancelable: false }
-        )
+        );
     }
 
     render() {
@@ -107,8 +108,14 @@ export default class AthleteProfile extends React.Component {
         );
         return (
             <ScrollView style={styles.container}>
-                    <View>
-                        <Card containerStyle={styles.playerphotoCard}>
+                {/* <TouchableHighlight
+                    style={styles.BackButton}
+                    onPress={() => this.props.navigation.navigate("FirstPage")}
+                >
+                    <Text style={styles.BackBtnText}>Menu</Text>
+                </TouchableHighlight> */}
+                <View>
+                    <Card containerStyle={styles.playerphotoCard}>
                         {/* <Image
                             style={styles.playerphoto}
                             source={{
@@ -118,79 +125,189 @@ export default class AthleteProfile extends React.Component {
                                         : this.state.data2[0].profile_photo
                             }}
                         /> */}
-                            <Image source={require("../assets/stockMgr.jpg")} style={styles.playerphoto}/>
-                        </Card>
-                        <Card containerStyle={styles.cardStyle1}>
-                            <View style={{marginTop: 70}}>
-                                <Text style={{fontSize: 15, fontWeight:"bold", textAlign: "center", color: "#3AD289"}}>
-                                    Welcome
-                                </Text>
-                                <Text style={{textAlign: "center", color: "black", fontSize: 25, fontWeight:"bold", }}>
-                                    {this.state.data[0].athl_fname}{" "}
-                                    {this.state.data[0].athl_lname}
-                                </Text>
-                            </View>
-                        </Card>
-                    
-                </View>
-                <View>
-                        <Card containerStyle={styles.cardStyle2}>
-                            <View style={styles.row}>
-                                <Text style= {{fontSize: 15, fontWeight: "bold", bottom: 5}}>Contact Information</Text>
-                                <TouchableOpacity onPress={() => this.onPressEvent1()}>
-                                    <Image style={styles.editIconStyle} source={require("../assets/editIcon.png")}/>
-                                </TouchableOpacity>
-                            </View>
-                            <View>
-                                <Text style={{fontSize: 12, fontWeight: "bold", paddingTop: 5}}>Email</Text>
-                                <Text style={{fontSize: 12, color: "grey"}}>{this.state.data[0].athl_email}</Text>
-                                <Text style={{fontSize: 12, fontWeight: "bold", paddingTop: 5}}>Phone Number</Text>
-                                <Text style={{fontSize: 12, color: "grey"}}>{this.state.data[0].athl_phone}</Text>
-                            </View>
-                        </Card>
-                </View>
-                <View>
-                        <Card containerStyle={styles.cardStyle3}>
-                            <View style={styles.row}>
-                                <Text style= {{fontSize: 15, fontWeight: "bold", bottom: 5}}>Personal Information</Text>
-                                <TouchableOpacity onPress={() => this.onPressEvent2()}>
-                                    <Image style={styles.editIconStyle} source={require("../assets/editIcon.png")}/>
-                                </TouchableOpacity>
-                            </View>
-                            <View>
-                                <Text style={{fontSize: 12, fontWeight: "bold", paddingTop: 10}}>First Name</Text>
-                                <Text style={{fontSize: 12, color: "grey"}}>{this.state.data[0].athl_fname}</Text>
-                                <Text style={{fontSize: 12, fontWeight: "bold", paddingTop: 10}}>Last Name</Text>
-                                <Text style={{fontSize: 12, color: "grey"}}>{this.state.data[0].athl_lname}</Text>
-                                <Text style={{fontSize: 12, fontWeight: "bold", paddingTop: 10}}>Account Name</Text>
-                                <Text style={{fontSize: 12, color: "grey"}}>{this.state.data[0].athl_account}</Text>
-                                <Text style={{fontSize: 12, fontWeight: "bold", paddingTop: 10}}>Password</Text>
-                                <Text style={{fontSize: 12, color: "grey"}}>********</Text>
-                            </View>
-                        </Card>
-                </View>
-                <View style={styles.buttonRow}>
-                    <TouchableOpacity>
+                        <Image
+                            source={require("../assets/stockMgr.jpg")}
+                            style={styles.playerphoto}
+                        />
+                    </Card>
+                    <Card containerStyle={styles.cardStyle1}>
+                        <View style={{ marginTop: 70 }}>
                             <Text
-                            style={styles.signOutButton}
-                                onPress={() => this.onPressEvent()}
-                            >SIGN OUT
+                                style={{
+                                    fontSize: 15,
+                                    fontWeight: "bold",
+                                    textAlign: "center",
+                                    color: "#3AD289"
+                                }}
+                            >
+                                Welcome
                             </Text>
-                    </TouchableOpacity>
+                            <Text
+                                style={{
+                                    textAlign: "center",
+                                    color: "black",
+                                    fontSize: 25,
+                                    fontWeight: "bold"
+                                }}
+                            >
+                                {this.state.data[0].athl_fname}{" "}
+                                {this.state.data[0].athl_lname}
+                            </Text>
+                        </View>
+                    </Card>
                 </View>
-            </ScrollView>      
-        )
+                <View>
+                    <Card containerStyle={styles.cardStyle2}>
+                        <View style={styles.row}>
+                            <Text
+                                style={{
+                                    fontSize: 15,
+                                    fontWeight: "bold",
+                                    bottom: 5
+                                }}
+                            >
+                                Contact Information
+                            </Text>
+                            <TouchableOpacity
+                                onPress={() => this.onPressEvent1()}
+                            >
+                                <Image
+                                    style={styles.editIconStyle}
+                                    source={require("../assets/editIcon.png")}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        <View>
+                            <Text
+                                style={{
+                                    fontSize: 12,
+                                    fontWeight: "bold",
+                                    paddingTop: 5
+                                }}
+                            >
+                                Email
+                            </Text>
+                            <Text style={{ fontSize: 12, color: "grey" }}>
+                                {this.state.data[0].athl_email}
+                            </Text>
+                            <Text
+                                style={{
+                                    fontSize: 12,
+                                    fontWeight: "bold",
+                                    paddingTop: 5
+                                }}
+                            >
+                                Phone Number
+                            </Text>
+                            <Text style={{ fontSize: 12, color: "grey" }}>
+                                {this.state.data[0].athl_phone}
+                            </Text>
+                        </View>
+                    </Card>
+                </View>
+                <View>
+                    <Card containerStyle={styles.cardStyle3}>
+                        <View style={styles.row}>
+                            <Text
+                                style={{
+                                    fontSize: 15,
+                                    fontWeight: "bold",
+                                    bottom: 5
+                                }}
+                            >
+                                Personal Information
+                            </Text>
+                            <TouchableOpacity
+                                onPress={() => this.onPressEvent2()}
+                            >
+                                <Image
+                                    style={styles.editIconStyle}
+                                    source={require("../assets/editIcon.png")}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        <View>
+                            <Text
+                                style={{
+                                    fontSize: 12,
+                                    fontWeight: "bold",
+                                    paddingTop: 10
+                                }}
+                            >
+                                First Name
+                            </Text>
+                            <Text style={{ fontSize: 12, color: "grey" }}>
+                                {this.state.data[0].athl_fname}
+                            </Text>
+                            <Text
+                                style={{
+                                    fontSize: 12,
+                                    fontWeight: "bold",
+                                    paddingTop: 10
+                                }}
+                            >
+                                Last Name
+                            </Text>
+                            <Text style={{ fontSize: 12, color: "grey" }}>
+                                {this.state.data[0].athl_lname}
+                            </Text>
+                            <Text
+                                style={{
+                                    fontSize: 12,
+                                    fontWeight: "bold",
+                                    paddingTop: 10
+                                }}
+                            >
+                                Account Name
+                            </Text>
+                            <Text style={{ fontSize: 12, color: "grey" }}>
+                                {this.state.data[0].athl_account}
+                            </Text>
+                            <Text
+                                style={{
+                                    fontSize: 12,
+                                    fontWeight: "bold",
+                                    paddingTop: 10
+                                }}
+                            >
+                                Password
+                            </Text>
+                            <Text style={{ fontSize: 12, color: "grey" }}>
+                                ********
+                            </Text>
+                        </View>
+                    </Card>
+                </View>
+                {/* <View style={styles.buttonRow}>
+                    <TouchableOpacity>
+                        <Text
+                            style={styles.signOutButton}
+                            onPress={() => this.onPressEvent()}
+                        >
+                            SIGN OUT
+                        </Text>
+                    </TouchableOpacity>
+                </View> */}
+
+                <TouchableHighlight
+                    style={styles.signOutButton}
+                    onPress={() => this.onPressEvent()}
+                >
+                    <Text style={styles.btnText}> Sign Out </Text>
+                </TouchableHighlight>
+            </ScrollView>
+        );
     }
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: 'column',
+        flexDirection: "column",
         backgroundColor: "white"
     },
     playerphotoCard: {
-        borderRadius: 150/2,
+        borderRadius: 150 / 2,
         width: 150,
         height: 150,
         marginTop: 10,
@@ -199,70 +316,68 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         alignSelf: "center",
-        shadowOffset:{  width: 0,  height: 1,  },
-        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 1 },
+        shadowColor: "black",
         shadowOpacity: 0.4,
         shadowRadius: 1,
         elevation: 5,
-        backgroundColor:'#3AD289',
+        backgroundColor: "#3AD289"
     },
     playerphoto: {
         borderWidth: 5,
-        borderColor:"black",
-        borderRadius: 150/2,
+        borderColor: "black",
+        borderRadius: 150 / 2,
         width: 150,
         height: 150,
         zIndex: 2,
         justifyContent: "center",
         alignItems: "center",
-        alignSelf: "center",
+        alignSelf: "center"
     },
 
     cardStyle1: {
         backgroundColor: "white",
         borderRadius: 5,
         marginTop: 70,
-        width: '95%',
+        width: "95%",
         height: 175,
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignSelf: 'center',
-        shadowOffset:{  width: 0,  height: 2,  },
-        shadowColor: 'black',
+        justifyContent: "center",
+        alignItems: "center",
+        alignSelf: "center",
+        shadowOffset: { width: 0, height: 2 },
+        shadowColor: "black",
         shadowOpacity: 0.4,
         shadowRadius: 2,
-        elevation: 5,
-        
+        elevation: 5
     },
     cardStyle2: {
         backgroundColor: "white",
         borderRadius: 5,
         marginTop: 10,
-        width: '95%',
+        width: "95%",
         height: 150,
-        alignSelf: 'center',
-        shadowOffset:{  width: 0,  height: 2,  },
-        shadowColor: 'black',
+        alignSelf: "center",
+        shadowOffset: { width: 0, height: 2 },
+        shadowColor: "black",
         shadowOpacity: 0.4,
         shadowRadius: 2,
-        elevation: 5,
-
+        elevation: 5
     },
     cardStyle3: {
         backgroundColor: "white",
         borderRadius: 5,
         marginTop: 10,
-        width: '95%',
+        width: "95%",
         height: 250,
-        alignSelf: 'center',
-        shadowOffset:{  width: 0,  height: 2,  },
-        shadowColor: 'black',
+        alignSelf: "center",
+        shadowOffset: { width: 0, height: 2 },
+        shadowColor: "black",
         shadowOpacity: 0.4,
         shadowRadius: 2,
         elevation: 5,
-        marginBottom: 10,
+        marginBottom: 10
     },
-    editIconStyle : {
+    editIconStyle: {
         width: 15,
         height: 15,
         bottom: 5,
@@ -273,21 +388,25 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         borderBottomWidth: 0.5,
         borderBottomColor: "lightgrey",
-        bottom:10
+        bottom: 10
+    },
+
+    btnText: {
+        fontSize: 24,
+        opacity: 1,
+        color: "#fff"
     },
     signOutButton: {
-        justifyContent: "center",
-        color: "white"
-    },
-    buttonRow : {
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
         alignSelf: "center",
         opacity: 0.7,
         backgroundColor: "#3AD289",
-        width: "57%",
+        width: "45%",
         padding: 14,
+        alignItems: "center",
+        bottom: "10%",
+        alignItems: "center",
+        marginTop: 80,
+        marginBottom: 28,
         borderRadius: 2
     },
     backgroundImage: {
@@ -296,6 +415,20 @@ const styles = StyleSheet.create({
         height: "100%",
         resizeMode: "contain",
         alignItems: "center"
-    },
-})
-               
+    }
+    // BackButton: {
+    //     opacity: 0.7,
+    //     backgroundColor: "#3AD289",
+    //     width: "16%",
+    //     height: "4%",
+    //     alignItems: "center",
+    //     // top: "2%",
+    //     // right: "2%",
+    //     borderRadius: 2
+    // },
+    // BackBtnText: {
+    //     fontSize: 20,
+    //     opacity: 1,
+    //     color: "#fff"
+    // }
+});

@@ -132,17 +132,6 @@ export default class FirstPage extends React.Component {
                     <TouchableHighlight
                         style={styles.button}
                         onPress={() => {
-                            this.props.navigation.navigate("PersonalDetailsPage");
-                        }}
-                    >
-                        <Text style={styles.btnText}>
-                            Personal Details Page{" "}
-                        </Text>
-                    </TouchableHighlight>
-
-                    <TouchableHighlight
-                        style={styles.button}
-                        onPress={() => {
                             this.props.navigation.navigate("ClubForMgr");
                         }}
                     >

@@ -21,7 +21,6 @@ export default class AthleteProfile extends React.Component {
         this.state = {
             mgr_id: "",
             data: [],
-            data2: [],
 
             mgr_email: "",
             mgr_phone: "",
@@ -38,15 +37,7 @@ export default class AthleteProfile extends React.Component {
             .catch(error => {
                 console.error(error);
             });
-        fetch("http://54.191.100.200:8080/api/profiles" + this.state.mgr_id)
-            .then(response => response.json())
-            .then(responseJson => {
-                this.setState({ data2: responseJson });
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    }
+        }
 
     onPressEvent() {
         Alert.alert(
@@ -67,40 +58,34 @@ export default class AthleteProfile extends React.Component {
         );
     }
 
-    onPressEvent1() {
-        Alert.alert(
-            "Edit",
-            "Editing Contact Information",
-            [
-                {
-                    text: "OK",
-                    onPress: () => console.log("Okay Pressed")
-                }
-            ],
-            { cancelable: false }
-        );
-    }
+    // onPressEvent1() {
+    //     Alert.alert(
+    //         "Edit",
+    //         "Editing Contact Information",
+    //         [
+    //             {
+    //                 text: "OK",
+    //                 onPress: () => console.log("Okay Pressed")
+    //             }
+    //         ],
+    //         { cancelable: false }
+    //     );
+    // }
 
-  onPressEvent2() {
-    Alert.alert(
-      "Edit",
-      "Editing Personal Information",
-      [
-        {
-          onPress: () => this.props.navigation("PersonalDetailsPage")
-        }
-    ])}
+//   onPressEvent2() {
+//     Alert.alert(
+//       "Edit",
+//       "Editing Personal Information",
+//       [
+//         {
+//           onPress: () => this.props.navigation("ClubMgrPersonalDetails")
+//         }
+//     ])}
 
     render() {
-        if (this.state.data.length == 0 || this.state.data2.length == 0) {
+        if (this.state.data.length == 0) {
             return <View></View>;
         }
-        // console.log(this.state.data[0]);
-        // console.log(this.state.data2[0]);
-        console.log(
-            "The profile_photo Url is --> ",
-            this.state.data2[0].profile_photo
-        );
         return (
             <ScrollView style={styles.container}>
                 {/* <ImageBackground
@@ -115,15 +100,6 @@ export default class AthleteProfile extends React.Component {
                 </TouchableHighlight> */}
                 <View>
                     <Card containerStyle={styles.playerphotoCard}>
-                        {/* <Image
-                            style={styles.playerphoto}
-                            source={{
-                                uri:
-                                    this.state.profile_photo_url !== ""
-                                        ? "https://therefreshedhome.com/wp-content/uploads/2017/09/garage-full-of-stuff.jpg"
-                                        : this.state.data2[0].profile_photo
-                            }}
-                        /> */}
                         <Image
                             source={require("../assets/stockMgr.jpg")}
                             style={styles.playerphoto}
@@ -168,8 +144,11 @@ export default class AthleteProfile extends React.Component {
                                 Contact Information
                             </Text>
                             <TouchableOpacity
-                                onPress={() => this.onPressEvent1()}
-                            >
+                                onPress={() => this.props.navigation.navigate("ClubMgrContactDetails", {
+                                    mgr_id : this.state.data[0].mgr_id,
+                                    mgr_email: this.state.data[0].mgr_email,
+                                    mgr_phone: this.state.data[0].mgr_phone
+                                    })}>
                                 <Image
                                     style={styles.editIconStyle}
                                     source={require("../assets/editIcon.png")}
@@ -208,12 +187,12 @@ export default class AthleteProfile extends React.Component {
                         <Card containerStyle={styles.cardStyle3}>
                             <View style={styles.row}>
                                 <Text style= {{fontSize: 15, fontWeight: "bold", bottom: 5}}>Personal Information</Text>
-                                <TouchableOpacity onPress={() =>  this.props.navigation.navigate("PersonalDetailsPage", {
+                                <TouchableOpacity onPress={() =>  this.props.navigation.navigate("ClubMgrPersonalDetails", {
                                 mgr_id : this.state.data[0].mgr_id,
                                 mgr_fname : this.state.data[0].mgr_fname,
                                 mgr_lname : this.state.data[0].mgr_lname,
                                 mgr_account : this.state.data[0].mgr_account,
-                                mgr_password : this.state.data[0].mgr_password,
+                                mgr_password : this.state.data[0].mgr_password
                                 })}>
                                 <Image style={styles.editIconStyle} source={require("../assets/editIcon.png")}/>
                                 </TouchableOpacity>
@@ -285,7 +264,7 @@ const styles = StyleSheet.create({
     },
 
     cardStyle1: {
-        backgroundColor: "#E2F0E4",
+        backgroundColor: "white",
         borderRadius: 9,
         marginTop: 75,
         width: 400,
@@ -300,7 +279,7 @@ const styles = StyleSheet.create({
         elevation: 3
     },
     cardStyle2: {
-        backgroundColor: "#E2F0E4",
+        backgroundColor: "white",
         borderRadius: 9,
         marginTop: 20,
         width: 400,
@@ -313,7 +292,7 @@ const styles = StyleSheet.create({
         elevation: 3
     },
     cardStyle3: {
-        backgroundColor: "#E2F0E4",
+        backgroundColor: "white",
         borderRadius: 9,
         marginTop: 20,
         width: 400,

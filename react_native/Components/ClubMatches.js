@@ -7,7 +7,8 @@ import {
   Image,
   ActivityIndicator,
   ImagePickerIOS,
-  Alert
+  Alert,
+  ScrollView
 } from 'react-native';
 
 import CardFlip from 'react-native-card-flip';
@@ -70,12 +71,14 @@ export default class AthlClubList extends React.Component {
     const { matchedList, loading} = this.state;
     console.log(matchedList, "in render")
     if(!loading){
-      return matchedList.map((item, id) => {
+      return(
+      <ScrollView>{
+        matchedList.map((item, id) => {
             return (
                 <CardFlip style={ styles.cardContainer } ref={ (card) => this['card' + id] = card } >
                   <TouchableOpacity key={item} style={ styles.card } onPress={() => this['card' + id].flip()} >
                     <Image source ={athlImagePicker(matchedList)[id].url} style={styles.playerphotoCard}></Image>
-            <Text style = {styles.TextStyle}>{item.athl_fname} {item.athl_lname}</Text>  
+                    <Text style = {styles.TextStyle}>{item.athl_fname} {item.athl_lname}</Text>  
                   </TouchableOpacity>
                   <TouchableOpacity key={item} style={ styles.card } onPress={() => this['card' + id].flip()} >
                     <Text style = {styles.TextStyle}>Date of Birth: {item.athl_dob}</Text>
@@ -86,7 +89,9 @@ export default class AthlClubList extends React.Component {
                 </CardFlip>
             )
           })
-    }else {
+          }
+      </ScrollView>
+      )}else {
       return(
       <View style={{flex: 1, justifyContent: "center", alignItems: "center", alignSelf: "center"}}>
         {
@@ -107,7 +112,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
     alignSelf: 'center',
     backgroundColor: '#F5FCFF',
@@ -115,28 +120,22 @@ const styles = StyleSheet.create({
   cardContainer: {
     width: "94%",
     height: 200,
-    flex: 1,
     left: 10,
     flexDirection : 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10
+    marginBottom: 50
 
   },
   playerphotoCard: {
     borderRadius: 175/2,
     borderWidth: 3,
-    borderColor: "white",
+    borderColor: "#3AD289",
     width: 175,
     height: 175,
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    shadowOffset:{  width: 0,  height: 12,  },
-    shadowColor: 'black',
-    shadowOpacity: 1.0,
-    shadowRadius: 11,
-    elevation: 3,
     backgroundColor:'#3AD289'
   },
   card: {
@@ -146,7 +145,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection:'column',
-    backgroundColor: "black",
+    backgroundColor: "white",
     borderRadius: 5,
     shadowColor: 'rgba(0,0,0,0.5)',
     shadowOffset: {
@@ -154,7 +153,7 @@ const styles = StyleSheet.create({
       height: 1,
     },
     shadowOpacity: 0.5,
-    elevation: 5
+    elevation: 5,
   },
 
   // imageViewStyle: {
@@ -167,7 +166,7 @@ const styles = StyleSheet.create({
   //   },
 
     TextStyle:{
-      color:'white',
+      color:'black',
       textAlign:'center',
       padding: 5,
       fontSize: 18,

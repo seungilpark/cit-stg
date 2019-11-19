@@ -23,7 +23,7 @@ const getManagerById = inputId => {
 };
 
 const updateClubMgrById = (inputBody, inputId) => {
-  let query = `SET FOREIGN_KEY_CHECKS=0; update club_mgr set mgr_fname='${inputBody.mgr_fname}', mgr_lname='${inputBody.mgr_lname}', mgr_account='${inputBody.mgr_account}', mgr_password='${inputBody.mgr_password}' where mgr_id=${inputId}; SET FOREIGN_KEY_CHECKS=1`;
+  let query = `SET FOREIGN_KEY_CHECKS=0; update club_mgr set mgr_fname='${inputBody.mgr_fname}', mgr_lname='${inputBody.mgr_lname}', mgr_account='${inputBody.mgr_account}', mgr_password='${inputBody.mgr_password}', mgr_email='${inputBody.mgr_email}', mgr_phone='${inputBody.mgr_phone}' where mgr_id=${inputId}; SET FOREIGN_KEY_CHECKS=1`;
   console.log(query);
   return new Promise((resolve, reject) => {
       pool.query(query, (err, results, fields) => {        

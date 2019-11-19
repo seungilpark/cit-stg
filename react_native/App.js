@@ -19,7 +19,10 @@ import AthlClubList from "./Components/AthlClubList";
 import Profile from "./Components/Profile";
 import ClubMgrProfile from "./Components/ClubMgrProfile";
 import ClubMatches from "./Components/ClubMatches"
-import PersonalDetailsPage from "./Components/PersonalDetailsPage";
+import ClubMgrPersonalDetails from "./Components/ClubMgrPersonalDetails";
+import ClubMgrContactDetails from "./Components/ClubMgrContactDetails";
+import AthletePersonalInfoEdit from "./Components/AthletePersonalInfoEdit";
+import AthleteContactDetails from "./Components/AthleteContactDetails";
 
 import ClubsCards from "./Components/ClubsCards";
 
@@ -172,6 +175,12 @@ const RootStack = createStackNavigator(
                 )
             })
         },
+        AthletePersonalInfoEdit: {
+            screen: AthletePersonalInfoEdit
+        },
+        AthleteContactDetails: {
+            screen: AthleteContactDetails
+        },
         // ProfilePageTest: {
         //     screen: ProfilePageTest,
         //     navigationOptions: ({ navigation }) => ({
@@ -286,8 +295,11 @@ const RootStack = createStackNavigator(
                 )
             })
         },
-        PersonalDetailsPage: {
-          screen: PersonalDetailsPage
+        ClubMgrContactDetails: {
+            screen: ClubMgrContactDetails
+        },
+        ClubMgrPersonalDetails: {
+          screen: ClubMgrPersonalDetails
         },
         AthlClubList: {
             screen: AthlClubList,

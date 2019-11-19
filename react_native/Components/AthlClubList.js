@@ -18,103 +18,37 @@ export default class AthlClubList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          matchedList:[
-          //       "athl_id": 1,
-          //       "club_id": 1,
-          //       "club_name": "Liverpool",
-          //       "country": "England",
-          //       "offer_amount": "1000000",
-          //       "offer_desc": "Goal Keeper for 6 years",
-          //       "offer_photo": "test",
-          //       "offer_position": "GK",
-          //       "offer_title": "Goal Keeper Contract",
-          //       'url':'kj'
-          //     },
-          //     {
-          //       "athl_id": 1,
-          //       "club_id": 2,
-          //       "club_name": "Manchester United",
-          //       "country": "England",
-          //       "offer_amount": "1000000",
-          //       "offer_desc": "Goal Keeper for 6 years",
-          //       "offer_photo": "test",
-          //       "offer_position": "GK",
-          //       "offer_title": "Goal Keeper Contract",
-          //       'url':'kj'
-          //     },
-          //     {
-          //       "athl_id": 1,
-          //       "club_id": 3,
-          //       "club_name": "Arsenal",
-          //       "country": "England",
-          //       "offer_amount": "1000000",
-          //       "offer_desc": "Goal Keeper for 6 years",
-          //       "offer_photo": "test",
-          //       "offer_position": "GK",
-          //       "offer_title": "Goal Keeper Contract",
-          //       'url':'kj'
-          //     },
-          //     {
-          //       "athl_id": 1,
-          //       "club_id": 4,
-          //       "club_name": "Arsenal",
-          //       "country": "England",
-          //       "offer_amount": "1000000",
-          //       "offer_desc": "Goal Keeper for 6 years",
-          //       "offer_photo": "test",
-          //       "offer_position": "GK",
-          //       "offer_title": "Goal Keeper Contract",
-          //       'url':'kj'
-          //     },
-          //     {
-          //       "athl_id": 1,
-          //       "club_id": 5,
-          //       "club_name": "Arsenal",
-          //       "country": "England",
-          //       "offer_amount": "1000000",
-          //       "offer_desc": "Goal Keeper for 6 years",
-          //       "offer_photo": "test",
-          //       "offer_position": "GK",
-          //       "offer_title": "Goal Keeper Contract",
-          //       'url':'kj'
-          //     },
-          //     {
-          //       "athl_id": 1,
-          //       "club_id": 6,
-          //       "club_name": "Arsenal",
-          //       "country": "England",
-          //       "offer_amount": "1000000",
-          //       "offer_desc": "Goal Keeper for 6 years",
-          //       "offer_photo": "test",
-          //       "offer_position": "GK",
-          //       "offer_title": "Goal Keeper Contract",
-          //       'url':'kj'
-              ],
+          matchedList:[],
             loading: true,
             showMe: true
         };
-
+        this.RegisterVar = this.RegisterVar.bind(this);
     }
 
-    // async componentDidMount(){
-    //     try {
-    //         var athl_id = 1;
-    //         const getList = await fetch('http://54.191.100.200:8080/api/matched/athlete/1');
+    RegisterVar(){
+      const { navigation } = this.props
+      const athl_id = navigation.getParam('mgr_id', 'none')
+    }
 
-    //         const clubList = await getList.json()
-    //         console.log(clubList,"Get list 1111111111111111");
-    //         //console.log(clubList.results, "Get List 2")
-    //         // clubList = clubImagePicker(clubList);
-    //         this.setState({matchedList : clubList, loading: false});
+    async componentDidMount(){
+        try {
+            var athl_id = 1;
+            const getList = await fetch('http://54.191.100.200:8080/api/matched/athlete/1');
+
+            const clubList = await getList.json()
+            console.log(clubList,"Get list 1111111111111111");
+            //console.log(clubList.results, "Get List 2")
+            // clubList = clubImagePicker(clubList);
+            this.setState({matchedList : clubList, loading: false});
             
-    //         // console.log(this.matchedList);
-    //         //console.log(matchedList)  
+            // console.log(this.matchedList);
+            //console.log(matchedList)  
             
 
-    //   } catch(error) {
-    //         console.log("Error fetching data", error);
-    //     };
-    //   }
+      } catch(error) {
+            console.log("Error fetching data", error);
+        };
+      }
 
     componentWillMount() {
       setTimeout(() => {
@@ -142,22 +76,23 @@ export default class AthlClubList extends React.Component {
     console.log(matchedList, "in render")
     if(!loading){
       return (
-        <ScrollView> {
+        <ScrollView>{
           matchedList.map((item, id) => {
             return (
-                <CardFlip style={ styles.cardContainer } ref={ (card) => this['card' + id] = card } >
-                  <TouchableOpacity key={item} style={ styles.card } onPress={() => this['card' + id].flip()} ><Image source ={clubImagePicker(this.state.matchedList)[id].url} style={styles.imageViewStyle}></Image></TouchableOpacity>
-                  <TouchableOpacity key={item} style={ styles.card } onPress={() => this['card' + id].flip()} >
-                    <Text style = {styles.TextStyle}>Club Name: {item.club_name}</Text>
-                    <Text style = {styles.TextStyle}>Location: {item.country}</Text>
-                    <Text style = {styles.TextStyle}>Position: {item.offer_position}</Text>
-                    <Text style = {styles.TextStyle}>Salary: {item.offer_amount}</Text>
+                <CardFlip style={ styles.cardContainer } ref={ (card) => this['card' + id] = card }>
+                  <TouchableOpacity key={item} style={ styles.card } onPress={() => this['card' + id].flip()}><Image source ={clubImagePicker(this.state.matchedList)[id].url} style={styles.imageViewStyle}></Image></TouchableOpacity>
+                  <TouchableOpacity key={item} style={ styles.card } onPress={() => this['card' + id].flip()}>
+                    <Text style = {styles.textStyle}>Club Name: {item.club_name}</Text>
+                    <Text style = {styles.textStyle}>Location: {item.country}</Text>
+                    <Text style = {styles.textStyle}>Position: {item.offer_position}</Text>
+                    <Text style = {styles.textStyle}>Salary: {item.offer_amount}</Text>
                   </TouchableOpacity>
                 </CardFlip>
             )
           })
           }</ScrollView>
-      )}return(
+      )}else {
+        return (
         <View style={{flex: 1, justifyContent: "center", alignItems: "center", alignSelf: "center"}}>
           {
             this.state.showMe ?
@@ -170,7 +105,8 @@ export default class AthlClubList extends React.Component {
           
         </View>
         )}
-    };
+    }
+  }
 
 const styles = StyleSheet.create({
 
@@ -220,8 +156,8 @@ const styles = StyleSheet.create({
     
     },
 
-    TextStyle:{
-      color:'black',
+    textStyle:{
+      color: "black",
       textAlign:'center',
       padding: 5,
       fontSize: 18,

@@ -30,6 +30,17 @@ router.get('/:mgrId', async (req, res) => {
     }
 })
 
+router.get('/account/:mgr_account', async (req, res) => {
+  try {
+      let mgr_account = req.params.mgr_account;
+      let row = await db.getManagerByUsername(mgr_account);
+      res.json(row);
+  }
+  catch(err) {
+      res.json(`{"Error": "True", "Message": ${err}, "Timestamp": ${dbHelper.now()}`);
+  }
+})
+
 router.post("/update/:id/", async (req, res) => {
     try {
       //console.log("IN DELETE FUNCTION");

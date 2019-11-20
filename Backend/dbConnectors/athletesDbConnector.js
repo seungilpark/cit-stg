@@ -148,7 +148,9 @@ const updateAthleteById = (inputBody, inputId) => {
   athl_phone='${inputBody.athl_phone}',
   athl_addr='${inputBody.athl_addr}',
   city='${inputBody.city}',
-  country='${inputBody.country}'
+  country='${inputBody.country}',
+  account='${inputBody.account}',
+  password='${inputBody.password}'
   where athl_id=${inputId}; SET FOREIGN_KEY_CHECKS=1`;
   console.log(query);
   return new Promise((resolve, reject) => {

@@ -102,7 +102,7 @@ Submit(){
           password: this.state.password
         }),
       });
-      this.props.navigation.navigate("Card")
+      this.props.navigation.navigate("Card", {mgr_account: this.state.mgr_account})
       console.log("Athlete Created.")
     }
     else if(checkPd == true && this.state.role === 'mgr'){
@@ -132,7 +132,7 @@ Submit(){
           
         }),
       })
-      this.props.navigation.navigate("ClubForMgr")
+      this.props.navigation.navigate("ClubForMgr", {mgr_account: this.state.mgr_account})
       console.log("Manager Created.")
     }else{
       this.setState({

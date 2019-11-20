@@ -10,9 +10,9 @@ export default class PersonalDetailsPage extends React.Component {
     constructor(props) {
         super(props);
         const {state} = props.navigation
-        console.log("Data", state.params.athl_fname)
+        console.log("Data", state.params.athl_id, state.params.athl_fname)
         this.state = {
-            athl_id: state.params.athl_id,
+            // athl_id: state.params.athl_id,
             athl_fname: state.params.athl_fname,
             athl_lname: state.params.athl_lname,
             athl_account: state.params.athl_account,
@@ -27,30 +27,34 @@ export default class PersonalDetailsPage extends React.Component {
 
     onSubmit() {
         console.log(this.state.athl_id)
-            fetch('http://54.191.100.200:8080/api/athletes/update/1', {
-            method: 'POST',
-            headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({athl_fname: this.state.athl_fname,athl_lname: this.state.athl_lname,athl_account: this.state.account,athl_password: this.state.password}),
-            })
-            .then((response) => response.json())
-            .then((responseJson) => {
+        athl_id = "";
+        console.log("in submit function",athl_id);
+            if(athl_id != null || athl_id != undefined){
+                fetch('http://54.191.100.200:8080/api/athletes/update/' + athl_id, {
+                method: 'POST',
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({athl_fname: this.state.athl_fname,athl_lname: this.state.athl_lname,athl_account: this.state.account,athl_password: this.state.password}),
+                })
+                .then((response) => response.json())
+                .then((responseJson) => {
 
-                console.log(responseJson)
-                Alert.alert(
-                    "Success",
-                    "Profile Updated!",
-                    [
-                        {
-                            text: "OK",
-                            onPress: () => this.props.navigation.navigate("AthleteProfile")
-                        }
-                    ],
-                    { cancelable: false }
-                );
-            })
+                    console.log(responseJson)
+                    Alert.alert(
+                        "Success",
+                        "Personal Information Updated!",
+                        [
+                            {
+                                text: "OK",
+                                onPress: () => this.props.navigation.navigate("AthleteProfile")
+                            }
+                        ],
+                        { cancelable: false }
+                    );
+                })
+        }
     }
 
 

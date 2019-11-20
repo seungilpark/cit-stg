@@ -17,7 +17,7 @@ export default class AthleteProfile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            athl_id: 45,
+            athl_id: this.props.navigation.getParam("athl_id"),
             data: [],
             data2: [],
 
@@ -25,11 +25,21 @@ export default class AthleteProfile extends React.Component {
             athl_phone: "",
             profile_photo_url: ""
         };
+        this.registerVar = this.registerVar.bind(this);
     }
+    registerVar() {
+        const { navigation } = this.props
+        const new_id = navigation.getParam('athl_id','none')
+        console.log(new_id);
+    
+        this.setState({
+          athl_id: new_id
+        })
+        console.log('id set to ' + this.state.athl_id);
+      }
 
     componentDidMount() {
-        athl_id = 1
-        fetch("http://54.191.100.200:8080/api/athletes/1")
+        fetch("http://54.191.100.200:8080/api/athletes/" + this.state.athl_id)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({ data: responseJson });
@@ -37,7 +47,7 @@ export default class AthleteProfile extends React.Component {
             .catch(error => {
                 console.error(error);
             });
-        fetch("http://54.191.100.200:8080/api/profiles/1")
+        fetch("http://54.191.100.200:8080/api/profiles/"+ this.state.athl_id)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({ data2: responseJson });

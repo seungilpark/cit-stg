@@ -134,14 +134,14 @@ export default class PersonalDetailsPage extends React.Component {
                     value={this.state.mgr_password}
                     />
                     </View>
-                        <View style={styles.buttonBar}>
-                            <TouchableHighlight disabled={this.state.disabledBtn} style= {styles.buttonBox2} onPress={() => {this.onPressEvent()}}>
-                                <View ><Text style={{textAlign: "center", color: "#FFF", opacity: 1}}>Cancel</Text></View>
-                            </TouchableHighlight>
-                            <TouchableHighlight disabled={this.state.disabledBtn} style={styles.buttonBox1}  onPress={() => {this.onSubmit()}}>
-                                <View ><Text style={{textAlign: "center", color: "#FFF", opacity: 1}}>Update</Text></View>
-                            </TouchableHighlight>
-                        </View>
+                    <View style={styles.buttonBar}>
+                        <TouchableHighlight disabled={this.state.disabledBtn} style= {styles.buttonBox2} onPress={() => {this.onPressEvent()}}>
+                            <View ><Text style={{textAlign: "center", color: "#FFF", opacity: 1}}>Cancel</Text></View>
+                        </TouchableHighlight>
+                        <TouchableHighlight disabled={this.state.disabledBtn} style={styles.buttonBox1}  onPress={() => {this.onSubmit()}}>
+                            <View ><Text style={{textAlign: "center", color: "#FFF", opacity: 1}}>Update</Text></View>
+                        </TouchableHighlight>
+                    </View>
                 </Card>
             </View>
         )

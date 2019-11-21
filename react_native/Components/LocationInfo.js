@@ -86,7 +86,7 @@ export default class SignUp extends React.Component {
             <Text>Choose a Country:</Text>
             <Picker
               selectedValue={this.state.country}
-              style={{ height: 30, width: 300 }}
+              style={{ height: 30, width: 300, top: '50%' }}
               onValueChange={(name, itemIndex) =>
                 this.setState({ country: name })
               }

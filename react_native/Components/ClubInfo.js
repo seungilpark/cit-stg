@@ -160,6 +160,7 @@ const styles = StyleSheet.create({
     margin: 2
     },
     pickerBox: {
+        top: '90%',
         height: 10,
         width: 250,
         margin: -5

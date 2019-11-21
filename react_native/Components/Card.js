@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import Swiper from 'react-native-deck-swiper'
-import { Button, StyleSheet, Text, View, Image, Linking, Alert, Platform, TouchableOpacity } from 'react-native'
+import { Modal, Button, StyleSheet, Text, View, Image, Linking, Alert, Platform, TouchableOpacity, TouchableHighlight, TouchableHighlightBase } from 'react-native'
 import {clubImagePicker} from "../utils/imagePicker"
-
 // demo purposes only
 // function * range (start, end) {
 //   for (let i = start; i <= end; i++) {
@@ -15,9 +14,7 @@ export default class Card extends Component {
     
     super(props)
     this.state = {
-
         athl_id: this.props.navigation.getParam("athl_id"),
-
         cards: [],
       // cards: [...range(1, 50)],
       swipedAllCards: false,
@@ -62,8 +59,6 @@ export default class Card extends Component {
     };
 
   getData() {
-    // this.registerVar();
-    console.log("inside of getData()", this.state.athl_id);
     return fetch('http://54.191.100.200:8080/api/recommendations/athlete/' + this.state.athl_id)
       .then((response) => response.json())
       .then((responseJson) => {
@@ -72,6 +67,7 @@ export default class Card extends Component {
 
         // not using offer_types, offer_length, fk_club_id
         new_arr = responseJson
+        // console.log(new_arr);
         console.log("ResponseJson ==", responseJson);
         this.setState({cards : clubImagePicker(new_arr)});
       })
@@ -81,7 +77,6 @@ export default class Card extends Component {
   }
 
   componentDidMount(){
-      // this.registerVar();
       this.getData();
       console.log('data loaded');
   }
@@ -96,10 +91,9 @@ export default class Card extends Component {
         <View  style={styles.card}>
           <Image
             style={{width: 270, height: 270, resizeMode: 'contain', backgroundColor: 'transparent'}}
-            source={card.url}
+            source={{uri: 'https://i.pinimg.com/564x/02/43/ee/0243ee0e6e658df20f3393a30e2d6747.jpg'}}
           />
           <Text></Text>
-
           <Text style={{textAlign: 'center', fontSize: 30,backgroundColor: 'transparent'}}>${card.offer_amount}</Text>
           <Text></Text>
           <Text></Text>
@@ -109,15 +103,14 @@ export default class Card extends Component {
           <TouchableOpacity onPress = {this.callNumber}>
             <Text style={styles.text}>{card.club_contact}</Text>
           </TouchableOpacity>
-          
+            
           <Text style={{color: 'blue', textAlign: 'center', fontSize: 20, backgroundColor: 'transparent'}}
             onPress={() => Linking.openURL('http://www.google.com/' + card.club_url)}>
             {card.club_url}
           </Text>
-          
+            
           <Text style={styles.text}>{card.offer_desc}</Text>
           <Text style={styles.text}>Title: {card.offer_title}</Text>
-          
         </View>
       )
     }
@@ -173,7 +166,6 @@ export default class Card extends Component {
   // };
 
   render () {
-    // this.registerVar();
     return (
       <View style={styles.container}>
         <Swiper
@@ -182,7 +174,7 @@ export default class Card extends Component {
 
             
           }}
-          backgroundColor={'#3ad289'}
+          backgroundColor={'white'}
           infinite = {false}
           useViewOverflow={Platform.OS === 'ios'}
           // onSwiped={() => this.onSwiped('general')}
@@ -194,7 +186,8 @@ export default class Card extends Component {
           // onTapCard={this.swipeLeft}
           cards={this.state.cards}
           // cardIndex={this.state.cardIndex}
-          cardVerticalMargin={80}
+          marginBottom={110}
+          cardVerticalMargin={30}
           renderCard={this.renderCard}
           onSwipedAll={this.onSwipedAllCards}
           stackSize={3}
@@ -217,11 +210,11 @@ export default class Card extends Component {
             //   }
             // },
             left: {
-              title: 'NOPE',
+              title: 'PASS',
               style: {
                 label: {
-                  backgroundColor: 'grey',
-                  borderColor: 'grey',
+                  backgroundColor: '#FA4E3B',
+                  borderColor: '#FA4E3B',
                   color: 'white',
                   borderWidth: 1
                 },
@@ -238,8 +231,8 @@ export default class Card extends Component {
               title: 'LIKE',
               style: {
                 label: {
-                  backgroundColor: '#FA4E3B',
-                  borderColor: '#FA4E3B',
+                  backgroundColor: '#3AD289',
+                  borderColor: '#3AD289',
                   color: 'white',
                   borderWidth: 1
                 },
@@ -273,8 +266,14 @@ export default class Card extends Component {
           animateCardOpacity
           swipeBackCard
         >
-          <Button onPress={() => this.swiper.swipeBack()} title='Swipe Back' />
         </Swiper>
+        <TouchableHighlight
+          style={styles.button}
+          onPress={() => this.swiper.swipeBack()}
+          >
+          <Text style={styles.btnText}> Swipe Back </Text>
+          </TouchableHighlight>
+      
       </View>
     )
   }
@@ -283,7 +282,7 @@ export default class Card extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFD0E9'
+    backgroundColor: 'white'
   },
   card: {
     flex: 1,
@@ -304,5 +303,22 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: 'white',
     backgroundColor: 'transparent'
-  }
+  },
+  btnText: {
+    fontSize: 24,
+    opacity: 1,
+    color: "#fff",
+  },
+  button: {
+    opacity: 0.7,
+    backgroundColor: "#3AD289",
+    width: "57%",
+    padding: 13,
+    marginLeft: "21%",
+    marginTop: 545,
+    borderRadius: 2,
+    justifyContent: "center",
+    alignItems: "center",
+},
+
 })

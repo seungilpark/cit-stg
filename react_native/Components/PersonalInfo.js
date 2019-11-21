@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TextInput, ScrollView, KeyboardAvoidingView, Picker } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView, KeyboardAvoidingView, Picker, TouchableHighlight } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 // import { ScrollView } from 'react-native-gesture-handler';
 
@@ -119,34 +119,33 @@ checkEmpty(){
       <View style={styles.container}>
         <KeyboardAvoidingView
       style={styles.container}
-      behavior="padding"
     >
         <ScrollView>
-        <Text>Sign Up Page</Text>
+        <Text style={styles.pageText}> PERSONAL INFO</Text>
         <Text>{this.state.alert}</Text>
 
         <TextInput
-          style={styles.textBox}
+          style={styles.placeHolderText}
           placeholder="First Name"
           onChangeText={(fname) => this.setState({fname})}
           value={this.state.fname}
         />
 
         <TextInput
-          style={styles.textBox}
+          style={styles.placeHolderText}
           placeholder="Last Name"
           onChangeText={(lname) => this.setState({lname})}
           value={this.state.lname}
         />
         <TextInput
-          style={styles.textBox}
+          style={styles.placeHolderText}
           placeholder="Gender"          
           onChangeText={(gender) => this.setState({gender})}
           value={this.state.gender}
         />
         
         <TextInput
-          style={styles.textBox}
+          style={styles.placeHolderText}
           placeholder="Date of Birth: yyyy/mm/dd"
           onChangeText={(dob) => this.setState({dob})}
           value={this.state.dob}
@@ -154,35 +153,35 @@ checkEmpty(){
         
             
         <TextInput
-          style={styles.textBox}
+          style={styles.placeHolderText}
           placeholder="Height"
           onChangeText={(height) => this.setState({height})}
           value={this.state.height}
         />
             
         <TextInput
-          style={styles.textBox}
+          style={styles.placeHolderText}
           placeholder="Weight"
           onChangeText={(weight) => this.setState({weight})}
           value={this.state.weight}
         />
-       
-
-
-       <Button 
-        title = 'Location Info'
-        onPress={() => {
-            this.props.navigation.navigate('LocationInfo', {
-                role: role,
-                fname: this.state.fname,
-                lname: this.state.lname,
-                gender: this.state.gender,
-                dob: this.state.dob,
-                addr: this.state.addr,
-                height: this.state.height,
-                weight: this.state.weight});
-        }}/>
-        
+          
+        <TouchableHighlight
+                        style={styles.button}
+                        onPress={() => {
+                          this.props.navigation.navigate('LocationInfo', {
+                              role: role,
+                              fname: this.state.fname,
+                              lname: this.state.lname,
+                              gender: this.state.gender,
+                              dob: this.state.dob,
+                              addr: this.state.addr,
+                              height: this.state.height,
+                              weight: this.state.weight});
+                      }}
+                    >
+                        <Text style={styles.btnText}> LOCATION INFO </Text>
+        </TouchableHighlight>     
         </ScrollView>
         </KeyboardAvoidingView>
       </View>
@@ -195,17 +194,56 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
   },
+  btnText: {
+    fontSize: 24,
+    opacity: 1,
+    color: "#fff",
+},
+  button: {
+    opacity: 0.7,
+    backgroundColor: "#3AD289",
+    width: "90%",
+    padding: 14,
+    top: "10%",
+    marginTop: 80,
+    marginBottom: 28,
+    borderRadius: 2
+},
+  pageText: {
+    // position: "relative",
+    // bottom: "25%",
+    // backgroundColor: "#ffbf00",
+    marginBottom: 90,
+    color: "#3AD289",
+    fontSize: 32,
+    alignItems: "center",
+    padding: 4,
+    marginTop: 10,
+},
   textBox: {
     height: 40,
     width: 250,
     borderColor: 'gray',
     borderWidth: 1,
-    margin: 2
+    margin: 2,
     },
     scrollView: {
       backgroundColor: 'pink',
       marginHorizontal: 20,
     },
+    placeHolderText: {
+      // position: "relative",
+      // bottom: "25%",
+      backgroundColor: "white",
+      alignContent: "center",
+      height: "4%",
+      width: 300,
+      fontSize: 18,
+      borderBottomWidth: 1,
+      marginBottom: 20,
+      borderColor: "#C4C4C4",
+      opacity: 1,
+      color: "black"
+  }
 });

@@ -129,7 +129,6 @@ export default class FirstPage extends React.Component {
                             Club Manager Profile{" "}
                         </Text>
                     </TouchableHighlight>
-
                     <TouchableHighlight
                         style={styles.button}
                         onPress={() => {

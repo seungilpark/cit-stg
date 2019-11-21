@@ -5,25 +5,38 @@ import {
     TouchableOpacity,
     Text,
     View,
-    Button,
     ScrollView,
-    Image
+    Image,
+    TouchableHighlight
 } from "react-native";
+import { AppLoading, Font } from "expo";
 import { NavigationEvents, StackNavigator } from "react-navigation";
+import { Card } from "react-native-elements";
 
 export default class AthleteProfile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            athl_id: "",
+            athl_id: this.props.navigation.getParam("athl_id"),
             data: [],
             data2: [],
 
             athl_email: "",
             athl_phone: "",
-            profile_photo_url: "test"
+            profile_photo_url: ""
         };
+        this.registerVar = this.registerVar.bind(this);
     }
+    registerVar() {
+        const { navigation } = this.props
+        const new_id = navigation.getParam('athl_id','none')
+        console.log(new_id);
+    
+        this.setState({
+          athl_id: new_id
+        })
+        console.log('id set to ' + this.state.athl_id);
+      }
 
     componentDidMount() {
         fetch("http://54.191.100.200:8080/api/athletes/" + this.state.athl_id)
@@ -34,7 +47,7 @@ export default class AthleteProfile extends React.Component {
             .catch(error => {
                 console.error(error);
             });
-        fetch("http://54.191.100.200:8080/api/profiles" + this.state.athl_id)
+        fetch("http://54.191.100.200:8080/api/profiles/"+ this.state.athl_id)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({ data2: responseJson });
@@ -56,12 +69,40 @@ export default class AthleteProfile extends React.Component {
                 },
                 {
                     text: "OK",
-                    onPress: () => this.props.navigation.navigate("FirstPage")
+                    onPress: () => this.props.navigation.navigate("MainApp")
                 }
             ],
             { cancelable: false }
         );
     }
+
+    // onPressEvent1() {
+    //     Alert.alert(
+    //         "Edit",
+    //         "Editing Contact Information",
+    //         [
+    //             {
+    //                 text: "OK",
+    //                 onPress: () => console.log("Okay Pressed")
+    //             }
+    //         ],
+    //         { cancelable: false }
+    //     );
+    // }
+
+    // onPressEvent2() {
+    //     Alert.alert(
+    //         "Edit",
+    //         "Editing Personal Information",
+    //         [
+    //             {
+    //                 text: "OK",
+    //                 onPress: () => this.navigation.navigate("AthletePersonalInfoEdit")
+    //             }
+    //         ],
+    //         { cancelable: false }
+    //     );
+    // }
 
     render() {
         if (this.state.data.length == 0 || this.state.data2.length == 0) {
@@ -75,155 +116,60 @@ export default class AthleteProfile extends React.Component {
         );
         return (
             <ScrollView style={styles.container}>
-                <Image
-                    style={styles.topimage}
-                    source={{
-                        uri:
-                            "https://3.bp.blogspot.com/-VAZP5k19wlI/XG1bDAq1bkI/AAAAAAAALJ8/Un1KDXjJiuM0N3b-SMxRj4oeRDst_OFMACHMYCw/s1600/best-100-free-background-images-hd-download-your-next.jpg"
-                    }}
-                />
-
-                <Image
-                    style={styles.playerphoto}
-                    source={{
-                        uri:
-                            this.state.profile_photo_url !== ""
-                                ? "http://shaqodoon.org/wp-content/uploads/blanl-image-shaqodoon.png"
-                                : this.state.data2[0].profile_photo
-                    }}
-                />
-
-                <Text
-                    style={{
-                        marginTop: 10,
-                        fontSize: 20,
-                        textAlign: "center",
-                        color: "red"
-                    }}
+                {/* <TouchableHighlight
+                    style={styles.BackButton}
+                    onPress={() => this.props.navigation.navigate("FirstPage")}
                 >
-                    Hello
-                </Text>
-                <Text
-                    style={{
-                        marginTop: 12,
-                        textAlign: "center",
-                        color: "red"
-                    }}
-                >
-                    {this.state.data[0].athl_fname}{" "}
-                    {this.state.data[0].athl_lname}
-                </Text>
-                <Text></Text>
-
-                <Text
-                    style={{
-                        marginTop: 35,
-                        marginLeft: 35,
-                        color: "#7C7C95"
-                    }}
-                >
-                    Email
-                </Text>
-
-                <Text style={styles.infoUnder}>
-                    {this.state.data[0].athl_email}
-                </Text>
-
-                <Text style={styles.infoAbove}>Contact Number</Text>
-                <Text style={styles.infoUnder}>
-                    {this.state.data[0].athl_phone}
-                </Text>
-
-                <TouchableOpacity
-                    onPress={() => {
-                        this.props.navigation.navigate("PersonalDetailsPage");
-                    }}
-                >
-                    <View
-                        style={{
-                            backgroundColor: "white",
-                            alignItems: "flex-start",
-                            justifyContent: "center",
-                            height: 80,
-                            width: 300,
-                            marginTop: 40,
-                            marginLeft: 35,
-                            borderColor: "#F6F6F9",
-                            borderTopWidth: 2,
-                            borderTopStyle: "solid"
-                        }}
-                    >
-                        <Text style={{ color: "#7C7C95" }}>
-                            Personal Details >
-                        </Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={this.onPressButton2}>
-                    <View
-                        style={{
-                            backgroundColor: "white",
-                            alignItems: "flex-start",
-                            justifyContent: "center",
-                            height: 80,
-                            width: 300,
-                            marginLeft: 35,
-                            borderColor: "#F6F6F9",
-                            borderTopWidth: 2,
-                            borderTopStyle: "solid"
-                        }}
-                    >
-                        <Text style={{ color: "#7C7C95" }}>
-                            Medical Details >
-                        </Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={this.onPressButton3}>
-                    <View
-                        style={{
-                            backgroundColor: "white",
-                            alignItems: "flex-start",
-                            justifyContent: "center",
-                            height: 80,
-                            width: 300,
-                            marginLeft: 35,
-                            borderColor: "#F6F6F9",
-                            borderTopWidth: 2,
-                            borderTopStyle: "solid"
-                        }}
-                    >
-                        <Text style={{ color: "#7C7C95" }}>Statistics ></Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={this.onPressButton4}>
-                    <View
-                        style={{
-                            backgroundColor: "white",
-                            alignItems: "flex-start",
-                            justifyContent: "center",
-                            height: 80,
-                            width: 300,
-                            marginLeft: 35,
-                            borderColor: "#F6F6F9",
-                            borderTopWidth: 2,
-                            borderTopStyle: "solid"
-                        }}
-                    >
-                        <Text style={{ color: "#7C7C95" }}>Settings ></Text>
-                    </View>
-                </TouchableOpacity>
-                {/* <TouchableOpacity>
-                    <View style={styles.button2}>
-                        <Button
-                            flexDirection="row-reverse"
-                            title="Sign Out"
-                            onPress={() => this.onPressEvent()}
+                    <Text style={styles.BackBtnText}>Menu</Text>
+                </TouchableHighlight> */}
+                <View>
+                    <Card containerStyle={styles.playerphotoCard}>
+                        {/* <Image
+                            style={styles.playerphoto}
+                            source={{
+                                uri:
+                                    this.state.profile_photo_url !== ""
+                                        ? "https://therefreshedhome.com/wp-content/uploads/2017/09/garage-full-of-stuff.jpg"
+                                        : this.state.data2[0].profile_photo
+                            }}
+                        /> */}
+                        <Image
+                            source={require("../assets/stockMgr.jpg")}
+                            style={styles.playerphoto}
                         />
-                    </View>
-                </TouchableOpacity> */}
-
-                <TouchableOpacity onPress={() => this.onPressEvent()}>
-                    <Text style={styles.button}>Sign Out</Text>
-                </TouchableOpacity>
+                    </Card>
+                    <Card containerStyle={styles.cardStyle1}>
+                        <View style={{ marginTop: 70 }}><Text style={{fontSize: 15, fontWeight: "bold", textAlign: "center", color: "#3AD289"}}>Welcome</Text><Text style={{textAlign: "center", color: "black", fontSize: 25, fontWeight: "bold"}}>{this.state.data[0].athl_fname}{" "}{this.state.data[0].athl_lname}</Text></View>
+                    </Card>
+                </View>
+                <View>
+                    <Card containerStyle={styles.cardStyle2}>
+                        <View style={styles.row}><Text style={{fontSize: 15, fontWeight: "bold", bottom: 5}}>Contact Information</Text><TouchableOpacity onPress={() => this.props.navigation.navigate("AthleteContactDetails", {athl_id : this.state.data[0].athl_id, athl_email: this.state.data[0].athl_email, athl_phone: this.state.data[0].athl_phone})}>
+                        <Image style={styles.editIconStyle} source={require("../assets/editIcon.png")}/></TouchableOpacity></View>
+                        <View><Text style={{fontSize: 12,fontWeight: "bold",paddingTop: 5}}>Email</Text><Text style={{ fontSize: 12, color: "grey" }}>{this.state.data[0].athl_email}</Text><Text style={{fontSize: 12,fontWeight: "bold",paddingTop: 5}}>Phone Number</Text><Text style={{ fontSize: 12, color: "grey" }}>{this.state.data[0].athl_phone}</Text></View>
+                    </Card>
+                </View>
+                <View>
+                    <Card containerStyle={styles.cardStyle3}>
+                        <View style={styles.row}><Text style={{fontSize: 15,fontWeight: "bold",bottom: 5}}>Personal Information</Text>
+                            <TouchableOpacity
+                                onPress={() => this.props.navigation.navigate("AthletePersonalInfoEdit", {
+                                        athl_id : this.state.data[0].athl_id,
+                                        athl_fname: this.state.data[0].athl_fname,
+                                        athl_lname: this.state.data[0].athl_lname,
+                                        account: this.state.data[0].account,
+                                        password: this.state.data[0].password
+                                        })}>
+                                <Image
+                                    style={styles.editIconStyle}
+                                    source={require("../assets/editIcon.png")}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        <View><Text style={{fontSize: 12, fontWeight: "bold", paddingTop: 10}}>First Name</Text><Text style={{ fontSize: 12, color: "grey" }}>{this.state.data[0].athl_fname}</Text><Text style={{fontSize: 12, fontWeight: "bold", paddingTop: 10}}>Last Name</Text><Text style={{ fontSize: 12, color: "grey" }}>{this.state.data[0].athl_lname}</Text><Text style={{ fontSize: 12, fontWeight: "bold", paddingTop: 10}}>Account Name</Text><Text style={{ fontSize: 12, color: "grey" }}>{this.state.data[0].account}</Text><Text style={{fontSize: 12, fontWeight: "bold", paddingTop: 10}}>Password</Text><Text style={{ fontSize: 12, color: "grey" }}>{this.state.data[0].password}</Text></View>
+                    </Card>
+                </View>
+                <TouchableHighlight style={styles.signOutButton} onPress={() => this.onPressEvent()}><Text style={styles.btnText}>Sign Out</Text></TouchableHighlight>
             </ScrollView>
         );
     }
@@ -232,66 +178,117 @@ export default class AthleteProfile extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#fff"
+        flexDirection: "column",
+        backgroundColor: "white"
     },
-    topimage: {
-        flex: 1,
+    playerphotoCard: {
+        borderRadius: 150 / 2,
+        width: 150,
+        height: 150,
+        marginTop: 10,
         position: "absolute",
-        marginLeft: "auto",
-        marginRight: "auto",
-        width: "100%",
-        height: 250
+        zIndex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        alignSelf: "center",
+        shadowOffset: { width: 0, height: 1 },
+        shadowColor: "black",
+        shadowOpacity: 0.4,
+        shadowRadius: 1,
+        elevation: 5,
+        backgroundColor: "#3AD289"
     },
     playerphoto: {
-        borderRadius: 75,
-        zIndex: 1,
-        marginTop: 25,
-        marginLeft: "auto",
-        marginRight: "auto",
+        borderWidth: 5,
+        borderColor: "black",
+        borderRadius: 150 / 2,
         width: 150,
-        height: 150
+        height: 150,
+        zIndex: 2,
+        justifyContent: "center",
+        alignItems: "center",
+        alignSelf: "center"
     },
-    boxtext: {
-        textAlign: "center",
-        color: "white"
+
+    cardStyle1: {
+        backgroundColor: "white",
+        borderRadius: 5,
+        marginTop: 70,
+        width: "95%",
+        height: 175,
+        justifyContent: "center",
+        alignItems: "center",
+        alignSelf: "center",
+        shadowOffset: { width: 0, height: 2 },
+        shadowColor: "black",
+        shadowOpacity: 0.4,
+        shadowRadius: 2,
+        elevation: 5
     },
-    infoAbove: {
-        marginTop: 25,
-        marginLeft: 35,
-        color: "#7C7C95"
+    cardStyle2: {
+        backgroundColor: "white",
+        borderRadius: 5,
+        marginTop: 10,
+        width: "95%",
+        height: 150,
+        alignSelf: "center",
+        shadowOffset: { width: 0, height: 2 },
+        shadowColor: "black",
+        shadowOpacity: 0.4,
+        shadowRadius: 2,
+        elevation: 5
     },
-    infoUnder: {
-        marginLeft: 35,
-        color: "#6B6B6B"
+    cardStyle3: {
+        backgroundColor: "white",
+        borderRadius: 5,
+        marginTop: 10,
+        width: "95%",
+        height: 250,
+        alignSelf: "center",
+        shadowOffset: { width: 0, height: 2 },
+        shadowColor: "black",
+        shadowOpacity: 0.4,
+        shadowRadius: 2,
+        elevation: 5,
+        marginBottom: 10
     },
-    button: {
+    editIconStyle: {
+        width: 15,
+        height: 15,
+        bottom: 5,
+        top: 2
+    },
+    row: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        borderBottomWidth: 0.5,
+        borderBottomColor: "lightgrey",
+        bottom: 10
+    },
+
+    btnText: {
+        fontSize: 24,
+        opacity: 1,
+        color: "#fff"
+    },
+    signOutButton: {
+        alignSelf: "center",
+        opacity: 0.7,
+        backgroundColor: "#3AD289",
+        width: "45%",
+        padding: 14,
+        alignItems: "center",
+        bottom: "10%",
+        alignItems: "center",
+        marginTop: 80,
+        marginBottom: 28,
+        borderRadius: 2
+    },
+    backgroundImage: {
         flex: 1,
-        flexDirection: "row-reverse",
-        top: 10,
-        right: 32,
-        borderRadius: 50
-        // shadowOffset:{  width: 0,  height: 12,  },
-        // shadowColor: 'black',
-        // shadowOpacity: 1.0,
-        // shadowRadius: 11,
-    },
-    // button2: {
-    //     flex: 1,
-    //     flexDirection: "row-reverse",
-    //     bottom: 10,
-    //     right: 32,
-    //     borderRadius: 50
-    // },
-    button: {
-        backgroundColor: "#2DC5F6",
-        borderColor: "white",
-        borderWidth: 1,
-        borderRadius: 12,
-        color: "#7C7C95",
-        fontSize: 16,
-        fontWeight: "bold",
-        overflow: "hidden",
-        padding: 12,
-        textAlign: "center"
+        width: "100%",
+        height: "100%",
+        resizeMode: "contain",
+        alignItems: "center"
     }
 });

@@ -7,10 +7,9 @@ import {
     TextInput,
     Picker,
     Image,
-    TouchableOpacity
+    TouchableHighlight
 } from "react-native";
 import { NavigationEvents } from "react-navigation";
-
 export default class SignIn extends React.Component {
     constructor(props) {
         super(props);
@@ -88,6 +87,24 @@ export default class SignIn extends React.Component {
             // console.log(result);
         });
     }
+    // onPressEvent() {
+    //     Alert.alert(
+    //         "Sign Out ",
+    //         "Are you sure you want to sign out?",
+    //         [
+    //             {
+    //                 text: "Cancel",
+    //                 onPress: () => console.log("Cancel Pressed"),
+    //                 style: "cancel"
+    //             },
+    //             {
+    //                 text: "OK",
+    //                 onPress: () => this.props.navigation.navigate("MainApp")
+    //             }
+    //         ],
+    //         { cancelable: false }
+    //     );
+    // }
 
     render() {
         return (
@@ -96,18 +113,24 @@ export default class SignIn extends React.Component {
                     source={require("../assets/signIn.jpg")}
                     style={styles.pic}
                 /> */}
-                <Text style={styles.headText}>Sign In</Text>
-                <Text style={styles.pageText}>User Name</Text>
+                <TouchableHighlight
+                    style={styles.BackButton}
+                    onPress={() => this.props.navigation.navigate("MainApp")}
+                >
+                    <Text style={styles.BackBtnText}>Menu</Text>
+                </TouchableHighlight>
+
+                <Text style={styles.pageText}>LOGIN</Text>
                 <TextInput
                     style={styles.placeHolderText}
-                    placeholder="Type here"
+                    placeholder="Username"
                     onChangeText={username => this.setState({ username })}
                     value={this.state.username}
                 />
-                <Text style={styles.pageText}>Password</Text>
                 <TextInput
+                    secureTextEntry={true}
                     style={styles.placeHolderText}
-                    placeholder="Type here"
+                    placeholder="Password"
                     onChangeText={password => this.setState({ password })}
                     value={this.state.password}
                 />
@@ -119,26 +142,20 @@ export default class SignIn extends React.Component {
                         this.setState({ role: itemValue })
                     }
                 >
-                    <Picker.Item label="Athlete" value="ath" color="white" />
+                    <Picker.Item label="Athlete" value="ath" color="black" />
                     <Picker.Item
                         label="Club Manager"
                         value="mgr"
-                        color="white"
+                        color="black"
                     />
                 </Picker>
 
-                {/* <Button
-                    title="Submit"
-                    color="white"
+                <TouchableHighlight
+                    style={styles.button}
                     onPress={(onPress = this.Validation)}
-                /> */}
-
-                <TouchableOpacity onPress={this.Validation}>
-                    <Text style={styles.button}>Submit</Text>
-                </TouchableOpacity>
-                {/* <TouchableOpacity onPress={this.handlPress}>
-                    <Text style={styles.button}>Click Me!</Text>
-                </TouchableOpacity> */}
+                >
+                    <Text style={styles.btnText}> Submit </Text>
+                </TouchableHighlight>
             </View>
         );
     }
@@ -147,7 +164,7 @@ export default class SignIn extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#3AD289",
+        backgroundColor: "#ffffff",
         alignItems: "center",
         justifyContent: "center"
     },
@@ -158,46 +175,59 @@ const styles = StyleSheet.create({
         height: "100%",
         resizeMode: "stretch"
     },
-    pageText: {
-        bottom: "25%",
-        // backgroundColor: "#ffbf00",
-        color: "white",
-        width: "35%",
-        fontSize: 18,
-        padding: 4,
-        margin: 4,
-        fontWeight: "bold"
-    },
-    headText: {
-        bottom: "25%",
-        color: "white",
-        width: "35%",
-        fontSize: 40,
-        padding: 4,
-        margin: 4,
-        fontWeight: "bold"
-    },
-    placeHolderText: {
-        bottom: "25%",
-        backgroundColor: "white",
-        height: "4%",
-        width: "50%",
-        fontSize: 18,
-        fontWeight: "bold",
+    btnText: {
+        fontSize: 24,
         opacity: 1,
-        color: "black",
-        alignItems: "center"
+        color: "#fff"
+    },
+    pageText: {
+        // position: "relative",
+        // bottom: "25%",
+        // backgroundColor: "#ffbf00",
+        marginBottom: 70,
+        color: "#3AD289",
+        fontSize: 32,
+        padding: 4,
+        margin: 4
     },
     button: {
-        backgroundColor: "#7C7C95",
-        borderColor: "white",
-        borderWidth: 1,
-        borderRadius: 12,
-        color: "white",
-        fontSize: 16,
-        fontWeight: "bold",
-        overflow: "hidden",
-        padding: 12,
-        textAlign: "center"
+        opacity: 0.7,
+        backgroundColor: "#3AD289",
+        width: "57%",
+        padding: 14,
+        alignItems: "center",
+        top: "10%",
+        marginTop: 80,
+        marginBottom: 28,
+        borderRadius: 2
+    },
+    BackButton: {
+        opacity: 0.7,
+        backgroundColor: "#3AD289",
+        width: "16%",
+        // height: "6%",
+        padding: 14,
+        alignItems: "center",
+        bottom: "18%",
+        right: "40%",
+        borderRadius: 2
+    },
+    BackBtnText: {
+        fontSize: 14,
+        opacity: 1,
+        color: "#fff"
+    },
+    placeHolderText: {
+        // position: "relative",
+        // bottom: "25%",
+        backgroundColor: "white",
+        height: "4%",
+        width: "75%",
+        fontSize: 18,
+        borderBottomWidth: 1,
+        marginBottom: 20,
+        borderColor: "#C4C4C4",
+        opacity: 1,
+        color: "black"
     }
 });

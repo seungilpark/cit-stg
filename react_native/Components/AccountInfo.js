@@ -231,12 +231,14 @@ checkEmpty(){
               <Picker.Item label="AM" value="AM" />
             </Picker>
 
+
         <TouchableHighlight
                         style={styles.button}
                         onPress={() => this.Submit()}
                     >
                         <Text style={styles.btnText}> SUBMIT </Text>
-                </TouchableHighlight>    
+        </TouchableHighlight>    
+
         
         </ScrollView>
         </KeyboardAvoidingView>

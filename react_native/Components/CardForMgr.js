@@ -16,7 +16,7 @@ export default class CardForMgr extends Component {
     
     super(props)
     this.state = {
-        club_id : 1,
+        club_id : 2,
         cards: [],
       swipedAllCards: false,
       swipeDirection: '',

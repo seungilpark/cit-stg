@@ -10,10 +10,26 @@ import { NavigationEvents } from "react-navigation";
 // import { ScrollView } from 'react-native-gesture-handler';
 
 export default class AccountType extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
+   
+  constructor(props) {
+    super(props);
+    this.state = {
+        role: 'ath'
+        
+    };
+    this.checkType = this.checkType.bind(this);
+
+}
+
+checkType() {
+  
+  if(this.state.role == "ath"){
+    this.props.navigation.navigate('PersonalInfo', {role: this.state.role});
+
+  }else if (this.state.role == "mgr"){
+    this.props.navigation.navigate('MgrInfo', {role: this.state.role});
+  }
+}
 
     render() {
         return (

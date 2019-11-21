@@ -63,6 +63,11 @@ RegisterVar(){
     city: city,
     country: country
   })
+  console.log("in RegisterVar: ", this.state.role);
+}
+
+componentDidMount(){
+  this.RegisterVar();
 }
 
 Submit(){
@@ -73,6 +78,7 @@ Submit(){
     checkPd = this.verPd();
     console.log(checkPd);
     addVar = this.RegisterVar();
+    console.log("in submit: ", checkPd, this.state.role);
     if(checkPd == true && this.state.role === 'ath'){
       console.log("in Submit() for athl", this.state);
 
@@ -104,6 +110,7 @@ Submit(){
         console.log(responseJson)
         console.log(responseJson.status)
           const id = responseJson[0].athl_id;
+
           console.log(id)
           this.props.navigation.navigate("Card", {
               athl_id: id

@@ -131,9 +131,17 @@ Submit(){
           mgr_password: this.state.password,
           
         }),
-      })
-      this.props.navigation.navigate("ClubForMgr", {mgr_account: this.state.mgr_account})
-      console.log("Manager Created.")
+      }).then(response => response.json())
+      .then((responseJson) => {
+        console.log("Manager Created.")
+        console.log(responseJson)
+        console.log(responseJson.status)
+          const id = responseJson[0].mgr_id;
+          console.log(id)
+          this.props.navigation.navigate("Card", {
+              mgr_id: id
+          });
+        });
     }else{
       this.setState({
         alert: "Please confirm your password."

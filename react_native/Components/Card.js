@@ -10,20 +10,28 @@ import {clubImagePicker} from "../utils/imagePicker"
 // }
 
 export default class Card extends Component {
+  
+                            
+                          
+    
+
   constructor (props) {
     
     super(props)
     this.state = {
         athl_id: this.props.navigation.getParam("athl_id"),
         cards: [],
+        emptyRec: false,
       // cards: [...range(1, 50)],
       swipedAllCards: false,
       swipeDirection: '',
+      
     //   cardIndex: 0
     }
     this.getData = this.getData.bind(this);
     this.callNumber = this.callNumber.bind(this);
     this.registerVar = this.registerVar.bind(this);
+    
   }
 
   registerVar() {
@@ -69,7 +77,13 @@ export default class Card extends Component {
         new_arr = responseJson
         // console.log(new_arr);
         console.log("ResponseJson ==", responseJson);
-        this.setState({cards : clubImagePicker(new_arr)});
+        if(Object.entries(responseJson).length != 0){
+          this.setState({cards : clubImagePicker(new_arr)});
+        }else{
+          this.setState({
+            emptyRec: true
+          })
+        }
       })
       .catch((error) => {
         console.error(error);
@@ -83,6 +97,7 @@ export default class Card extends Component {
 
 
   renderCard = (card) => {
+    
     // console.log(this.state.cards);
     if (card === undefined){
 
@@ -165,117 +180,127 @@ export default class Card extends Component {
   // };
 
   render () {
-    return (
-      <View style={styles.container}>
-        <Swiper
-          ref={swiper => {
-            this.swiper = swiper
-
-            
-          }}
-          backgroundColor={'white'}
-          infinite = {false}
-          useViewOverflow={Platform.OS === 'ios'}
-          // onSwiped={() => this.onSwiped('general')}
-          // onPress={(event)=>this._selectedItem(item.text)}
-          onSwipedLeft={(event) => this.onSwiped(event, "left")}
-          onSwipedRight={(event) => this.onSwiped(event, "right")}
-          // onSwipedTop={() => this.onSwiped('top')}
-          // onSwipedBottom={() => this.onSwiped('bottom')}
-          // onTapCard={this.swipeLeft}
-          cards={this.state.cards}
-          // cardIndex={this.state.cardIndex}
-          marginBottom={110}
-          cardVerticalMargin={30}
-          renderCard={this.renderCard}
-          onSwipedAll={this.onSwipedAllCards}
-          stackSize={3}
-          stackSeparation={15}
-          overlayLabels={{
-            // bottom: {
-            //   title: 'BLEAH',
-            //   style: {
-            //     label: {
-            //       backgroundColor: 'black',
-            //       borderColor: 'black',
-            //       color: 'white',
-            //       borderWidth: 1
-            //     },
-            //     wrapper: {
-            //       flexDirection: 'column',
-            //       alignItems: 'center',
-            //       justifyContent: 'center'
-            //     }
-            //   }
-            // },
-            left: {
-              title: 'PASS',
-              style: {
-                label: {
-                  backgroundColor: '#FA4E3B',
-                  borderColor: '#FA4E3B',
-                  color: 'white',
-                  borderWidth: 1
-                },
-                wrapper: {
-                  flexDirection: 'column',
-                  alignItems: 'flex-end',
-                  justifyContent: 'flex-start',
-                  marginTop: 30,
-                  marginLeft: -30
+   
+    if(this.state.emptyRec === false){
+      return (
+        <View style={styles.container}>
+          <Swiper
+            ref={swiper => {
+              this.swiper = swiper
+  
+              
+            }}
+            backgroundColor={'white'}
+            infinite = {false}
+            useViewOverflow={Platform.OS === 'ios'}
+            // onSwiped={() => this.onSwiped('general')}
+            // onPress={(event)=>this._selectedItem(item.text)}
+            onSwipedLeft={(event) => this.onSwiped(event, "left")}
+            onSwipedRight={(event) => this.onSwiped(event, "right")}
+            // onSwipedTop={() => this.onSwiped('top')}
+            // onSwipedBottom={() => this.onSwiped('bottom')}
+            // onTapCard={this.swipeLeft}
+            cards={this.state.cards}
+            // cardIndex={this.state.cardIndex}
+            marginBottom={110}
+            cardVerticalMargin={30}
+            renderCard={this.renderCard}
+            onSwipedAll={this.onSwipedAllCards}
+            stackSize={3}
+            stackSeparation={15}
+            overlayLabels={{
+              // bottom: {
+              //   title: 'BLEAH',
+              //   style: {
+              //     label: {
+              //       backgroundColor: 'black',
+              //       borderColor: 'black',
+              //       color: 'white',
+              //       borderWidth: 1
+              //     },
+              //     wrapper: {
+              //       flexDirection: 'column',
+              //       alignItems: 'center',
+              //       justifyContent: 'center'
+              //     }
+              //   }
+              // },
+              left: {
+                title: 'PASS',
+                style: {
+                  label: {
+                    backgroundColor: '#FA4E3B',
+                    borderColor: '#FA4E3B',
+                    color: 'white',
+                    borderWidth: 1
+                  },
+                  wrapper: {
+                    flexDirection: 'column',
+                    alignItems: 'flex-end',
+                    justifyContent: 'flex-start',
+                    marginTop: 30,
+                    marginLeft: -30
+                  }
                 }
-              }
-            },
-            right: {
-              title: 'LIKE',
-              style: {
-                label: {
-                  backgroundColor: '#3AD289',
-                  borderColor: '#3AD289',
-                  color: 'white',
-                  borderWidth: 1
-                },
-                wrapper: {
-                  flexDirection: 'column',
-                  alignItems: 'flex-start',
-                  justifyContent: 'flex-start',
-                  marginTop: 30,
-                  marginLeft: 30
+              },
+              right: {
+                title: 'LIKE',
+                style: {
+                  label: {
+                    backgroundColor: '#3AD289',
+                    borderColor: '#3AD289',
+                    color: 'white',
+                    borderWidth: 1
+                  },
+                  wrapper: {
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                    justifyContent: 'flex-start',
+                    marginTop: 30,
+                    marginLeft: 30
+                  }
                 }
-              }
-            },
-            // top: {
-            //   title: 'SUPER LIKE',
-            //   style: {
-            //     label: {
-            //       backgroundColor: 'purple',
-            //       borderColor: 'purple',
-            //       color: 'white',
-            //       borderWidth: 1
-            //     },
-            //     wrapper: {
-            //       flexDirection: 'column',
-            //       alignItems: 'center',
-            //       justifyContent: 'center'
-            //     }
-            //   }
-            // }
-          }}
-          animateOverlayLabelsOpacity
-          animateCardOpacity
-          swipeBackCard
-        >
-        </Swiper>
-        <TouchableHighlight
-          style={styles.button}
-          onPress={() => this.swiper.swipeBack()}
+              },
+              // top: {
+              //   title: 'SUPER LIKE',
+              //   style: {
+              //     label: {
+              //       backgroundColor: 'purple',
+              //       borderColor: 'purple',
+              //       color: 'white',
+              //       borderWidth: 1
+              //     },
+              //     wrapper: {
+              //       flexDirection: 'column',
+              //       alignItems: 'center',
+              //       justifyContent: 'center'
+              //     }
+              //   }
+              // }
+            }}
+            animateOverlayLabelsOpacity
+            animateCardOpacity
+            swipeBackCard
           >
-          <Text style={styles.btnText}> Swipe Back </Text>
-          </TouchableHighlight>
-      
-      </View>
-    )
+          </Swiper>
+          <TouchableHighlight
+            style={styles.button}
+            onPress={() => this.swiper.swipeBack()}
+            >
+            <Text style={styles.btnText}> Swipe Back </Text>
+            </TouchableHighlight>
+        
+        </View>
+      )
+    }else{
+      return(
+        <View>
+          <Text>No recommendations found</Text>
+        </View>
+      )
+    }
   }
+    
 }
 
 const styles = StyleSheet.create({

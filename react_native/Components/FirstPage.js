@@ -31,7 +31,7 @@ export default class FirstPage extends React.Component {
                             this.props.navigation.navigate("SignIn");
                         }}
                     /> */}
-                    <TouchableHighlight
+                    {/* <TouchableHighlight
                         style={styles.button}
                         onPress={() => {
                             this.props.navigation.navigate("SignIn");
@@ -102,7 +102,7 @@ export default class FirstPage extends React.Component {
                         }}
                     >
                         <Text style={styles.btnText}>Club Matches</Text>
-                    </TouchableHighlight>
+                    </TouchableHighlight> */}
                     <TouchableHighlight
                         style={styles.button}
                         onPress={() => {
@@ -129,14 +129,14 @@ export default class FirstPage extends React.Component {
                             Club Manager Profile{" "}
                         </Text>
                     </TouchableHighlight>
-                    <TouchableHighlight
+                    {/* <TouchableHighlight
                         style={styles.button}
                         onPress={() => {
                             this.props.navigation.navigate("ClubForMgr");
                         }}
                     >
                         <Text style={styles.btnText}>Cards for Club Manager</Text>
-                    </TouchableHighlight>
+                    </TouchableHighlight> */}
 
                 </ImageBackground>
             </View>

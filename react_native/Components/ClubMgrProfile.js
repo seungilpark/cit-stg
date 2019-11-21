@@ -20,7 +20,7 @@ export default class AthleteProfile extends React.Component {
         super(props);
         this.state = {
             data: [],
-            mgr_account: this.props.navigation.getParam("mgr_account"),
+            mgr_id: this.props.navigation.getParam("mgr_id"),
             mgr_email: "",
             mgr_phone: "",
             profile_photo_url: ""
@@ -30,17 +30,17 @@ export default class AthleteProfile extends React.Component {
 
     registerVar() {
         const { navigation } = this.props
-        const new_mgrAccount = navigation.getParam('mgr_account', 'none')
-        console.log(new_mgrAccount);
+        const new_id = navigation.getParam('athl_id', 'none')
+        console.log(new_id);
     
         this.setState({
-          mgr_account: new_mgrAccount
+          mgr_id: new_id
         })
         console.log('Account set to ' + this.state.mgr_account);
       }
 
     componentDidMount() {
-        fetch("http://54.191.100.200:8080/api/clubmgrs/account/" + this.state.mgr_account)
+        fetch("http://54.191.100.200:8080/api/clubmgrs/" + this.state.mgr_id)
             .then(response => response.json())
             .then(responseJson => {
                 this.setState({ data: responseJson });

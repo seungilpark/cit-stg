@@ -166,6 +166,7 @@ const styles = StyleSheet.create({
     margin: 2
     },
     pickerBox: {
+        top: '90%',
         height: 40,
         width: 250,
         borderColor: 'black',

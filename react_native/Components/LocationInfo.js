@@ -71,7 +71,7 @@ export default class SignUp extends React.Component {
 
             <Picker
               selectedValue={this.state.country}
-              style={{ height: 30, width: 300 }}
+              style={{ height: 30, width: 300, top: '50%' }}
               onValueChange={(name, itemIndex) =>
                 this.setState({ country: name })
               }
@@ -96,7 +96,8 @@ export default class SignUp extends React.Component {
               value={this.state.phone}
             />
 
-            <Button
+            <Button 
+              style={{top: '75%'}}
               title="Account Info"
               onPress={() => {
                 this.props.navigation.navigate("AccountInfo", {

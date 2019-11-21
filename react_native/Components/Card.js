@@ -100,7 +100,7 @@ export default class Card extends Component {
           />
           <Text></Text>
 
-          <Text style={{textAlign: 'center', fontSize: 30,backgroundColor: 'transparent'}}>{card.offer_amount}</Text>
+          <Text style={{textAlign: 'center', fontSize: 30,backgroundColor: 'transparent'}}>${card.offer_amount}</Text>
           <Text></Text>
           <Text></Text>
           <Text style={styles.text}>From: {card.club_name}</Text>

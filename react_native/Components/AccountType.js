@@ -36,7 +36,6 @@ checkType() {
       behavior="padding"
     >
         <ScrollView>
-        <Text>Sign Up Page</Text>
         <Text>{this.state.alert}</Text>
         
         <Picker
@@ -51,6 +50,7 @@ checkType() {
         </Picker>
 
         <Button 
+        style={{top: '45%'}}
         title = 'Personal Info'
         onPress={this.checkType}
         />

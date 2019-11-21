@@ -222,7 +222,10 @@ checkEmpty(){
               <Picker.Item label="AM" value="AM" />
             </Picker>
 
-        <Button title = 'Submit' onPress={() => this.Submit()}/>
+        <Button 
+        style={{top:'60%'}}
+        title = 'Submit' 
+        onPress={() => this.Submit()}/>
         
         </ScrollView>
         </KeyboardAvoidingView>

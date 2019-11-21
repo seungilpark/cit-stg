@@ -18,7 +18,11 @@ var CLUB_IMAGES_DICT = {
  * url:path from component folder
  */
 function clubImagePicker(clubArr){
-    return clubArr.map(club => Object.assign({}, club, {"url": CLUB_IMAGES_DICT[club.club_name]}));
+    if(clubArr.length != 0){
+        return clubArr.map(club => Object.assign({}, club, {"url": CLUB_IMAGES_DICT[club.club_name]}));
+    }else{
+        return 'empty'
+    }
 }
 
 var images={
@@ -65,15 +69,20 @@ var images={
 }
 
 function athlImagePicker(athlArr){
-    return athlArr.map((athl, index) => {
-        let gender = athl.athl_gender == "Male" ? "" : "f";
-        if(gender ===''){
-            return Object.assign({}, athl, {"url":images[index % 20 + 1]})
-        }else{
-            return Object.assign({}, athl, {"url":images[index % 20 + 1 + 20]})
-        }
-        
-    })
+    if(athlArr.length != 0){
+        return athlArr.map((athl, index) => {
+            let gender = athl.athl_gender == "Male" ? "" : "f";
+            if(gender ===''){
+                return Object.assign({}, athl, {"url":images[index % 20 + 1]})
+            }else{
+                return Object.assign({}, athl, {"url":images[index % 20 + 1 + 20]})
+            }
+            
+        })
+    }else{
+        return 'empty'
+    }
+    
 }
 
 

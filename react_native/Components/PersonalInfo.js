@@ -22,25 +22,23 @@ export default class PersonalInfo extends React.Component {
         valid: false
     };
     
-    // this.checkEmpty = this.checkEmpty.bind(this);
+    this.CheckPage = this.CheckPage.bind(this);
 }
 
 
 
 
-CheckPage(){
+async CheckPage(){
   const { navigation } = this.props
   const role = navigation.getParam('role','ath')
 
 
-  this.checkEmptyFname()
-  this.checkEmptyLname()
-  this.checkEmptyGender()
-  this.checkEmptyDob()
-  this.checkEmptyHeight()
-  this.checkEmptyWeight()
-
-
+  await this.checkEmptyFname()
+  await this.checkEmptyLname()
+  await this.checkEmptyGender()
+  await this.checkEmptyDob()
+  await this.checkEmptyHeight()
+  await this.checkEmptyWeight()
 
 
 if(this.state.valid == true) {
@@ -138,7 +136,11 @@ checkEmptyWeight(){
   ])
 }
 else{
-  this.setState({valid: true})
+  this.setState(state => {
+    return {
+      valid: true
+    }
+  });
 }
 }
 

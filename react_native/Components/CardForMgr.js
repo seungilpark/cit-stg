@@ -16,17 +16,82 @@ export default class CardForMgr extends Component {
     
     super(props)
     this.state = {
-        club_id : 2,
+        mgr_id: this.props.navigation.getParam("mgr_id"),
+        club_id : this.props.navigation.getParam("club_id"),
         cards: [],
+        emptyRec: false,
       swipedAllCards: false,
       swipeDirection: '',
       url:''
     }
     this.getData = this.getData.bind(this);
     this.callNumber = this.callNumber.bind(this);
-    this.displayImage = this.displayImage.bind(this);
+    // this.displayImage = this.displayImage.bind(this);
     this.onSwiped = this.onSwiped.bind(this);
   }
+
+  static navigationOptions = ({ navigation }) => {
+    const {params = {}} = navigation.state;
+    return{
+    gesturesEnabled: false,
+    headerTitle: (
+        <TouchableOpacity>
+            <View>
+                <Image
+                    style={{
+                        justifyContent: "center",
+                        height: 40,
+                        width: 40,
+                        resizeMode: "contain"
+                    }}
+                    source={require("../Icons/heart_active.png")}
+                />
+            </View>
+        </TouchableOpacity>
+    ),
+    headerRight: (
+        <TouchableOpacity
+            onPress={() => {
+                navigation.navigate("ClubMgrProfile", {mgr_id: params.mgr_id, club_id: params.club_id});
+                console.log(params.mgr_id, "----------------mgr_id in cards going to club manager profile ")
+            }}
+        >
+            <View>
+                <Image
+                    style={{
+                        justifyContent: "center",
+                        height: 30,
+                        width: 30
+                    }}
+                    source={require("../Icons/profile_inactive.png")}
+                />
+            </View>
+        </TouchableOpacity>
+    ),
+    headerLeft: (
+        <TouchableOpacity
+            onPress={() => {
+                navigation.navigate("ClubMatches", {mgr_id: params.mgr_id, club_id: params.club_id});
+                console.log(params.mgr_id, "----------------mgr_id in cards going to club matches")
+            }}
+        >
+            <View>
+                <Image
+                    style={{
+                        justifyContent: "center",
+                        height: 30,
+                        width: 30
+                    }}
+                    source={require("../Icons/list_inactive.png")}
+                />
+            </View>
+        </TouchableOpacity>
+    )
+}
+}
+
+
+
 
   // https://stackoverflow.com/questions/51545064/how-to-make-phone-call-in-react-native
   callNumber = phone => {
@@ -53,24 +118,39 @@ export default class CardForMgr extends Component {
     return fetch('http://54.191.100.200:8080/api/recommendations/club/' + this.state.club_id)
       .then((response) => response.json())
       .then((responseJson) => {
-        new_arr = responseJson
-        this.setState({cards : athlImagePicker(new_arr)});
-      })
+        console.log("Respones JSON in getData---------",responseJson)
+        if(Object.entries(responseJson).length != 0){
+          new_arr = responseJson
+          this.setState({cards : athlImagePicker(new_arr)});
+        }else{
+          this.setState({
+            emptyRec: true
+          })
+      }})
       .catch((error) => {
         console.error(error);
       });
+      
   }
 
   componentDidMount(){
       this.getData();
+      console.log(this.state.mgr_id, "--------------inside componentdidmount using getData")
       console.log('data loaded');
+
+      this.props.navigation.setParams({
+        mgr_id: this.state.mgr_id,
+        club_id: this.state.club_id
+      })
+
+      console.log(this.state.mgr_id, "-----------------in cards")
   }
 
-  displayImage(card){
-      this.setState({
-          url: card.url
-      })
-  }
+  // displayImage(card){
+  //     this.setState({
+  //         url: card.url
+  //     })
+  // }
 
   onSwiped = (event, direction) => {
     if(direction === "left"){
@@ -111,10 +191,7 @@ export default class CardForMgr extends Component {
 
 
   renderCard = (card) => {
-    if (card === undefined){
-
-    }else{
-        displayingImage = this.displayImage(card);
+    if(card != undefined){
       return (
         <View  style={styles.card}>
           <Image
@@ -141,8 +218,6 @@ export default class CardForMgr extends Component {
         </View>
       )
     }
-    
-    // console.log(card);
   };
 
   onSwipedAllCards = () => {
@@ -156,32 +231,35 @@ export default class CardForMgr extends Component {
   // };
 
   render () {
-    //   console.log(this.state.cards[0])
-    return (
-      <View style={styles.container}>
-        <Swiper
-          ref={swiper => {
-            this.swiper = swiper
-          }}
-          backgroundColor={'#3ad289'}
-          useViewOverflow={Platform.OS === 'ios'}
-          onSwipedLeft={(event) => this.onSwiped(event, "left")}
-          onSwipedRight={(event) => this.onSwiped(event, "right")}
-          cards={this.state.cards}
-          cardVerticalMargin={80}
-          renderCard={this.renderCard}
-          onSwipedAll={this.onSwipedAllCards}
-          stackSize={3}
-          stackSeparation={15}
-          infinite = {true}
-          animateOverlayLabelsOpacity
-          animateCardOpacity
-          swipeBackCard
-        >
-          <Button onPress={() => this.swiper.swipeBack()} title='Swipe Back' />
-        </Swiper>
-      </View>
-    )
+    if (this.state.emptyRec === true){
+
+    }else{
+      return (
+        <View style={styles.container}>
+          <Swiper
+            ref={swiper => {
+              this.swiper = swiper
+            }}
+            backgroundColor={'#3ad289'}
+            useViewOverflow={Platform.OS === 'ios'}
+            onSwipedLeft={(event) => this.onSwiped(event, "left")}
+            onSwipedRight={(event) => this.onSwiped(event, "right")}
+            cards={this.state.cards}
+            cardVerticalMargin={80}
+            renderCard={this.renderCard}
+            onSwipedAll={this.onSwipedAllCards}
+            stackSize={3}
+            stackSeparation={15}
+            infinite = {true}
+            animateOverlayLabelsOpacity
+            animateCardOpacity
+            swipeBackCard
+          >
+            <Button onPress={() => this.swiper.swipeBack()} title='Swipe Back' />
+          </Swiper>
+        </View>
+      )
+    }
   }
 }
 

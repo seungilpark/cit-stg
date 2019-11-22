@@ -34,7 +34,7 @@ import MainApp from "./Components/main_app";
 import MgrInfo from "./Components/MgrInfo";
 import ClubInfo from "./Components/ClubInfo";
 import MgrAccountInfo from "./Components/MgrAccountInfo";
-import ClubForMgr from "./Components/CardForMgr";
+import CardForMgr from "./Components/CardForMgr";
 
 // import ClubsCards from "./Components/ClubsCards"
 import Card from "./Components/Card";
@@ -108,72 +108,15 @@ const RootStack = createStackNavigator(
                 header: null
             }
         },
-        ClubMgrProfile: {
-            screen: ClubMgrProfile
-        },
         ClubMatches: {
             screen: ClubMatches
         },
-        ClubForMgr: {
-            screen: ClubForMgr
+        CardForMgr: {
+            screen: CardForMgr
         },
 
         AthleteProfile: {
             screen: AthleteProfile,
-            // navigationOptions: ({ navigation }) => ({
-            //     gesturesEnabled: false,
-            //     headerTitle: (
-            //         <TouchableOpacity
-            //             onPress={() => {
-            //                 navigation.navigate("Card");
-            //             }}
-            //         >
-            //             <View>
-            //                 <Image
-            //                     style={{
-            //                         justifyContent: "center",
-            //                         height: 40,
-            //                         width: 40,
-            //                         resizeMode: "contain"
-            //                     }}
-            //                     source={require("./Icons/heart_inactive.png")}
-            //                 />
-            //             </View>
-            //         </TouchableOpacity>
-            //     ),
-            //     headerRight: (
-            //         <TouchableOpacity>
-            //             <View>
-            //                 <Image
-            //                     style={{
-            //                         justifyContent: "center",
-            //                         height: 30,
-            //                         width: 30
-            //                     }}
-            //                     source={require("./Icons/profile_active.png")}
-            //                 />
-            //             </View>
-            //         </TouchableOpacity>
-            //     ),
-            //     headerLeft: (
-            //         <TouchableOpacity
-            //             onPress={() => {
-            //                 navigation.navigate("AthlClubList");
-            //             }}
-            //         >
-            //             <View>
-            //                 <Image
-            //                     style={{
-            //                         justifyContent: "center",
-            //                         height: 30,
-            //                         width: 30
-            //                     }}
-            //                     source={require("./Icons/list_inactive.png")}
-            //                 />
-            //             </View>
-            //         </TouchableOpacity>
-            //     )
-            // })
         },
         
         AthletePersonalInfoEdit: {
@@ -241,60 +184,6 @@ const RootStack = createStackNavigator(
         },
         ClubMgrProfile: {
             screen: ClubMgrProfile,
-            navigationOptions: ({ navigation }) => ({
-                gesturesEnabled: false,
-                headerTitle: (
-                    <TouchableOpacity
-                        onPress={() => {
-                            navigation.navigate("ClubForMgr");
-                        }}
-                    >
-                        <View>
-                            <Image
-                                style={{
-                                    justifyContent: "center",
-                                    height: 40,
-                                    width: 40,
-                                    resizeMode: "contain"
-                                }}
-                                source={require("./Icons/heart_inactive.png")}
-                            />
-                        </View>
-                    </TouchableOpacity>
-                ),
-                headerRight: (
-                    <TouchableOpacity>
-                        <View>
-                            <Image
-                                style={{
-                                    justifyContent: "center",
-                                    height: 30,
-                                    width: 30
-                                }}
-                                source={require("./Icons/profile_active.png")}
-                            />
-                        </View>
-                    </TouchableOpacity>
-                ),
-                headerLeft: (
-                    <TouchableOpacity
-                        onPress={() => {
-                            navigation.navigate("AthlClubList");
-                        }}
-                    >
-                        <View>
-                            <Image
-                                style={{
-                                    justifyContent: "center",
-                                    height: 30,
-                                    width: 30
-                                }}
-                                source={require("./Icons/list_inactive.png")}
-                            />
-                        </View>
-                    </TouchableOpacity>
-                )
-            })
         },
         ClubMgrContactDetails: {
             screen: ClubMgrContactDetails
@@ -304,243 +193,13 @@ const RootStack = createStackNavigator(
         },
         AthlClubList: {
             screen: AthlClubList,
-            // navigationOptions: ({ navigation }) => ({
-            //     gesturesEnabled: false,
-            //     headerTitle: (
-            //         <TouchableOpacity
-            //             onPress={() => {
-            //                 navigation.navigate("Card");
-            //             }}
-            //         >
-            //             <View>
-            //                 <Image
-            //                     style={{
-            //                         justifyContent: "center",
-            //                         height: 40,
-            //                         width: 40,
-            //                         resizeMode: "contain"
-            //                     }}
-            //                     source={require("./Icons/heart_inactive.png")}
-            //                 />
-            //             </View>
-            //         </TouchableOpacity>
-            //     ),
-            //     headerRight: (
-            //         <TouchableOpacity
-            //             onPress={() => {
-            //                 navigation.navigate("AthleteProfile");
-            //             }}
-            //         >
-            //             <View>
-            //                 <Image
-            //                     style={{
-            //                         justifyContent: "center",
-            //                         height: 30,
-            //                         width: 30
-            //                     }}
-            //                     source={require("./Icons/profile_inactive.png")}
-            //                 />
-            //             </View>
-            //         </TouchableOpacity>
-            //     ),
-            //     headerLeft: (
-            //         <TouchableOpacity>
-            //             <View>
-            //                 <Image
-            //                     style={{
-            //                         justifyContent: "center",
-            //                         height: 30,
-            //                         width: 30
-            //                     }}
-            //                     source={require("./Icons/list_active.png")}
-            //                 />
-            //             </View>
-            //         </TouchableOpacity>
-            //     )
-            // })
-        },
-        ClubMatches: {
-            screen: ClubMatches,
-            navigationOptions: ({ navigation }) => ({
-                gesturesEnabled: false,
-                headerTitle: (
-                    <TouchableOpacity
-                        onPress={() => {
-                            navigation.navigate("ClubForMgr");
-                        }}
-                    >
-                        <View>
-                            <Image
-                                style={{
-                                    justifyContent: "center",
-                                    height: 40,
-                                    width: 40,
-                                    resizeMode: "contain"
-                                }}
-                                source={require("./Icons/heart_inactive.png")}
-                            />
-                        </View>
-                    </TouchableOpacity>
-                ),
-                headerRight: (
-                    <TouchableOpacity
-                        onPress={() => {
-                            navigation.navigate("ClubMgrProfile");
-                        }}
-                    >
-                        <View>
-                            <Image
-                                style={{
-                                    justifyContent: "center",
-                                    height: 30,
-                                    width: 30
-                                }}
-                                source={require("./Icons/profile_inactive.png")}
-                            />
-                        </View>
-                    </TouchableOpacity>
-                ),
-                headerLeft: (
-                    <TouchableOpacity>
-                        <View>
-                            <Image
-                                style={{
-                                    justifyContent: "center",
-                                    height: 30,
-                                    width: 30
-                                }}
-                                source={require("./Icons/list_active.png")}
-                            />
-                        </View>
-                    </TouchableOpacity>
-                )
-            })
         },
         Profile: {
             screen: Profile
         },
-        ClubMgrProfile: {
-          screen: ClubMgrProfile,
-        },
         Card: { 
             screen: Card,
         },
-        Card: {
-            screen: Card,
-        },
-        //     navigationOptions: ({ navigation }) => ({
-        //         gesturesEnabled: false,
-        //         headerTitle: (
-        //             <TouchableOpacity>
-        //                 <View>
-        //                     <Image
-        //                         style={{
-        //                             justifyContent: "center",
-        //                             height: 40,
-        //                             width: 40,
-        //                             resizeMode: "contain"
-        //                         }}
-        //                         source={require("./Icons/heart_active.png")}
-        //                     />
-        //                 </View>
-        //             </TouchableOpacity>
-        //         ),
-        //         headerRight: (
-        //             <TouchableOpacity
-        //                 onPress={() => {
-        //                     navigation.navigate("AthleteProfile", {});
-        //                 }}
-        //             >
-        //                 <View>
-        //                     <Image
-        //                         style={{
-        //                             justifyContent: "center",
-        //                             height: 30,
-        //                             width: 30
-        //                         }}
-        //                         source={require("./Icons/profile_inactive.png")}
-        //                     />
-        //                 </View>
-        //             </TouchableOpacity>
-        //         ),
-        //         headerLeft: (
-        //             <TouchableOpacity
-        //                 onPress={() => {
-        //                     navigation.navigate("AthlClubList");
-        //                 }}
-        //             >
-        //                 <View>
-        //                     <Image
-        //                         style={{    
-        //                             justifyContent: "center",
-        //                             height: 30,
-        //                             width: 30
-        //                         }}
-        //                         source={require("./Icons/list_inactive.png")}
-        //                     />
-        //                 </View>
-        //             </TouchableOpacity>
-        //         )
-        //     })
-        // },
-
-        ClubForMgr: {
-            screen: ClubForMgr,
-            navigationOptions: ({ navigation }) => ({
-                gesturesEnabled: false,
-                headerTitle: (
-                    <TouchableOpacity>
-                        <View>
-                            <Image
-                                style={{
-                                    justifyContent: "center",
-                                    height: 40,
-                                    width: 40,
-                                    resizeMode: "contain"
-                                }}
-                                source={require("./Icons/heart_active.png")}
-                            />
-                        </View>
-                    </TouchableOpacity>
-                ),
-                headerRight: (
-                    <TouchableOpacity
-                        onPress={() => {
-                            navigation.navigate("ClubMgrProfile");
-                        }}
-                    >
-                        <View>
-                            <Image
-                                style={{
-                                    justifyContent: "center",
-                                    height: 30,
-                                    width: 30
-                                }}
-                                source={require("./Icons/profile_inactive.png")}
-                            />
-                        </View>
-                    </TouchableOpacity>
-                ),
-                headerLeft: (
-                    <TouchableOpacity
-                        onPress={() => {
-                            navigation.navigate("ClubMatches");
-                        }}
-                    >
-                        <View>
-                            <Image
-                                style={{
-                                    justifyContent: "center",
-                                    height: 30,
-                                    width: 30
-                                }}
-                                source={require("./Icons/list_inactive.png")}
-                            />
-                        </View>
-                    </TouchableOpacity>
-                )
-            })
-        }
     },
 
     {

@@ -91,7 +91,7 @@ export default class AthlClubList extends React.Component {
     return fetch('http://54.191.100.200:8080/api/matched/club/' + this.state.club_id)
       .then(response => response.json())
         .then(responseJson => {
-            this.setState({ data: responseJson });
+            this.setState({ matchedList: responseJson, loading: false });
         })
         .catch(error => {
             console.error(error);

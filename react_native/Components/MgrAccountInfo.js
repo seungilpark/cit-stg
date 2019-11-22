@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableHighlight, Text, View, Button, TextInput, ScrollView, KeyboardAvoidingView, Picker } from 'react-native';
+import { StyleSheet, TouchableHighlight, Text, View, Button, TextInput, ScrollView, KeyboardAvoidingView, Picker, Alert } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 // import { ScrollView } from 'react-native-gesture-handler';
 
@@ -138,7 +138,7 @@ Submit(){
       .then((responseJson) => {
         console.log("Manager Created.")
         console.log(responseJson)
-        console.log(responseJson.status)
+        if(responseJson.Error !== undefined){
           const id = responseJson[0].mgr_id;
           const clubId = responseJson[0].fk_clubs_id
           console.log(id)
@@ -146,6 +146,24 @@ Submit(){
               mgr_id: id,
               club_id: clubId,
           });
+        }else{
+          Alert.alert(
+            "Error",
+            "User already Exists",
+            [
+                // {
+                //     text: "Cancel",
+                //     onPress: () => console.log("Cancel Pressed"),
+                //     style: "cancel"
+                // },
+                {
+                    text: "OK",
+                    onPress: () => this.props.navigation.navigate("MgrAccountInfo")
+                }
+            ],
+            { cancelable: false }
+        );
+        }
         });
     }else{
       this.setState({

@@ -65,7 +65,7 @@ export default class PersonalDetailsPage extends React.Component {
                     [
                         {
                             text: "OK",
-                            onPress: () => this.props.navigation.navigate("ClubMgrProfile")
+                            onPress: () => this.props.navigation.navigate("ClubMgrProfile", {mgr_fname: this.state.mgr_fname, mgr_lname: this.state.mgr_lname, mgr_account: this.state.mgr_account, mgr_password: this.state.mgr_password})
                         }
                     ],
                     { cancelable: false }

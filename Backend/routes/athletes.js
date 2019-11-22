@@ -100,12 +100,10 @@ router.post("/register", async (req, res) => {
       country: req.body["country"]
     };
 
-    if (!await db.isTaken(req.body.account)) {
+    if (await db.isTaken(req.body.account)) throw new Error("user already exists...");
+      
       let athlInsertResult = await dbHelper.insertInto("athletes", athl_obj);
-      console.log(
-        "if account is created this will likely get called",
-        athlInsertResult.insertId
-      );
+      if(!athlInsertResult.insertId)  throw new Error("athl insert fail")
       //   console.log("if account is created this is the new athlete", newAthl);
       
       let athl_id = await athlInsertResult.insertId;
@@ -127,8 +125,6 @@ router.post("/register", async (req, res) => {
       // new athl should be returned
       let newAthl = await db.getAthlById(athl_id);
       res.status(200).json(newAthl);
-    } else throw new Error("user already exists...");
-      
     } catch (err) {
         res.status(400).json(
       `{"Error": "True", "Message": ${err}, "Timestamp": ${dbHelper.now()}`

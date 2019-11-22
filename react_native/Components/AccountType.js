@@ -10,7 +10,7 @@ import { NavigationEvents } from "react-navigation";
 // import { ScrollView } from 'react-native-gesture-handler';
 
 export default class AccountType extends React.Component {
-   
+
   constructor(props) {
     super(props);
     this.state = {

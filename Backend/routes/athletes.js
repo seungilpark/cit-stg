@@ -111,13 +111,7 @@ router.post("/register", async (req, res) => {
       let athl_id = await athlInsertResult.insertId;
       //FIXME value checks for the inputs
       let profilesInput = {
-        position: req.body["position"],
-        coaches: req.body["coaches"],
-        profile_video: req.body["profile_video"],
-        profile_photo: req.body["profile_photo"],
-        medical_info: req.body["medical_info"],
-        organization: req.body["organization"],
-        biography: req.body["biography"]
+        position: req.body["position"]
     };
 
     let prof_obj = Object.assign(

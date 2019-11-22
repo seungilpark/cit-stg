@@ -141,10 +141,12 @@ router.post("/signup", async (req, res) => {
       "country": req.body["country"]
     };
     //validate account name
-    if (!await mgrDb.validateAccount(req.body.mgr_account)) {
+    if (await mgrDb.validateAccount(req.body.mgr_account)) throw new Error("user already exists...");
+
+
       let clubInsertResult = await dbHelper.insertInto("clubs", club_obj);
       console.log("clubInserted", clubInsertResult);
-      if (clubInsertResult.length < 1) throw new Error("club insert fail");
+      if (!clubInsertResult.insertId) throw new Error("club insert fail");
       
         let newClubId = clubInsertResult.insertId;
         console.log(newClubId)
@@ -165,11 +167,7 @@ router.post("/signup", async (req, res) => {
         //return club + clubmgr info
         res.status(200).json(newClub);
 
-
-    } else {
-      console.log("account exists...")
-      throw new Error("user already exists...");
-    } 
+        
 
   } catch (err) {
     res.json(

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TextInput, ScrollView, KeyboardAvoidingView, Picker, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView, KeyboardAvoidingView, Picker, TouchableHighlight, Alert, alertMessage } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 // import { ScrollView } from 'react-native-gesture-handler';
 
@@ -18,93 +18,131 @@ export default class PersonalInfo extends React.Component {
         gender: 'M',
         dob: '1988-08-08',
         height: "188",
-        weight: "80"
+        weight: "80",
+        valid: false
     };
-    this.Submit = this.Submit.bind(this);
-    this.verPd = this.verPd.bind(this);
-    this.checkEmpty = this.checkEmpty.bind(this);
+    
+    // this.checkEmpty = this.checkEmpty.bind(this);
 }
 
-Submit(){
-  checkEmpty = this.checkEmpty();
-  console.log(checkEmpty);
-  if(checkEmpty != false){
-    checkPd = this.verPd();
-    console.log(checkPd);
-    if(checkPd == true && this.state.role === 'ath'){
-      fetch('http://192.168.0.106:8080/api/athletes/register', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          athl_fname: this.state.fname,
-          athl_lname: this.state.lname,
-          athl_gender: this.state.gender,
-          athl_dob: this.state.dob,
-          athl_addr: this.state.addr,
-          athl_height: this.state.height,
-          athl_weight: this.state.weight,
-          athl_email: this.state.email,
-          athl_phone: this.state.phone,
-          account: this.state.account,
-          password: this.state.password,
-          city: this.state.city,
-          country: this.state.country
-        }),
-      });
-      console.log("Athlete Created.")
-    }
-    else if(checkPd == true && this.state.role === 'mgr'){
-      fetch('http://172.20.10.3:8080/api/clubMgrs/create', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          mgr_fname: this.state.fname,
-          mgr_lname: this.state.lname,
-          // athl_gender: this.state.gender,
-          // athl_dob: this.state.dob,
-          // addr: this.state.addr,
-          // athl_height: this.state.height,
-          // athl_weight: this.state.weight,
-          mgr_email: this.state.email,
-          mgr_phone: this.state.phone,
-          mgr_account: this.state.account,
-          mgr_password: this.state.password,
-          // city: this.state.city,
-          // country: this.state.country
-        }),
-      });
-      console.log("Manager Created.")
-    }else{
-      this.setState({
-        alert: "Please confirm your password."
-      })
-    }
+
+
+
+CheckPage(){
+  const { navigation } = this.props
+  const role = navigation.getParam('role','ath')
+
+
+  this.checkEmptyFname()
+  this.checkEmptyLname()
+  this.checkEmptyGender()
+  this.checkEmptyDob()
+  this.checkEmptyHeight()
+  this.checkEmptyWeight()
+
+
+
+
+if(this.state.valid == true) {
+  this.props.navigation.navigate('LocationInfo', {
+    role: role,
+    fname: this.state.fname,
+    lname: this.state.lname,
+    gender: this.state.gender,
+    dob: this.state.dob,
+    addr: this.state.addr,
+    height: this.state.height,
+    weight: this.state.weight});
+}
+}
+
+
+checkEmptyFname(){
+    if(this.state.fname == ''){
+    
+      Alert.alert('First name cannot be empty', alertMessage, [
+
+        {text: 'OK', onPress: () => this.setState({valid: false})},
+    ])
+  }
+  else{
+    this.setState({valid: true})
   }
 }
 
-verPd(){
-  if (this.state.password == this.state.password1){
-    return true;
-  }else{
-    return false;
-  }
+checkEmptyLname(){
+  if(this.state.lname == ''){
+  
+    Alert.alert('Last name cannot be empty', alertMessage, [
+
+      {text: 'OK', onPress: () => this.setState({valid: false})},
+  ])
+}
+else{
+  this.setState({valid: true})
+}
 }
 
-checkEmpty(){
-  var i;
-  for (i = 0; i < this.state.length; i++) {
-    if(this.state[i] == ''){
-      this.setState({alert: "Missing field(s)"});
-      return false;
-    }
-  }
+checkEmptyGender(){
+  if(this.state.gender == ''){
+  
+    Alert.alert('Gender cannot be empty', alertMessage, [
+
+      {text: 'OK', onPress: () => this.setState({valid: false})},
+  ])
 }
+else{
+  this.setState({valid: true})
+}
+}
+
+
+checkEmptyDob(){
+
+  var regEx = /^\d{4}-\d{2}-\d{2}$/;
+  if(this.state.dob == ''){
+  
+    Alert.alert('Must enter Date of birth cannot be empty', alertMessage, [
+
+      {text: 'OK', onPress: () => this.setState({valid: false})},
+  ])
+} else if(!regEx.test(this.state.dob)){
+  Alert.alert('Date must be in yyyy-mm-dd format', alertMessage, [
+
+    {text: 'OK', onPress: () => this.setState({valid: false})},
+])
+
+} else{
+  this.setState({valid: true})
+}
+}
+
+checkEmptyHeight(){
+  if(this.state.height == ''){
+  
+    Alert.alert('Height cannot be empty', alertMessage, [
+
+      {text: 'OK', onPress: () => this.setState({valid: false})},
+  ])
+}
+else{
+  this.setState({valid: true})
+}
+}
+checkEmptyWeight(){
+  if(this.state.weight == ''){
+  
+    Alert.alert('Weight cannot be empty', alertMessage, [
+
+      {text: 'OK', onPress: () => this.setState({valid: false})},
+  ])
+}
+else{
+  this.setState({valid: true})
+}
+}
+
+
 
 
 
@@ -146,7 +184,7 @@ checkEmpty(){
         
         <TextInput
           style={styles.placeHolderText}
-          placeholder="Date of Birth: yyyy/mm/dd"
+          placeholder="Date of Birth: yyyy-mm-dd"
           onChangeText={(dob) => this.setState({dob})}
           value={this.state.dob}
         />        
@@ -168,17 +206,7 @@ checkEmpty(){
           
         <TouchableHighlight
                         style={styles.button}
-                        onPress={() => {
-                          this.props.navigation.navigate('LocationInfo', {
-                              role: role,
-                              fname: this.state.fname,
-                              lname: this.state.lname,
-                              gender: this.state.gender,
-                              dob: this.state.dob,
-                              addr: this.state.addr,
-                              height: this.state.height,
-                              weight: this.state.weight});
-                      }}
+                        onPress={() => this.CheckPage()}
                     >
                         <Text style={styles.btnText}> LOCATION INFO </Text>
         </TouchableHighlight>     

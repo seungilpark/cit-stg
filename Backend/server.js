@@ -21,11 +21,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-//routes
-app.get("/api", (req, res) => {
-  res.sendFile(path.join(__dirname+"/routes/manual.html"));
-});
-
 app.use("/api/applications", applicationRouter);
 app.use("/api/athletes", athletesRouter);
 app.use("/api/athletes", athletesLikesRouter);

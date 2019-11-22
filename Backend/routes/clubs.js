@@ -92,37 +92,35 @@ router.get("/name/:name", async (req, res) => {
  * Deletes club by id
  */
 router.post("/delete/:id", async (req, res) => {
-  try {
-    //console.log(req.params.id);
-    let club_id = req.params.id;
-    //console.log(club_id)
 
-    let deleted_club = await db
-      .deleteClubById(club_id)
-      .then(() => "Row Deleted");
+    try {
+       //console.log(req.params.id);
+        let club_id = req.params.id;
+        //console.log(club_id)
 
-    res.json({ Message: "Deleted Row" });
-  } catch {
-    //console.log("inside delete")
-    res.json({ Error: "True" });
-  }
+        let deleted_club = await db.deleteClubById(club_id)
+        .then(() => 'Row Deleted');
+        
+        res.json({"Message":"Deleted Row"});
+   }
+    catch {
+        //console.log("inside delete")
+        res.json({"Error":"True"});
+    }
 });
-
 /* POST */
 
 router.post("/create", async (req, res) => {
-  try {
-    let validation = joi.validate(req.body, SCHEMAS.CLUBS_SCHEMA).error;
-    if (validation) throw new Error(validation);
-    let result = await dbHelper.insertInto("clubs", req.body);
-    res.json(result);
-  } catch (err) {
-    res.json(
-      `{"Error": "True", "Message": ${err}, "Timestamp": ${dbHelper.now()}`
-    );
-  }
-});
-
+    try {
+        let validation =joi.validate(req.body,SCHEMAS.CLUBS_SCHEMA).error;
+        if (validation) throw new Error(validation);
+        let result = await dbHelper.insertInto("clubs", req.body);
+        res.json(result);
+    }
+    catch(err) {
+        res.json(`{"Error": "True", "Message": ${err}, "Timestamp": ${dbHelper.now()}`);
+    }
+})
 /* POST */
 // FIXME using transaction is better
 // TODO club_obj["fk_sports_id"] is hard coded
@@ -143,10 +141,12 @@ router.post("/signup", async (req, res) => {
       "country": req.body["country"]
     };
     //validate account name
-    if (await mgrDb.validateAccount(req.body.mgr_account)) {
+    if (await mgrDb.validateAccount(req.body.mgr_account)) throw new Error("user already exists...");
+
+
       let clubInsertResult = await dbHelper.insertInto("clubs", club_obj);
       console.log("clubInserted", clubInsertResult);
-      if (clubInsertResult.length < 1) throw new Error("club insert fail");
+      if (!clubInsertResult.insertId) throw new Error("club insert fail");
       
         let newClubId = clubInsertResult.insertId;
         console.log(newClubId)
@@ -167,11 +167,7 @@ router.post("/signup", async (req, res) => {
         //return club + clubmgr info
         res.status(200).json(newClub);
 
-
-    } else {
-      console.log("account exists...")
-      throw new Error("user already exists...");
-    } 
+        
 
   } catch (err) {
     res.json(

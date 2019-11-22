@@ -28,11 +28,11 @@ router.get('/athlete/:athl_id', async (req, res) => {
         if (!profResult.length) throw new Error(`no profile with fk_athl_id ${athlId}`)
         let oid_arr_result = await oid_arr;
         oid_arr_result = oid_arr_result.map(el => el.fk_offer_id);
-        // console.log("position, country", profResult[0].position.trim(), athlResult[0].country.trim())
+       // console.log("position, country", profResult[0].position.trim(), athlResult[0].country.trim())
 
         if (!(POSITION_LIST.includes(profResult[0].position.trim())) 
         || !(COUNTRY_LIST.includes(athlResult[0].country.trim()))) {
-            console.log("in side recommendation/athl/ without position or country")
+            // console.log("in side recommendation/athl/ without position or country")
             let recList = await offerRepo.getAllOffersWithClub();
             console.log(recList.length)
             res.json(recList);

@@ -9,9 +9,11 @@ const likesRepo = require("../dbConnectors/likesAndDislikes");
 const offerRepo = require("../dbConnectors/offersDbConnector");
 const POSITION_LIST = ["GK","RF","LF","CB","DM","RW","RM","CM","BM","SK","AM","AP","LM","LW"]
 const COUNTRY_LIST = ["Canada", "France", "England","Spain"];
+
 /**
  * return recommended offers by athl_id  
  */
+/* FIXME need to filter with athl_like tables */
 router.get('/athlete/:athl_id', async (req, res) => {
     try {
         let athlId = req.params.athl_id;
@@ -56,7 +58,7 @@ router.get('/athlete/:athl_id', async (req, res) => {
         res.json(err);
     }
 });
-
+/* FIXME need to filter  using  club_like table*/
 router.get('/club/:club_id', async (req, res) => {
     try {
         let club_id = req.params.club_id;

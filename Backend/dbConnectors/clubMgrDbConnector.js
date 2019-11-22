@@ -35,6 +35,17 @@ const updateClubMgrById = (inputBody, inputId) => {
       
 };
 
+const getManagerByUsername = inputMgrAccount => {
+  let query = `select * from club_mgr where mgr_account =` + pool.escape(inputMgrAccount);
+  console.log(query)
+  return new Promise((resolve, reject) => {
+    pool.query(query, (err, results, fields) => {        
+        if (err) reject(err);
+        //TODO check if empty
+        else resolve(results);
+    });
+});
+}
 /* signin/up */
 
 const validateAccount = (acc) => {
@@ -65,5 +76,6 @@ module.exports = {
   getManagerById,
   verifyManager,
   validateAccount,
-  updateClubMgrById
+  updateClubMgrById,
+  getManagerByUsername
 };

@@ -15,39 +15,110 @@ import { clubImagePicker } from '../utils/imagePicker';
 import { Bubbles, DoubleBounce, Bars, Pulse } from 'react-native-loader';
 
 export default class AthlClubList extends React.Component {
+  
+
     constructor(props) {
         super(props);
         this.state = {
+          athl_id: this.props.navigation.getParam("athl_id"),
           matchedList:[],
             loading: true,
             showMe: true
         };
-        this.RegisterVar = this.RegisterVar.bind(this);
+        // this.RegisterVar = this.RegisterVar.bind(this);
+        console.log(this.state.athl_id, "-----------------------athlete id in constructor athlete club list")
     }
 
-    RegisterVar(){
-      const { navigation } = this.props
-      const athl_id = navigation.getParam('mgr_id', 'none')
-    }
 
-    async componentDidMount(){
-        try {
-            var athl_id = 1;
-            const getList = await fetch('http://54.191.100.200:8080/api/matched/athlete/1');
+    static navigationOptions = ( {navigation} ) => {
+      const {params = {}} =navigation.state;
+      return{
+      gesturesEnabled: false,
+      headerTitle: (
+          <TouchableOpacity
+              onPress={() => {
+                  navigation.navigate("Card", {athl_id: params.athl_id})
+                  console.log(params.athl_id, "card params.athl_id in athlete club list");
+              }}
+          >
+              <View>
+                  <Image
+                      style={{
+                          justifyContent: "center",
+                          height: 40,
+                          width: 40,
+                          resizeMode: "contain"
+                      }}
+                      source={require("../Icons/heart_inactive.png")}
+                  />
+              </View>
+          </TouchableOpacity>
+      ),
+      headerRight: (
+          <TouchableOpacity
+              onPress={() => {
+                  navigation.navigate("AthleteProfile", {athl_id: params.athl_id})
+                  console.log(params.athl_id, "athlete profile params.athl_id in athlete club list");
+              }}
+          >
+              <View>
+                  <Image
+                      style={{
+                          justifyContent: "center",
+                          height: 30,
+                          width: 30
+                      }}
+                      source={require("../Icons/profile_inactive.png")}
+                  />
+              </View>
+          </TouchableOpacity>
+      ),
+      headerLeft: (
+          <TouchableOpacity>
+              <View>
+                  <Image
+                      style={{
+                          justifyContent: "center",
+                          height: 30,
+                          width: 30
+                      }}
+                      source={require("../Icons/list_active.png")}
+                  />
+              </View>
+          </TouchableOpacity>
+      )
+  }
+}
 
-            const clubList = await getList.json()
-            console.log(clubList,"Get list 1111111111111111");
-            //console.log(clubList.results, "Get List 2")
-            // clubList = clubImagePicker(clubList);
-            this.setState({matchedList : clubList, loading: false});
-            
-            // console.log(this.matchedList);
-            //console.log(matchedList)  
-            
+    // RegisterVar(){
+    //   const { navigation } = this.props
+    //   const new_id = navigation.getParam('mgr_id', 'none')
 
-      } catch(error) {
-            console.log("Error fetching data", error);
-        };
+    //   this.setState({
+    //     athl_id: new_id
+    //   })
+    //   console.log('id set to ' + this.state.athl_id + 'in athlete club list');
+    // }
+    getData() {
+        return fetch('http://54.191.100.200:8080/api/matched/athlete/' + this.state.athl_id)
+        .then(response => response.json())
+        .then(responseJson => {
+            this.setState({ data: responseJson });
+        })
+        .catch(error => {
+            console.error(error);
+        });
+      }
+
+    componentDidMount(){
+        this.getData();
+        console.log(console.log(this.state.athl_id, "-----------------------inside componentdidmount  athlete club list"))
+
+        this.props.navigation.setParams({
+          athl_id: this.state.athl_id
+         })
+
+      console.log(this.state.athl_id, "--------------------in athlete club list")
       }
 
     componentWillMount() {
@@ -65,7 +136,7 @@ export default class AthlClubList extends React.Component {
         [
           {
           },
-          {text: 'OK', onPress: () => this.props.navigation.navigate('AthleteProfile')},
+          {text: 'OK', onPress: () => this.props.navigation.navigate('AthleteProfile', {athl_id: this.state.athl_id})},
         ],
         {cancelable: false},
       );

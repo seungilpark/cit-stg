@@ -14,10 +14,11 @@ import { NavigationEvents, StackNavigator } from "react-navigation";
 import { Card } from "react-native-elements";
 
 export default class AthleteProfile extends React.Component {
+    
     constructor(props) {
         super(props);
         this.state = {
-            athl_id: 45,
+            athl_id: this.props.navigation.getParam("athl_id"),
             data: [],
             data2: [],
 
@@ -25,26 +26,116 @@ export default class AthleteProfile extends React.Component {
             athl_phone: "",
             profile_photo_url: ""
         };
+        // this.registerVar = this.registerVar.bind(this);
+        console.log(this.state.athl_id, "-----------------------athlete id in constructor athlete profile")
+    }
+
+    static navigationOptions = ( {navigation} ) => {
+        const {params = {}} =navigation.state;
+      return{
+        gesturesEnabled: false,
+        headerTitle: (
+            <TouchableOpacity
+                onPress={() => {
+                    navigation.navigate("Card", {athl_id:  params.athl_id})
+                    console.log(params.athl_id, "card params.athl_id in athlete profile");
+                }}
+            >
+                <View>
+                    <Image
+                        style={{
+                            justifyContent: "center",
+                            height: 40,
+                            width: 40,
+                            resizeMode: "contain"
+                        }}
+                        source={require("../Icons/heart_inactive.png")}
+                    />
+                </View>
+            </TouchableOpacity>
+        ),
+        headerRight: (
+            <TouchableOpacity>
+                <View>
+                    <Image
+                        style={{
+                            justifyContent: "center",
+                            height: 30,
+                            width: 30
+                        }}
+                        source={require("../Icons/profile_active.png")}
+                    />
+                </View>
+            </TouchableOpacity>
+        ),
+        headerLeft: (
+            <TouchableOpacity
+                onPress={() => {
+                    navigation.navigate("AthlClubList", {athl_id: params.athl_id});
+                    console.log(params.athl_id, "header left params.athl_id in athlete profile")
+                }}
+            >
+                <View>
+                    <Image
+                        style={{
+                            justifyContent: "center",
+                            height: 30,
+                            width: 30
+                        }}
+                        source={require("../Icons/list_inactive.png")}
+                    />
+                </View>
+            </TouchableOpacity>
+        )
+    }
+}
+
+    // registerVar() {
+    //     const { navigation } = this.props
+    //     const new_id = navigation.getParam('athl_id','none')
+    //     console.log(new_id);
+    
+    //     this.setState({
+    //       athl_id: new_id
+    //     })
+    //     console.log('id set to ' + this.state.athl_id + 'in athlete profile');
+    //   }
+
+    getData() {
+        console.log(this.state.athl_id, "----------------inside getdata athlete profile")
+        return fetch("http://54.191.100.200:8080/api/athletes/" + this.state.athl_id)
+        .then(response => response.json())
+        .then(responseJson => {
+            this.setState({ data: responseJson });
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    }
+
+    getData2(){
+        console.log(this.state.athl_id, "------inside getdata2 athlete profile")
+        return fetch("http://54.191.100.200:8080/api/profiles/"+ this.state.athl_id)
+        .then(response => response.json())
+        .then(responseJson => {
+            this.setState({ data2: responseJson });
+        })
+        .catch(error => {
+            console.error(error);
+        });
     }
 
     componentDidMount() {
-        athl_id = 1
-        fetch("http://54.191.100.200:8080/api/athletes/1")
-            .then(response => response.json())
-            .then(responseJson => {
-                this.setState({ data: responseJson });
-            })
-            .catch(error => {
-                console.error(error);
-            });
-        fetch("http://54.191.100.200:8080/api/profiles/1")
-            .then(response => response.json())
-            .then(responseJson => {
-                this.setState({ data2: responseJson });
-            })
-            .catch(error => {
-                console.error(error);
-            });
+        this.getData();
+        this.getData2();
+        console.log(this.state.athl_id, "-----------------------inside componentdidmount athlete profile")
+        
+
+            this.props.navigation.setParams({
+                athl_id: this.state.athl_id
+               })
+
+            console.log(this.state.athl_id, "--------------------in athlete profile")
     }
 
     onPressEvent() {
@@ -95,15 +186,18 @@ export default class AthleteProfile extends React.Component {
     // }
 
     render() {
-        if (this.state.data.length == 0 || this.state.data2.length == 0) {
+        console.log(this.state.data, "-----------data in render athlete profile")
+        console.log(this.state.data2, "-----------data2 in render athlete profile")
+
+        if (this.state.data.length == 0) {
             return <View></View>;
         }
         // console.log(this.state.data[0]);
         // console.log(this.state.data2[0]);
-        console.log(
-            "The profile_photo Url is --> ",
-            this.state.data2[0].profile_photo
-        );
+        // console.log(
+        //     "The profile_photo Url is --> ",
+        //     this.state.data2[0].profile_photo
+        // );
         return (
             <ScrollView style={styles.container}>
                 {/* <TouchableHighlight

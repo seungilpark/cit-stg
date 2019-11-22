@@ -195,7 +195,7 @@ const verifyAthlete = (acc, pw) => {
 }
 
 const validateAccount = (acc) => {
-  let query = `select * from athletes where account=?`;
+  let query = "select * from athletes where account=?";
   query = mysql.format(query, acc);
   return new Promise((resolve, reject) => {
     pool.query(query, (err, results, fields) => {

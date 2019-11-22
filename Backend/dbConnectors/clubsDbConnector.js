@@ -129,7 +129,7 @@ const verifyClub = (acc, pw) => {
   }
 
   const getClubIdByAccount = (acc) => {
-    let query = `select c.club_id from club_mgr as cm inner join clubs as c on c.club_id=cm.fk_clubs_id where cm.mgr_account=?`;
+    let query = `select cm.mgr_id, c.club_id from club_mgr as cm inner join clubs as c on c.club_id=cm.fk_clubs_id where cm.mgr_account=?`;
     query = mysql.format(query, [acc]);
     console.log(query);
     return new Promise((resolve, reject) => {

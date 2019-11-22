@@ -82,7 +82,8 @@ router.post("/register", async (req, res) => {
       .error;
     if (validationResult) throw new Error(JSON.parse({"message":validationResult, "type":"invalid input from the client..."}));
     // check if the account name is in db
-
+    
+    //FIXME value checks for the inputs
     let athl_obj = {
       account: req.body["account"],
       password: req.body["password"],
@@ -108,7 +109,7 @@ router.post("/register", async (req, res) => {
       //   console.log("if account is created this is the new athlete", newAthl);
       
       let athl_id = await athlInsertResult.insertId;
-      
+      //FIXME value checks for the inputs
       let profilesInput = {
         position: req.body["position"],
         coaches: req.body["coaches"],

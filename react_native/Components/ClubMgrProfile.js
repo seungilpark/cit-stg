@@ -19,14 +19,25 @@ export default class AthleteProfile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            mgr_id: "",
             data: [],
-
+            mgr_id: this.props.navigation.getParam("mgr_id"),
             mgr_email: "",
             mgr_phone: "",
             profile_photo_url: ""
         };
+        this.registerVar = this.registerVar.bind(this);
     }
+
+    registerVar() {
+        const { navigation } = this.props
+        const new_id = navigation.getParam('athl_id', 'none')
+        console.log(new_id);
+    
+        this.setState({
+          mgr_id: new_id
+        })
+        console.log('Account set to ' + this.state.mgr_account);
+      }
 
     componentDidMount() {
         fetch("http://54.191.100.200:8080/api/clubmgrs/" + this.state.mgr_id)

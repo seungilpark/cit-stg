@@ -100,7 +100,7 @@ router.post("/register", async (req, res) => {
       country: req.body["country"]
     };
 
-    if (await db.validateAccount(req.body.account)) {
+    if (!await db.isTaken(req.body.account)) {
       let athlInsertResult = await dbHelper.insertInto("athletes", athl_obj);
       console.log(
         "if account is created this will likely get called",

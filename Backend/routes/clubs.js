@@ -143,7 +143,7 @@ router.post("/signup", async (req, res) => {
       "country": req.body["country"]
     };
     //validate account name
-    if (await mgrDb.validateAccount(req.body.mgr_account)) {
+    if (!await mgrDb.validateAccount(req.body.mgr_account)) {
       let clubInsertResult = await dbHelper.insertInto("clubs", club_obj);
       console.log("clubInserted", clubInsertResult);
       if (clubInsertResult.length < 1) throw new Error("club insert fail");

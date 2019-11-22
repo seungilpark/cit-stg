@@ -207,6 +207,17 @@ const validateAccount = (acc) => {
   })
 }
 
+const isTaken =(acc) => {
+  let query = "select * from athletes where account=?";
+  query = mysql.format(query, acc);
+  return new Promise((resolve, reject) => {
+    pool.query(query, (err, results, fields) => {
+      if (err) reject(err);
+      if (!results.length) resolve(true);
+      else resolve(false);
+    })
+  })
+}
 
 
 
@@ -222,5 +233,6 @@ module.exports = {
     updateAthleteById,
     verifyAthlete,
     validateAccount,
-    getAthlByAccount
+    getAthlByAccount,
+    isTaken
 };

@@ -69,6 +69,10 @@ RegisterVar(){
   })
 }
 
+componentDidMount(){
+  this.RegisterVar();
+}
+
 Submit(){
     console.log(this.state)
   
@@ -102,7 +106,6 @@ Submit(){
           password: this.state.password
         }),
       });
-      this.props.navigation.navigate("Card", {mgr_account: this.state.mgr_account})
       console.log("Athlete Created.")
     }
     else if(checkPd == true && this.state.role === 'mgr'){
@@ -137,9 +140,11 @@ Submit(){
         console.log(responseJson)
         console.log(responseJson.status)
           const id = responseJson[0].mgr_id;
+          const clubId = responseJson[0].fk_clubs_id
           console.log(id)
-          this.props.navigation.navigate("Card", {
-              mgr_id: id
+          this.props.navigation.navigate("CardForMgr", {
+              mgr_id: id,
+              club_id: clubId,
           });
         });
     }else{

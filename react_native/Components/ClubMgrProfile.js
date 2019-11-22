@@ -21,6 +21,7 @@ export default class AthleteProfile extends React.Component {
         this.state = {
             data: [],
             mgr_id: this.props.navigation.getParam("mgr_id"),
+            club_id: this.props.navigation.getParam("club_id"),
             mgr_email: "",
             mgr_phone: "",
             profile_photo_url: ""
@@ -28,9 +29,71 @@ export default class AthleteProfile extends React.Component {
         this.registerVar = this.registerVar.bind(this);
     }
 
+
+    static navigationOptions= ({ navigation }) => {
+        const {params = {}} = navigation.state;
+        return{
+        gesturesEnabled: false,
+        headerTitle: (
+            <TouchableOpacity
+                onPress={() => {
+                    navigation.navigate("CardForMgr", {mgr_id:  params.mgr_id, club_id: params.club_id})
+                    console.log(params.mgr_id, "card params.mgr_id in manager profile");;
+                }}
+            >
+                <View>
+                    <Image
+                        style={{
+                            justifyContent: "center",
+                            height: 40,
+                            width: 40,
+                            resizeMode: "contain"
+                        }}
+                        source={require("../Icons/heart_inactive.png")}
+                    />
+                </View>
+            </TouchableOpacity>
+        ),
+        headerRight: (
+            <TouchableOpacity>
+                <View>
+                    <Image
+                        style={{
+                            justifyContent: "center",
+                            height: 30,
+                            width: 30
+                        }}
+                        source={require("../Icons/profile_active.png")}
+                    />
+                </View>
+            </TouchableOpacity>
+        ),
+        headerLeft: (
+            <TouchableOpacity
+                onPress={() => {
+                    navigation.navigate("ClubMatches", {mgr_id:  params.mgr_id, club_id: params.club_id});
+                    console.log(params.mgr_id, "header left params.mgr_id in club matches")
+                }}
+            >
+                <View>
+                    <Image
+                        style={{
+                            justifyContent: "center",
+                            height: 30,
+                            width: 30
+                        }}
+                        source={require("../Icons/list_inactive.png")}
+                    />
+                </View>
+            </TouchableOpacity>
+        )
+    }
+}
+
+
     registerVar() {
         const { navigation } = this.props
-        const new_id = navigation.getParam('athl_id', 'none')
+        const new_id = navigation.getParam('mgr_id', 'none')
         console.log(new_id);
     
         this.setState({
@@ -39,16 +102,30 @@ export default class AthleteProfile extends React.Component {
         console.log('Account set to ' + this.state.mgr_account);
       }
 
+    getData(){
+        return fetch("http://54.191.100.200:8080/api/clubmgrs/" + this.state.mgr_id)
+        .then(response => response.json())
+        .then(responseJson => {
+            this.setState({ data: responseJson });
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+    }
+
     componentDidMount() {
-        fetch("http://54.191.100.200:8080/api/clubmgrs/" + this.state.mgr_id)
-            .then(response => response.json())
-            .then(responseJson => {
-                this.setState({ data: responseJson });
-            })
-            .catch(error => {
-                console.error(error);
-            });
-        }
+        this.getData();
+        console.log(this.state.mgr_id, "--------------inside componentdidmount using getData")
+        console.log('data loaded');
+
+        this.props.navigation.setParams({
+            mgr_id: this.state.mgr_id,
+            club_id: this.state.club_id
+        })
+
+        console.log(this.state.mgr_id, "-----------------in clubmgrprofile")
+            }
 
     onPressEvent() {
         Alert.alert(

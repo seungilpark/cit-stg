@@ -19,34 +19,99 @@ export default class AthlClubList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+          mgr_id: this.props.navigation.getParam("mgr_id"),
+          club_id: this.props.navigation.getParam("club_id"),
             matchedList:[],
             loading: true,
             showMe: true
         };
-        this.RegisterVar = this.RegisterVar.bind(this);
     }
-    RegisterVar(){
-      const { navigation } = this.props
-      const athl_id = navigation.getParam('mgr_id', 'none')
+
+    static navigationOptions = ({ navigation }) => {
+      const {params = {}} = navigation.state;
+      return{
+      gesturesEnabled: false,
+      headerTitle: (
+          <TouchableOpacity
+              onPress={() => {
+                  navigation.navigate("CardForMgr",{mgr_id: params.mgr_id});
+                  console.log(params.mgr_id, "----------params.mgr_id in club matches going to club cards")
+              }}
+          >
+              <View>
+                  <Image
+                      style={{
+                          justifyContent: "center",
+                          height: 40,
+                          width: 40,
+                          resizeMode: "contain"
+                      }}
+                      source={require("../Icons/heart_inactive.png")}
+                  />
+              </View>
+          </TouchableOpacity>
+      ),
+      headerRight: (
+          <TouchableOpacity
+              onPress={() => {
+                  navigation.navigate("ClubMgrProfile", {mgr_id: params.mgr_id});
+                  console.log(params.mgr_id, "----------params.mgr_id in club matches going to manager profile")
+              }}
+          >
+              <View>
+                  <Image
+                      style={{
+                          justifyContent: "center",
+                          height: 30,
+                          width: 30
+                      }}
+                      source={require("../Icons/profile_inactive.png")}
+                  />
+              </View>
+          </TouchableOpacity>
+      ),
+      headerLeft: (
+          <TouchableOpacity>
+              <View>
+                  <Image
+                      style={{
+                          justifyContent: "center",
+                          height: 30,
+                          width: 30
+                      }}
+                      source={require("../Icons/list_active.png")}
+                  />
+              </View>
+          </TouchableOpacity>
+      )
     }
-    async componentDidMount(){
-        try {
-            var athl_id = 1;
-            const getList = await fetch('http://54.191.100.200:8080/api/matched/club/' + athl_id);
-            const clubMatches = await getList.json()
-            
-            console.log(clubMatches,"Get list 1111111111111111");
-            //console.log(clubList.results, "Get List 2")
-            this.setState({matchedList : clubMatches, loading: false});
-            
-            // console.log(this.matchedList);
-            //console.log(matchedList)
-      } catch(error) {
-            console.log("Error fetching data", error);
-        };
+  }
+
+  getData(){
+    return fetch('http://54.191.100.200:8080/api/matched/club/' + this.state.club_id)
+      .then(response => response.json())
+        .then(responseJson => {
+            this.setState({ data: responseJson });
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    }
+
+  componentDidMount(){
+    this.getData();
+    console.log(this.state.mgr_id, "--------------inside componentdidmount using getData")
+    console.log('data loaded');
+
+      this.props.navigation.setParams({
+          mgr_id: this.state.mgr_id,
+          club_id: this.state.club_id
+      })
+
+      console.log(this.state.mgr_id, "-----------------in club matches")
       }
 
-    componentWillMount() {
+  componentWillMount() {
       setTimeout(() => {
         this.setState({
           showMe: false,
@@ -61,7 +126,8 @@ export default class AthlClubList extends React.Component {
         [
           {
           },
-          {text: 'OK', onPress: () => this.props.navigation.navigate('ClubMgrProfile')},
+          {text: 'OK', onPress: () => this.props.navigation.navigate('ClubMgrProfile', {mgr_id: this.state.mgr_id, club_id: this.state.club_id})},
+          console.log(this.props.navigation.athl_id,'---------------------------', this.props.navigation.club_id)
         ],
         {cancelable: false},
       );
@@ -92,7 +158,7 @@ export default class AthlClubList extends React.Component {
           }
       </ScrollView>
       )}else {
-      return(
+      return (
       <View style={{flex: 1, justifyContent: "center", alignItems: "center", alignSelf: "center"}}>
         {
           this.state.showMe ?

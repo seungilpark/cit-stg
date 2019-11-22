@@ -35,7 +35,7 @@ export default class AthleteProfile extends React.Component {
         return{
         gesturesEnabled: false,
         headerTitle: (
-            <TouchableOpacity
+            <TouchableOpacity style={{alignSelf: "center", marginLeft: "auto", marginRight: "auto"}}
                 onPress={() => {
                     navigation.navigate("CardForMgr", {mgr_id:  params.mgr_id, club_id: params.club_id})
                     console.log(params.mgr_id, "card params.mgr_id in manager profile");;

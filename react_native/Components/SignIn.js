@@ -63,42 +63,73 @@ export default class SignIn extends React.Component {
             );
         } else {
             return fetch(
-                "http://54.191.100.200:8080/api/clubMgrs/signin",
-                data
+                "http://54.191.100.200:8080/api/clubs/signin",
+                {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        mgr_account: this.state.username,
+                        mgr_password: this.state.password
+                    })
+                }
             );
         }
     }
 
     Validation() {
         this.Submit().then(response => {
-            console.log(response.status);
+            console.log(response);
+        //    response.text().then(t => console.log(t));
             if (response.status === 200 && this.state.role === "ath") {
                 console.log("Athlete logged in");
-                const responseJson = response.json();
-                this.setState({
-                    status: "loggedIn",
-                    athl_id: responseJson[0].athl_id
+                
+               response.json().then(rjson => {
+                console.log("new 1 club mgr sigin response-------------",rjson[0].mgr_id)
+                    this.setState({
+                        status: "loggedIn",
+                        athl_id: rjson[0].athl_id,
+                    });
+                    if (this.state.status == "loggedIn")
+                    { this.props.navigation.navigate("Card", {athl_id: this.state.athl_id});}else{
+                        alert("Wrong Username or Password");}
+                    console.log("new club mgr sigin response-------------",rjson[0].mgr_id)
                 });
+//                const responseJson = response.json();
+  //              this.setState({
+    //                status: "loggedIn",
+      //              athl_id: responseJson[0].athl_id
+        //        });
             }else if(response.status === 200 && this.state.role === "mgr"){
                 console.log("Manager logged in");
-                const responseJson = response.json();
-                this.setState({
-                    status: "loggedIn",
-                    mgr_id: responseJson[0].mgr_id,
-                    club_id: responseJson[0].club_id,
+               response.json().then(rjson => {
+                console.log("new 1 club mgr sigin response-------------",rjson[0].mgr_id)
+                    this.setState({
+                        status: "loggedIn",
+                        mgr_id: rjson[0].mgr_id,
+                        club_id: rjson[0].club_id,
+                    });
+                    if (this.state.status == "loggedIn")
+                    {this.props.navigation.navigate("CardForMgr", {mgr_id: this.state.mgr_id, club_id: this.state.club_id});}else{
+                        alert("Wrong Username or Password");}
+                    console.log("new club mgr sigin response-------------",rjson[0].mgr_id)
                 });
+                
+                console.log("club mgr sigin response-------------",this.state.mgr_id)
             } else  {
                 this.setState({
                     status: "forbidden"
                 });
             }
-            if (this.state.role == "ath" && this.state.status == "loggedIn") {
-                this.props.navigation.navigate("Card", {athl_id: this.state.athl_id});
-            } else if(this.state.role == "mgr" && this.state.status == "loggedIn") {
-                this.props.navigation.navigate("CardForMgr", {mgr_id: this.state.mgr_id, club_id: this.state.club_id});
-            }else {
-                alert("Wrong Username or Password");
-            }
+            // if (this.state.role == "ath" && this.state.status == "loggedIn") {
+            //     this.props.navigation.navigate("Card", {athl_id: this.state.athl_id});
+            // } else if(this.state.role == "mgr" && this.state.status == "loggedIn") {
+            //     this.props.navigation.navigate("CardForMgr", {mgr_id: this.state.mgr_id, club_id: this.state.club_id});
+            // }else {
+            //     alert("Wrong Username or Password");
+            // }
             // console.log(result);
         });
     }

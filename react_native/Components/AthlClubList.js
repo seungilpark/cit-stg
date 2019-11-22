@@ -35,7 +35,7 @@ export default class AthlClubList extends React.Component {
       return{
       gesturesEnabled: false,
       headerTitle: (
-          <TouchableOpacity
+          <TouchableOpacity style={{alignSelf: "center", marginLeft: "auto", marginRight: "auto"}}
               onPress={() => {
                   navigation.navigate("Card", {athl_id: params.athl_id})
                   console.log(params.athl_id, "card params.athl_id in athlete club list");

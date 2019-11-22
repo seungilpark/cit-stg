@@ -54,8 +54,8 @@ const validateAccount = (acc) => {
   return new Promise((resolve, reject) => {
     pool.query(query, (err, results, fields) => {
       if (err) reject(err);
-      if (results.length) resolve(false);
-      else resolve(true);
+      else if (results.length) resolve(true);
+      else resolve(false);
     })
   })
 }

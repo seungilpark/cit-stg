@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TextInput, ScrollView, KeyboardAvoidingView, Picker, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView, KeyboardAvoidingView, Picker, TouchableHighlight, Alert } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 // import { ScrollView } from 'react-native-gesture-handler';
 
@@ -24,7 +24,8 @@ export default class AccountInfo extends React.Component {
         account: '',
         password: '',
         password1: '',
-        position:"GK"
+        position:"GK",
+        
         
     };
     this.Submit = this.Submit.bind(this);
@@ -107,14 +108,33 @@ Submit(){
       }).then(response => response.json())
       .then((responseJson) => {
         console.log("Athlete Created.")
-        console.log(responseJson)
-        console.log(responseJson.status)
-          const id = responseJson[0].athl_id;
-
-          console.log(id)
-          this.props.navigation.navigate("Card", {
-              athl_id: id
-          });
+        console.log(responseJson.Error, "--------------------------------response json error")
+        if(responseJson.Error !== undefined){
+          console.log(responseJson,"-----------------------------data of created athlete from the db")
+          console.log(responseJson)
+            const id = responseJson[0].athl_id;
+            console.log(id, "########################################################id of athlete getting passed to card page")
+            this.props.navigation.navigate("Card", {
+                athl_id: id
+            });
+        }else{
+          Alert.alert(
+            "Error",
+            "User already Exists",
+            [
+                // {
+                //     text: "Cancel",
+                //     onPress: () => console.log("Cancel Pressed"),
+                //     style: "cancel"
+                // },
+                {
+                    text: "OK",
+                    onPress: () => this.props.navigation.navigate("AccountInfo")
+                }
+            ],
+            { cancelable: false }
+        );
+        }
         });
       
     }

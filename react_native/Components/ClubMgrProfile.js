@@ -22,6 +22,11 @@ export default class AthleteProfile extends React.Component {
             data: [],
             mgr_id: this.props.navigation.getParam("mgr_id"),
             club_id: this.props.navigation.getParam("club_id"),
+            mgr_fname: this.props.navigation.getParam("mgr_fname"),
+            mgr_lname: this.props.navigation.getParam("mgr_lname"),
+            mgr_account: this.props.navigation.getParam("mgr_account"),
+            mgr_password: this.props.navigation.getParam("mgr_password"),
+            // mgr_fname: this.props.navigation.getParam("mgr_fnam")
             mgr_email: "",
             mgr_phone: "",
             profile_photo_url: ""

@@ -34,12 +34,6 @@ checkType() {
     render() {
         return (
             <View style={styles.container}>
-                <TouchableHighlight
-                    style={styles.BackButton}
-                    onPress={() => this.props.navigation.navigate("MainApp")}
-                >
-                    <Text style={styles.BackBtnText}>Menu</Text>
-                </TouchableHighlight>
                 <Text style={styles.welText}>WHICH ARE YOU?</Text>
                 <TouchableHighlight
                     style={styles.button}
@@ -59,7 +53,7 @@ checkType() {
                         });
                     }}
                 >
-                    <Text style={styles.btnText}> CLUB </Text>
+                    <Text style={styles.btnText}> CLUB MANAGER </Text>
                 </TouchableHighlight>
             </View>
         );
@@ -108,7 +102,7 @@ const styles = StyleSheet.create({
     },
     button2: {
         opacity: 0.7,
-        backgroundColor: "#3AD289",
+        backgroundColor: "#6ED2F2",
         width: "57%",
         padding: 14,
         alignItems: "center",

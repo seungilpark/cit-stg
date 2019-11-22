@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet,TouchableHighlight, Text, View, Button, TextInput, ScrollView, KeyboardAvoidingView, Picker } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
+import RNPickerSelect from 'react-native-picker-select';
 // import { ScrollView } from 'react-native-gesture-handler';
 
 
@@ -58,7 +59,6 @@ checkEmpty(){
       style={styles.container}
       behavior="padding"
     >
-        <ScrollView>
         <Text  style={styles.pageText}>CLUB INFO</Text>
         <Text>{this.state.alert}</Text>
 
@@ -68,17 +68,36 @@ checkEmpty(){
           onChangeText={(club_name) => this.setState({club_name})}
           value={this.state.club_name}
         />
-        <TextInput
-          style={styles.placeHolderText}
-          placeholder="Club Size"
-          onChangeText={(club_size) => this.setState({club_size})}
-          value={this.state.club_size}
+        <RNPickerSelect
+          selectedValue={this.state.club_size}
+          style={pickerSelectStyles}
+          placeholder={{
+            label: "Select a club size..."
+            }}
+          onValueChange={(itemValue) =>
+              this.setState({ club_size: itemValue})
+            }
+                    
+          items={[
+            { label: 'Small', value: 'Small',color: "black" },
+            { label: 'Medium', value: 'Medium', color: "black" },
+            { label: 'Large', value: 'Large', color: "black" },
+          ]}
         />
-        <TextInput
-          style={styles.placeHolderText}
-          placeholder="Club Status"          
-          onChangeText={(club_status) => this.setState({club_status})}
-          value={this.state.club_status}
+        <RNPickerSelect
+          selectedValue={this.state.club_status}
+          style={pickerSelectStyles}
+          placeholder={{
+            label: "Select a club status..."
+            }}
+          onValueChange={(itemValue) =>
+              this.setState({ club_status: itemValue})
+            }
+                    
+          items={[
+            { label: ' Vacant', value: 'Vacant',color: "black" },
+            { label: ' Full', value: 'Full', color: "black" },
+          ]}
         />
 
         <TextInput
@@ -138,7 +157,6 @@ checkEmpty(){
                         <Text style={styles.btnText}> ACCOUNT INFO </Text>
                 </TouchableHighlight>
         
-        </ScrollView>
         </KeyboardAvoidingView>
       </View>
     );
@@ -160,7 +178,6 @@ const styles = StyleSheet.create({
     margin: 2
     },
     pickerBox: {
-        top: '90%',
         height: 10,
         width: 250,
         margin: -5
@@ -185,28 +202,47 @@ const styles = StyleSheet.create({
     },
     button: {
       opacity: 0.7,
-      backgroundColor: "#3AD289",
+      backgroundColor: "#6ED2F2",
       width: "90%",
       padding: 14,
-      top: "10%",
-      marginTop: 20,
-      marginBottom: 28,
       borderRadius: 2
     },
     pageText: {
       // position: "relative",
       // bottom: "25%",
       // backgroundColor: "#ffbf00",
-      marginBottom: 90,
-      color: "#3AD289",
+      marginBottom: 20,
+      color: "#6ED2F2",
       fontSize: 32,
       alignItems: "center",
       padding: 4,
-      marginTop: 10,
+      marginTop: 50,
     },
     btnText: {
       fontSize: 24,
       opacity: 1,
       color: "#fff",
     },
+});
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 18,
+    width: 305,
+    borderBottomWidth: 1,
+    marginBottom: 20,
+    borderColor: '#C4C4C4',
+    borderRadius: 4,
+    color: 'black',
+    paddingRight: 30, // to ensure the text is never behind the icon
+  },
+  inputAndroid: {
+      fontSize: 18,
+      width: 305,
+      borderBottomWidth: 1,
+      marginBottom: 20,
+      borderColor: '#C4C4C4',
+      borderRadius: 4,
+      color: 'black',
+      paddingRight: 30, // to ensure the text is never behind the icon
+  },
 });

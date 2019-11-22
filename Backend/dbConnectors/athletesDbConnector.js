@@ -201,8 +201,11 @@ const validateAccount = (acc) => {
   return new Promise((resolve, reject) => {
     pool.query(query, (err, results, fields) => {
       if (err) reject(err);
-      else if (results.length) resolve(true);
+	    else {
+		if (results.length) resolve(true);
       else resolve(false);
+	    
+	    }
     })
   })
 }
@@ -213,9 +216,12 @@ const isTaken = (acc) => {
   return new Promise((resolve, reject) => {
     pool.query(query, (err, results, fields) => {
       if (err) reject(err);
-      else if (results.length) resolve(true);
+	    else {
+	    if (results.length) resolve(true);
       else resolve(false);
-    })
+
+	    }
+	        })
   })
 }
 

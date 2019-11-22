@@ -13,6 +13,7 @@ import {
   alertMessage
 } from "react-native";
 import { NavigationEvents } from "react-navigation";
+import RNPickerSelect from 'react-native-picker-select';
 // import { ScrollView } from 'react-native-gesture-handler';
 
 export default class SignUp extends React.Component {
@@ -155,7 +156,6 @@ export default class SignUp extends React.Component {
     return (
       <View style={styles.container}>
         <KeyboardAvoidingView style={styles.container} behavior="padding">
-          <ScrollView>
             <Text  style={styles.pageText}>LOCATION INFO</Text>
             <Text>{this.state.alert}</Text>
 
@@ -193,19 +193,23 @@ export default class SignUp extends React.Component {
               onChangeText={phone => this.setState({ phone })}
               value={this.state.phone}
             />
-            <Text>Choose a Country:</Text>
-            <Picker
-              selectedValue={this.state.country}
-              style={{ height: 30, width: 300}}
-              onValueChange={(name, itemIndex) =>
-                this.setState({ country: name })
-              }
-            >
-              <Picker.Item label="Canada" value="Canada" />
-              <Picker.Item label="England" value="England" />
-              <Picker.Item label="Spain" value="Spain" />
-              <Picker.Item label="France" value="France" />
-            </Picker>
+            <RNPickerSelect
+                    selectedValue={this.state.country}
+                    style={pickerSelectStyles}
+                    placeholder={{
+                        label: "Select a country..."
+                    }}
+                    onValueChange={(itemValue, itemIndex) =>
+                        this.setState({ country: itemValue})
+                    }
+                    
+                    items={[
+                        { label: 'Canada', value: 'Canada',color: "black" },
+                        { label: 'England', value: 'England', color: "black" },
+                        { label: 'Spain', value: 'Spain', color: "black" },
+                        { label: 'France', value: 'France', color: "black" },
+                    ]}
+                />
 
               <TouchableHighlight
                         style={styles.button}
@@ -215,7 +219,6 @@ export default class SignUp extends React.Component {
                     >
                         <Text style={styles.btnText}> ACCOUNT INFO </Text>
                 </TouchableHighlight>    
-          </ScrollView>
         </KeyboardAvoidingView>
       </View>
     );
@@ -259,9 +262,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#3AD289",
     width: "90%",
     padding: 14,
-    top: "10%",
-    marginTop: 80,
-    marginBottom: 28,
+    marginTop: 9,
     borderRadius: 2
   },
   pageText: {
@@ -281,4 +282,24 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
 
+});
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 18,
+    width: 305,
+    borderBottomWidth: 1,
+    borderColor: '#C4C4C4',
+    borderRadius: 4,
+    color: 'black',
+    paddingRight: 30, // to ensure the text is never behind the icon
+  },
+  inputAndroid: {
+      fontSize: 18,
+      width: 305,
+      borderBottomWidth: 1,
+      borderColor: '#C4C4C4',
+      borderRadius: 4,
+      color: 'black',
+      paddingRight: 30, // to ensure the text is never behind the icon
+  },
 });

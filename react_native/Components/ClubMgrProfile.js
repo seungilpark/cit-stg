@@ -68,7 +68,7 @@ export default class AthleteProfile extends React.Component {
                             height: 30,
                             width: 30
                         }}
-                        source={require("../Icons/profile_active.png")}
+                        source={require("../Icons/profile_active_mgr.png")}
                     />
                 </View>
             </TouchableOpacity>
@@ -244,7 +244,7 @@ export default class AthleteProfile extends React.Component {
                                     })}>
                                 <Image
                                     style={styles.editIconStyle}
-                                    source={require("../assets/editIcon.png")}
+                                    source={require("../assets/editIcon_mgr.png")}
                                 />
                             </TouchableOpacity>
                         </View>
@@ -287,7 +287,7 @@ export default class AthleteProfile extends React.Component {
                                 mgr_account : this.state.data[0].mgr_account,
                                 mgr_password : this.state.data[0].mgr_password
                                 })}>
-                                <Image style={styles.editIconStyle} source={require("../assets/editIcon.png")}/>
+                                <Image style={styles.editIconStyle} source={require("../assets/editIcon_mgr.png")}/>
                                 </TouchableOpacity>
                             </View>
                             <View>
@@ -337,12 +337,12 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         alignSelf: "center",
-        shadowOffset: { width: 0, height: 12 },
+        shadowOffset: { width: 0, height: 1 },
         shadowColor: "black",
-        shadowOpacity: 1.0,
-        shadowRadius: 11,
-        elevation: 3,
-        backgroundColor: "#3AD289"
+        shadowOpacity: 0.4,
+        shadowRadius: 1,
+        elevation: 5,
+        backgroundColor: "#6ED2F2"
     },
     playerphoto: {
         borderWidth: 5,
@@ -358,45 +358,45 @@ const styles = StyleSheet.create({
 
     cardStyle1: {
         backgroundColor: "white",
-        borderRadius: 9,
-        marginTop: 75,
-        width: 400,
+        borderRadius: 5,
+        marginTop: 70,
+        width: "95%",
         height: 175,
         justifyContent: "center",
         alignItems: "center",
         alignSelf: "center",
-        shadowOffset: { width: 0, height: 12 },
+        shadowOffset: { width: 0, height: 2 },
         shadowColor: "black",
-        shadowOpacity: 1.0,
-        shadowRadius: 11,
-        elevation: 3
+        shadowOpacity: 0.4,
+        shadowRadius: 2,
+        elevation: 5
     },
     cardStyle2: {
         backgroundColor: "white",
-        borderRadius: 9,
-        marginTop: 20,
-        width: 400,
+        borderRadius: 5,
+        marginTop: 10,
+        width: "95%",
         height: 150,
         alignSelf: "center",
-        shadowOffset: { width: 0, height: 12 },
+        shadowOffset: { width: 0, height: 2 },
         shadowColor: "black",
-        shadowOpacity: 1.0,
-        shadowRadius: 11,
-        elevation: 3
+        shadowOpacity: 0.4,
+        shadowRadius: 2,
+        elevation: 5
     },
     cardStyle3: {
         backgroundColor: "white",
-        borderRadius: 9,
-        marginTop: 20,
-        width: 400,
+        borderRadius: 5,
+        marginTop: 10,
+        width: "95%",
         height: 250,
         alignSelf: "center",
-        shadowOffset: { width: 0, height: 12 },
+        shadowOffset: { width: 0, height: 2 },
         shadowColor: "black",
-        shadowOpacity: 1.0,
-        shadowRadius: 11,
-        elevation: 3,
-        marginBottom: 20
+        shadowOpacity: 0.4,
+        shadowRadius: 2,
+        elevation: 5,
+        marginBottom: 10
     },
     editIconStyle: {
         width: 15,
@@ -429,7 +429,7 @@ const styles = StyleSheet.create({
     signOutButton: {
         alignSelf: "center",
         opacity: 0.7,
-        backgroundColor: "#3AD289",
+        backgroundColor: "#6ED2F2",
         width: "45%",
         padding: 14,
         alignItems: "center",

@@ -51,7 +51,6 @@ checkEmpty(){
       style={styles.container}
       behavior="padding"
     >
-        <ScrollView>
         <Text  style={styles.pageText}>MANAGER INFO</Text>
         <Text>{this.state.alert}</Text>
 
@@ -77,7 +76,7 @@ checkEmpty(){
         
         <TextInput
           style={styles.placeHolderText}
-          placeholder="Phone num"
+          placeholder="Phone number: xxx-xxx-xxxx"
           onChangeText={(mgr_phone) => this.setState({mgr_phone})}
           value={this.state.mgr_phone}
         />        
@@ -98,8 +97,6 @@ checkEmpty(){
                     >
                         <Text style={styles.btnText}> CLUB INFO </Text>
                 </TouchableHighlight> 
-        
-        </ScrollView>
         </KeyboardAvoidingView>
       </View>
     );
@@ -140,12 +137,10 @@ const styles = StyleSheet.create({
     },
     button: {
       opacity: 0.7,
-      backgroundColor: "#3AD289",
+      backgroundColor: "#6ED2F2",
       width: "90%",
       padding: 14,
-      top: "10%",
-      marginTop: 80,
-      marginBottom: 28,
+      marginTop: 9,
       borderRadius: 2
     },
     pageText: {
@@ -153,7 +148,7 @@ const styles = StyleSheet.create({
       // bottom: "25%",
       // backgroundColor: "#ffbf00",
       marginBottom: 90,
-      color: "#3AD289",
+      color: "#6ED2F2",
       fontSize: 32,
       alignItems: "center",
       padding: 4,

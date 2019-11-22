@@ -157,8 +157,9 @@ else{
       <View style={styles.container}>
         <KeyboardAvoidingView
       style={styles.container}
+      behavior="padding"
     >
-        <ScrollView>
+
         <Text style={styles.pageText}> PERSONAL INFO</Text>
         <Text>{this.state.alert}</Text>
 
@@ -210,7 +211,6 @@ else{
                     >
                         <Text style={styles.btnText}> LOCATION INFO </Text>
         </TouchableHighlight>     
-        </ScrollView>
         </KeyboardAvoidingView>
       </View>
     );
@@ -234,20 +234,18 @@ const styles = StyleSheet.create({
     width: "90%",
     padding: 14,
     top: "10%",
-    marginTop: 80,
-    marginBottom: 28,
     borderRadius: 2
 },
   pageText: {
     // position: "relative",
     // bottom: "25%",
     // backgroundColor: "#ffbf00",
-    marginBottom: 90,
+    marginBottom: 70,
     color: "#3AD289",
     fontSize: 32,
     alignItems: "center",
     padding: 4,
-    marginTop: 10,
+    marginTop: 50,
 },
   textBox: {
     height: 40,

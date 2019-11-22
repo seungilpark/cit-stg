@@ -7,9 +7,11 @@ import {
     TextInput,
     Picker,
     Image,
-    TouchableHighlight
+    TouchableHighlight,
+    KeyboardAvoidingView
 } from "react-native";
 import { NavigationEvents } from "react-navigation";
+import RNPickerSelect from 'react-native-picker-select';
 export default class SignIn extends React.Component {
     constructor(props) {
         super(props);
@@ -20,7 +22,49 @@ export default class SignIn extends React.Component {
             status: "",
             athl_id: null,
             mgr_id: null,
-            club_id: null
+            club_id: null,
+            button1: {
+                opacity: 0.7,
+                backgroundColor: "#3AD289",
+                width: "57%",
+                padding: 14,
+                alignItems: "center",
+                top: "10%",
+                marginTop: 40,
+                marginBottom: 28,
+                borderRadius: 2
+            },
+            button2:{
+                opacity: 0.7,
+                backgroundColor: "#6ED2F2",
+                width: "57%",
+                padding: 14,
+                alignItems: "center",
+                top: "10%",
+                marginTop: 40,
+                marginBottom: 28,
+                borderRadius: 2
+            },
+            pageText1: {
+                // position: "relative",
+                // bottom: "25%",
+                // backgroundColor: "#ffbf00",
+                marginBottom: 70,
+                color: "#3AD289",
+                fontSize: 32,
+                padding: 4,
+                margin: 4
+            },
+            pageText2: {
+                // position: "relative",
+                // bottom: "25%",
+                // backgroundColor: "#ffbf00",
+                marginBottom: 70,
+                color: "#6ED2F2",
+                fontSize: 32,
+                padding: 4,
+                margin: 4
+            },
         };
         this.Submit = this.Submit.bind(this);
         this.Validation = this.Validation.bind(this);
@@ -159,14 +203,14 @@ export default class SignIn extends React.Component {
                     source={require("../assets/signIn.jpg")}
                     style={styles.pic}
                 /> */}
-                <TouchableHighlight
-                    style={styles.BackButton}
-                    onPress={() => this.props.navigation.navigate("MainApp")}
+                <KeyboardAvoidingView
+                style={styles.container}
+                behavior="padding"
                 >
-                    <Text style={styles.BackBtnText}>Menu</Text>
-                </TouchableHighlight>
+                    
 
-                <Text style={styles.pageText}>LOGIN</Text>
+                <Text style={this.state.role == "mgr" ? this.state.pageText2: this.state.pageText1}>LOGIN</Text>
+                
                 <TextInput
                     style={styles.placeHolderText}
                     placeholder="Username"
@@ -181,27 +225,29 @@ export default class SignIn extends React.Component {
                     value={this.state.password}
                 />
 
-                <Picker
+                <RNPickerSelect
                     selectedValue={this.state.role}
-                    style={{ height: 30, width: 300 }}
+                    style={pickerSelectStyles}
+                    placeholder={{
+                        label: " Select a type..."
+                    }}
                     onValueChange={(itemValue, itemIndex) =>
-                        this.setState({ role: itemValue })
+                        this.setState({ role: itemValue})
                     }
-                >
-                    <Picker.Item label="Athlete" value="ath" color="black" />
-                    <Picker.Item
-                        label="Club Manager"
-                        value="mgr"
-                        color="black"
-                    />
-                </Picker>
+                    
+                    items={[
+                        { label: ' Athlete', value: 'ath',color: "black" },
+                        { label: ' Club Manager', value: 'mgr', color: "black" },
+                    ]}
+                />
 
                 <TouchableHighlight
-                    style={styles.button}
+                    style={this.state.role == "mgr" ? this.state.button2: this.state.button1}
                     onPress={(onPress = this.Validation)}
                 >
-                    <Text style={styles.btnText}> Submit </Text>
+                    <Text style={styles.btnText}> SUBMIT </Text>
                 </TouchableHighlight>
+                </KeyboardAvoidingView>
             </View>
         );
     }
@@ -268,7 +314,7 @@ const styles = StyleSheet.create({
         // bottom: "25%",
         backgroundColor: "white",
         height: "4%",
-        width: "75%",
+        width: 300,
         fontSize: 18,
         borderBottomWidth: 1,
         marginBottom: 20,
@@ -277,3 +323,23 @@ const styles = StyleSheet.create({
         color: "black"
     }
 });
+const pickerSelectStyles = StyleSheet.create({
+    inputIOS: {
+      fontSize: 18,
+      width: 305,
+      borderBottomWidth: 1,
+      borderColor: '#C4C4C4',
+      borderRadius: 4,
+      color: 'black',
+      paddingRight: 30, // to ensure the text is never behind the icon
+    },
+    inputAndroid: {
+        fontSize: 18,
+        width: 305,
+        borderBottomWidth: 1,
+        borderColor: '#C4C4C4',
+        borderRadius: 4,
+        color: 'black',
+        paddingRight: 30, // to ensure the text is never behind the icon
+    },
+  });

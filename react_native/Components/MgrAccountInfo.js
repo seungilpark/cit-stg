@@ -11,7 +11,7 @@ export default class MgrAccountInfo extends React.Component {
     this.state = {
         role: '',
         club_name: '',
-        club_size: 'Medium',
+        club_size: '',
         club_status: '',
         club_url: '',
         club_contact: '',
@@ -207,7 +207,6 @@ checkEmpty(){
       style={styles.container}
       behavior="padding"
     >
-        <ScrollView>
         <Text  style={styles.pageText}>ACCOUNT INFO</Text>
         <Text>{this.state.alert}</Text>     
             
@@ -234,10 +233,8 @@ checkEmpty(){
                         style={styles.button}
                         onPress={() => this.Submit()}
                     >
-                        <Text style={styles.btnText}> Submit </Text>
+                        <Text style={styles.btnText}> SUBMIT </Text>
                 </TouchableHighlight>    
-        
-        </ScrollView>
         </KeyboardAvoidingView>
       </View>
     );
@@ -278,12 +275,10 @@ const styles = StyleSheet.create({
     },
     button: {
       opacity: 0.7,
-      backgroundColor: "#3AD289",
+      backgroundColor: "#6ED2F2",
       width: "90%",
       padding: 14,
       top: "10%",
-      marginTop: 80,
-      marginBottom: 28,
       borderRadius: 2
     },
     pageText: {
@@ -291,7 +286,7 @@ const styles = StyleSheet.create({
       // bottom: "25%",
       // backgroundColor: "#ffbf00",
       marginBottom: 90,
-      color: "#3AD289",
+      color: "#6ED2F2",
       fontSize: 32,
       alignItems: "center",
       padding: 4,

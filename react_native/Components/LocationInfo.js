@@ -38,7 +38,7 @@ export default class SignUp extends React.Component {
 
 
 
-  CheckPage(){
+  async CheckPage(){
     const { navigation } = this.props;
     const role = navigation.getParam("role", "ath");
     const fname = navigation.getParam("fname", "none");
@@ -48,10 +48,10 @@ export default class SignUp extends React.Component {
     const height = navigation.getParam("height", "none");
     const weight = navigation.getParam("weight", "none");
   
-    this.checkEmptyAddr()
-    this.checkEmptyEmail()
-    this.checkEmptyPhone()
-    this.checkEmptyCity()
+    await this.checkEmptyAddr()
+    await this.checkEmptyEmail()
+    await this.checkEmptyPhone()
+    await this.checkEmptyCity()
   
   
   

@@ -72,10 +72,10 @@ componentDidMount(){
   this.RegisterVar();
 }
 
-Submit(){
+async Submit(){
 
-  this.checkEmptyAcct()
-  this.checkEmptyPass()
+  await this.checkEmptyAcct()
+  await this.checkEmptyPass()
   if(this.state.valid){
   checkEmpty = this.checkEmpty();
   console.log(checkEmpty);

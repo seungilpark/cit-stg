@@ -8,7 +8,9 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Picker,
-  TouchableHighlight
+  TouchableHighlight,
+  Alert,
+  alertMessage
 } from "react-native";
 import { NavigationEvents } from "react-navigation";
 // import { ScrollView } from 'react-native-gesture-handler';
@@ -28,9 +30,117 @@ export default class SignUp extends React.Component {
       email: "abcd@abcd.com",
       phone: "1234-1234-1234",
       city: "Vancouver",
-      country: "Canada"
+      country: "Canada",
+      valid: false
     };
   }
+
+
+
+  CheckPage(){
+    const { navigation } = this.props;
+    const role = navigation.getParam("role", "ath");
+    const fname = navigation.getParam("fname", "none");
+    const lname = navigation.getParam("lname", "none");
+    const gender = navigation.getParam("gender", "none");
+    const dob = navigation.getParam("dob", "none");
+    const height = navigation.getParam("height", "none");
+    const weight = navigation.getParam("weight", "none");
+  
+    this.checkEmptyAddr()
+    this.checkEmptyEmail()
+    this.checkEmptyPhone()
+    this.checkEmptyCity()
+  
+  
+  
+  
+  if(this.state.valid == true) {
+    this.props.navigation.navigate("AccountInfo", {
+      role: role,
+      fname: fname,
+      lname: lname,
+      gender: gender,
+      dob: dob,
+      height: height,
+      weight: weight,
+      addr: this.state.addr,
+      email: this.state.email,
+      phone: this.state.phone,
+      city: this.state.city,
+      country: this.state.country
+    });
+  }
+  }
+
+
+  checkEmptyAddr(){
+    if(this.state.addr == ''){
+    
+      Alert.alert('Address cannot be empty', alertMessage, [
+  
+        {text: 'OK', onPress: () => this.setState({valid: false})},
+    ])
+  }
+  else{
+    this.setState({valid: true})
+  }
+  }
+
+  checkEmptyEmail(){
+    if(this.state.email == ''){
+    
+      Alert.alert('Email cannot be empty', alertMessage, [
+  
+        {text: 'OK', onPress: () => this.setState({valid: false})},
+    ])
+  }
+  else{
+    this.setState({valid: true})
+  }
+  }
+
+
+  checkEmptyPhone(){
+
+    var regEx = /^\d{3}-\d{3}-\d{4}$/;
+    if(this.state.phone == ''){
+    
+      Alert.alert('Must enter Phone number cannot be empty', alertMessage, [
+  
+        {text: 'OK', onPress: () => this.setState({valid: false})},
+    ])
+  } else if(!regEx.test(this.state.phone)){
+    Alert.alert('Number must be in xxx-xxx-xxxx format', alertMessage, [
+  
+      {text: 'OK', onPress: () => this.setState({valid: false})},
+  ])
+  
+  } else{
+    this.setState({valid: true})
+  }
+  }
+
+
+  checkEmptyCity(){
+    if(this.state.city == ''){
+    
+      Alert.alert('City cannot be empty', alertMessage, [
+  
+        {text: 'OK', onPress: () => this.setState({valid: false})},
+    ])
+  }
+  else{
+    this.setState({valid: true})
+  }
+  }
+
+
+
+
+
+
+
 
   render() {
     const { navigation } = this.props;
@@ -100,20 +210,7 @@ export default class SignUp extends React.Component {
               <TouchableHighlight
                         style={styles.button}
                         onPress={() => {
-                          this.props.navigation.navigate("AccountInfo", {
-                            role: role,
-                            fname: fname,
-                            lname: lname,
-                            gender: gender,
-                            dob: dob,
-                            height: height,
-                            weight: weight,
-                            addr: this.state.addr,
-                            email: this.state.email,
-                            phone: this.state.phone,
-                            city: this.state.city,
-                            country: this.state.country
-                          });
+                          this.CheckPage()
                       }}
                     >
                         <Text style={styles.btnText}> ACCOUNT INFO </Text>

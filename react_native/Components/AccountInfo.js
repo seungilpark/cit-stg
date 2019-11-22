@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TextInput, ScrollView, KeyboardAvoidingView, Picker, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView, KeyboardAvoidingView, Picker, TouchableHighlight, Alert, alertMessage } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 // import { ScrollView } from 'react-native-gesture-handler';
 
@@ -24,7 +24,8 @@ export default class AccountInfo extends React.Component {
         account: '',
         password: '',
         password1: '',
-        position:"GK"
+        position:"GK",
+        valid: false
         
     };
     this.Submit = this.Submit.bind(this);
@@ -71,7 +72,10 @@ componentDidMount(){
 }
 
 Submit(){
-  
+
+  this.checkEmptyAcct()
+  this.checkEmptyPass()
+  if(this.state.valid){
   checkEmpty = this.checkEmpty();
   console.log(checkEmpty);
   if(checkEmpty != false){
@@ -148,6 +152,32 @@ Submit(){
       })
     }
   }
+}
+}
+
+checkEmptyAcct(){
+  if(this.state.account == ''){
+  
+    Alert.alert('Account cannot be empty', alertMessage, [
+
+      {text: 'OK', onPress: () => this.setState({valid: false})},
+  ])
+}
+else{
+  this.setState({valid: true})
+}
+}
+checkEmptyPass(){
+  if(this.state.password == ''){
+  
+    Alert.alert('Password cannot be empty', alertMessage, [
+
+      {text: 'OK', onPress: () => this.setState({valid: false})},
+  ])
+}
+else{
+  this.setState({valid: true})
+}
 }
 
 verPd(){

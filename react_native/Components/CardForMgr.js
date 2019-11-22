@@ -35,14 +35,14 @@ export default class CardForMgr extends Component {
     return{
     gesturesEnabled: false,
     headerTitle: (
-        <TouchableOpacity>
+        <TouchableOpacity style={{alignSelf: "center", marginLeft: "auto", marginRight: "auto"}}>
             <View>
                 <Image
                     style={{
                         justifyContent: "center",
                         height: 40,
                         width: 40,
-                        resizeMode: "contain"
+                        resizeMode: "contain",
                     }}
                     source={require("../Icons/heart_active.png")}
                 />
@@ -121,6 +121,7 @@ export default class CardForMgr extends Component {
         console.log("Respones JSON in getData---------",responseJson)
         if(Object.entries(responseJson).length != 0){
           new_arr = responseJson
+          console.log(new_arr)
           this.setState({cards : athlImagePicker(new_arr)});
         }else{
           this.setState({

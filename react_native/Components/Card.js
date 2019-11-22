@@ -39,14 +39,15 @@ export default class Card extends Component {
     return{
     gesturesEnabled: false,
     headerTitle: (
-        <TouchableOpacity>
+        <TouchableOpacity style={{alignSelf: "center", marginRight: "auto", marginLeft: "auto"}}>
             <View>
                 <Image
                     style={{
                         justifyContent: "center",
                         height: 40,
                         width: 40,
-                        resizeMode: "contain"
+                        resizeMode: "contain",
+                        
                     }}
                     source={require("../Icons/heart_active.png")}
                 />
@@ -401,7 +402,8 @@ const styles = StyleSheet.create({
     width: "57%",
     padding: 13,
     marginLeft: "21%",
-    marginTop: 545,
+    // marginTop: 545,
+    top: 650,
     borderRadius: 2,
     justifyContent: "center",
     alignItems: "center",

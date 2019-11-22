@@ -6,7 +6,8 @@ const mysql = require("mysql");
 /* get all likes + dislikes by athl */
 const getAllOfferByAthlId = (athl_id) => {
     return new Promise((resolve, reject) => {
-        let query = `select fk_offer_id from athl_like where fk_athl_id=${athl_id}`
+        let query = "select fk_offer_id from athl_like where fk_athl_id=?"
+        query = mysql.format(query, athl_id);
         pool.query(query, (err, results, fields) => {
             if (err) reject(err);
             else resolve(results);
@@ -16,7 +17,8 @@ const getAllOfferByAthlId = (athl_id) => {
 
 const getAllAthlByClubId = (club_id) => {
     return new Promise((resolve, reject) => {
-        let query = `select fk_athl_id from club_like where fk_club_id=${club_id}`
+        let query = "select fk_athl_id from club_like where fk_club_id=?"
+        query = mysql.format(query, club_id);
         pool.query(query, (err, results, fields) => {
             if (err) reject(err);
             else resolve(results);

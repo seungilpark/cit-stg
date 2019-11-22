@@ -22,7 +22,7 @@ export default class PersonalInfo extends React.Component {
         valid: false
     };
     
-    this.checkEmpty = this.checkEmpty.bind(this);
+    // this.checkEmpty = this.checkEmpty.bind(this);
 }
 
 
@@ -33,13 +33,15 @@ CheckPage(){
   const role = navigation.getParam('role','ath')
 
 
-  this.checkEmpty(this.state.fname)
-  this.checkEmpty(this.state.lname)
-  this.checkEmpty(this.state.gender)
-  this.checkEmpty(this.state.dob)
-  this.checkEmpty(this.state.addr)
-  this.checkEmpty(this.state.height)
-  this.checkEmpty(this.state.weight)
+  this.checkEmptyFname()
+  this.checkEmptyLname()
+  this.checkEmptyGender()
+  this.checkEmptyDob()
+  this.checkEmptyHeight()
+  this.checkEmptyWeight()
+
+
+
 
 if(this.state.valid == true) {
   this.props.navigation.navigate('LocationInfo', {
@@ -55,27 +57,92 @@ if(this.state.valid == true) {
 }
 
 
-btnPress1(){
-  Alert.alert('You have been logged out', alertMessage, [
-
-      {text: 'OK', onPress: () => this.props.navigation.navigate('Login')},
-  ])
-}
-
-
-
-checkEmpty(entry){
-    if(this.state.entry == ''){
-      Alert.alert('Missing entry(s)', alertMessage, [
+checkEmptyFname(){
+    if(this.state.fname == ''){
+    
+      Alert.alert('First name cannot be empty', alertMessage, [
 
         {text: 'OK', onPress: () => this.setState({valid: false})},
     ])
-
   }
   else{
     this.setState({valid: true})
   }
 }
+
+checkEmptyLname(){
+  if(this.state.lname == ''){
+  
+    Alert.alert('Last name cannot be empty', alertMessage, [
+
+      {text: 'OK', onPress: () => this.setState({valid: false})},
+  ])
+}
+else{
+  this.setState({valid: true})
+}
+}
+
+checkEmptyGender(){
+  if(this.state.gender == ''){
+  
+    Alert.alert('Gender cannot be empty', alertMessage, [
+
+      {text: 'OK', onPress: () => this.setState({valid: false})},
+  ])
+}
+else{
+  this.setState({valid: true})
+}
+}
+
+
+checkEmptyDob(){
+
+  var regEx = /^\d{4}-\d{2}-\d{2}$/;
+  if(this.state.dob == ''){
+  
+    Alert.alert('Must enter Date of birth cannot be empty', alertMessage, [
+
+      {text: 'OK', onPress: () => this.setState({valid: false})},
+  ])
+} else if(!regEx.test(this.state.dob)){
+  Alert.alert('Date must be in yyyy-mm-dd format', alertMessage, [
+
+    {text: 'OK', onPress: () => this.setState({valid: false})},
+])
+
+} else{
+  this.setState({valid: true})
+}
+}
+
+checkEmptyHeight(){
+  if(this.state.height == ''){
+  
+    Alert.alert('Height cannot be empty', alertMessage, [
+
+      {text: 'OK', onPress: () => this.setState({valid: false})},
+  ])
+}
+else{
+  this.setState({valid: true})
+}
+}
+checkEmptyWeight(){
+  if(this.state.weight == ''){
+  
+    Alert.alert('Weight cannot be empty', alertMessage, [
+
+      {text: 'OK', onPress: () => this.setState({valid: false})},
+  ])
+}
+else{
+  this.setState({valid: true})
+}
+}
+
+
 
 
 

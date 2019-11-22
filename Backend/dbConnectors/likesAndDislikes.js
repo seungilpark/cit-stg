@@ -16,7 +16,7 @@ const getAllOfferByAthlId = (athl_id) => {
 
 const getAllAthlByClubId = (club_id) => {
     return new Promise((resolve, reject) => {
-        let query = `select fk_athl_id from club_like where fk_clubs_id=${club_id}`
+        let query = `select fk_athl_id from club_like where fk_club_id=${club_id}`
         pool.query(query, (err, results, fields) => {
             if (err) reject(err);
             else resolve(results);

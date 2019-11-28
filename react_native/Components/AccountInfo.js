@@ -25,10 +25,11 @@ export default class AccountInfo extends React.Component {
         account: '',
         password: '',
         password1: '',
-        position:"GK",
+        position:'',
         valid: false,
         avalid: false,
-        pvalid: false
+        pvalid: false,
+        posvalid: false
         
     };
     this.Submit = this.Submit.bind(this);
@@ -86,6 +87,10 @@ async Submit(){
     if(this.state.pvalid == false){
       break;
     }
+    await this.checkEmptyPos()
+    if(this.state.posvalid == false){
+      break;
+    }
     this.setState({valid: true})
     }
  
@@ -126,7 +131,7 @@ async Submit(){
       .then((responseJson) => {
         console.log("Athlete Created.")
         console.log(responseJson.Error, "--------------------------------response json error")
-        if(responseJson.Error !== undefined){
+        if(responseJson.Error == undefined){
           console.log(responseJson,"-----------------------------data of created athlete from the db")
           console.log(responseJson)
             const id = responseJson[0].athl_id;
@@ -210,6 +215,18 @@ checkEmptyPass(){
 }
 else{
   this.setState({pvalid: true})
+}
+}
+checkEmptyPos(){
+  if(this.state.position == ''){
+  
+    Alert.alert('Position cannot be empty', alertMessage, [
+
+      {text: 'OK', onPress: () => this.setState({posvalid: false})},
+  ])
+}
+else{
+  this.setState({posvalid: true})
 }
 }
 

@@ -127,7 +127,7 @@ async Submit(){
       .then((responseJson) => {
         console.log("Manager Created.")
         console.log(responseJson)
-        if(responseJson.Error !== undefined){
+        if(responseJson.Error == undefined){
           const id = responseJson[0].mgr_id;
           const clubId = responseJson[0].fk_clubs_id
           console.log(id)

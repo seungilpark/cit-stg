@@ -32,7 +32,11 @@ export default class SignUp extends React.Component {
       phone: "1234-1234-1234",
       city: "Vancouver",
       country: "Canada",
-      valid: false
+      valid: false,
+      avalid: false,
+      evalid: false,
+      pvalid: false,
+      cvalid: false
     };
   }
 
@@ -47,15 +51,28 @@ export default class SignUp extends React.Component {
     const dob = navigation.getParam("dob", "none");
     const height = navigation.getParam("height", "none");
     const weight = navigation.getParam("weight", "none");
-  
-    await this.checkEmptyAddr()
-    await this.checkEmptyEmail()
-    await this.checkEmptyPhone()
-    await this.checkEmptyCity()
-  
-  
-  
-  
+
+    while(this.state.valid == false){
+      await this.checkEmptyAddr()
+      if(this.state.avalid == false){
+        break;
+      }
+      await this.checkEmptyCity()
+      if(this.state.cvalid == false){
+        break;
+      }
+      await this.checkEmptyEmail()
+      if(this.state.evalid == false){
+        break;
+      }
+      await this.checkEmptyPhone()
+      if(this.state.pvalid == false){
+        break;
+      }
+      this.setState({valid: true})
+      }
+
+ 
   if(this.state.valid == true) {
     this.props.navigation.navigate("AccountInfo", {
       role: role,
@@ -80,11 +97,11 @@ export default class SignUp extends React.Component {
     
       Alert.alert('Address cannot be empty', alertMessage, [
   
-        {text: 'OK', onPress: () => this.setState({valid: false})},
+        {text: 'OK', onPress: () => this.setState({avalid: false})},
     ])
   }
   else{
-    this.setState({valid: true})
+    this.setState({avalid: true})
   }
   }
 
@@ -93,11 +110,11 @@ export default class SignUp extends React.Component {
     
       Alert.alert('Email cannot be empty', alertMessage, [
   
-        {text: 'OK', onPress: () => this.setState({valid: false})},
+        {text: 'OK', onPress: () => this.setState({evalid: false})},
     ])
   }
   else{
-    this.setState({valid: true})
+    this.setState({evalid: true})
   }
   }
 
@@ -109,16 +126,16 @@ export default class SignUp extends React.Component {
     
       Alert.alert('Must enter Phone number cannot be empty', alertMessage, [
   
-        {text: 'OK', onPress: () => this.setState({valid: false})},
+        {text: 'OK', onPress: () => this.setState({pvalid: false})},
     ])
   } else if(!regEx.test(this.state.phone)){
     Alert.alert('Number must be in xxx-xxx-xxxx format', alertMessage, [
   
-      {text: 'OK', onPress: () => this.setState({valid: false})},
+      {text: 'OK', onPress: () => this.setState({pvalid: false})},
   ])
   
   } else{
-    this.setState({valid: true})
+    this.setState({pvalid: true})
   }
   }
 
@@ -128,20 +145,13 @@ export default class SignUp extends React.Component {
     
       Alert.alert('City cannot be empty', alertMessage, [
   
-        {text: 'OK', onPress: () => this.setState({valid: false})},
+        {text: 'OK', onPress: () => this.setState({cvalid: false})},
     ])
   }
   else{
-    this.setState({valid: true})
+    this.setState({cvalid: true})
   }
   }
-
-
-
-
-
-
-
 
   render() {
     const { navigation } = this.props;

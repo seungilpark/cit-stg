@@ -26,7 +26,9 @@ export default class AccountInfo extends React.Component {
         password: '',
         password1: '',
         position:"GK",
-        valid: false
+        valid: false,
+        avalid: false,
+        pvalid: false
         
     };
     this.Submit = this.Submit.bind(this);
@@ -74,8 +76,19 @@ componentDidMount(){
 
 async Submit(){
 
-  await this.checkEmptyAcct()
-  await this.checkEmptyPass()
+  while(this.state.valid == false){
+    await this.checkEmptyAcct()
+    if(this.state.avalid == false){
+      break;
+    }
+  
+    await this.checkEmptyPass()
+    if(this.state.pvalid == false){
+      break;
+    }
+    this.setState({valid: true})
+    }
+ 
   if(this.state.valid){
   checkEmpty = this.checkEmpty();
   console.log(checkEmpty);
@@ -180,11 +193,11 @@ checkEmptyAcct(){
   
     Alert.alert('Account cannot be empty', alertMessage, [
 
-      {text: 'OK', onPress: () => this.setState({valid: false})},
+      {text: 'OK', onPress: () => this.setState({avalid: false})},
   ])
 }
 else{
-  this.setState({valid: true})
+  this.setState({avalid: true})
 }
 }
 checkEmptyPass(){
@@ -192,11 +205,11 @@ checkEmptyPass(){
   
     Alert.alert('Password cannot be empty', alertMessage, [
 
-      {text: 'OK', onPress: () => this.setState({valid: false})},
+      {text: 'OK', onPress: () => this.setState({pvalid: false})},
   ])
 }
 else{
-  this.setState({valid: true})
+  this.setState({pvalid: true})
 }
 }
 

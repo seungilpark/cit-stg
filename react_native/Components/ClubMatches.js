@@ -23,8 +23,11 @@ export default class AthlClubList extends React.Component {
           club_id: this.props.navigation.getParam("club_id"),
             matchedList:[],
             loading: true,
-            showMe: true
+            showMe: true,
+            disabledBtn: true,
         };
+        this.getData = this.getData.bind(this);
+        console.disableYellowBox= true;
     }
 
     static navigationOptions = ({ navigation }) => {
@@ -86,12 +89,13 @@ export default class AthlClubList extends React.Component {
       )
     }
   }
-
+  
   getData(){
     return fetch('http://54.191.100.200:8080/api/matched/club/' + this.state.club_id)
       .then(response => response.json())
         .then(responseJson => {
             this.setState({ matchedList: responseJson, loading: false });
+            console.log(this.state.matchedList)
         })
         .catch(error => {
             console.error(error);
@@ -121,12 +125,12 @@ export default class AthlClubList extends React.Component {
     
     onTimeOutEvent(){
       Alert.alert(
-        'Error ',
-        'Failed To Get Data From The API',
+        'Woops',
+        'Doesn\'t look like you matched with anyone yet.',
         [
           {
           },
-          {text: 'OK', onPress: () => this.props.navigation.navigate('ClubMgrProfile', {mgr_id: this.state.mgr_id, club_id: this.state.club_id})},
+          {text: 'OK', onPress: () => this.props.navigation.navigate('CardForMgr', {mgr_id: this.state.mgr_id, club_id: this.state.club_id})},
           console.log(this.props.navigation.athl_id,'---------------------------', this.props.navigation.club_id)
         ],
         {cancelable: false},
@@ -138,17 +142,28 @@ export default class AthlClubList extends React.Component {
     console.log(matchedList, "in render")
     if(!loading){
       return(
+
+      <View>
+        <View style={styles.buttonRow}>
+          <TouchableOpacity style={styles.refreshButton} onPress={this.getData}>
+            <Text style={styles.buttonText}>Refresh</Text>
+          </TouchableOpacity>
+        
       <ScrollView>{
-        matchedList.map((item, id) => {
+       
+        matchedList.map((item, id) => { contentContainerStyle={paddingBottom:20}
+            
             return (
+              
                 <CardFlip style={ styles.cardContainer } ref={ (card) => this['card' + id] = card } >
                   <TouchableOpacity key={item} style={ styles.card } onPress={() => this['card' + id].flip()} >
                     <Image source ={athlImagePicker(matchedList)[id].url} style={styles.playerphotoCard}></Image>
                     <Text style = {styles.TextStyle}>{item.athl_fname} {item.athl_lname}</Text>  
                   </TouchableOpacity>
                   <TouchableOpacity key={item} style={ styles.card } onPress={() => this['card' + id].flip()} >
-                    <Text style = {styles.TextStyle}>Date of Birth: {item.athl_dob}</Text>
+                    <Text style = {styles.TextStyle}>Height: {item.athl_height}Lbs  Weight: {item.athl_weight}Lbs</Text>
                     <Text style = {styles.TextStyle}>Gender: {item.athl_gender}</Text>
+                    <Text style = {styles.TextStyle}>Email: {item.athl_email}</Text>
                     <Text style = {styles.TextStyle}>Position: {item.position}</Text>
                     <Text style = {styles.TextStyle}>Country: {item.country}</Text>
                   </TouchableOpacity>
@@ -156,7 +171,8 @@ export default class AthlClubList extends React.Component {
             )
           })
           }
-      </ScrollView>
+      </ScrollView></View>
+      </View>
       )}else {
       return (
       <View style={{flex: 1, justifyContent: "center", alignItems: "center", alignSelf: "center"}}>
@@ -178,40 +194,46 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
     backgroundColor: '#F5FCFF',
   },
   cardContainer: {
+    flex: 1,
     width: "94%",
     height: 200,
     left: 10,
+    // top:55,
+    marginTop: 55,
     flexDirection : 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 50
+    justifyContent: "center",
+    marginBottom: 25,
 
   },
   playerphotoCard: {
-    borderRadius: 175/2,
+    borderRadius: 150/2,
     borderWidth: 3,
     borderColor: "#6ED2F2",
-    width: 175,
-    height: 175,
+    width: 150,
+    height: 150,
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
     backgroundColor:'#6ED2F2'
   },
   card: {
+    flex:1,
     width: "100%",
-    height: 220,
-    top: 20,
+    height: "100%",
+    top: 5,
+    bottom:10,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection:'column',
-    backgroundColor: "white",
+    backgroundColor: "#fff",
     borderRadius: 5,
     shadowColor: 'rgba(0,0,0,0.5)',
     shadowOffset: {
@@ -221,22 +243,37 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     elevation: 5,
   },
+  refreshButton:{
+    flex:1,
+    zIndex: 1,
+    position: "absolute",
+    top: 0,
+    opacity: 0.7,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#3AD289",
+    width: "50%",
+    padding: 14,
+    borderRadius: 2,
+    paddingBottom: 10
+  },
 
-  // imageViewStyle: {
-
-  //   width: '100%',
-  //   height: '100%',
-  //   borderRadius:6,
-  //   backgroundColor: "#3AD289"
-    
-  //   },
-
-    TextStyle:{
-      color:'black',
-      textAlign:'center',
-      padding: 5,
-      fontSize: 18,
-      fontWeight: "bold"
+  buttonRow: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  buttonText: {
+    fontSize: 24,
+    opacity: 1,
+    color: "#fff",
+  },
+  TextStyle:{
+    color:'black',
+    textAlign:'center',
+    padding: 5,
+    fontSize: 18,
+    fontWeight: "bold"
   },
   
 });

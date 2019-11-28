@@ -39,7 +39,24 @@ export default class AthleteProfile extends React.Component {
         // this.registerVar = this.registerVar.bind(this);
         console.log(this.state.athl_id, "-----------------------athlete id in constructor athlete profile")
     }
-
+    // registerVar(){
+    //     this.setState({
+    //         athl_id: this.props.navigation.getParam("athl_id"),
+    //         athl_fname: this.props.navigation.getParam("athl_fname"),
+    //         athl_lname: this.props.navigation.getParam("athl_lname"),
+    //         athl_gender: this.props.navigation.getParam("athl_gender"),
+    //         athl_height: this.props.navigation.getParam("athl_height"),
+    //         athl_weight: this.props.navigation.getParam("athl_weight"),
+    //         athl_dob: this.props.navigation.getParam("athl_dob"),
+    //         athl_addr: this.props.navigation.getParam("athl_addr"),
+    //         account: this.props.navigation.getParam("account"),
+    //         password: this.props.navigation.getParam("password"),
+    //         athl_email: this.props.navigation.getParam("athl_email"),
+    //         athl_phone: this.props.navigation.getParam("athl_phone"),
+    //         city: this.props.navigation.getParam("city"),
+    //         country: this.props.navigation.getParam("country"),
+    //     })
+    // }
     static navigationOptions = ( {navigation} ) => {
         const {params = {}} =navigation.state;
       return{

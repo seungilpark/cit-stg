@@ -241,12 +241,13 @@ export default class CardForMgr extends Component {
             ref={swiper => {
               this.swiper = swiper
             }}
-            backgroundColor={'#3ad289'}
+            backgroundColor={'#fff'}
             useViewOverflow={Platform.OS === 'ios'}
             onSwipedLeft={(event) => this.onSwiped(event, "left")}
             onSwipedRight={(event) => this.onSwiped(event, "right")}
             cards={this.state.cards}
-            cardVerticalMargin={80}
+            marginBottom={110}
+            cardVerticalMargin={30}
             renderCard={this.renderCard}
             onSwipedAll={this.onSwipedAllCards}
             stackSize={3}
@@ -338,7 +339,7 @@ const styles = StyleSheet.create({
     width: "57%",
     padding: 13,
     marginLeft: "21%",
-    marginTop: 545,
+    top: 685,
     borderRadius: 2,
     justifyContent: "center",
     alignItems: "center",

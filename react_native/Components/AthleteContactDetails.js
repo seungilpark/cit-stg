@@ -142,7 +142,7 @@ export default class PersonalDetailsPage extends React.Component {
         return (
             <View style= {styles.container}>
                 <Card containerStyle={styles.cardContainer}>
-                    {/* <View style= {styles.row}> */}
+                    <View style= {styles.row}>
                     <Text style={styles.textStyle}> Email:</Text>
                     <TextInput
                     style={styles.textBox}
@@ -150,7 +150,7 @@ export default class PersonalDetailsPage extends React.Component {
                     onChangeText={(athl_email) => this.setState({athl_email, disabledBtn: false})}
                     value={this.state.athl_email}
                     />
-                    {/* </View> */}
+                    </View>
 
                     <View style={styles.row}>
                     <Text style={styles.textStyle}> Phone:</Text>
@@ -163,7 +163,7 @@ export default class PersonalDetailsPage extends React.Component {
                     </View>
 
                         <View style={styles.buttonBar}>
-                            <TouchableHighlight disabled={this.state.disabledBtn} style= {styles.buttonBox2} onPress={() => {this.onPressEvent()}}>
+                            <TouchableHighlight  style= {styles.buttonBox2} onPress={() => {this.onPressEvent()}}>
                                 <Text style={{textAlign: "center", color: "#FFF", opacity: 1}}>Cancel</Text>
                             </TouchableHighlight>
                             <TouchableHighlight disabled={this.state.disabledBtn} style={styles.buttonBox1}  onPress={() => {this.onSubmit()}}>

@@ -253,7 +253,7 @@ export default class Card extends Component {
   
               
             }}
-            backgroundColor={'white'}
+            backgroundColor={'#fff'}
             infinite = {false}
             useViewOverflow={Platform.OS === 'ios'}
             // onSwiped={() => this.onSwiped('general')}
@@ -369,7 +369,7 @@ export default class Card extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white'
+    backgroundColor: '#fff'
   },
   card: {
     flex: 1,
@@ -403,7 +403,7 @@ const styles = StyleSheet.create({
     padding: 13,
     marginLeft: "21%",
     // marginTop: 545,
-    top: 650,
+    top: 685,
     borderRadius: 2,
     justifyContent: "center",
     alignItems: "center",

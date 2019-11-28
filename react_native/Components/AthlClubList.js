@@ -25,7 +25,8 @@ export default class AthlClubList extends React.Component {
             loading: true,
             showMe: true
         };
-        // this.RegisterVar = this.RegisterVar.bind(this);
+        this.getData = this.getData.bind(this);
+        console.disableYellowBox=true;
         console.log(this.state.athl_id, "-----------------------athlete id in constructor athlete club list")
     }
 
@@ -139,12 +140,12 @@ export default class AthlClubList extends React.Component {
 
     onTimeOutEvent(){
       Alert.alert(
-        'Error ',
-        'Failed To Get Data From The API',
+        'Woops',
+        'Doesn\'t look like you matched with anyone yet.',
         [
           {
           },
-          {text: 'OK', onPress: () => this.props.navigation.navigate('AthleteProfile', {athl_id: this.state.athl_id})},
+          {text: 'OK', onPress: () => this.props.navigation.navigate('Card', {athl_id: this.state.athl_id})},
         ],
         {cancelable: false},
       );
@@ -155,8 +156,14 @@ export default class AthlClubList extends React.Component {
     console.log(matchedList, "in render")
     if(!loading){
       return (
+        <View>
+        <View style={styles.buttonRow}>
+          <TouchableOpacity style={styles.refreshButton} onPress={this.getData}>
+            <Text style={styles.buttonText}>Refresh</Text>
+          </TouchableOpacity>
+        
         <ScrollView>{
-          matchedList.map((item, id) => {
+          matchedList.map((item, id) => { contentContainerStyle={paddingBottom:20}
             return (
                 <CardFlip style={ styles.cardContainer } ref={ (card) => this['card' + id] = card }>
                   <TouchableOpacity key={item} style={ styles.card } onPress={() => this['card' + id].flip()}><Image source ={clubImagePicker(this.state.matchedList)[id].url} style={styles.imageViewStyle}></Image></TouchableOpacity>
@@ -169,7 +176,8 @@ export default class AthlClubList extends React.Component {
                 </CardFlip>
             )
           })
-          }</ScrollView>
+          }</ScrollView></View>
+          </View>
       )}else {
         return (
         <View style={{flex: 1, justifyContent: "center", alignItems: "center", alignSelf: "center"}}>
@@ -198,24 +206,28 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   cardContainer: {
+    flex:1,
     width: "94%",
     height: 200,
-    flex: 1,
-    left: 10,
+    // top: 57,
+    marginTop: 58,
     flexDirection : 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10
-
+    alignSelf: 'center',
+    marginBottom: 25,
   },
   card: {
+    flex:1,
     width: "100%",
-    height: 220,
-    top: 20,
+    height: "100%",
+    top: 5,
+    bottom:5,
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf: 'center',
     flexDirection:'column',
-    backgroundColor: "#E2F0E4",
+    backgroundColor: "#fff",
     borderRadius: 5,
     shadowColor: 'rgba(0,0,0,0.5)',
     shadowOffset: {
@@ -228,7 +240,7 @@ const styles = StyleSheet.create({
 
   imageViewStyle: {
 
-    width: '96%',
+    width: '100%',
     height: 200,
     borderRadius:6,
     backgroundColor: "#3AD289"
@@ -241,6 +253,30 @@ const styles = StyleSheet.create({
       padding: 5,
       fontSize: 18,
       fontWeight: "bold"
+  },
+  refreshButton:{
+    flex:1,
+    zIndex: 1,
+    position: "absolute",
+    top: 0,
+    opacity: 0.7,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#3AD289",
+    width: "50%",
+    padding: 14,
+    borderRadius: 2
+  },
+
+  buttonRow: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  buttonText: {
+    fontSize: 24,
+    opacity: 1,
+    color: "#fff",
   },
 
 });

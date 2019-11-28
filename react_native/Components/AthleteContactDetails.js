@@ -1,7 +1,6 @@
 import React from 'react';
-import { Alert, StyleSheet, Text, View, TextInput,} from 'react-native';
+import { Alert, StyleSheet, Text, View, TextInput, TouchableHighlight} from 'react-native';
 import { NavigationEvents } from 'react-navigation';
-import { TouchableHighlight } from 'react-native-gesture-handler';
 import { Card } from "react-native-elements";
 // import { ScrollView } from 'react-native-gesture-handler';
 
@@ -143,7 +142,7 @@ export default class PersonalDetailsPage extends React.Component {
         return (
             <View style= {styles.container}>
                 <Card containerStyle={styles.cardContainer}>
-                    <View style= {styles.row}>
+                    {/* <View style= {styles.row}> */}
                     <Text style={styles.textStyle}> Email:</Text>
                     <TextInput
                     style={styles.textBox}
@@ -151,7 +150,7 @@ export default class PersonalDetailsPage extends React.Component {
                     onChangeText={(athl_email) => this.setState({athl_email, disabledBtn: false})}
                     value={this.state.athl_email}
                     />
-                    </View>
+                    {/* </View> */}
 
                     <View style={styles.row}>
                     <Text style={styles.textStyle}> Phone:</Text>

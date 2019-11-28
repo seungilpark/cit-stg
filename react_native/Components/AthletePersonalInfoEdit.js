@@ -1,7 +1,6 @@
 import React from 'react';
-import { Alert, StyleSheet, Text, View, Button, TextInput, ScrollView, KeyboardAvoidingView, Picker} from 'react-native';
+import { Alert, StyleSheet, Text, View, Button, TextInput, ScrollView, KeyboardAvoidingView, Picker, TouchableHighlight, TouchableOpacity} from 'react-native';
 import { NavigationEvents } from 'react-navigation';
-import { TouchableOpacity, TouchableHighlight } from 'react-native-gesture-handler';
 import { Card } from "react-native-elements";
 // import { ScrollView } from 'react-native-gesture-handler';
 

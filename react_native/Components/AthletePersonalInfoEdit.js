@@ -19,6 +19,7 @@ export default class PersonalDetailsPage extends React.Component {
             athl_gender: this.props.navigation.getParam("athl_gender"),
             athl_height: this.props.navigation.getParam("athl_height"),
             athl_weight: this.props.navigation.getParam("athl_weight"),
+            athl_dob: this.props.navigation.getParam("athl_dob"),
             athl_addr: this.props.navigation.getParam("athl_addr"),
             account: this.props.navigation.getParam("account"),
             password: this.props.navigation.getParam("password"),
@@ -30,8 +31,17 @@ export default class PersonalDetailsPage extends React.Component {
         }
         console.log(this.state.athl_fname)
         console.log(this.state.athl_lname)
+        console.log(this.state.athl_gender)
+        console.log(this.state.athl_height)
+        console.log(this.state.athl_weight)
+        console.log(this.state.athl_dob)
+        console.log(this.state.athl_addr)
+        console.log(this.state.athl_email)
+        console.log(this.state.athl_phone)
         console.log(this.state.account)
         console.log(this.state.password)
+        console.log(this.state.city)
+        console.log(this.state.country)
     }
 
     componentDidMount() {
@@ -42,6 +52,7 @@ export default class PersonalDetailsPage extends React.Component {
             athl_gender: this.state.athl_gender,
             athl_height: this.state.athl_height,
             athl_weight: this.state.athl_weight,
+            athl_dob: this.state.athl_dob,
             athl_addr: this.state.athl_addr,            
             athl_email: this.state.athl_email,
             athl_phone:  this.state.athl_phone,
@@ -54,27 +65,14 @@ export default class PersonalDetailsPage extends React.Component {
 
     onSubmit() {
         console.log(this.state.athl_id, "----------------on submit athlete personal info")
-            if(this.state.athl_id != null || this.state.athl_id != undefined){
+            if(this.state.athl_id != null && this.state.athl_id != undefined){
                 fetch('http://54.191.100.200:8080/api/athletes/update/' + this.state.athl_id, {
                 method: 'POST',
                 headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    athl_fname: this.state.athl_fname,
-                    athl_lname: this.state.athl_lname,
-                    athl_gender: this.state.athl_gender,
-                    athl_height: this.state.athl_height,
-                    athl_weight: this.state.athl_weight,
-                    athl_addr: this.state.athl_addr,            
-                    athl_email: this.state.athl_email,
-                    athl_phone:  this.state.athl_phone,
-                    account:  this.state.account,
-                    password: this.state.password,
-                    city: this.state.city,
-                    country: this.state.country
-                }),
+                body: JSON.stringify({athl_fname: this.state.athl_fname,athl_lname: this.state.athl_lname,athl_gender: this.state.athl_gender,athl_height: this.state.athl_height,athl_weight: this.state.athl_weight,athl_dob: this.state.athl_dob,athl_addr: this.state.athl_addr,athl_email: this.state.athl_email,athl_phone:  this.state.athl_phone,account:  this.state.account,password: this.state.password,city: this.state.city,country: this.state.country}),
                 })
                 .then((response) => response.json())
                 .then((responseJson) => {
@@ -97,6 +95,7 @@ export default class PersonalDetailsPage extends React.Component {
                                     athl_gender: this.state.athl_gender,
                                     athl_height: this.state.athl_height,
                                     athl_weight: this.state.athl_weight,
+                                    athl_dob: this.state.athl_dob,
                                     athl_addr: this.state.athl_addr,            
                                     athl_email: this.state.athl_email,
                                     athl_phone:  this.state.athl_phone,
@@ -142,7 +141,7 @@ export default class PersonalDetailsPage extends React.Component {
       }
 
     render() {
-        const {athl_fname, athl_lname, athl_gender, athl_height, athl_weight, athl_addr, city, country, account, password} = this.state
+        const {athl_fname, athl_lname, athl_gender, athl_height, athl_weight, athl_dob, athl_addr, city, country, account, password} = this.state
         return (
             <View style= {styles.container}>
                 <Card containerStyle={styles.cardContainer}>
@@ -202,7 +201,7 @@ export default class PersonalDetailsPage extends React.Component {
                     style={styles.textBox}
                     placeholder={this.state.athl_height.toString()}
                     onChangeText={(athl_height) => this.setState({athl_height, disabledBtn: false})}
-                    value={this.state.athl_height}
+                    value={this.state.athl_height.toString()}
                     />
                     </View>
 
@@ -212,7 +211,17 @@ export default class PersonalDetailsPage extends React.Component {
                     style={styles.textBox}
                     placeholder={this.state.athl_weight.toString()}
                     onChangeText={(athl_weight) => this.setState({athl_weight, disabledBtn: false})}
-                    value={this.state.athl_weight}
+                    value={this.state.athl_weight.toString()}
+                    />
+                    </View>
+
+                    <View style={styles.row}>
+                    <Text style={styles.textStyle}> Date of Birth:</Text>    
+                    <TextInput
+                    style={styles.textBox}
+                    placeholder={this.state.athl_dob.toString().slice(0,10)}
+                    onChangeText={(athl_dob) => this.setState({athl_dob, disabledBtn: false})}
+                    value={this.state.athl_dob.toString().slice(0,10)}
                     />
                     </View>
 

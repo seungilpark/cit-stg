@@ -13,42 +13,109 @@ export default class PersonalDetailsPage extends React.Component {
         console.log("Data", state.params.athl_id, state.params.athl_fname)
         this.state = {
             // athl_id: state.params.athl_id,
-            athl_fname: state.params.athl_fname,
-            athl_lname: state.params.athl_lname,
-            athl_account: state.params.athl_account,
-            athl_password: state.params.athl_password,
+            athl_id: this.props.navigation.getParam("athl_id"),
+            athl_fname: this.props.navigation.getParam("athl_fname"),
+            athl_lname: this.props.navigation.getParam("athl_lname"),
+            athl_gender: this.props.navigation.getParam("athl_gender"),
+            athl_height: this.props.navigation.getParam("athl_height"),
+            athl_weight: this.props.navigation.getParam("athl_weight"),
+            athl_addr: this.props.navigation.getParam("athl_addr"),
+            account: this.props.navigation.getParam("account"),
+            password: this.props.navigation.getParam("password"),
+            athl_email: this.props.navigation.getParam("athl_email"),
+            athl_phone: this.props.navigation.getParam("athl_phone"),
+            city: this.props.navigation.getParam("city"),
+            country: this.props.navigation.getParam("country"),
             disabledBtn: true
         }
         console.log(this.state.athl_fname)
         console.log(this.state.athl_lname)
-        console.log(this.state.athl_account)
-        console.log(this.state.athl_password)
+        console.log(this.state.account)
+        console.log(this.state.password)
+    }
+
+    componentDidMount() {
+        this.setState({
+            athl_id: this.state.athl_id,
+            athl_fname: this.state.athl_fname,
+            athl_lname: this.state.athl_lname,
+            athl_gender: this.state.athl_gender,
+            athl_height: this.state.athl_height,
+            athl_weight: this.state.athl_weight,
+            athl_addr: this.state.athl_addr,            
+            athl_email: this.state.athl_email,
+            athl_phone:  this.state.athl_phone,
+            account:  this.state.account,
+            password: this.state.password,
+            city: this.state.city,
+            country: this.state.country,
+        })        
     }
 
     onSubmit() {
-        console.log(this.state.athl_id)
-        athl_id = "";
-        console.log("in submit function",athl_id);
-            if(athl_id != null || athl_id != undefined){
-                fetch('http://54.191.100.200:8080/api/athletes/update/' + athl_id, {
+        console.log(this.state.athl_id, "----------------on submit athlete personal info")
+            if(this.state.athl_id != null || this.state.athl_id != undefined){
+                fetch('http://54.191.100.200:8080/api/athletes/update/' + this.state.athl_id, {
                 method: 'POST',
                 headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({athl_fname: this.state.athl_fname,athl_lname: this.state.athl_lname,athl_account: this.state.account,athl_password: this.state.password}),
+                body: JSON.stringify({
+                    athl_fname: this.state.athl_fname,
+                    athl_lname: this.state.athl_lname,
+                    athl_gender: this.state.athl_gender,
+                    athl_height: this.state.athl_height,
+                    athl_weight: this.state.athl_weight,
+                    athl_addr: this.state.athl_addr,            
+                    athl_email: this.state.athl_email,
+                    athl_phone:  this.state.athl_phone,
+                    account:  this.state.account,
+                    password: this.state.password,
+                    city: this.state.city,
+                    country: this.state.country
+                }),
                 })
                 .then((response) => response.json())
                 .then((responseJson) => {
 
                     console.log(responseJson)
                     Alert.alert(
-                        "Success",
-                        "Personal Information Updated!",
+                        "",
+                        "Are you sure you want to update?",
                         [
                             {
-                                text: "OK",
-                                onPress: () => this.props.navigation.navigate("AthleteProfile")
+                                text: 'No',
+                                onPress: () => console.log('Cancel Pressed'),
+                                style: 'cancel',
+                            },
+                            {
+                                text: "Yes",
+                                onPress: () => this.props.navigation.navigate("AthleteProfile",{
+                                    athl_fname: this.state.athl_fname,
+                                    athl_lname: this.state.athl_lname,
+                                    athl_gender: this.state.athl_gender,
+                                    athl_height: this.state.athl_height,
+                                    athl_weight: this.state.athl_weight,
+                                    athl_addr: this.state.athl_addr,            
+                                    athl_email: this.state.athl_email,
+                                    athl_phone:  this.state.athl_phone,
+                                    account:  this.state.account,
+                                    password: this.state.password,
+                                    city: this.state.city,
+                                    country: this.state.country   
+                                },
+                                Alert.alert(
+                                    "Success!",
+                                    "Please sign out for any changes to take effect.",
+                                    [
+                                        {
+                                            text: "OK",
+                                            onPress: () => this.props.navigation.navigate("AthleteProfile")
+                                        },
+                                    ],        
+                                    { cancelable: false }
+                                ))
                             }
                         ],
                         { cancelable: false }
@@ -75,7 +142,7 @@ export default class PersonalDetailsPage extends React.Component {
       }
 
     render() {
-        const {athl_fname, athl_lname, athl_account, athl_password} = this.state
+        const {athl_fname, athl_lname, athl_gender, athl_height, athl_weight, athl_addr, city, country, account, password} = this.state
         return (
             <View style= {styles.container}>
                 <Card containerStyle={styles.cardContainer}>
@@ -83,7 +150,7 @@ export default class PersonalDetailsPage extends React.Component {
                     <Text style={styles.textStyle}> First Name:</Text>
                     <TextInput
                     style={styles.textBox}
-                    placeholder= {athl_fname}
+                    placeholder= {this.state.athl_fname}
                     onChangeText={(athl_fname) => this.setState({athl_fname, disabledBtn: false})}
                     value={this.state.athl_fname}
                     />
@@ -93,7 +160,7 @@ export default class PersonalDetailsPage extends React.Component {
                     <Text style={styles.textStyle}> Last Name:</Text>
                     <TextInput
                     style={styles.textBox}
-                    placeholder= {athl_lname}
+                    placeholder= {this.state.athl_lname}
                     onChangeText={(athl_lname) => this.setState({athl_lname, disabledBtn: false})}
                     value={this.state.athl_lname}
                     />
@@ -103,9 +170,9 @@ export default class PersonalDetailsPage extends React.Component {
                     <Text style={styles.textStyle}> Account:</Text>    
                     <TextInput
                     style={styles.textBox}
-                    placeholder={athl_account}
-                    onChangeText={(athl_account) => this.setState({athl_account, disabledBtn: false})}
-                    value={this.state.athl_account}
+                    placeholder={this.state.account}
+                    onChangeText={(account) => this.setState({account, disabledBtn: false})}
+                    value={this.state.account}
                     />
                     </View>
 
@@ -113,9 +180,69 @@ export default class PersonalDetailsPage extends React.Component {
                     <Text style={styles.textStyle}> Password:</Text>    
                     <TextInput
                     style={styles.textBox}
-                    placeholder={athl_password}
-                    onChangeText={(athl_password) => this.setState({athl_password, disabledBtn: false})}
-                    value={this.state.athl_password}
+                    placeholder={this.state.password}
+                    onChangeText={(password) => this.setState({password, disabledBtn: false})}
+                    value={this.state.password}
+                    />
+                    </View>
+
+                    <View style={styles.row}>
+                    <Text style={styles.textStyle}> Gender:</Text>    
+                    <TextInput
+                    style={styles.textBox}
+                    placeholder={this.state.athl_gender}
+                    onChangeText={(athl_gender) => this.setState({athl_gender, disabledBtn: false})}
+                    value={this.state.athl_gender}
+                    />
+                    </View>
+
+                    <View style={styles.row}>
+                    <Text style={styles.textStyle}> Height:</Text>    
+                    <TextInput
+                    style={styles.textBox}
+                    placeholder={this.state.athl_height.toString()}
+                    onChangeText={(athl_height) => this.setState({athl_height, disabledBtn: false})}
+                    value={this.state.athl_height}
+                    />
+                    </View>
+
+                    <View style={styles.row}>
+                    <Text style={styles.textStyle}> Weight:</Text>    
+                    <TextInput
+                    style={styles.textBox}
+                    placeholder={this.state.athl_weight.toString()}
+                    onChangeText={(athl_weight) => this.setState({athl_weight, disabledBtn: false})}
+                    value={this.state.athl_weight}
+                    />
+                    </View>
+
+                    <View style={styles.row}>
+                    <Text style={styles.textStyle}> Address:</Text>    
+                    <TextInput
+                    style={styles.textBox}
+                    placeholder={this.state.athl_addr}
+                    onChangeText={(athl_addr) => this.setState({athl_addr, disabledBtn: false})}
+                    value={this.state.athl_addr}
+                    />
+                    </View>
+
+                    <View style={styles.row}>
+                    <Text style={styles.textStyle}> City:</Text>    
+                    <TextInput
+                    style={styles.textBox}
+                    placeholder={this.state.city}
+                    onChangeText={(city) => this.setState({city, disabledBtn: false})}
+                    value={this.state.city}
+                    />
+                    </View>
+
+                    <View style={styles.row}>
+                    <Text style={styles.textStyle}> Country:</Text>    
+                    <TextInput
+                    style={styles.textBox}
+                    placeholder={this.state.country}
+                    onChangeText={(country) => this.setState({country, disabledBtn: false})}
+                    value={this.state.country}
                     />
                     </View>
                         <View style={styles.buttonBar}>
@@ -137,7 +264,6 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: '#fff',
       flexDirection: "column",
-      justifyContent: "center",
     },
     textBox : {
         height: 40,
@@ -153,7 +279,7 @@ const styles = StyleSheet.create({
     },
     cardContainer: {
         borderRadius: 7,
-        height: 350,
+        height: 650,
         backgroundColor: "white",
         shadowOffset: { width: 0, height: 2 },
         shadowColor: "black",
@@ -161,7 +287,6 @@ const styles = StyleSheet.create({
         shadowRadius: 2,
         elevation: 5
     },
-
     row : {
         flexDirection: "row",
         justifyContent: "space-between"
@@ -179,23 +304,23 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     buttonBox1: {
-    width: 75,
-    padding: 10,
-    opacity: 0.7,
-    left: 25,
-    borderRadius: 2,
-    backgroundColor: "#3AD289",
-    justifyContent: "center",
-    marginTop: 70
+        width: 75,
+        padding: 10,
+        opacity: 0.7,
+        left: 25,
+        borderRadius: 2,
+        backgroundColor: "#3AD289",
+        justifyContent: "center",
+        marginTop: 90
   },
-  buttonBox2: {
-    width: 75,
-    backgroundColor: "red",
-    opacity: 0.7,
-    borderRadius: 4,
-    right: 25,
-    padding: 10,
-    justifyContent: "center",
-    marginTop: 70
+    buttonBox2: {
+        width: 75,
+        backgroundColor: "red",
+        opacity: 0.7,
+        borderRadius: 4,
+        right: 25,
+        padding: 10,
+        justifyContent: "center",
+        marginTop: 90
   },
 });

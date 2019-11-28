@@ -11,56 +11,73 @@ export default class PersonalDetailsPage extends React.Component {
         super(props);
         const {state} = props.navigation
         this.state = {
-            mgr_id: state.params.mgr_id,
-            mgr_email: state.params.mgr_email,
-            mgr_phone: state.params.mgr_phone,
+            mgr_id: this.props.navigation.getParam("mgr_id"),
+            mgr_fname: this.props.navigation.getParam("mgr_fname"),
+            mgr_lname: this.props.navigation.getParam("mgr_lname"),
+            mgr_account: this.props.navigation.getParam("mgr_account"),
+            mgr_password: this.props.navigation.getParam("mgr_password"),
+            mgr_email:  this.props.navigation.getParam("mgr_email"),
+            mgr_phone:  this.props.navigation.getParam("mgr_phone"),
             disabledBtn: true
-        }
+        },
+        console.log(this.state.mgr_fname, "--------------mgr fname in contact details")
+        console.log(this.state.mgr_lname, "--------------mgr lname in contact details")
+
         console.log(this.state.mgr_email)
         console.log(this.state.mgr_phone)
     }
 
-    // RegisterVar(){
-    //     const{ state } = props.navigation
-    //     const mgr_id = state.params.mgr_id
-    //     console
-    //     // const mgr_account = navigation.getParam('mgr_account')
-    //     // const mgr_password = navigation.getParam('mgr_password')
-    //     // const mgr_fname = navigation.getParam('mgr_fname')
-    //     // const mgr_lname = navigation.getParam('mgr_lname')
-
-    //     this.setState({
-    //         mgr_id : mgr_id,
-    //         mgr_account : mgr_account,
-    //         mgr_password : mgr_password,
-    //         mgr_account : mgr_account,
-    //         mgr_fname : mgr_fname,
-    //         mgr_lname : mgr_lname
-    //     })
-
-    // }
+    componentDidMount(){
+        this.setState({
+            mgr_id: this.state.mgr_id,
+            mgr_fname: this.state.mgr_fname,
+            mgr_lname: this.state.mgr_lname,
+            mgr_account: this.state.mgr_account,
+            mgr_password: this.state.mgr_password,
+            mgr_email: this.state.mgr_email,
+            mgr_phone: this.state.mgr_phone
+        })
+    }
+  
 
     onSubmit() {
-        console.log(this.state.mgr_id)
-            fetch('http://54.191.100.200:8080/api/clubMgrs/update/1', {
+        console.log(this.state.mgr_id, "-----------------onsubmit mgr id")
+            fetch('http://54.191.100.200:8080/api/clubMgrs/update/' + this.state.mgr_id, {
             method: 'POST',
             headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             },
-            body: JSON.stringify({mgr_email: this.state.mgr_email, mgr_phone: this.state.mgr_phone}),
+            body: JSON.stringify({mgr_fname: this.state.mgr_fname,mgr_lname: this.state.mgr_lname,mgr_account: this.state.mgr_account,mgr_password: this.state.mgr_password,mgr_email: this.state.mgr_email,mgr_phone: this.state.mgr_phone}),
             })
             .then((response) => response.json())
             .then((responseJson) => {
+                console.log(this.state.mgr_fname, "--------inside contact update")
+                console.log(this.state.mgr_lname, "--------------inside contact update")
 
-                console.log(responseJson)
                 Alert.alert(
-                    "Success",
-                    "Contact Information Updated!",
+                    "",
+                    "Are you sure you want to update?",
                     [
                         {
-                            text: "OK",
-                            onPress: () => this.props.navigation.navigate("ClubMgrProfile")
+                            text: 'No',
+                            onPress: () => console.log('Cancel Pressed'),
+                            style: 'cancel',
+                        },
+                        {
+                            text: "Yes",
+                            onPress: () => this.props.navigation.navigate("ClubMgrProfile",{mgr_fname: this.state.mgr_fname,mgr_lname: this.state.mgr_lname, mgr_account: this.state.mgr_account,mgr_password: this.state.mgr_password,mgr_email: this.state.mgr_email, mgr_phone: this.state.mgr_phone},
+                            Alert.alert(
+                                "Success!",
+                                "Please sign out for any changes to take effect.",
+                                [
+                                    {
+                                        text: "OK",
+                                        onPress: () => this.props.navigation.navigate("ClubMgrProfile")
+                                    }
+                                ],
+                                { cancelable: false }
+                            ))
                         }
                     ],
                     { cancelable: false }
@@ -86,7 +103,7 @@ export default class PersonalDetailsPage extends React.Component {
       }
 
     render() {
-        const {mgr_email, mgr_phone} = this.state
+        const { mgr_email, mgr_phone} = this.state
         return (
             <View style= {styles.container}>
                 <Card containerStyle={styles.cardContainer}>
@@ -94,7 +111,7 @@ export default class PersonalDetailsPage extends React.Component {
                     <Text style={styles.textStyle}> Email:</Text>
                     <TextInput
                     style={styles.textBox}
-                    placeholder= {mgr_email}
+                    placeholder= {this.state.mgr_email}
                     onChangeText={(mgr_email) => this.setState({mgr_email, disabledBtn: false})}
                     value={this.state.mgr_email}
                     />
@@ -104,14 +121,14 @@ export default class PersonalDetailsPage extends React.Component {
                     <Text style={styles.textStyle}> Phone:</Text>
                     <TextInput
                     style={styles.textBox}
-                    placeholder= {mgr_phone}
+                    placeholder= {this.state.mgr_phone}
                     onChangeText={(mgr_phone) => this.setState({mgr_phone, disabledBtn: false})}
                     value={this.state.mgr_phone}
                     />
                     </View>
 
                         <View style={styles.buttonBar}>
-                            <TouchableHighlight disabled={this.state.disabledBtn} style= {styles.buttonBox2} onPress={() => {this.onPressEvent()}}>
+                            <TouchableHighlight style= {styles.buttonBox2} onPress={() => {this.onPressEvent()}}>
                                 <View ><Text style={{textAlign: "center", color: "#FFF", opacity: 1}}>Cancel</Text></View>
                             </TouchableHighlight>
                             <TouchableHighlight disabled={this.state.disabledBtn} style={styles.buttonBox1}  onPress={() => {this.onSubmit()}}>

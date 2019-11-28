@@ -118,10 +118,10 @@ export default class CardForMgr extends Component {
     return fetch('http://54.191.100.200:8080/api/recommendations/club/' + this.state.club_id)
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log("Respones JSON in getData---------",responseJson)
+        // console.log("Respones JSON in getData---------",responseJson)
         if(Object.entries(responseJson).length != 0){
           new_arr = responseJson
-          console.log(new_arr)
+          // console.log(new_arr)
           this.setState({cards : athlImagePicker(new_arr)});
         }else{
           this.setState({

@@ -11,34 +11,41 @@ export default class PersonalDetailsPage extends React.Component {
         super(props);
         const {state} = props.navigation
         this.state = {
-            athl_id: state.params.athl_id,
-            athl_email: state.params.athl_email,
-            athl_phone: state.params.athl_phone,
+            athl_id: this.props.navigation.getParam("athl_id"),
+            athl_fname: this.props.navigation.getParam("athl_fname"),
+            athl_lname: this.props.navigation.getParam("athl_lname"),
+            athl_gender: this.props.navigation.getParam("athl_gender"),
+            athl_height: this.props.navigation.getParam("athl_height"),
+            athl_weight: this.props.navigation.getParam("athl_weight"),
+            athl_addr: this.props.navigation.getParam("athl_addr"),
+            account: this.props.navigation.getParam("account"),
+            password: this.props.navigation.getParam("password"),
+            athl_email: this.props.navigation.getParam("athl_email"),
+            athl_phone: this.props.navigation.getParam("athl_phone"),
+            city: this.props.navigation.getParam("city"),
+            country: this.props.navigation.getParam("country"),
             disabledBtn: true
         }
         console.log(this.state.athl_email)
         console.log(this.state.athl_phone)
     }
 
-    // RegisterVar(){
-    //     const{ state } = props.navigation
-    //     const mgr_id = state.params.mgr_id
-    //     console
-    //     // const mgr_account = navigation.getParam('mgr_account')
-    //     // const mgr_password = navigation.getParam('mgr_password')
-    //     // const mgr_fname = navigation.getParam('mgr_fname')
-    //     // const mgr_lname = navigation.getParam('mgr_lname')
-
-    //     this.setState({
-    //         mgr_id : mgr_id,
-    //         mgr_account : mgr_account,
-    //         mgr_password : mgr_password,
-    //         mgr_account : mgr_account,
-    //         mgr_fname : mgr_fname,
-    //         mgr_lname : mgr_lname
-    //     })
-
-    // }
+    componentDidMount() {
+        this.setState({
+            athl_fname: this.state.athl_fname,
+            athl_lname: this.state.athl_lname,
+            athl_gender: this.state.athl_gender,
+            athl_height: this.state.athl_height,
+            athl_weight: this.state.athl_weight,
+            athl_addr: this.state.athl_addr,            
+            athl_email: this.state.athl_email,
+            athl_phone:  this.state.athl_phone,
+            account:  this.state.account,
+            password: this.state.password,
+            city: this.state.city,
+            country: this.state.country,
+        })        
+    }
 
     onSubmit() {
         console.log(this.state.athl_id)
@@ -48,26 +55,68 @@ export default class PersonalDetailsPage extends React.Component {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             },
-            body: JSON.stringify({athl_email: this.state.athl_email, athl_phone: this.state.athl_phone}),
+            body: JSON.stringify({
+            athl_fname: this.state.athl_fname,
+            athl_lname: this.state.athl_lname,
+            athl_gender: this.state.athl_gender,
+            athl_height: this.state.athl_height,
+            athl_weight: this.state.athl_weight,
+            athl_addr: this.state.athl_addr,            
+            athl_email: this.state.athl_email,
+            athl_phone:  this.state.athl_phone,
+            account:  this.state.account,
+            password: this.state.password,
+            city: this.state.city,
+            country: this.state.country
+            }),
             })
             .then((response) => response.json())
             .then((responseJson) => {
 
-                console.log(responseJson)
+                // console.log(responseJson)
                 Alert.alert(
-                    "Success",
-                    "Contact Information Updated!",
+                    "",
+                    "Are you sure you want to update?",
                     [
                         {
-                            text: "OK",
-                            onPress: () => this.props.navigation.navigate("AthleteProfile")
+                            text: 'No',
+                            onPress: () => console.log('Cancel Pressed'),
+                            style: 'cancel',
+                        },
+                        {
+                            text: "Yes",
+                            onPress: () => this.props.navigation.navigate("AthleteProfile",{
+                                athl_fname: this.state.athl_fname,
+                                athl_lname: this.state.athl_lname,
+                                athl_gender: this.state.athl_gender,
+                                athl_height: this.state.athl_height,
+                                athl_weight: this.state.athl_weight,
+                                athl_addr: this.state.athl_addr,            
+                                athl_email: this.state.athl_email,
+                                athl_phone:  this.state.athl_phone,
+                                account:  this.state.account,
+                                password: this.state.password,
+                                city: this.state.city,
+                                country: this.state.country
+                            },
+                            Alert.alert(
+                                "Success!",
+                                "Please sign out for any changes to take effect.",
+                                [
+                                    {
+                                        text: "OK",
+                                        
+                                        onPress: () => this.props.navigation.navigate("AthleteProfile")
+                                    }
+                                ],
+                                { cancelable: false }
+                            ))
                         }
                     ],
                     { cancelable: false }
                 );
             })
-    }
-
+}
 
     onPressEvent(){
         Alert.alert(

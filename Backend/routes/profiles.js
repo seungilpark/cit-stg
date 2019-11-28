@@ -43,4 +43,16 @@ router.post("/create", async (req, res) => {
     }
 })
 
+router.get("/athlete/:athl_id", async (req, res) => {
+    try {
+        const athl_id = req.params.athl_id;
+        let row = await db.getProfileByAthlId(athl_id);
+        res.json(row);
+    }
+    catch(err) {
+        res.json(`{"Error": "True", "Message": ${err}, "Timestamp": ${dbHelper.now()}`);
+    }
+})
+
+
 module.exports = router;

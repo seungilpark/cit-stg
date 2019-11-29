@@ -40,6 +40,7 @@ export default class AthleteProfile extends React.Component {
         const {params = {}} = navigation.state;
         return{
         gesturesEnabled: false,
+        headerStyle:{ borderBottomWidth: 0},
         headerTitle: (
             <TouchableOpacity style={{alignSelf: "center", marginLeft: "auto", marginRight: "auto"}}
                 onPress={() => {
@@ -213,12 +214,7 @@ export default class AthleteProfile extends React.Component {
                     <Card containerStyle={styles.cardStyle1}>
                         <View style={{ marginTop: 70 }}>
                             <Text
-                                style={{
-                                    fontSize: 20,
-                                    fontWeight: "bold",
-                                    textAlign: "center",
-                                    color: "black"
-                                }}
+                                style={{fontSize: 15, fontWeight: "bold", textAlign: "center", color: "#6ED2F2"}}
                             >
                                 Welcome
                             </Text>

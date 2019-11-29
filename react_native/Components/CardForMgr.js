@@ -34,6 +34,7 @@ export default class CardForMgr extends Component {
     const {params = {}} = navigation.state;
     return{
     gesturesEnabled: false,
+    headerStyle:{ borderBottomWidth: 0},
     headerTitle: (
         <TouchableOpacity style={{alignSelf: "center", marginLeft: "auto", marginRight: "auto"}}>
             <View>
@@ -241,12 +242,13 @@ export default class CardForMgr extends Component {
             ref={swiper => {
               this.swiper = swiper
             }}
-            backgroundColor={'#3ad289'}
+            backgroundColor={'#fff'}
             useViewOverflow={Platform.OS === 'ios'}
             onSwipedLeft={(event) => this.onSwiped(event, "left")}
             onSwipedRight={(event) => this.onSwiped(event, "right")}
             cards={this.state.cards}
-            cardVerticalMargin={80}
+            marginBottom={110}
+            cardVerticalMargin={30}
             renderCard={this.renderCard}
             onSwipedAll={this.onSwipedAllCards}
             stackSize={3}

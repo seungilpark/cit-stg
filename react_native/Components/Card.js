@@ -38,6 +38,7 @@ export default class Card extends Component {
     const {params = {}} = navigation.state;
     return{
     gesturesEnabled: false,
+    headerStyle:{ borderBottomWidth: 0},
     headerTitle: (
         <TouchableOpacity style={{alignSelf: "center", marginRight: "auto", marginLeft: "auto"}}>
             <View>
@@ -347,11 +348,11 @@ export default class Card extends Component {
           >
           </Swiper>
           <TouchableHighlight
-            style={styles.button}
-            onPress={() => this.swiper.swipeBack()}
-            >
-            <Text style={styles.btnText}> Swipe Back </Text>
-            </TouchableHighlight>
+          style={styles.button}
+          onPress={() => this.swiper.swipeBack()}
+          >
+          <Text style={styles.btnText}> Swipe Back </Text>
+          </TouchableHighlight>
         
         </View>
       )
@@ -402,8 +403,7 @@ const styles = StyleSheet.create({
     width: "57%",
     padding: 13,
     marginLeft: "21%",
-    // marginTop: 545,
-    top: 650,
+    marginTop: 545,
     borderRadius: 2,
     justifyContent: "center",
     alignItems: "center",

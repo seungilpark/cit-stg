@@ -69,7 +69,7 @@ export default class PersonalDetailsPage extends React.Component {
                             onPress: () => this.props.navigation.navigate("ClubMgrProfile",{mgr_fname: this.state.mgr_fname,mgr_lname: this.state.mgr_lname, mgr_account: this.state.mgr_account,mgr_password: this.state.mgr_password,mgr_email: this.state.mgr_email, mgr_phone: this.state.mgr_phone},
                             Alert.alert(
                                 "Success!",
-                                "Please sign out for any changes to take effect.",
+                                "Profile Updated",
                                 [
                                     {
                                         text: "OK",

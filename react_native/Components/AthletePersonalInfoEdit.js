@@ -105,7 +105,7 @@ export default class PersonalDetailsPage extends React.Component {
                                 },
                                 Alert.alert(
                                     "Success!",
-                                    "Prpfile Updated.",
+                                    "Profile Updated.",
                                     [
                                         {
                                             text: "OK",

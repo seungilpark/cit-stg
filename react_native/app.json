@@ -1,25 +1,29 @@
 {
-    "expo": {
-        "name": "STG",
-        "description": "Tinder For Athletes provides a platform where athletes can market themselves to sports clubs without hiring a sports agent/sports recruiter. The previous process can be long and can shy away potential athletes from ever having a career in sports. In the other hand, all the registered clubs can quickly search and find the best athletes in the athletes pool. Find the right Athletes-Clubs pairs in the shortest time.",
-        "slug": "STG",
-        "privacy": "public",
-        "sdkVersion": "35.0.0",
-        "platforms": ["ios", "android", "web"],
-        "version": "1.0.0",
-        "orientation": "portrait",
-        "icon": "./assets/icon.png",
-        "githubUrl": "https://github.com/seungilpark/cit-stg",
-        "splash": {
-            "image": "./assets/splash.png",
-            "resizeMode": "contain",
-            "backgroundColor": "#ffffff"
-        },
-        "updates": {
-            "fallbackToCacheTimeout": 0
-        },
-        "android": {
-            "package": "ca.bcit.stg"
-        }
+  "expo": {
+    "name": "ISSP Project STG",
+    "description": "Tinder For Athletes provides a platform where athletes can market themselves to sports clubs without hiring a sports agent/sports recruiter. The previous process can be long and can shy away potential athletes from ever having a career in sports. On the other hand, all the registered clubs can quickly search and find the best athletes in the athletes pool. Find the right Athletes-Clubs pairs in the shortest time.",
+    "slug": "STG",
+    "privacy": "public",
+    "sdkVersion": "35.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "githubUrl": "https://github.com/seungilpark/cit-stg",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "android": {
+      "package": "ca.bcit.stg"
     }
+  }
 }

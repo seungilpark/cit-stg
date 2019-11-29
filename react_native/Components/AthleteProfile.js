@@ -12,6 +12,7 @@ import {
 import { AppLoading, Font } from "expo";
 import { NavigationEvents, StackNavigator } from "react-navigation";
 import { Card } from "react-native-elements";
+import {athlImagePicker} from "../utils/imagePicker"
 
 export default class AthleteProfile extends React.Component {
     

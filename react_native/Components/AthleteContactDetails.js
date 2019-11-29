@@ -104,7 +104,7 @@ export default class PersonalDetailsPage extends React.Component {
                             },
                             Alert.alert(
                                 "Success!",
-                                "Please sign out for any changes to take effect.",
+                                "Profile Updated",
                                 [
                                     {
                                         text: "OK",

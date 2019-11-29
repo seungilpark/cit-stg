@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableHighlight, Text, View, Button, TextInput, ScrollView, KeyboardAvoidingView, Picker } from 'react-native';
+import { StyleSheet, TouchableHighlight, Text, View, Button, TextInput, ScrollView, KeyboardAvoidingView, Picker, Alert, alertMessage } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 // import { ScrollView } from 'react-native-gesture-handler';
 
@@ -11,7 +11,7 @@ export default class MgrAccountInfo extends React.Component {
     this.state = {
         role: '',
         club_name: '',
-        club_size: 'Medium',
+        club_size: '',
         club_status: '',
         club_url: '',
         club_contact: '',
@@ -25,7 +25,10 @@ export default class MgrAccountInfo extends React.Component {
         fk_sports_id: 1,
         mgr_account: '',
         password: '',
-        password1: ''
+        password1: '',
+        valid: false,
+        Avalid: false,
+        Pvalid: false
         
     };
     this.Submit = this.Submit.bind(this);
@@ -73,42 +76,28 @@ componentDidMount(){
   this.RegisterVar();
 }
 
-Submit(){
-    console.log(this.state)
+async Submit(){
+
+  while(this.state.valid == false){
+    await this.checkEmptyAcct()
+    if(this.state.Avalid == false){
+      break;
+    }
+    await this.checkEmptyPass()
+    if(this.state.Pvalid == false){
+      break;
+    }
   
+    this.setState({valid: true})
+    }
+  if(this.state.valid){
   checkEmpty = this.checkEmpty();
-  console.log(checkEmpty);
   if(checkEmpty != false){
     checkPd = this.verPd();
     console.log(checkPd);
     addVar = this.RegisterVar();
-    if(checkPd == true && this.state.role === 'ath'){
-      
-      fetch('http://54.191.100.200:8080/api/athletes/register', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          athl_fname: this.state.fname,
-          athl_lname: this.state.lname,
-          athl_gender: this.state.gender,
-          athl_dob: this.state.dob,
-          athl_addr: this.state.addr,
-          athl_height: this.state.height,
-          athl_weight: this.state.weight,
-          athl_email: this.state.email,
-          athl_phone: this.state.phone,
-          city: this.state.city,
-          country: this.state.country,
-          account: this.state.account,
-          password: this.state.password
-        }),
-      });
-      console.log("Athlete Created.")
-    }
-    else if(checkPd == true && this.state.role === 'mgr'){
+
+    if(checkPd == true && this.state.role === 'mgr'){
       fetch('http://54.191.100.200:8080/api/clubs/signup', {
         method: 'POST',
         headers: {
@@ -138,7 +127,7 @@ Submit(){
       .then((responseJson) => {
         console.log("Manager Created.")
         console.log(responseJson)
-        console.log(responseJson.status)
+        if(responseJson.Error == undefined){
           const id = responseJson[0].mgr_id;
           const clubId = responseJson[0].fk_clubs_id
           console.log(id)
@@ -146,6 +135,24 @@ Submit(){
               mgr_id: id,
               club_id: clubId,
           });
+        }else{
+          Alert.alert(
+            "Error",
+            "User already Exists",
+            [
+                // {
+                //     text: "Cancel",
+                //     onPress: () => console.log("Cancel Pressed"),
+                //     style: "cancel"
+                // },
+                {
+                    text: "OK",
+                    onPress: () => this.props.navigation.navigate("MgrAccountInfo")
+                }
+            ],
+            { cancelable: false }
+        );
+        }
         });
     }else{
       this.setState({
@@ -153,6 +160,7 @@ Submit(){
       })
     }
   }
+}
 }
 
 verPd(){
@@ -173,15 +181,34 @@ checkEmpty(){
   }
 }
 
+checkEmptyAcct(){
+  if(this.state.mgr_account == ''){
+  
+    Alert.alert('Account cannot be empty', alertMessage, [
+
+      {text: 'OK', onPress: () => this.setState({Avalid: false})},
+  ])
+}
+else{
+  this.setState({Avalid: true})
+}
+}
+checkEmptyPass(){
+  if(this.state.password == ''){
+  
+    Alert.alert('Password cannot be empty', alertMessage, [
+
+      {text: 'OK', onPress: () => this.setState({Pvalid: false})},
+  ])
+}
+else{
+  this.setState({Pvalid: true})
+}
+}
+
 
 
   render() {
-
-
-    
-
-
-    
     return (
       <View style={styles.container}>
         
@@ -189,7 +216,6 @@ checkEmpty(){
       style={styles.container}
       behavior="padding"
     >
-        <ScrollView>
         <Text  style={styles.pageText}>ACCOUNT INFO</Text>
         <Text>{this.state.alert}</Text>     
             
@@ -216,10 +242,8 @@ checkEmpty(){
                         style={styles.button}
                         onPress={() => this.Submit()}
                     >
-                        <Text style={styles.btnText}> Submit </Text>
+                        <Text style={styles.btnText}> SUBMIT </Text>
                 </TouchableHighlight>    
-        
-        </ScrollView>
         </KeyboardAvoidingView>
       </View>
     );
@@ -260,12 +284,10 @@ const styles = StyleSheet.create({
     },
     button: {
       opacity: 0.7,
-      backgroundColor: "#3AD289",
+      backgroundColor: "#6ED2F2",
       width: "90%",
       padding: 14,
       top: "10%",
-      marginTop: 80,
-      marginBottom: 28,
       borderRadius: 2
     },
     pageText: {
@@ -273,7 +295,7 @@ const styles = StyleSheet.create({
       // bottom: "25%",
       // backgroundColor: "#ffbf00",
       marginBottom: 90,
-      color: "#3AD289",
+      color: "#6ED2F2",
       fontSize: 32,
       alignItems: "center",
       padding: 4,

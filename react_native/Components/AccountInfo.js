@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, TextInput, ScrollView, KeyboardAvoidingView, Picker, TouchableHighlight, Alert, alertMessage } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
+import RNPickerSelect from 'react-native-picker-select';
 // import { ScrollView } from 'react-native-gesture-handler';
 
 
@@ -24,8 +25,11 @@ export default class AccountInfo extends React.Component {
         account: '',
         password: '',
         password1: '',
-        position:"GK",
-        valid: false
+        position:'',
+        valid: false,
+        avalid: false,
+        pvalid: false,
+        posvalid: false
         
     };
     this.Submit = this.Submit.bind(this);
@@ -71,10 +75,25 @@ componentDidMount(){
   this.RegisterVar();
 }
 
-Submit(){
+async Submit(){
 
-  this.checkEmptyAcct()
-  this.checkEmptyPass()
+  while(this.state.valid == false){
+    await this.checkEmptyAcct()
+    if(this.state.avalid == false){
+      break;
+    }
+  
+    await this.checkEmptyPass()
+    if(this.state.pvalid == false){
+      break;
+    }
+    await this.checkEmptyPos()
+    if(this.state.posvalid == false){
+      break;
+    }
+    this.setState({valid: true})
+    }
+ 
   if(this.state.valid){
   checkEmpty = this.checkEmpty();
   console.log(checkEmpty);
@@ -111,14 +130,33 @@ Submit(){
       }).then(response => response.json())
       .then((responseJson) => {
         console.log("Athlete Created.")
-        console.log(responseJson)
-        console.log(responseJson.status)
-          const id = responseJson[0].athl_id;
-
-          console.log(id)
-          this.props.navigation.navigate("Card", {
-              athl_id: id
-          });
+        console.log(responseJson.Error, "--------------------------------response json error")
+        if(responseJson.Error == undefined){
+          console.log(responseJson,"-----------------------------data of created athlete from the db")
+          console.log(responseJson)
+            const id = responseJson[0].athl_id;
+            console.log(id, "########################################################id of athlete getting passed to card page")
+            this.props.navigation.navigate("Card", {
+                athl_id: id
+            });
+        }else{
+          Alert.alert(
+            "Error",
+            "User already Exists",
+            [
+                // {
+                //     text: "Cancel",
+                //     onPress: () => console.log("Cancel Pressed"),
+                //     style: "cancel"
+                // },
+                {
+                    text: "OK",
+                    onPress: () => this.props.navigation.navigate("AccountInfo")
+                }
+            ],
+            { cancelable: false }
+        );
+        }
         });
       
     }
@@ -160,11 +198,11 @@ checkEmptyAcct(){
   
     Alert.alert('Account cannot be empty', alertMessage, [
 
-      {text: 'OK', onPress: () => this.setState({valid: false})},
+      {text: 'OK', onPress: () => this.setState({avalid: false})},
   ])
 }
 else{
-  this.setState({valid: true})
+  this.setState({avalid: true})
 }
 }
 checkEmptyPass(){
@@ -172,11 +210,23 @@ checkEmptyPass(){
   
     Alert.alert('Password cannot be empty', alertMessage, [
 
-      {text: 'OK', onPress: () => this.setState({valid: false})},
+      {text: 'OK', onPress: () => this.setState({pvalid: false})},
   ])
 }
 else{
-  this.setState({valid: true})
+  this.setState({pvalid: true})
+}
+}
+checkEmptyPos(){
+  if(this.state.position == ''){
+  
+    Alert.alert('Position cannot be empty', alertMessage, [
+
+      {text: 'OK', onPress: () => this.setState({posvalid: false})},
+  ])
+}
+else{
+  this.setState({posvalid: true})
 }
 }
 
@@ -214,7 +264,6 @@ checkEmpty(){
       style={styles.container}
       behavior="padding"
     >
-        <ScrollView>
         <Text  style={styles.pageText}>ACCOUNT INFO</Text>
         <Text>{this.state.alert}</Text>     
             
@@ -237,29 +286,32 @@ checkEmpty(){
           onChangeText={(password1) => this.setState({password1})}
           value={this.state.password1}
         />
-        <Text>Choose a Position:</Text>
-        <Picker
-              selectedValue={this.state.position}
-              style={{ height: 30, width: 300 }}
-              onValueChange={(p, itemIndex) =>
-                this.setState({ position: p })
-              }
-            >
-              <Picker.Item label="GK" value="GK" />
-              <Picker.Item label="RF" value="RF" />
-              <Picker.Item label="LF" value="LF" />
-              <Picker.Item label="CB" value="CB" />
-              <Picker.Item label="DM" value="DM" />
-              <Picker.Item label="RW" value="RW" />
-              <Picker.Item label="RM" value="RM" />
-              <Picker.Item label="CM" value="CM" />
-              <Picker.Item label="BM" value="BM" />
-              <Picker.Item label="SK" value="SK" />
-              <Picker.Item label="AP" value="AP" />
-              <Picker.Item label="LW" value="LW" />
-              <Picker.Item label="LM" value="LM" />
-              <Picker.Item label="AM" value="AM" />
-            </Picker>
+        <RNPickerSelect
+                    selectedValue={this.state.position}
+                    style={pickerSelectStyles}
+                    placeholder={{
+                        label: " Select a position..."
+                    }}
+                    onValueChange={(itemValue, itemIndex) =>
+                        this.setState({ position: itemValue})
+                    }
+                    
+                    items={[
+                        { label: ' GK', value: 'GK',color: "black" },
+                        { label: ' RF', value: 'RF', color: "black" },
+                        { label: ' LF', value: 'LF', color: "black" },
+                        { label: ' CB', value: 'CB', color: "black" },
+                        { label: ' DM', value: 'DM',color: "black" },
+                        { label: ' RW', value: 'RW', color: "black" },
+                        { label: ' RM', value: 'RM', color: "black" },
+                        { label: ' CM', value: 'CM', color: "black" },
+                        { label: ' SK', value: 'SK',color: "black" },
+                        { label: ' AP', value: 'AP', color: "black" },
+                        { label: ' LW', value: 'LW', color: "black" },
+                        { label: ' LM', value: 'LM', color: "black" },
+                        { label: ' AM', value: 'AM', color: "black" },
+                    ]}
+                />
 
         <TouchableHighlight
                         style={styles.button}
@@ -268,7 +320,6 @@ checkEmpty(){
                         <Text style={styles.btnText}> SUBMIT </Text>
                 </TouchableHighlight>    
         
-        </ScrollView>
         </KeyboardAvoidingView>
       </View>
     );
@@ -312,9 +363,7 @@ const styles = StyleSheet.create({
       backgroundColor: "#3AD289",
       width: "90%",
       padding: 14,
-      top: "10%",
-      marginTop: 80,
-      marginBottom: 28,
+      marginTop: 9,
       borderRadius: 2
     },
     pageText: {
@@ -333,4 +382,24 @@ const styles = StyleSheet.create({
       opacity: 1,
       color: "#fff",
     },
+});
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 18,
+    width: 305,
+    borderBottomWidth: 1,
+    borderColor: '#C4C4C4',
+    borderRadius: 4,
+    color: 'black',
+    paddingRight: 30, // to ensure the text is never behind the icon
+  },
+  inputAndroid: {
+      fontSize: 18,
+      width: 305,
+      borderBottomWidth: 1,
+      borderColor: '#C4C4C4',
+      borderRadius: 4,
+      color: 'black',
+      paddingRight: 30, // to ensure the text is never behind the icon
+  },
 });

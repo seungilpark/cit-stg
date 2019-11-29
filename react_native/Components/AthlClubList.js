@@ -99,27 +99,35 @@ export default class AthlClubList extends React.Component {
     //   })
     //   console.log('id set to ' + this.state.athl_id + 'in athlete club list');
     // }
-    getData() {
-        return fetch('http://54.191.100.200:8080/api/matched/athlete/' + this.state.athl_id)
-        .then(response => response.json())
-        .then(responseJson => {
-            this.setState({ data: responseJson });
-        })
-        .catch(error => {
+    async getData() {
+        try{
+          var data = await fetch('http://54.191.100.200:8080/api/matched/athlete/' + this.state.athl_id)
+          .then(response => response.json())
+          .catch(error => {
             console.error(error);
         });
+        console.log("This is the data from getdata fetch statement----------------------------------",data)
+        this.setState({
+          matchedList: data,
+          loading: false
+        })
+
+      }catch(err){
+        console.log(err)
       }
+    }
 
-    componentDidMount(){
-        this.getData();
-        console.log(console.log(this.state.athl_id, "-----------------------inside componentdidmount  athlete club list"))
-
+    async componentDidMount(){
+      try{
+        await this.getData();
         this.props.navigation.setParams({
           athl_id: this.state.athl_id
          })
 
-      console.log(this.state.athl_id, "--------------------in athlete club list")
+      }catch(err){
+        console.log(err)
       }
+    }
 
     componentWillMount() {
       setTimeout(() => {

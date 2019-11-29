@@ -18,12 +18,22 @@ export default class AthleteProfile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            athl_id: this.props.navigation.getParam("athl_id"),
             data: [],
             data2: [],
-
+            athl_id: this.props.navigation.getParam("athl_id"),
+            athl_fname:"",
+            athl_lname:"",
+            athl_gender:"",
+            athl_height:"",
+            athl_weight:"",
+            athl_dob: "",
+            athl_addr:"",            
             athl_email: "",
             athl_phone: "",
+            account: "",
+            password: "",
+            city: "",
+            country:"",
             profile_photo_url: ""
         };
         // this.registerVar = this.registerVar.bind(this);
@@ -113,29 +123,40 @@ export default class AthleteProfile extends React.Component {
         });
     }
 
-    getData2(){
-        console.log(this.state.athl_id, "------inside getdata2 athlete profile")
-        return fetch("http://54.191.100.200:8080/api/profiles/"+ this.state.athl_id)
-        .then(response => response.json())
-        .then(responseJson => {
-            this.setState({ data2: responseJson });
-        })
-        .catch(error => {
-            console.error(error);
-        });
-    }
+    // getData2(){
+    //     console.log(this.state.athl_id, "------inside getdata2 athlete profile")
+    //     return fetch("http://54.191.100.200:8080/api/profiles/athlete"+ this.state.athl_id)
+    //     .then(response => response.json())
+    //     .then(responseJson => {
+    //         this.setState({ data2: responseJson });
+    //     })
+    //     .catch(error => {
+    //         console.error(error);
+    //     });
+    // }
 
     componentDidMount() {
         this.getData();
-        this.getData2();
-        console.log(this.state.athl_id, "-----------------------inside componentdidmount athlete profile")
         
+        this.props.navigation.setParams({
+            athl_id: this.state.athl_id
+            })
 
-            this.props.navigation.setParams({
-                athl_id: this.state.athl_id
-               })
-
-            console.log(this.state.athl_id, "--------------------in athlete profile")
+        this.setState({
+            athl_fname: this.state.athl_fname,
+            athl_lname: this.state.athl_lname,
+            athl_gender: this.state.athl_gender,
+            athl_height: this.state.athl_height,
+            athl_weight: this.state.athl_weight,
+            athl_dob: this.state.athl_dob,
+            athl_addr: this.state.athl_addr,            
+            athl_email: this.state.athl_email,
+            athl_phone:  this.state.athl_phone,
+            account:  this.state.account,
+            password: this.state.password,
+            city: this.state.city,
+            country: this.state.country,
+        })        
     }
 
     onPressEvent() {
@@ -157,34 +178,6 @@ export default class AthleteProfile extends React.Component {
         );
     }
 
-    // onPressEvent1() {
-    //     Alert.alert(
-    //         "Edit",
-    //         "Editing Contact Information",
-    //         [
-    //             {
-    //                 text: "OK",
-    //                 onPress: () => console.log("Okay Pressed")
-    //             }
-    //         ],
-    //         { cancelable: false }
-    //     );
-    // }
-
-    // onPressEvent2() {
-    //     Alert.alert(
-    //         "Edit",
-    //         "Editing Personal Information",
-    //         [
-    //             {
-    //                 text: "OK",
-    //                 onPress: () => this.navigation.navigate("AthletePersonalInfoEdit")
-    //             }
-    //         ],
-    //         { cancelable: false }
-    //     );
-    // }
-
     render() {
         console.log(this.state.data, "-----------data in render athlete profile")
         console.log(this.state.data2, "-----------data2 in render athlete profile")
@@ -200,23 +193,8 @@ export default class AthleteProfile extends React.Component {
         // );
         return (
             <ScrollView style={styles.container}>
-                {/* <TouchableHighlight
-                    style={styles.BackButton}
-                    onPress={() => this.props.navigation.navigate("FirstPage")}
-                >
-                    <Text style={styles.BackBtnText}>Menu</Text>
-                </TouchableHighlight> */}
                 <View>
                     <Card containerStyle={styles.playerphotoCard}>
-                        {/* <Image
-                            style={styles.playerphoto}
-                            source={{
-                                uri:
-                                    this.state.profile_photo_url !== ""
-                                        ? "https://therefreshedhome.com/wp-content/uploads/2017/09/garage-full-of-stuff.jpg"
-                                        : this.state.data2[0].profile_photo
-                            }}
-                        /> */}
                         <Image
                             source={require("../assets/stockMgr.jpg")}
                             style={styles.playerphoto}
@@ -228,7 +206,22 @@ export default class AthleteProfile extends React.Component {
                 </View>
                 <View>
                     <Card containerStyle={styles.cardStyle2}>
-                        <View style={styles.row}><Text style={{fontSize: 15, fontWeight: "bold", bottom: 5}}>Contact Information</Text><TouchableOpacity onPress={() => this.props.navigation.navigate("AthleteContactDetails", {athl_id : this.state.data[0].athl_id, athl_email: this.state.data[0].athl_email, athl_phone: this.state.data[0].athl_phone})}>
+                        <View style={styles.row}><Text style={{fontSize: 15, fontWeight: "bold", bottom: 5}}>Contact Information</Text><TouchableOpacity onPress={() => this.props.navigation.navigate("AthleteContactDetails", {
+                            athl_id : this.state.data[0].athl_id,
+                            athl_fname: this.state.data[0].athl_fname,
+                            athl_lname: this.state.data[0].athl_lname,
+                            athl_gender: this.state.data[0].athl_gender,
+                            athl_height: this.state.data[0].athl_height,
+                            athl_weight: this.state.data[0].athl_weight,
+                            athl_dob: this.state.data[0].athl_dob,
+                            athl_addr: this.state.data[0].athl_addr,
+                            athl_email: this.state.data[0].athl_email, 
+                            athl_phone: this.state.data[0].athl_phone,
+                            account: this.state.data[0].account,
+                            password: this.state.data[0].password,
+                            city: this.state.data[0].city,
+                            country: this.state.data[0].country
+                            })}>
                         <Image style={styles.editIconStyle} source={require("../assets/editIcon.png")}/></TouchableOpacity></View>
                         <View><Text style={{fontSize: 12,fontWeight: "bold",paddingTop: 5}}>Email</Text><Text style={{ fontSize: 12, color: "grey" }}>{this.state.data[0].athl_email}</Text><Text style={{fontSize: 12,fontWeight: "bold",paddingTop: 5}}>Phone Number</Text><Text style={{ fontSize: 12, color: "grey" }}>{this.state.data[0].athl_phone}</Text></View>
                     </Card>
@@ -238,12 +231,21 @@ export default class AthleteProfile extends React.Component {
                         <View style={styles.row}><Text style={{fontSize: 15,fontWeight: "bold",bottom: 5}}>Personal Information</Text>
                             <TouchableOpacity
                                 onPress={() => this.props.navigation.navigate("AthletePersonalInfoEdit", {
-                                        athl_id : this.state.data[0].athl_id,
-                                        athl_fname: this.state.data[0].athl_fname,
-                                        athl_lname: this.state.data[0].athl_lname,
-                                        account: this.state.data[0].account,
-                                        password: this.state.data[0].password
-                                        })}>
+                                    athl_id : this.state.data[0].athl_id,
+                                    athl_fname: this.state.data[0].athl_fname,
+                                    athl_lname: this.state.data[0].athl_lname,
+                                    athl_gender: this.state.data[0].athl_gender,
+                                    athl_height: this.state.data[0].athl_height,
+                                    athl_weight: this.state.data[0].athl_weight,
+                                    athl_dob: this.state.data[0].athl_dob,
+                                    athl_addr: this.state.data[0].athl_addr,
+                                    athl_email: this.state.data[0].athl_email, 
+                                    athl_phone: this.state.data[0].athl_phone,
+                                    account: this.state.data[0].account,
+                                    password: this.state.data[0].password,
+                                    city: this.state.data[0].city,
+                                    country: this.state.data[0].country
+                                    })}>
                                 <Image
                                     style={styles.editIconStyle}
                                     source={require("../assets/editIcon.png")}

@@ -141,11 +141,11 @@ router.post("/update/:id/", async (req, res) => {
 
     //console.log(club_id)
 
-    let update_Athlete = await db
-      .updateAthleteById(athlete_body, athlete_id)
-      .then(() => "Row updated");
-
-    res.json({ Message: "Updated Row" });
+    let update_athlete = await db
+        .updateAthleteById(athlete_body, athlete_id)
+        .then(() => res.send(athlete_body));
+  
+    res.json(update_athlete);
   } catch (err) {
     console.log(err);
     res.json({ Error: "True" });

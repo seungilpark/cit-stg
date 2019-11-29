@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet,TouchableHighlight, Text, View, Button, TextInput, ScrollView, KeyboardAvoidingView, Picker } from 'react-native';
+import { StyleSheet,TouchableHighlight, Text, View, Button, TextInput, ScrollView, KeyboardAvoidingView, Picker, Alert, alertMessage } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
+import RNPickerSelect from 'react-native-picker-select';
 // import { ScrollView } from 'react-native-gesture-handler';
 
 
@@ -20,36 +21,194 @@ export default class ClubInfo extends React.Component {
         club_contact: '',
         street_name: '',
         city: '',
-        country: ''
+        country: '',
+        valid: false,
+        c_name_valid: false,
+        c_size_valid: false,
+        c_statust_valid: false,
+        c_url_valid: false,
+        c_contact_valid: false,
+        s_name_valid: false,
+        city_valid: false,
+        country_valid: false
     };
-    
-    this.checkEmpty = this.checkEmpty.bind(this);
 }
 
 
+async CheckPage(){
+  const { navigation } = this.props
+  const role = navigation.getParam('role','none')
+  const mgr_fname = navigation.getParam('mgr_fname', 'none')
+  const mgr_lname = navigation.getParam('mgr_lname', 'none')
+  const mgr_email = navigation.getParam('mgr_email', 'none')
+  const mgr_phone = navigation.getParam('mgr_phone', 'none')
 
-checkEmpty(){
-  var i;
-  for (i = 0; i < this.state.length; i++) {
-    if(this.state[i] == ''){
-      this.setState({alert: "Missing field(s)"});
-      return false;
+  while(this.state.valid == false){
+    await this.checkEmptyClubname()
+    if(this.state.c_name_valid == false){
+      break;
     }
-  }
+    await this.checkEmptyStatus()
+    if(this.state.c_statust_valid == false){
+      break;
+    }
+    await this.checkEmptyCluburl()
+    if(this.state.c_url_valid == false){
+      break;
+    }
+    await this.checkEmptyContact()
+    if(this.state.c_contact_valid == false){
+      break;
+    }
+    await this.checkEmptyStreetName()
+    if(this.state.s_name_valid == false){
+      break;
+    }
+    await this.checkEmptyCity()
+    if(this.state.city_valid == false){
+      break;
+    }
+    await this.checkEmptyCountry()
+    if(this.state.country_valid == false){
+      break;
+    }
+  
+    this.setState({valid: true})
+    }
+  
+  
+  
+if(this.state.valid == true) {
+  this.props.navigation.navigate('MgrAccountInfo', {
+    role: role,
+    mgr_fname: mgr_fname,
+    mgr_lname: mgr_lname,
+    mgr_email: mgr_email,
+    mgr_phone: mgr_phone,
+    club_name: this.state.club_name,
+    club_size: this.state.club_size,
+    club_status: this.state.club_status,
+    club_url: this.state.club_url,
+    club_contact: this.state.club_contact,
+    street_name: this.state.street_name,
+    city: this.state.city,
+    country: this.state.country});
 }
+}
+
+
+checkEmptyClubname(){
+  if(this.state.club_name == ''){
+  
+    Alert.alert('Name cannot be empty', alertMessage, [
+
+      {text: 'OK', onPress: () => this.setState({c_name_valid: false})},
+  ])
+}
+else{
+  this.setState({c_name_valid: true})
+}
+}
+
+
+
+checkEmptyStatus(){
+  if(this.state.club_status == ''){
+  
+    Alert.alert('Club status cannot be empty', alertMessage, [
+
+      {text: 'OK', onPress: () => this.setState({c_statust_valid: false})},
+  ])
+}
+else{
+  this.setState({c_statust_valid: true})
+}
+}
+
+
+checkEmptyCluburl(){
+  if(this.state.club_url == ''){
+  
+    Alert.alert('Url cannot be empty', alertMessage, [
+
+      {text: 'OK', onPress: () => this.setState({c_url_valid: false})},
+  ])
+}
+else{
+  this.setState({c_url_valid: true})
+}
+}
+
+
+checkEmptyContact(){
+
+  var regEx = /^\d{3}-\d{3}-\d{4}$/;
+  if(this.state.club_contact == ''){
+  
+    Alert.alert('Must enter Phone number cannot be empty', alertMessage, [
+
+      {text: 'OK', onPress: () => this.setState({c_contact_valid: false})},
+  ])
+} else if(!regEx.test(this.state.club_contact)){
+  Alert.alert('Number must be in xxx-xxx-xxxx format', alertMessage, [
+
+    {text: 'OK', onPress: () => this.setState({c_contact_valid: false})},
+])
+
+} else{
+  this.setState({c_contact_valid: true})
+}
+}
+
+
+checkEmptyStreetName(){
+  if(this.state.street_name == ''){
+  
+    Alert.alert('Street name cannot be empty', alertMessage, [
+
+      {text: 'OK', onPress: () => this.setState({s_name_valid: false})},
+  ])
+}
+else{
+  this.setState({s_name_valid: true})
+}
+}
+
+
+checkEmptyCity(){
+  if(this.state.city == ''){
+  
+    Alert.alert('City cannot be empty', alertMessage, [
+
+      {text: 'OK', onPress: () => this.setState({city_valid: false})},
+  ])
+}
+else{
+  this.setState({city_valid: true})
+}
+}
+
+
+checkEmptyCountry(){
+  if(this.state.country == ''){
+  
+    Alert.alert('Country cannot be empty', alertMessage, [
+
+      {text: 'OK', onPress: () => this.setState({country_valid: false})},
+  ])
+}
+else{
+  this.setState({country_valid: true})
+}
+}
+
+
+
 
 
 
   render() {
-
-    const { navigation } = this.props
-    const role = navigation.getParam('role','none')
-    const mgr_fname = navigation.getParam('mgr_fname', 'none')
-    const mgr_lname = navigation.getParam('mgr_lname', 'none')
-    const mgr_email = navigation.getParam('mgr_email', 'none')
-    const mgr_phone = navigation.getParam('mgr_phone', 'none')
-    
-    
+   
     return (
       
       
@@ -58,7 +217,6 @@ checkEmpty(){
       style={styles.container}
       behavior="padding"
     >
-        <ScrollView>
         <Text  style={styles.pageText}>CLUB INFO</Text>
         <Text>{this.state.alert}</Text>
 
@@ -68,17 +226,36 @@ checkEmpty(){
           onChangeText={(club_name) => this.setState({club_name})}
           value={this.state.club_name}
         />
-        <TextInput
-          style={styles.placeHolderText}
-          placeholder="Club Size"
-          onChangeText={(club_size) => this.setState({club_size})}
-          value={this.state.club_size}
+        <RNPickerSelect
+          selectedValue={this.state.club_size}
+          style={pickerSelectStyles}
+          placeholder={{
+            label: "Select a club size..."
+            }}
+          onValueChange={(itemValue) =>
+              this.setState({ club_size: itemValue})
+            }
+                    
+          items={[
+            { label: 'Small', value: 'Small',color: "black" },
+            { label: 'Medium', value: 'Medium', color: "black" },
+            { label: 'Large', value: 'Large', color: "black" },
+          ]}
         />
-        <TextInput
-          style={styles.placeHolderText}
-          placeholder="Club Status"          
-          onChangeText={(club_status) => this.setState({club_status})}
-          value={this.state.club_status}
+        <RNPickerSelect
+          selectedValue={this.state.club_status}
+          style={pickerSelectStyles}
+          placeholder={{
+            label: "Select a club status..."
+            }}
+          onValueChange={(itemValue) =>
+              this.setState({ club_status: itemValue})
+            }
+                    
+          items={[
+            { label: ' Vacant', value: 'Vacant',color: "black" },
+            { label: ' Full', value: 'Full', color: "black" },
+          ]}
         />
 
         <TextInput
@@ -118,27 +295,11 @@ checkEmpty(){
         />
         <TouchableHighlight
                         style={styles.button}
-                        onPress={() => {
-                          this.props.navigation.navigate('MgrAccountInfo', {
-                            role: role,
-                            mgr_fname: mgr_fname,
-                            mgr_lname: mgr_lname,
-                            mgr_email: mgr_email,
-                            mgr_phone: mgr_phone,
-                            club_name: this.state.club_name,
-                            club_size: this.state.club_size,
-                            club_status: this.state.club_status,
-                            club_url: this.state.club_url,
-                            club_contact: this.state.club_contact,
-                            street_name: this.state.street_name,
-                            city: this.state.city,
-                            country: this.state.country});
-                      }}
+                        onPress={() => this.CheckPage()}
                     >
                         <Text style={styles.btnText}> ACCOUNT INFO </Text>
                 </TouchableHighlight>
         
-        </ScrollView>
         </KeyboardAvoidingView>
       </View>
     );
@@ -160,7 +321,6 @@ const styles = StyleSheet.create({
     margin: 2
     },
     pickerBox: {
-        top: '90%',
         height: 10,
         width: 250,
         margin: -5
@@ -185,28 +345,47 @@ const styles = StyleSheet.create({
     },
     button: {
       opacity: 0.7,
-      backgroundColor: "#3AD289",
+      backgroundColor: "#6ED2F2",
       width: "90%",
       padding: 14,
-      top: "10%",
-      marginTop: 20,
-      marginBottom: 28,
       borderRadius: 2
     },
     pageText: {
       // position: "relative",
       // bottom: "25%",
       // backgroundColor: "#ffbf00",
-      marginBottom: 90,
-      color: "#3AD289",
+      marginBottom: 20,
+      color: "#6ED2F2",
       fontSize: 32,
       alignItems: "center",
       padding: 4,
-      marginTop: 10,
+      marginTop: 50,
     },
     btnText: {
       fontSize: 24,
       opacity: 1,
       color: "#fff",
     },
+});
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 18,
+    width: 305,
+    borderBottomWidth: 1,
+    marginBottom: 20,
+    borderColor: '#C4C4C4',
+    borderRadius: 4,
+    color: 'black',
+    paddingRight: 30, // to ensure the text is never behind the icon
+  },
+  inputAndroid: {
+      fontSize: 18,
+      width: 305,
+      borderBottomWidth: 1,
+      marginBottom: 20,
+      borderColor: '#C4C4C4',
+      borderRadius: 4,
+      color: 'black',
+      paddingRight: 30, // to ensure the text is never behind the icon
+  },
 });

@@ -22,11 +22,17 @@ export default class AthleteProfile extends React.Component {
             data: [],
             mgr_id: this.props.navigation.getParam("mgr_id"),
             club_id: this.props.navigation.getParam("club_id"),
+            mgr_fname: "",
+            mgr_lname: "",
+            mgr_account: "",
+            mgr_password: "",
             mgr_email: "",
             mgr_phone: "",
             profile_photo_url: ""
         };
-        this.registerVar = this.registerVar.bind(this);
+        // this.registerVar = this.registerVar.bind(this);
+        console.log(this.state.mgr_fname, "------------mgr fname in mgr profile")
+        console.log(this.state.mgr_lname, "------------mgr lname in mgr profile")
     }
 
 
@@ -63,7 +69,7 @@ export default class AthleteProfile extends React.Component {
                             height: 30,
                             width: 30
                         }}
-                        source={require("../Icons/profile_active.png")}
+                        source={require("../Icons/profile_active_mgr.png")}
                     />
                 </View>
             </TouchableOpacity>
@@ -91,23 +97,25 @@ export default class AthleteProfile extends React.Component {
 }
 
 
-    registerVar() {
-        const { navigation } = this.props
-        const new_id = navigation.getParam('mgr_id', 'none')
-        console.log(new_id);
+    // registerVar() {
+    //     const { navigation } = this.props
+    //     const new_id = navigation.getParam('mgr_id', 'none')
+    //     console.log(new_id);
     
-        this.setState({
-          mgr_id: new_id
-        })
-        console.log('Account set to ' + this.state.mgr_account);
-      }
+    //     this.setState({
+    //       mgr_id: new_id
+    //     })
+    //     console.log('Account set to ' + this.state.mgr_account);
+    //   }
 
     getData(){
         return fetch("http://54.191.100.200:8080/api/clubmgrs/" + this.state.mgr_id)
         .then(response => response.json())
         .then(responseJson => {
             this.setState({ data: responseJson });
-        })
+            console.log(this.state.data, "-------------------------data in getData")
+        }
+        )
         .catch(error => {
             console.error(error);
         });
@@ -121,11 +129,20 @@ export default class AthleteProfile extends React.Component {
 
         this.props.navigation.setParams({
             mgr_id: this.state.mgr_id,
-            club_id: this.state.club_id
+            club_id: this.state.club_id,
+            
         })
 
+        this.setState({
+            mgr_fname: this.state.mgr_fname,
+            mgr_lname: this.state.mgr_lname,
+            mgr_account: this.state.mgr_account,
+            mgr_password: this.state.mgr_password,
+            mgr_email: this.state.mgr_email,
+            mgr_phone: this.state.mgr_phone
+        })
         console.log(this.state.mgr_id, "-----------------in clubmgrprofile")
-            }
+    }
 
     onPressEvent() {
         Alert.alert(
@@ -234,12 +251,16 @@ export default class AthleteProfile extends React.Component {
                             <TouchableOpacity
                                 onPress={() => this.props.navigation.navigate("ClubMgrContactDetails", {
                                     mgr_id : this.state.data[0].mgr_id,
+                                    mgr_fname: this.state.data[0].mgr_fname,
+                                    mgr_lname: this.state.data[0].mgr_lname,
+                                    mgr_account : this.state.data[0].mgr_account,
+                                    mgr_password : this.state.data[0].mgr_password,
                                     mgr_email: this.state.data[0].mgr_email,
                                     mgr_phone: this.state.data[0].mgr_phone
                                     })}>
                                 <Image
                                     style={styles.editIconStyle}
-                                    source={require("../assets/editIcon.png")}
+                                    source={require("../assets/editIcon_mgr.png")}
                                 />
                             </TouchableOpacity>
                         </View>
@@ -280,9 +301,11 @@ export default class AthleteProfile extends React.Component {
                                 mgr_fname : this.state.data[0].mgr_fname,
                                 mgr_lname : this.state.data[0].mgr_lname,
                                 mgr_account : this.state.data[0].mgr_account,
-                                mgr_password : this.state.data[0].mgr_password
+                                mgr_password : this.state.data[0].mgr_password,
+                                mgr_email: this.state.data[0].mgr_email,
+                                mgr_phone: this.state.data[0].mgr_phone
                                 })}>
-                                <Image style={styles.editIconStyle} source={require("../assets/editIcon.png")}/>
+                                <Image style={styles.editIconStyle} source={require("../assets/editIcon_mgr.png")}/>
                                 </TouchableOpacity>
                             </View>
                             <View>
@@ -332,12 +355,12 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         alignSelf: "center",
-        shadowOffset: { width: 0, height: 12 },
+        shadowOffset: { width: 0, height: 1 },
         shadowColor: "black",
-        shadowOpacity: 1.0,
-        shadowRadius: 11,
-        elevation: 3,
-        backgroundColor: "#3AD289"
+        shadowOpacity: 0.4,
+        shadowRadius: 1,
+        elevation: 5,
+        backgroundColor: "#6ED2F2"
     },
     playerphoto: {
         borderWidth: 5,
@@ -353,45 +376,45 @@ const styles = StyleSheet.create({
 
     cardStyle1: {
         backgroundColor: "white",
-        borderRadius: 9,
-        marginTop: 75,
-        width: 400,
+        borderRadius: 5,
+        marginTop: 70,
+        width: "95%",
         height: 175,
         justifyContent: "center",
         alignItems: "center",
         alignSelf: "center",
-        shadowOffset: { width: 0, height: 12 },
+        shadowOffset: { width: 0, height: 2 },
         shadowColor: "black",
-        shadowOpacity: 1.0,
-        shadowRadius: 11,
-        elevation: 3
+        shadowOpacity: 0.4,
+        shadowRadius: 2,
+        elevation: 5
     },
     cardStyle2: {
         backgroundColor: "white",
-        borderRadius: 9,
-        marginTop: 20,
-        width: 400,
+        borderRadius: 5,
+        marginTop: 10,
+        width: "95%",
         height: 150,
         alignSelf: "center",
-        shadowOffset: { width: 0, height: 12 },
+        shadowOffset: { width: 0, height: 2 },
         shadowColor: "black",
-        shadowOpacity: 1.0,
-        shadowRadius: 11,
-        elevation: 3
+        shadowOpacity: 0.4,
+        shadowRadius: 2,
+        elevation: 5
     },
     cardStyle3: {
         backgroundColor: "white",
-        borderRadius: 9,
-        marginTop: 20,
-        width: 400,
+        borderRadius: 5,
+        marginTop: 10,
+        width: "95%",
         height: 250,
         alignSelf: "center",
-        shadowOffset: { width: 0, height: 12 },
+        shadowOffset: { width: 0, height: 2 },
         shadowColor: "black",
-        shadowOpacity: 1.0,
-        shadowRadius: 11,
-        elevation: 3,
-        marginBottom: 20
+        shadowOpacity: 0.4,
+        shadowRadius: 2,
+        elevation: 5,
+        marginBottom: 10
     },
     editIconStyle: {
         width: 15,
@@ -424,7 +447,7 @@ const styles = StyleSheet.create({
     signOutButton: {
         alignSelf: "center",
         opacity: 0.7,
-        backgroundColor: "#3AD289",
+        backgroundColor: "#6ED2F2",
         width: "45%",
         padding: 14,
         alignItems: "center",

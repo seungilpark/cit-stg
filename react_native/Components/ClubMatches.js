@@ -79,7 +79,7 @@ export default class AthlClubList extends React.Component {
                           height: 30,
                           width: 30
                       }}
-                      source={require("../Icons/list_active.png")}
+                      source={require("../Icons/list_active_mgr.png")}
                   />
               </View>
           </TouchableOpacity>
@@ -91,7 +91,7 @@ export default class AthlClubList extends React.Component {
     return fetch('http://54.191.100.200:8080/api/matched/club/' + this.state.club_id)
       .then(response => response.json())
         .then(responseJson => {
-            this.setState({ data: responseJson });
+            this.setState({ matchedList: responseJson, loading: false });
         })
         .catch(error => {
             console.error(error);
@@ -162,7 +162,7 @@ export default class AthlClubList extends React.Component {
       <View style={{flex: 1, justifyContent: "center", alignItems: "center", alignSelf: "center"}}>
         {
           this.state.showMe ?
-          <Bubbles size={10} color="#3AD289"/>
+          <Bubbles size={10} color="#6ED2F2"/>
           :
           <View style={this.onTimeOutEvent()}>
             
@@ -196,13 +196,13 @@ const styles = StyleSheet.create({
   playerphotoCard: {
     borderRadius: 175/2,
     borderWidth: 3,
-    borderColor: "#3AD289",
+    borderColor: "#6ED2F2",
     width: 175,
     height: 175,
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    backgroundColor:'#3AD289'
+    backgroundColor:'#6ED2F2'
   },
   card: {
     width: "100%",

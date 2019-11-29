@@ -19,29 +19,57 @@ export default class PersonalInfo extends React.Component {
         dob: '1988-08-08',
         height: "188",
         weight: "80",
-        valid: false
+        valid: false,
+        fvalid: false,
+        lvalid: false,
+        gvalid: false,
+        dvalid: false,
+        hvalid: false,
+        wvalid: false
     };
     
-    // this.checkEmpty = this.checkEmpty.bind(this);
 }
 
 
 
 
-CheckPage(){
+async CheckPage(){
   const { navigation } = this.props
   const role = navigation.getParam('role','ath')
 
-
-  this.checkEmptyFname()
-  this.checkEmptyLname()
-  this.checkEmptyGender()
-  this.checkEmptyDob()
-  this.checkEmptyHeight()
-  this.checkEmptyWeight()
-
-
-
+  while(this.state.valid == false){
+    await this.checkEmptyFname()
+    if(this.state.fvalid == false){
+      break;
+    }
+   
+    await this.checkEmptyLname()
+    if(this.state.lvalid == false){
+      break;
+    }
+    console.log(2 + this.state.valid)
+    await this.checkEmptyGender()
+    if(this.state.gvalid == false){
+      break;
+    }
+    
+    await this.checkEmptyDob()
+    if(this.state.dvalid == false){
+      break;
+    }
+   
+    await this.checkEmptyHeight()
+    if(this.state.hvalid == false){
+      break;
+    }
+    await this.checkEmptyWeight()
+    if(this.state.wvalid == false){
+      break;
+    }
+    
+    this.setState({valid: true})
+    
+    }
 
 if(this.state.valid == true) {
   this.props.navigation.navigate('LocationInfo', {
@@ -62,11 +90,11 @@ checkEmptyFname(){
     
       Alert.alert('First name cannot be empty', alertMessage, [
 
-        {text: 'OK', onPress: () => this.setState({valid: false})},
+        {text: 'OK', onPress: () => this.setState({fvalid: false})},
     ])
   }
   else{
-    this.setState({valid: true})
+    this.setState({fvalid: true})
   }
 }
 
@@ -75,11 +103,11 @@ checkEmptyLname(){
   
     Alert.alert('Last name cannot be empty', alertMessage, [
 
-      {text: 'OK', onPress: () => this.setState({valid: false})},
+      {text: 'OK', onPress: () => this.setState({lvalid: false})},
   ])
 }
 else{
-  this.setState({valid: true})
+  this.setState({lvalid: true})
 }
 }
 
@@ -88,11 +116,11 @@ checkEmptyGender(){
   
     Alert.alert('Gender cannot be empty', alertMessage, [
 
-      {text: 'OK', onPress: () => this.setState({valid: false})},
+      {text: 'OK', onPress: () => this.setState({gvalid: false})},
   ])
 }
 else{
-  this.setState({valid: true})
+  this.setState({gvalid: true})
 }
 }
 
@@ -104,16 +132,16 @@ checkEmptyDob(){
   
     Alert.alert('Must enter Date of birth cannot be empty', alertMessage, [
 
-      {text: 'OK', onPress: () => this.setState({valid: false})},
+      {text: 'OK', onPress: () => this.setState({dvalid: false})},
   ])
 } else if(!regEx.test(this.state.dob)){
   Alert.alert('Date must be in yyyy-mm-dd format', alertMessage, [
 
-    {text: 'OK', onPress: () => this.setState({valid: false})},
+    {text: 'OK', onPress: () => this.setState({dvalid: false})},
 ])
 
 } else{
-  this.setState({valid: true})
+  this.setState({dvalid: true})
 }
 }
 
@@ -122,11 +150,11 @@ checkEmptyHeight(){
   
     Alert.alert('Height cannot be empty', alertMessage, [
 
-      {text: 'OK', onPress: () => this.setState({valid: false})},
+      {text: 'OK', onPress: () => this.setState({hvalid: false})},
   ])
 }
 else{
-  this.setState({valid: true})
+  this.setState({hvalid: true})
 }
 }
 checkEmptyWeight(){
@@ -134,18 +162,13 @@ checkEmptyWeight(){
   
     Alert.alert('Weight cannot be empty', alertMessage, [
 
-      {text: 'OK', onPress: () => this.setState({valid: false})},
+      {text: 'OK', onPress: () => this.setState({hvalid: false})},
   ])
 }
 else{
-  this.setState({valid: true})
+  this.setState({wvalid: true})
 }
 }
-
-
-
-
-
   render() {
 
     const { navigation } = this.props
@@ -157,8 +180,9 @@ else{
       <View style={styles.container}>
         <KeyboardAvoidingView
       style={styles.container}
+      behavior="padding"
     >
-        <ScrollView>
+
         <Text style={styles.pageText}> PERSONAL INFO</Text>
         <Text>{this.state.alert}</Text>
 
@@ -210,7 +234,6 @@ else{
                     >
                         <Text style={styles.btnText}> LOCATION INFO </Text>
         </TouchableHighlight>     
-        </ScrollView>
         </KeyboardAvoidingView>
       </View>
     );
@@ -234,20 +257,18 @@ const styles = StyleSheet.create({
     width: "90%",
     padding: 14,
     top: "10%",
-    marginTop: 80,
-    marginBottom: 28,
     borderRadius: 2
 },
   pageText: {
     // position: "relative",
     // bottom: "25%",
     // backgroundColor: "#ffbf00",
-    marginBottom: 90,
+    marginBottom: 70,
     color: "#3AD289",
     fontSize: 32,
     alignItems: "center",
     padding: 4,
-    marginTop: 10,
+    marginTop: 50,
 },
   textBox: {
     height: 40,

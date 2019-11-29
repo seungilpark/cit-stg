@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Swiper from 'react-native-deck-swiper'
-import { Button, StyleSheet, Text, View, Image, Linking, Alert, Platform, TouchableOpacity } from 'react-native'
+import { Button, TouchableHighlight, StyleSheet, Text, View, Image, Linking, Alert, Platform, TouchableOpacity } from 'react-native'
 import {athlImagePicker} from "../utils/imagePicker"
 
 
@@ -44,7 +44,7 @@ export default class CardForMgr extends Component {
                         width: 40,
                         resizeMode: "contain",
                     }}
-                    source={require("../Icons/heart_active.png")}
+                    source={require("../Icons/heart_active_mgr.png")}
                 />
             </View>
         </TouchableOpacity>
@@ -118,10 +118,10 @@ export default class CardForMgr extends Component {
     return fetch('http://54.191.100.200:8080/api/recommendations/club/' + this.state.club_id)
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log("Respones JSON in getData---------",responseJson)
+        // console.log("Respones JSON in getData---------",responseJson)
         if(Object.entries(responseJson).length != 0){
           new_arr = responseJson
-          console.log(new_arr)
+          // console.log(new_arr)
           this.setState({cards : athlImagePicker(new_arr)});
         }else{
           this.setState({
@@ -251,13 +251,56 @@ export default class CardForMgr extends Component {
             onSwipedAll={this.onSwipedAllCards}
             stackSize={3}
             stackSeparation={15}
+            overlayLabels={{
+              left: {
+                title: 'PASS',
+                style: {
+                  label: {
+                    backgroundColor: '#FA4E3B',
+                    borderColor: '#FA4E3B',
+                    color: 'white',
+                    borderWidth: 1
+                  },
+                  wrapper: {
+                    flexDirection: 'column',
+                    alignItems: 'flex-end',
+                    justifyContent: 'flex-start',
+                    marginTop: 30,
+                    marginLeft: -30
+                  }
+                }
+              },
+              right: {
+                title: 'LIKE',
+                style: {
+                  label: {
+                    backgroundColor: '#3AD289',
+                    borderColor: '#3AD289',
+                    color: 'white',
+                    borderWidth: 1
+                  },
+                  wrapper: {
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                    justifyContent: 'flex-start',
+                    marginTop: 30,
+                    marginLeft: 30
+                  }
+                }
+              },
+            }}
             infinite = {true}
             animateOverlayLabelsOpacity
             animateCardOpacity
             swipeBackCard
           >
-            <Button onPress={() => this.swiper.swipeBack()} title='Swipe Back' />
           </Swiper>
+          <TouchableHighlight
+          style={styles.button}
+          onPress={() => this.swiper.swipeBack()}
+          >
+          <Text style={styles.btnText}> Swipe Back </Text>
+          </TouchableHighlight>
         </View>
       )
     }
@@ -267,7 +310,7 @@ export default class CardForMgr extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFD0E9'
+    backgroundColor: '#fff'
   },
   card: {
     flex: 1,
@@ -280,7 +323,7 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'center',
-    fontSize: 18.5,
+    fontSize: 20,
     backgroundColor: 'transparent'
   },
   done: {
@@ -288,5 +331,21 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: 'white',
     backgroundColor: 'transparent'
-  }
+  },
+  button: {
+    opacity: 0.7,
+    backgroundColor: "#6ED2F2",
+    width: "57%",
+    padding: 13,
+    marginLeft: "21%",
+    marginTop: 545,
+    borderRadius: 2,
+    justifyContent: "center",
+    alignItems: "center",
+},
+btnText: {
+  fontSize: 24,
+  opacity: 1,
+  color: "#fff",
+},
 })

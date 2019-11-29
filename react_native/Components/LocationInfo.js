@@ -13,6 +13,7 @@ import {
   alertMessage
 } from "react-native";
 import { NavigationEvents } from "react-navigation";
+import RNPickerSelect from 'react-native-picker-select';
 // import { ScrollView } from 'react-native-gesture-handler';
 
 export default class SignUp extends React.Component {
@@ -31,13 +32,17 @@ export default class SignUp extends React.Component {
       phone: "1234-1234-1234",
       city: "Vancouver",
       country: "Canada",
-      valid: false
+      valid: false,
+      avalid: false,
+      evalid: false,
+      pvalid: false,
+      cvalid: false
     };
   }
 
 
 
-  CheckPage(){
+  async CheckPage(){
     const { navigation } = this.props;
     const role = navigation.getParam("role", "ath");
     const fname = navigation.getParam("fname", "none");
@@ -46,15 +51,28 @@ export default class SignUp extends React.Component {
     const dob = navigation.getParam("dob", "none");
     const height = navigation.getParam("height", "none");
     const weight = navigation.getParam("weight", "none");
-  
-    this.checkEmptyAddr()
-    this.checkEmptyEmail()
-    this.checkEmptyPhone()
-    this.checkEmptyCity()
-  
-  
-  
-  
+
+    while(this.state.valid == false){
+      await this.checkEmptyAddr()
+      if(this.state.avalid == false){
+        break;
+      }
+      await this.checkEmptyCity()
+      if(this.state.cvalid == false){
+        break;
+      }
+      await this.checkEmptyEmail()
+      if(this.state.evalid == false){
+        break;
+      }
+      await this.checkEmptyPhone()
+      if(this.state.pvalid == false){
+        break;
+      }
+      this.setState({valid: true})
+      }
+
+ 
   if(this.state.valid == true) {
     this.props.navigation.navigate("AccountInfo", {
       role: role,
@@ -79,11 +97,11 @@ export default class SignUp extends React.Component {
     
       Alert.alert('Address cannot be empty', alertMessage, [
   
-        {text: 'OK', onPress: () => this.setState({valid: false})},
+        {text: 'OK', onPress: () => this.setState({avalid: false})},
     ])
   }
   else{
-    this.setState({valid: true})
+    this.setState({avalid: true})
   }
   }
 
@@ -92,11 +110,11 @@ export default class SignUp extends React.Component {
     
       Alert.alert('Email cannot be empty', alertMessage, [
   
-        {text: 'OK', onPress: () => this.setState({valid: false})},
+        {text: 'OK', onPress: () => this.setState({evalid: false})},
     ])
   }
   else{
-    this.setState({valid: true})
+    this.setState({evalid: true})
   }
   }
 
@@ -108,16 +126,16 @@ export default class SignUp extends React.Component {
     
       Alert.alert('Must enter Phone number cannot be empty', alertMessage, [
   
-        {text: 'OK', onPress: () => this.setState({valid: false})},
+        {text: 'OK', onPress: () => this.setState({pvalid: false})},
     ])
   } else if(!regEx.test(this.state.phone)){
     Alert.alert('Number must be in xxx-xxx-xxxx format', alertMessage, [
   
-      {text: 'OK', onPress: () => this.setState({valid: false})},
+      {text: 'OK', onPress: () => this.setState({pvalid: false})},
   ])
   
   } else{
-    this.setState({valid: true})
+    this.setState({pvalid: true})
   }
   }
 
@@ -127,20 +145,13 @@ export default class SignUp extends React.Component {
     
       Alert.alert('City cannot be empty', alertMessage, [
   
-        {text: 'OK', onPress: () => this.setState({valid: false})},
+        {text: 'OK', onPress: () => this.setState({cvalid: false})},
     ])
   }
   else{
-    this.setState({valid: true})
+    this.setState({cvalid: true})
   }
   }
-
-
-
-
-
-
-
 
   render() {
     const { navigation } = this.props;
@@ -155,7 +166,6 @@ export default class SignUp extends React.Component {
     return (
       <View style={styles.container}>
         <KeyboardAvoidingView style={styles.container} behavior="padding">
-          <ScrollView>
             <Text  style={styles.pageText}>LOCATION INFO</Text>
             <Text>{this.state.alert}</Text>
 
@@ -193,19 +203,23 @@ export default class SignUp extends React.Component {
               onChangeText={phone => this.setState({ phone })}
               value={this.state.phone}
             />
-            <Text>Choose a Country:</Text>
-            <Picker
-              selectedValue={this.state.country}
-              style={{ height: 30, width: 300}}
-              onValueChange={(name, itemIndex) =>
-                this.setState({ country: name })
-              }
-            >
-              <Picker.Item label="Canada" value="Canada" />
-              <Picker.Item label="England" value="England" />
-              <Picker.Item label="Spain" value="Spain" />
-              <Picker.Item label="France" value="France" />
-            </Picker>
+            <RNPickerSelect
+                    selectedValue={this.state.country}
+                    style={pickerSelectStyles}
+                    placeholder={{
+                        label: "Select a country..."
+                    }}
+                    onValueChange={(itemValue, itemIndex) =>
+                        this.setState({ country: itemValue})
+                    }
+                    
+                    items={[
+                        { label: 'Canada', value: 'Canada',color: "black" },
+                        { label: 'England', value: 'England', color: "black" },
+                        { label: 'Spain', value: 'Spain', color: "black" },
+                        { label: 'France', value: 'France', color: "black" },
+                    ]}
+                />
 
               <TouchableHighlight
                         style={styles.button}
@@ -215,7 +229,6 @@ export default class SignUp extends React.Component {
                     >
                         <Text style={styles.btnText}> ACCOUNT INFO </Text>
                 </TouchableHighlight>    
-          </ScrollView>
         </KeyboardAvoidingView>
       </View>
     );
@@ -259,9 +272,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#3AD289",
     width: "90%",
     padding: 14,
-    top: "10%",
-    marginTop: 80,
-    marginBottom: 28,
+    marginTop: 9,
     borderRadius: 2
   },
   pageText: {
@@ -281,4 +292,24 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
 
+});
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 18,
+    width: 305,
+    borderBottomWidth: 1,
+    borderColor: '#C4C4C4',
+    borderRadius: 4,
+    color: 'black',
+    paddingRight: 30, // to ensure the text is never behind the icon
+  },
+  inputAndroid: {
+      fontSize: 18,
+      width: 305,
+      borderBottomWidth: 1,
+      borderColor: '#C4C4C4',
+      borderRadius: 4,
+      color: 'black',
+      paddingRight: 30, // to ensure the text is never behind the icon
+  },
 });

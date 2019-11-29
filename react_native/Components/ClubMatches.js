@@ -34,6 +34,7 @@ export default class AthlClubList extends React.Component {
       const {params = {}} = navigation.state;
       return{
       gesturesEnabled: false,
+      headerStyle:{ borderBottomWidth: 0},
       headerTitle: (
           <TouchableOpacity style={{alignSelf: "center", marginLeft: "auto", marginRight: "auto"}}
               onPress={() => {

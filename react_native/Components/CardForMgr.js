@@ -34,6 +34,7 @@ export default class CardForMgr extends Component {
     const {params = {}} = navigation.state;
     return{
     gesturesEnabled: false,
+    headerStyle:{ borderBottomWidth: 0},
     headerTitle: (
         <TouchableOpacity style={{alignSelf: "center", marginLeft: "auto", marginRight: "auto"}}>
             <View>

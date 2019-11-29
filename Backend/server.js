@@ -1,4 +1,3 @@
-const mysql = require("./config/database");
 const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
@@ -34,6 +33,7 @@ app.use("/api/profiles", profilesRouter);
 app.use("/api/sports", sportsRouter);
 app.use("/api/recommendations", recommendationsRouters)
 app.use("/api/matched", matchedRouter)
+
 
 
 app.all("/*", (req, res) => {

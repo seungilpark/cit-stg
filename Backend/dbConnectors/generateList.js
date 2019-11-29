@@ -36,7 +36,7 @@ const getClubRecommendation = (sports_id, position, country) => {
 */
 const getAthlRecommendation = (club_id) => {
     /* ? seems like changes to str while ?? subsittute values  */
-    let query = "select * from athletes as a inner join profiles as p on a.athl_id=p.fk_athl_id where a.country=(select country from clubs where club_id=?) order by desc"
+    let query = "select * from athletes as a inner join profiles as p on a.athl_id=p.fk_athl_id where a.country=(select country from clubs where club_id=?) order by athl_id desc"
     query = mysql.format(query, club_id);
     return new Promise((resolve, reject) => {
       pool.query(query, (err, results, fields) => {

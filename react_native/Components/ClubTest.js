@@ -13,7 +13,7 @@ export default class ClubTest extends React.Component {
 }
 
 getData() {
-  return fetch('http://54.191.100.200:8080/api/clubs')
+  return fetch('http://54.245.167.64:8080/api/clubs')
     .then((response) => response.json())
     .then((responseJson) => {
       // console.log(typeof responseJson);

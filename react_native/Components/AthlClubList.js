@@ -103,7 +103,7 @@ export default class AthlClubList extends React.Component {
     // }
     async getData() {
         try{
-          var data = await fetch('http://54.191.100.200:8080/api/matched/athlete/' + this.state.athl_id)
+          var data = await fetch('http://54.245.167.64:8080/api/matched/athlete/' + this.state.athl_id)
           .then(response => response.json())
           .catch(error => {
             console.error(error);

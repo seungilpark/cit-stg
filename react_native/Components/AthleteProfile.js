@@ -132,7 +132,7 @@ export default class AthleteProfile extends React.Component {
 
     getData() {
         console.log(this.state.athl_id, "----------------inside getdata athlete profile")
-        return fetch("http://54.191.100.200:8080/api/athletes/" + this.state.athl_id)
+        return fetch("http://54.245.167.64:8080/api/athletes/" + this.state.athl_id)
         .then(response => response.json())
         .then(responseJson => {
             this.setState({ data: responseJson });

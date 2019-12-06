@@ -92,7 +92,7 @@ export default class AthlClubList extends React.Component {
   }
   
   getData(){
-    return fetch('http://54.191.100.200:8080/api/matched/club/' + this.state.club_id)
+    return fetch('http://54.245.167.64:8080/api/matched/club/' + this.state.club_id)
       .then(response => response.json())
         .then(responseJson => {
             this.setState({ matchedList: responseJson, loading: false });
@@ -162,7 +162,7 @@ export default class AthlClubList extends React.Component {
                     <Text style = {styles.TextStyle}>{item.athl_fname} {item.athl_lname}</Text>  
                   </TouchableOpacity>
                   <TouchableOpacity key={item} style={ styles.card } onPress={() => this['card' + id].flip()} >
-                    <Text style = {styles.TextStyle}>Height: {item.athl_height}Lbs  Weight: {item.athl_weight}Lbs</Text>
+                    <Text style = {styles.TextStyle}>Height: {item.athl_height}cm  Weight: {item.athl_weight}lbs</Text>
                     <Text style = {styles.TextStyle}>Gender: {item.athl_gender}</Text>
                     <Text style = {styles.TextStyle}>Email: {item.athl_email}</Text>
                     <Text style = {styles.TextStyle}>Position: {item.position}</Text>

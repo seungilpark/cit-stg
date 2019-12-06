@@ -65,7 +65,7 @@ export default class PersonalDetailsPage extends React.Component {
     onSubmit() {
         console.log(this.state.athl_id, "----------------on submit athlete personal info")
             if(this.state.athl_id != null && this.state.athl_id != undefined){
-                fetch('http://54.191.100.200:8080/api/athletes/update/' + this.state.athl_id, {
+                fetch('http://54.245.167.64:8080/api/athletes/update/' + this.state.athl_id, {
                 method: 'POST',
                 headers: {
                 'Accept': 'application/json',

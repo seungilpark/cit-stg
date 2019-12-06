@@ -48,7 +48,7 @@ export default class PersonalDetailsPage extends React.Component {
 
     onSubmit() {
         // console.log(this.state.mgr_id)
-            fetch('http://54.191.100.200:8080/api/clubMgrs/update/'+ this.state.mgr_id, {
+            fetch('http://54.245.167.64:8080/api/clubMgrs/update/'+ this.state.mgr_id, {
             method: 'POST',
             headers: {
             'Accept': 'application/json',

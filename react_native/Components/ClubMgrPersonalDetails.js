@@ -48,7 +48,7 @@ export default class PersonalDetailsPage extends React.Component {
 
     onSubmit() {
         // console.log(this.state.mgr_id)
-            fetch('http://54.191.100.200:8080/api/clubMgrs/update/'+ this.state.mgr_id, {
+            fetch('http://54.245.167.64:8080/api/clubMgrs/update/'+ this.state.mgr_id, {
             method: 'POST',
             headers: {
             'Accept': 'application/json',
@@ -72,14 +72,14 @@ export default class PersonalDetailsPage extends React.Component {
                         },
                         {
                             text: "Yes",
-                            onPress: () => this.props.navigation.navigate("ClubMgrProfile",{mgr_fname: this.state.mgr_fname, mgr_lname: this.state.mgr_lname, mgr_account: this.state.mgr_account, mgr_password: this.state.mgr_password, mgr_email: this.state.mgr_email, mgr_phone: this.state.mgr_phone},
+                            onPress: () => this.props.navigation.navigate("CardForMgr",{mgr_fname: this.state.mgr_fname, mgr_lname: this.state.mgr_lname, mgr_account: this.state.mgr_account, mgr_password: this.state.mgr_password, mgr_email: this.state.mgr_email, mgr_phone: this.state.mgr_phone},
                             Alert.alert(
                                 "Success!",
-                                "Please sign out for any changes to take effect.",
+                                "Profile Updated.",
                                 [
                                     {
                                         text: "OK",
-                                        onPress: () => this.props.navigation.navigate("ClubMgrProfile")
+                                        onPress: () => this.props.navigation.navigate("CardForMgr")
                                     },
                                 ],        
                                 { cancelable: false }

@@ -98,7 +98,7 @@ async Submit(){
     addVar = this.RegisterVar();
 
     if(checkPd == true && this.state.role === 'mgr'){
-      fetch('http://54.191.100.200:8080/api/clubs/signup', {
+      fetch('http://54.245.167.64:8080/api/clubs/signup', {
         method: 'POST',
         headers: {
           Accept: 'application/json',

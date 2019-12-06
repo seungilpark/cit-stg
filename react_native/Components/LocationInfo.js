@@ -29,7 +29,7 @@ export default class SignUp extends React.Component {
       weight: "",
       addr: "testAddr",
       email: "abcd@abcd.com",
-      phone: "1234-1234-1234",
+      phone: "123-123-1234",
       city: "Vancouver",
       country: "Canada",
       valid: false,

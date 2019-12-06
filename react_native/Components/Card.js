@@ -125,7 +125,7 @@ export default class Card extends Component {
 
   getData() {
     console.log(this.state.athl_id, "---------------athlete id in getdata function in cards")
-    return fetch('http://54.191.100.200:8080/api/recommendations/athlete/' + this.state.athl_id)
+    return fetch('http://54.245.167.64:8080/api/recommendations/athlete/' + this.state.athl_id)
       .then((response) => response.json())
       .then((responseJson) => {
         // console.log(typeof responseJson);
@@ -199,7 +199,7 @@ export default class Card extends Component {
   onSwiped = (event, direction) => {
     if(direction === "left"){
       fetch(
-        "http://54.191.100.200:8080/api/athlLikes/dislike/",
+        "http://54.245.167.64:8080/api/athlLikes/dislike/",
         {
             method: "POST",
             headers: {
@@ -216,7 +216,7 @@ export default class Card extends Component {
       
     }else{
       fetch(
-        "http://54.191.100.200:8080/api/athlLikes/like/",
+        "http://54.245.167.64:8080/api/athlLikes/like/",
         {
             method: "POST",
             headers: {
@@ -254,7 +254,7 @@ export default class Card extends Component {
   
               
             }}
-            backgroundColor={'white'}
+            backgroundColor={'#fff'}
             infinite = {false}
             useViewOverflow={Platform.OS === 'ios'}
             // onSwiped={() => this.onSwiped('general')}
@@ -370,7 +370,7 @@ export default class Card extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white'
+    backgroundColor: '#fff'
   },
   card: {
     flex: 1,
@@ -403,7 +403,8 @@ const styles = StyleSheet.create({
     width: "57%",
     padding: 13,
     marginLeft: "21%",
-    marginTop: 545,
+    // marginTop: 545,
+    top: 685,
     borderRadius: 2,
     justifyContent: "center",
     alignItems: "center",

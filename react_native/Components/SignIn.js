@@ -102,12 +102,12 @@ export default class SignIn extends React.Component {
         };
         if (this.state.role === "ath") {
             return fetch(
-                "http://54.191.100.200:8080/api/athletes/signin",
+                "http://54.245.167.64:8080/api/athletes/signin",
                 data
             );
         } else {
             return fetch(
-                "http://54.191.100.200:8080/api/clubs/signin",
+                "http://54.245.167.64:8080/api/clubs/signin",
                 {
                     method: "POST",
                     headers: {

@@ -116,7 +116,7 @@ export default class CardForMgr extends Component {
     };
 
   getData() {
-    return fetch('http://54.191.100.200:8080/api/recommendations/club/' + this.state.club_id)
+    return fetch('http://54.245.167.64:8080/api/recommendations/club/' + this.state.club_id)
       .then((response) => response.json())
       .then((responseJson) => {
         // console.log("Respones JSON in getData---------",responseJson)
@@ -157,7 +157,7 @@ export default class CardForMgr extends Component {
   onSwiped = (event, direction) => {
     if(direction === "left"){
       fetch(
-        "http://54.191.100.200:8080/api/clubLikes/dislike/",
+        "http://54.245.167.64:8080/api/clubLikes/dislike/",
         {
             method: "POST",
             headers: {
@@ -174,7 +174,7 @@ export default class CardForMgr extends Component {
       
     }else{
       fetch(
-        "http://54.191.100.200:8080/api/clubLikes/like/",
+        "http://54.245.167.64:8080/api/clubLikes/like/",
         {
             method: "POST",
             headers: {
@@ -340,7 +340,7 @@ const styles = StyleSheet.create({
     width: "57%",
     padding: 13,
     marginLeft: "21%",
-    marginTop: 545,
+    top: 685,
     borderRadius: 2,
     justifyContent: "center",
     alignItems: "center",

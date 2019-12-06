@@ -46,7 +46,7 @@ export default class SignUp extends React.Component {
             checkPd = this.verPd();
             console.log(checkPd);
             if (checkPd == true && this.state.role === "ath") {
-                fetch("http://54.191.100.200:8080/api/athletes/register", {
+                fetch("http://54.245.167.64:8080/api/athletes/register", {
                     method: "POST",
                     headers: {
                         Accept: "application/json",
@@ -71,7 +71,7 @@ export default class SignUp extends React.Component {
                 console.log("Athlete Created.");
                 this.props.navigation.navigate("FirstPage");
             } else if (checkPd == true && this.state.role === "mgr") {
-                fetch("http://54.191.100.200:8080/api/clubMgrs/create", {
+                fetch("http://54.245.167.64:8080/api/clubMgrs/create", {
                     method: "POST",
                     headers: {
                         Accept: "application/json",

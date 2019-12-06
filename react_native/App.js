@@ -203,7 +203,7 @@ const RootStack = createStackNavigator(
     },
 
     {
-        initialRouteName: "FirstPage",
+        initialRouteName: "MainApp",
         headermode: "none",
         transitionConfig: () => ({
             transitionSpec: {

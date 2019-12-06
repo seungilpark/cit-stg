@@ -65,7 +65,7 @@ export default class PersonalDetailsPage extends React.Component {
     onSubmit() {
         console.log(this.state.athl_id, "----------------on submit athlete personal info")
             if(this.state.athl_id != null && this.state.athl_id != undefined){
-                fetch('http://54.191.100.200:8080/api/athletes/update/' + this.state.athl_id, {
+                fetch('http://54.245.167.64:8080/api/athletes/update/' + this.state.athl_id, {
                 method: 'POST',
                 headers: {
                 'Accept': 'application/json',
@@ -88,7 +88,7 @@ export default class PersonalDetailsPage extends React.Component {
                             },
                             {
                                 text: "Yes",
-                                onPress: () => this.props.navigation.navigate("AthleteProfile",{
+                                onPress: () => this.props.navigation.navigate("Card",{
                                     athl_fname: this.state.athl_fname,
                                     athl_lname: this.state.athl_lname,
                                     athl_gender: this.state.athl_gender,
@@ -105,11 +105,11 @@ export default class PersonalDetailsPage extends React.Component {
                                 },
                                 Alert.alert(
                                     "Success!",
-                                    "Please sign out for any changes to take effect.",
+                                    "Profile Updated.",
                                     [
                                         {
                                             text: "OK",
-                                            onPress: () => this.props.navigation.navigate("AthleteProfile")
+                                            onPress: () => this.props.navigation.navigate("Card")
                                         },
                                     ],        
                                     { cancelable: false }
